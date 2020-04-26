@@ -1,37 +1,35 @@
-
-typedef struct Valeur_Vecteur{
-	int valeur_entiere;
-	float valeur_reel;
-}VectVal;
+#include "struct.hh"
+#include <cstring>
 
 class Arc {
 
     private:
-        int numero; 		// id de l'arc
-        char * etiquette;	// nom de l'arc
-        vecteur;			// vecteur de valeur d'un arc
-        sommet &Sdepart; 	// Sommet de départ 
-        sommet &Sarrive; 	// Sommet d'arrive
-        
-     public:
-         
-         
-         int get_num() ;
-         void set_num() ;
-         
-         char * get_etiquette();
-         void set_etiquette();
-         
-         get_vect_val(); // permet de get la valeur a la position i du vecteur
-         void set_vect_val(); // permet de set la valeur à la position i du vecteur
-     
-     
-		 Arc (int num, char* etiq, vecteur Vect, Sommet Sdepart, Sommet Sarrivee); 	// constructeur complet
-		 Arc (int num, vecteur Vect, Sommet Sdepart, Sommet Sarrivee);				// constructeur complet sans étiquette
-		 Arc (int num, char* etiq, Sommet Sdepart, Sommet Sarrivee); 				// constructeur sans valeur sur l'arc
-		 Arc (int num, Sommet Sdepart, Sommet Sarrivee); 							// constructeur par défaut
-		 Arc (&Arc a); 																// constructeur de copie
-		 
-		 ~Arc(); 	// destructeur
+			int ID;
+			String etiquette;
+			int IDdepart;
+			int IDarrive;
+			map <String, VectVal> ACharge_Utile;
 
+		public:
+			Arc(String etiq, int id, int SDepart, int SArrive, map <String, VectVal>);
+			Arc(String etiq, int id, int SDepart, int SArrive);
+			Arc(int id, int SDepart, int SArrive);
+			Arc(&Arc a);
+			~Arc();
+
+			int getID();
+			String getEtiq();
+			int getIDDepart();
+			int getIDArrive();
+			map <String, VectVal> getCU();
+
+			void setID(int id);
+			void setEtiq(String etiq);
+			void setIDDepart(int id);
+			void setIDArrive(int id);
+			void setCU(map <String, VectVal> CU);
+
+			bool operator==(Arc const& A1, Arc const& A2);
+			bool operator!=(Arc const& A1, Arc const& A2);
+			Arc operator=(Arc const& A1, Arc const& A2);
 };
