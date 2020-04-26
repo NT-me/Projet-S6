@@ -36,5 +36,12 @@ public:
   bool operator==(Matrice const& M1, Matrice const& M2);
   bool operator!=(Matrice const& M1, Matrice const& M2);
   Matrice operator=(Matrice const& M1, Matrice const& M2);
+};
 
+enum typeM{
+  ADJACENCE = 0,
+  INCIDENCE = 1,
+  POIDS = 2,
+  PARENT = 3,
+  QUELCONQUE = 4;
 };
