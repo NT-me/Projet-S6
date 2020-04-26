@@ -1,6 +1,9 @@
 #include <stdlib>
 #include <cstring>
 
+#ifndef STRUCTS
+#define STRUCTS
+
 typedef struct Valeur_Vecteur{
   bool type; // Si 0 entier, si 1 réel.
   int valeur_entiere;
@@ -14,3 +17,5 @@ typedef struct ROW{
   vector <int> taches_anterieures;
   vector <int> taches_posterieures;
 } pert_row;
+
+#endif
