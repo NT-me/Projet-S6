@@ -19,6 +19,16 @@ public:
   Graphe(vector<vector<int>> liste_voisin);
   ~Graphe();
 
+  String getEtiq();
+  vector<Arc> getListe_Arcs();
+  vector<Sommet> getListe_Sommets();
+  String getPath();
+
+  void setEtiq(String etiq);
+  void setListe_Arc(vector<Arc> LA);
+  void setListe_Sommet(vector<Sommet> LS);
+  void setPath(String p);
+
   Matrice conversion_vers_Matrice_adj();
   Matrice conversion_vers_Matrice_inc();
   vector<vector<int>>  conversion_vers_listeDeVoisins();
