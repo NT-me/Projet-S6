@@ -1,6 +1,7 @@
 #include "iostream"
 #include "cstring"
 #include "struct.hh"
+#include <vector>
 
 class Sommet {
 
