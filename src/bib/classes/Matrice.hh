@@ -1,14 +1,40 @@
+#include <vector>
+
 class Matrice {
 
-int taille V;		// nombre de sommets 
-int taille E;		// nombre d'arcs (dans le cas d'une matrice d'incidence)
-bool type;			// type de la matrice (0->adjacence,1->incidence)
-int **tab;			// matrice 
+private:
+  int taille V;		// nombre de sommets
+  int taille E;		// nombre d'arcs (dans le cas d'une matrice d'incidence)
+  int type;			// type de la matrice (0->adjacence,1->incidence)
+  vector<vector <int>> tab;			// matrice
 
-Matrice (int taille_V, Graphe G);					// constructeur cas adjacence  
-Matrice (int taille_V, int taille E, Graphe G);	    // constructeur cas incidence
+public:
+  Matrice(Graphe G, int type);
+  Matrice(int tailleV);
+  Matrice(int tailleV, int tailleE, int t);
+  Matrice(Matrice &M);
+  ~Matrice();
 
-Matrice convert_incidence (Matrice A);				// conversion d'une matrice d'adjacence en matrice d'incidence 
+  int gettV();
+  int gettE();
+  int getType();
+  vector<vector <int>> getTab();
 
+  void setV(int v);
+  void setE(int e);
+  void setType(int type);
+  void setTab(vector<vector <int>> tab);
+
+  Matrice conversion_incidence();
+  Matrice inversion_Matrice();
+  Graphe conversionGraphe();
+  int Sommet_non_isole();
+  int modifTab(int x, int y, int n);
+  void supprLigne(int x);
+  void supprCol(int y);
+
+  bool operator==(Matrice const& M1, Matrice const& M2);
+  bool operator!=(Matrice const& M1, Matrice const& M2);
+  Matrice operator=(Matrice const& M1, Matrice const& M2);
 
 };
