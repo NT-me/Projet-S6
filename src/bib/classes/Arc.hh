@@ -30,8 +30,15 @@ class Arc {
 			void setIDArrive(int id);
 			void setCU(map <string, VectVal> CU);
 
+<<<<<<< HEAD
       bool operator==(Arc const& A1);
       bool operator!=(Arc const& A1);
       Arc operator=(Arc const& A1);
+=======
+>>>>>>> 1bcd35e829c72ae8fd857c43a69ccec878c94a27
 
 };
+
+bool operator==(Arc const& A1, Arc const& A2);
+bool operator!=(Arc const& A1, Arc const& A2);
+Arc operator=(Arc const& A1, Arc const& A2);
