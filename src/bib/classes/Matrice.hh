@@ -33,10 +33,13 @@ public:
   void supprLigne(int x);
   void supprCol(int y);
 
-  bool operator==(Matrice const& M1, Matrice const& M2);
-  bool operator!=(Matrice const& M1, Matrice const& M2);
-  Matrice operator=(Matrice const& M1, Matrice const& M2);
+  bool operator==(Matrice const& M1);
+  bool operator!=(Matrice const& M1);
+  Matrice operator=(Matrice const& M1);
+
 };
+
+
 
 enum typeM{
   ADJACENCE = 0,

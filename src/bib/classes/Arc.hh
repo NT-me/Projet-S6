@@ -1,35 +1,37 @@
 #include "struct.hh"
-#include <cstring>
+#include <string>
+using namespace std;
 
 class Arc {
 
     private:
 			int ID;
-			String etiquette;
+			string etiquette;
 			int IDdepart;
 			int IDarrive;
-			map <String, VectVal> ACharge_Utile;
+			map <string, VectVal> ACharge_Utile;
 
 		public:
-			Arc(String etiq, int id, int SDepart, int SArrive, map <String, VectVal>);
-			Arc(String etiq, int id, int SDepart, int SArrive);
+			Arc(string etiq, int id, int SDepart, int SArrive, map <string, VectVal>);
+			Arc(string etiq, int id, int SDepart, int SArrive);
 			Arc(int id, int SDepart, int SArrive);
-			Arc(&Arc a);
+			Arc(Arc &a);
 			~Arc();
 
 			int getID();
-			String getEtiq();
+			string getEtiq();
 			int getIDDepart();
 			int getIDArrive();
-			map <String, VectVal> getCU();
+			map <string, VectVal> getCU();
 
 			void setID(int id);
-			void setEtiq(String etiq);
+			void setEtiq(string etiq);
 			void setIDDepart(int id);
 			void setIDArrive(int id);
-			void setCU(map <String, VectVal> CU);
+			void setCU(map <string, VectVal> CU);
 
-			bool operator==(Arc const& A1, Arc const& A2);
-			bool operator!=(Arc const& A1, Arc const& A2);
-			Arc operator=(Arc const& A1, Arc const& A2);
+      bool operator==(Arc const& A1);
+      bool operator!=(Arc const& A1);
+      Arc operator=(Arc const& A1);
+
 };
