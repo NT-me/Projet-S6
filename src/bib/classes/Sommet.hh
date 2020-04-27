@@ -1,7 +1,8 @@
-#include "iostream"
-#include "cstring"
+#include <iostream.h>
+#include <string>
 #include "struct.hh"
 #include <vector>
+using namespace std;
 
 class Sommet {
 
@@ -10,29 +11,30 @@ class Sommet {
     int y; // Coordonnées y
     int ID;  // pour le retrrouver
     String etiquette; // nom du sommet
-    vector <String, VectVal> SCharge_utile;
+    vector <string, VectVal> SCharge_utile;
 
     public:
-    Sommet(int posx, int posy, String etiq, int id, VectVal v);
-    Sommet(int posx, int posy, String etiq, int id);
+    Sommet(int posx, int posy, string etiq, int id, VectVal v);
+    Sommet(int posx, int posy, string etiq, int id);
     Sommet(string etiq, int id);
     Sommet(int id);
-    Sommet(&Sommet S);
+    Sommet(Sommet &S);
     ~Sommet();
 
     int getPosX();
     int getPosY();
     int getID();
-    String getEtiq();
-    vector <String, VectVal> getCU();
+    string getEtiq();
+    vector <string, VectVal> getCU();
 
     void setPosX(int x);
     void setPosY(int y);
     void setID(int id);
-    void setEtiq(String etiq);
-    void setCU(vector <String, VectVal> S_CU);
+    void setEtiq(string etiq);
+    void setCU(vector <string, VectVal> S_CU);
 
-    bool operator==(Sommet const& S1, Sommet const& S2);
-    bool operator!=(Sommet const& S1, Sommet const& S2);
-    Sommet operator=(Sommet const& S1, Sommet const& S2);
 };
+
+bool operator==(Sommet const& S1, Sommet const& S2);
+bool operator!=(Sommet const& S1, Sommet const& S2);
+Sommet operator=(Sommet const& S1, Sommet const& S2);

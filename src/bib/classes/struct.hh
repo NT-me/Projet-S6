@@ -1,5 +1,9 @@
-#include <stdlib>
-#include <cstring>
+#include <stdlib.h>
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
 
 #ifndef STRUCTS
 #define STRUCTS
@@ -12,7 +16,7 @@ typedef struct Valeur_Vecteur{
 
 typedef struct ROW{
   int tache;
-  String nom_tache;
+  string nom_tache;
   int duree;
   vector <int> taches_anterieures;
   vector <int> taches_posterieures;

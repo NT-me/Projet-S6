@@ -1,33 +1,33 @@
 #include "Arc.hh"
 #include "Sommet.hh"
 #include "Matrice.hh"
-#include <vector.h>
-#include <string.h>
+#include <vector>
+#include <string>
 
 class Graphe{
 private:
-  String etiquette;
+  string etiquette;
   vector<Arc> liste_Arcs;
   vector<Sommet> liste_Sommets;
-  String path;
+  string path;
 
 public:
-  Graphe(String nom, vector<Sommet> listeS, vector<Arc> listeA, String path);
-  Graphe(String nom);
+  Graphe(string nom, vector<Sommet> listeS, vector<Arc> listeA, string path);
+  Graphe(string nom);
   Graphe(Matrice& M);
   Graphe(Graphe& G);
   Graphe(vector<vector<int>> liste_voisin);
   ~Graphe();
 
-  String getEtiq();
+  string getEtiq();
   vector<Arc> getListe_Arcs();
   vector<Sommet> getListe_Sommets();
-  String getPath();
+  string getPath();
 
-  void setEtiq(String etiq);
+  void setEtiq(string etiq);
   void setListe_Arc(vector<Arc> LA);
   void setListe_Sommet(vector<Sommet> LS);
-  void setPath(String p);
+  void setPath(string p);
 
   Matrice conversion_vers_Matrice_adj();
   Matrice conversion_vers_Matrice_inc();
@@ -38,7 +38,9 @@ public:
   int supprimer_Arc(int id);
   vector<Sommet> getVecteurSommet(vector<int> id);
 
-  bool operator==(Graphe const& G1, Graphe const& G2);
-  bool operator!=(Graphe const& G1, Graphe const& G2);
-  Graphe operator=(Graphe const& G1, Graphe const& G2);
-}
+
+};
+
+bool operator==(Graphe const& G1, Graphe const& G2);
+bool operator!=(Graphe const& G1, Graphe const& G2);
+Graphe operator=(Graphe const& G1, Graphe const& G2);
