@@ -32,7 +32,6 @@ public:
   int modifTab(int x, int y, int n);
   void supprLigne(int x);
   void supprCol(int y);
-<<<<<<< HEAD
 
   bool operator==(Matrice const& M1);
   bool operator!=(Matrice const& M1);
@@ -41,13 +40,6 @@ public:
 };
 
 
-=======
-};
-
-bool operator==(Matrice const& M1, Matrice const& M2);
-bool operator!=(Matrice const& M1, Matrice const& M2);
-Matrice operator=(Matrice const& M1, Matrice const& M2);
->>>>>>> 1bcd35e829c72ae8fd857c43a69ccec878c94a27
 
 enum typeM{
   ADJACENCE = 0,
