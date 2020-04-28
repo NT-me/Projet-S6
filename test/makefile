@@ -22,17 +22,17 @@ test_bib_classes_Graphe: clean
 	#Partie code
 	g++ ../src/bib/classes/Graphe.cc -c
 	#Partie test
-	g++ Arc.o test_bib/classes/Graphe.cc -o graphe.o
+	g++ Graphe.o test_bib/classes/Graphe.cc -o graphe.o
 test_bib_classes_Matrice: clean
 	#Partie code
 	g++ ../src/bib/classes/Matrice.cc -c
 	#Partie test
-	g++ Arc.o test_bib/classes/Matrice.cc -o matrice.o
+	g++ Matrice.o test_bib/classes/Matrice.cc -o matrice.o
 test_bib_classes_Sommet: clean
 	#Partie code
 	g++ ../src/bib/classes/Sommet.cc -c
 	#Partie test
-	g++ Arc.o test_bib/classes/Sommet.cc -o Sommet.o
+	g++ Sommet.o test_bib/classes/Sommet.cc -o Sommet.o
 
 ##==============================================================================
 #===============================================================================
