@@ -30,8 +30,9 @@ Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Gr
     for(int i=0;i<cmptV;i++){
       this->tab[i].resize(cmptE);
     }
-    for(Arc x : G.getListe_Arcs()){
-      this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids");
+    for(Arc x : G.getListe_Arcs();){
+      this->[x.getIDDepart()][x.getID()]=1;
+      this->[x.getIDArrive()][x.getID()]=-1;
     }
   }
   else{ //erreur création d'une Matrice vide
