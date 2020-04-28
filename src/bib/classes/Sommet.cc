@@ -1,5 +1,6 @@
 #include "Sommet.hh"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -9,6 +10,8 @@ Sommet::Sommet(int posx, int posy, string etiq, int id, map <string, VectVal> v)
   this->ID = id;
   this->etiquette = etiq;
   this->SCharge_utile = v;
+  vector<int> vecArc;
+  this->vecArc = vecArc;
 }
 
 Sommet::Sommet(int posx, int posy, string etiq, int id){
@@ -16,7 +19,6 @@ Sommet::Sommet(int posx, int posy, string etiq, int id){
   this->y = posy;
   this->ID = id;
   this->etiquette = etiq;
-
   map<string, VectVal> v;
   this->SCharge_utile = v;
 }
@@ -24,7 +26,6 @@ Sommet::Sommet(int posx, int posy, string etiq, int id){
 Sommet::Sommet(string etiq, int id){
   this->ID = id;
   this->etiquette = etiq;
-
   this->x = 0;
   this->y = 0;
   map<string, VectVal> v;

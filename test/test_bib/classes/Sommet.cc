@@ -26,7 +26,7 @@ TEST_CASE ("Test des setters", "[Sommet]"){
     }
     SECTION ("Set etiquette"){
       S0.setEtiq("sommet0'");
-      REQUIRE (S0.getEtiq() == "sommet0");
+      REQUIRE (S0.getEtiq() == "sommet0'");
     }
     SECTION ("Set SCharge_utile"){
       map<string, VectVal> m0;
