@@ -3,6 +3,8 @@
 #include "Matrice.hh"
 #include <vector>
 #include <string>
+#include <cstdlib.hh>
+#include <time.h>
 
 class Graphe{
 private:
