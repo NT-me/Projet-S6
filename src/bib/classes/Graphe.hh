@@ -1,10 +1,16 @@
+#ifndef GRAPHE_HH
+#define GRAPHE_HH
+
+
 #include "Arc.hh"
 #include "Sommet.hh"
-#include "Matrice.hh"
+//~ #include "Matrice.hh"
 #include <vector>
 #include <string>
-#include <cstdlib.hh>
+#include <stdlib.h>
 #include <time.h>
+
+class Matrice;
 
 class Graphe{
 private:
@@ -45,3 +51,5 @@ public:
   Graphe operator=(Graphe const& G1);
 
 };
+
+#endif

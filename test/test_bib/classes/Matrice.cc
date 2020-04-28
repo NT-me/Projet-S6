@@ -1,5 +1,5 @@
 #define CATCH_CONFIG_MAIN
-#include "../../../libExt/catch2/include/catch.hpp"
+#include "../../../libExt/catch.hpp"
 #include "../../../src/bib/classes/Matrice.hh"
 
 

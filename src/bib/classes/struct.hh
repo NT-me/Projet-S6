@@ -1,3 +1,6 @@
+#ifndef STRUCTS_HH
+#define STRUCTS_HH
+
 #include <stdlib.h>
 #include <string>
 #include <vector>
@@ -5,8 +8,7 @@
 
 using namespace std;
 
-#ifndef STRUCTS
-#define STRUCTS
+
 
 typedef struct Valeur_Vecteur{
   bool type; // Si 0 entier, si 1 réel.

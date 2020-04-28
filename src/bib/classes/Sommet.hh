@@ -1,7 +1,11 @@
-#include <string>
+#ifndef SOMMET_HH
+#define SOMMET_HH
+
 #include "struct.hh"
+#include <string>
 #include <vector>
 #include <utility>
+
 using namespace std;
 
 class Sommet {
@@ -39,3 +43,5 @@ class Sommet {
     void operator=(Sommet const& S1);
 
 };
+
+#endif

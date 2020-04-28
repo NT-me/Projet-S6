@@ -1,7 +1,7 @@
-#include "struct.hh"
+#ifndef ARC_HH
+#define ARC_HH
 
-#ifndef arc
-#define arc
+#include "struct.hh"
 
 
 
@@ -33,10 +33,9 @@ class Arc {
 			void setIDArrive(int id);
 			void setCU(map <string, VectVal> CU);
 
-      bool operator==(Arc const& A1);
-      bool operator!=(Arc const& A1);
-      Arc operator=(Arc &A1);
+      bool operator==(Arc &A);
+      bool operator!=(Arc &A);
+      Arc operator=(Arc &A);
 
 };
-
 #endif
