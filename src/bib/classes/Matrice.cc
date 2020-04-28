@@ -6,14 +6,14 @@ Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Gr
     int cmptV=G.getListe_Sommets().size();
 
     this->taille_V = cmptV;
-    this->taille_E = NULL;
+    this->taille_E = -1;
 
     this->tab.resize(cmptV);  // On redimensionne la Matrice
     for(int i=0;i<cmptV;i++){
       this->tab[i].resize(tailleV);
-
+    }
     for(Arc x : G.getListe_Arcs()){//on met le poids dans la Matrice
-      this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids");
+      this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids").valeur_entiere;
     }
 
   }
@@ -29,7 +29,7 @@ Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Gr
     this->tab.resize(cmptV);  //on redimensionne la Matrice
     for(int i=0;i<cmptV;i++){
       this->tab[i].resize(cmptE);
-
+    }
     for(Arc x : G.getListe_Arcs()){
       this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids");
     }
@@ -44,7 +44,7 @@ Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Gr
 
 Matrice::Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
   this->taille_V = tailleV;
-  this->taille_E = NULL;
+  this->taille_E = 0;
   this->type = 0;
   this->tab.resize(tailleV);  //on redimensionne la Matrice
   for(int i=0;i<tailleV;i++){
