@@ -14,7 +14,7 @@ typedef struct Valeur_Vecteur{
   float valeur_reel;
 }VectVal;
 
-bool operator== (VectVal v1, VectVal v2){
+inline bool operator== (VectVal v1, VectVal v2){
   if (v1.type == v2.type){
     if (v1.valeur_entiere == v2.valeur_entiere || v1.valeur_reel == v2.valeur_reel){
         return true;

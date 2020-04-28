@@ -1,6 +1,9 @@
 #include "struct.hh"
-#include <string>
-using namespace std;
+
+#ifndef arc
+#define arc
+
+
 
 class Arc {
 
@@ -32,6 +35,8 @@ class Arc {
 
       bool operator==(Arc const& A1);
       bool operator!=(Arc const& A1);
-      Arc operator=(Arc const& A1);
+      Arc operator=(Arc &A1);
 
 };
+
+#endif

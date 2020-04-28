@@ -3,6 +3,8 @@
 #include "../../../src/bib/classes/Arc.hh"
 #include <utility>
 
+#ifndef arctest
+#define arctest
 
 TEST_CASE ("Test des setters", "[Arc]"){
 
@@ -143,7 +145,7 @@ TEST_CASE ("Test du destructeur de la classe", "[Arc]"){
 //   REQUIRE (A1.getID() == nullptr);
 //   REQUIRE (A1.getIDArrive() == nullptr);
 //   REQUIRE (A1.getIDArrive() == nullptr);
-// //  REQUIRE (A1.getCU() == NULL);
+//   REQUIRE (A1.getCU() == NULL);
 
 
 }
@@ -166,10 +168,12 @@ TEST_CASE ("Test de l'opérateur =", "[arc]"){
 
 }
 
-// TEST_CASE ("Test de l'opérateur ==", "[Arc]"){
-//   Arc A2 ("arc2",2,1,4);
-//   Arc A4 (A2);
-//
-//   REQUIRE ((A2 == A4));
-//
-// }
+TEST_CASE ("Test de l'opérateur ==", "[Arc]"){
+  Arc A2 ("arc2",2,1,4);
+  Arc A4 (A2);
+
+  REQUIRE ((A2 == A4));
+
+}
+
+#endif
