@@ -69,3 +69,15 @@ Matrice::Matrice(Matrice &M){ // Construceur de copie d'une Matrice
   this->type = M.type;
   this->tab = M.tab;
 }
+
+//Getters
+int gettV(){return this->taille_V;}
+int gettE(){return this->taille_E;}
+int getType(){return this->type;}
+vector<vector <int>> getTab(){return this->tab;}
+
+//Setters
+void setV(int v){this->taille_V = v;}
+void setE(int e){this->taille_E = e;}
+void setType(int type){this->type = type;}
+void setTab(vector<vector <int>> tab){this->tab=tab;}
