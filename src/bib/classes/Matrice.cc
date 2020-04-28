@@ -115,4 +115,40 @@ Matrice conversion_incidence(){
     return this;
   }
 }
+
 Matrice inversion_Matrice();
+
+  bool Matrice::operator==(Matrice const& M1){
+  if(
+  this->taille_E == M1.gettE()
+  && this->taille_V == M1.gettV()
+  && this->type == M1.getType()
+  && this->tab == M1.getTab()
+  )
+  return 1;
+  else return 0;
+	  
+	  
+  }
+  
+  bool Matrice::operator!=(Matrice const& M1){return 1;}
+  Matrice Matrice::operator=(Matrice const& M1){
+  if(
+     this->taille_E != M1.gettE()
+  || this->taille_V != M1.gettV()
+  || this->type != M1.getType()
+  || this->tab != M1.getTab()
+  )
+  return 1;
+  else return 0;
+  }
+  
+  
+  
+  Matrice Matrice::operator=(Matrice const& M1){
+  this->taille_E = M1.gettE
+  this->taille_V = M1.gettV
+  this->type = M1.getType
+  this->tab = M1.getTab
+  return this;
+  }
