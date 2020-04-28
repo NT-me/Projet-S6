@@ -1,30 +1,33 @@
 #define CATCH_CONFIG_MAIN
-#include "../../../libExt/catch2/include/catch.hpp"
+#include "../../../libExt/catch.hpp"
 #include "../../../src/bib/classes/Arc.hh"
 #include <utility>
 
 
-TEST_CASE ("Test des setters", ["arc"]){
-  map<string, VectVal> m;
+TEST_CASE ("Test des setters", "[Arc]"){
+  REQUIRE(false);
 
-  Arc A1 ("arc1",1, 2,3, m); //map a faire
 
-  SECTION ("Set ID"){
-    A1.setID (37);
-    REQUIRE (A1.getID() == 37);
-  }
-  SECTION ("Set etiquette"){
-    A1.setEtiq("modif");
-    REQUIRE (A1.getEtiq() == "modif");
-  }
-  SECTION ("Set IDdepart"){
-    A1.setIDDepart (7);
-    REQUIRE (A1.getIDDepart() == 7);
-  }
-  SECTION ("Set IDarrive"){
-    A1.setIDArrive (44);
-    REQUIRE (A1.getIDArrive() == 44);
-  }
+  // map<string, VectVal> m;
+  //
+  // Arc A1 ("arc1",1, 2,3, m); //map a faire
+  //
+  // SECTION ("Set ID"){
+  //   A1.setID (37);
+  //   REQUIRE (A1.getID() == 37);
+  // }
+  // SECTION ("Set etiquette"){
+  //   A1.setEtiq("modif");
+  //   REQUIRE (A1.getEtiq() == "modif");
+  // }
+  // SECTION ("Set IDdepart"){
+  //   A1.setIDDepart (7);
+  //   REQUIRE (A1.getIDDepart() == 7);
+  // }
+  // SECTION ("Set IDarrive"){
+  //   A1.setIDArrive (44);
+  //   REQUIRE (A1.getIDArrive() == 44);
+  // }
   // SECTION ("Set ACharge_Utile"){ // A faire
   //   A1.setCU ();
   //   REQUIRE (A1.ACharge_Utile == );
