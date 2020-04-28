@@ -1,3 +1,6 @@
+#ifndef ARC_HH
+#define ARC_HH
+
 #include "struct.hh"
 
 

@@ -1,4 +1,9 @@
+#ifndef MATRICE_HH
+#define MATRICE_HH
+
 #include <vector>
+#include "struct.hh"
+#include "Graphe.hh"
 
 class Matrice {
 
@@ -14,7 +19,6 @@ public:
   Matrice(int tailleV, int tailleE, int t);
   Matrice(Matrice &M);
   ~Matrice();
-
   int gettV();
   int gettE();
   int getType();
@@ -48,3 +52,5 @@ enum typeM{
   PARENT = 3,
   QUELCONQUE = 4;
 };
+
+#endif
