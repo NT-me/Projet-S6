@@ -102,6 +102,7 @@ TEST_CASE ("Test du destructeur de la classe", [sommet]){
 
 }
 
+
 TEST_CASE ("Test de l'opérateur =", [sommet]){
   Sommet S2 (2,3,"sommet2", 2);
   Sommet S5 (4);
