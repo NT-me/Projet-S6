@@ -13,7 +13,7 @@ TEST_CASE ("Test des setters", "[Sommet]"){
   Sommet S0 (1,2,"sommet0",0,m);
 
     SECTION ("Set x"){
-      S0.setPosX (54);
+      S0.setPosX(54);
       REQUIRE (S0.getPosX() == 54);
     }
     SECTION ("Set y"){
@@ -151,7 +151,7 @@ TEST_CASE ("Test de l'opérateur ==", "[Sommet]"){
 
   Sommet S0 (23,32,"sommet0",0,m);
   Sommet S0_0 (23,32,"sommet0",0,m);
-  
+
   Sommet S1 (2,3,"sommet1",1,m1);
   // Faire les map
 
