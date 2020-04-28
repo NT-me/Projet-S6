@@ -38,3 +38,4 @@ class Arc {
       Arc operator=(Arc &A);
 
 };
+#endif
