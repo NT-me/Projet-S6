@@ -61,19 +61,22 @@ return false;
 }
 
 bool Arc::operator!=(Arc const &A){
-  if (etiquette != A.etiquette || ID!=A.ID || IDdepart != A.IDdepart || IDarrive != A.IDarrive || ACharge_Utile != A.ACharge_Utile){
+  if (etiquette != A.etiquette || ID !=A.ID || IDdepart != A.IDdepart || IDarrive != A.IDarrive || ACharge_Utile != A.ACharge_Utile){
     return true;
   }
 return false;
 }
 
 Arc Arc::operator=(Arc &A1){
-  Arc A2 (A1.getEtiq(), A1.getID(),A1.getIDDepart (), A1.getIDArrive (), A1.getCU() );
-return A2;
 
-  // this->ID = A1.getID();
-  // this->etiquette = A1.getEtiq();
-  // this->IDdepart = A1.getIDDepart ();
-  // this->IDarrive = A1.getIDArrive ();
-  // this->ACharge_Utile = A1.getCU();
+  this->ID = A1.getID();
+  this->etiquette = A1.getEtiq();
+  this->IDdepart = A1.getIDDepart ();
+  this->IDarrive = A1.getIDArrive ();
+  this->ACharge_Utile = A1.getCU();
+
+
+return *this;
+
+
 }
