@@ -1,6 +1,7 @@
 #include <string>
 #include "struct.hh"
 #include <vector>
+#include <utility>
 using namespace std;
 
 class Sommet {
@@ -9,11 +10,11 @@ class Sommet {
     int x; // Coordonnées x
     int y; // Coordonnées y
     int ID;  // pour le retrrouver
-    String etiquette; // nom du sommet
+    string etiquette; // nom du sommet
     map <string, VectVal> SCharge_utile;
 
     public:
-    Sommet(int posx, int posy, string etiq, int id, VectVal v);
+    Sommet(int posx, int posy, string etiq, int id, map <string, VectVal> v);
     Sommet(int posx, int posy, string etiq, int id);
     Sommet(string etiq, int id);
     Sommet(int id);
@@ -30,7 +31,7 @@ class Sommet {
     void setPosY(int y);
     void setID(int id);
     void setEtiq(string etiq);
-    void setCU(vector <string, VectVal> S_CU);
+    void setCU(map <string, VectVal> S_CU);
 
     bool operator==(Sommet const& S1);
     bool operator!=(Sommet const& S1);
