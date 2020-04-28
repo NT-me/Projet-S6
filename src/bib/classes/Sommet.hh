@@ -1,4 +1,3 @@
-#include <iostream.h>
 #include <string>
 #include "struct.hh"
 #include <vector>
