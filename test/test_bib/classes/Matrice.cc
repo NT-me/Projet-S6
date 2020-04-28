@@ -1,7 +1,6 @@
-#include "../../../src/bib/classes/Matrice.hh"
-
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch2/include/catch.hpp"
+#include "../../../src/bib/classes/Matrice.hh"
 
 
 TEST_CASE ("Test des setters", [matrice]){

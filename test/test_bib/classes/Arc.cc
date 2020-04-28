@@ -31,7 +31,7 @@ TEST_CASE ("Test des setters", "[Arc]"){
   }
 }
 
-TEST_CASE ("Test des getters", []){
+TEST_CASE ("Test des getters", "[]"){
   Arc A1 ("arc1",1,2,3,m); //map a faire
 
   SECTION ("Get ID"){
@@ -53,7 +53,7 @@ TEST_CASE ("Test des getters", []){
 
 
 
-TEST_CASE("Test des constructeur de la classe", [arc] ){
+TEST_CASE("Test des constructeur de la classe", "[Arc]" ){
 
   SECTION ("Test du constructeur avec tout les arguments"){
     Arc A1 ("arc1", 1,2,3,m); // Faire la map
@@ -92,11 +92,11 @@ TEST_CASE("Test des constructeur de la classe", [arc] ){
   }
 }
 
-TEST_CASE ("Test du destructeur de la classe", [arc]){
+TEST_CASE ("Test du destructeur de la classe", "[Arc]"){
   // A faire
 }
 
-TEST_CASE ("Test de l'opérateur =", [arc]){
+TEST_CASE ("Test de l'opérateur =", "[arc]"){
   Arc A2 ("arc2",2,1,4);
   Arc A3 ("arc3",3,4,1);
   A3 = A2;
@@ -107,7 +107,7 @@ TEST_CASE ("Test de l'opérateur =", [arc]){
   REQUIRE (A3.getIDarrive() == 4);
 }
 
-TEST_CASE ("Test de l'opérateur ==", [arc]){
+TEST_CASE ("Test de l'opérateur ==", "[Arc]"){
   Arc A2 ("arc2",2,1,4);
   Arc A4 (A2);
 

@@ -1,6 +1,6 @@
-#include "../../../src/bib/classes/Graphe.hh"
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch2/include/catch.hpp"
+#include "../../../src/bib/classes/Graphe.hh"
 
 TEST_CASE ("Test des setters", [graphe]){
 

@@ -1,7 +1,6 @@
-#include "../../../src/bib/classes/Sommet.hh"
-
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch2/include/catch.hpp"
+#include "../../../src/bib/classes/Sommet.hh"
 
 TEST_CASE ("Test des setters", [sommet]){
 
