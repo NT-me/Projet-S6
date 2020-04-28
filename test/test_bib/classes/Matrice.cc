@@ -9,15 +9,15 @@ TEST_CASE ("Test des setters", [matrice]){
 
   SECTION ("Set tailleV"){
     MA1.setV (5);
-    REQUIRE (MA1.tailleV == 5);
+    REQUIRE (MA1.gettV() == 5);
   }
   SECTION ("Set tailleE"){
     MA1.setE (5);
-    REQUIRE (MA1.tailleE == 5);
+    REQUIRE (MA1.gettE() == 5);
   }
   SECTION ("Set type"){
     MA1.setType (1);
-    REQUIRE (MA1.type == 1);
+    REQUIRE (MA1.getType() == 1);
   }
   SECTION ("Set tab"){
     // A faire
@@ -52,11 +52,11 @@ TEST_CASE("Test des constructeur de la classe", [matrice] ){
 
   SECTION ("Constructeur avec une tailleV"){
     Matrice M1 (1);
-    REQUIRE (M1.tailleV == 1);
+    REQUIRE (M1.gettV() == 1);
 
     SECTION ("Constructeur par copie"){
       Matrice M2 (M1);
-      REQUIRE (M2.tailleV == 1);
+      REQUIRE (M2.gettV() == 1);
     }
 
   }
@@ -64,9 +64,9 @@ TEST_CASE("Test des constructeur de la classe", [matrice] ){
   SECTION ("Constructeur avec une tailleV, une tailleE et un type"){
     Matrice MI1 (1,3,1);
 
-    REQUIRE (MI1.tailleV == 1);
-    REQUIRE (MI1.tailleE == 3);
-    REQUIRE (MI1.type == 1);
+    REQUIRE (MI1.gettV() == 1);
+    REQUIRE (MI1.gettE() == 3);
+    REQUIRE (MI1.getType() == 1);
   }
 
 
@@ -82,9 +82,9 @@ TEST_CASE ("Test de l'opérateur =", [matrice]){
   Matrice MI2 (2,5,1);
   MI2 = MI1;
 
-  REQUIRE (MI2.tailleV == 1);
-  REQUIRE (MI2.tailleE == 3);
-  REQUIRE (MI2.type == 1);
+  REQUIRE (MI2.gettV() == 1);
+  REQUIRE (MI2.gettE() == 3);
+  REQUIRE (MI2.getType() == 1);
 
 }
 
