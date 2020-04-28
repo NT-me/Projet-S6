@@ -62,38 +62,16 @@ Graphe::~Graphe(){
 }
 
 // Getters
-Graphe::string getEtiq(){
-  return etiquette;
-}
-
-Graphe::vector<Arc> getListe_Arcs(){
-  return liste_Arcs;
-}
-
-Graphe::vector<Sommet> getListe_Sommets(){
-  return liste_Sommets;
-}
-
-Graphe::string getPath(){
-  return path;
-}
+Graphe::string getEtiq(){return etiquette;}
+Graphe::vector<Arc> getListe_Arcs(){return liste_Arcs;}
+Graphe::vector<Sommet> getListe_Sommets(){return liste_Sommets;}
+Graphe::string getPath(){return path;}
 
 // Setters
-Graphe::void setEtiq(string etiq){
-  this->etiquette = etiq;
-}
-
-Graphe:void setListe_Arc(vector<Arc> LA){
-  this->liste_Arcs = LA;
-}
-
-Graphe::void setListe_Sommet(vector<Sommet> LS){
-  this->liste_Sommets = LS;
-}
-
-Graphe:void setPath(string p){
-  this->path = p;
-}
+Graphe::void setEtiq(string etiq){this->etiquette = etiq;}
+Graphe:void setListe_Arc(vector<Arc> LA){this->liste_Arcs = LA;}
+Graphe::void setListe_Sommet(vector<Sommet> LS){this->liste_Sommets = LS;}
+Graphe:void setPath(string p){this->path = p;}
 
 // Méthodes
 Graphe::Matrice conversion_vers_Matrice_adj(){
