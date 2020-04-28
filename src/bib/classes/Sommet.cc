@@ -10,6 +10,7 @@ Sommet::Sommet(int posx, int posy, string etiq, int id, map <string, VectVal> v)
   this->ID = id;
   this->etiquette = etiq;
   this->SCharge_utile = v;
+
   vector<int> vecArc;
   this->vecArc = vecArc;
 }
@@ -21,6 +22,9 @@ Sommet::Sommet(int posx, int posy, string etiq, int id){
   this->etiquette = etiq;
   map<string, VectVal> v;
   this->SCharge_utile = v;
+
+  vector<int> vecArc;
+  this->vecArc = vecArc;
 }
 
 Sommet::Sommet(string etiq, int id){
@@ -30,6 +34,8 @@ Sommet::Sommet(string etiq, int id){
   this->y = 0;
   map<string, VectVal> v;
   this->SCharge_utile = v;
+  vector<int> vecArc;
+  this->vecArc = vecArc;
 }
 
 Sommet::Sommet(int id){
@@ -40,14 +46,17 @@ Sommet::Sommet(int id){
   this->y = 0;
   map<string, VectVal> v;
   this->SCharge_utile = v;
+  vector<int> vecArc;
+  this->vecArc = vecArc;
 }
 
-Sommet::Sommet(Sommet &S){
-  this->x = S.getPosX();
-  this->y = S.getPosY();
-  this->ID = S.getID();
-  this->etiquette = S.getEtiq();
-  this->SCharge_utile = S.getCU();
+Sommet::Sommet(Sommet const &S){
+  this->x = S.x;
+  this->y = S.y;
+  this->ID = S.ID;
+  this->etiquette = S.etiquette;
+  this->vecArc = S.vecArc;
+  this->SCharge_utile = S.SCharge_utile;
 }
 
 Sommet::~Sommet(){
