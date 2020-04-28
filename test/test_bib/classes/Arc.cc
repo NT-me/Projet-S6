@@ -5,7 +5,12 @@
 
 
 TEST_CASE ("Test des setters", "[Arc]"){
-  map<string, VectVal> m;
+  // VectVal v;
+  // v.type = true;
+  // v.valeur_entiere = 10;
+
+  std::map<string, VectVal> m;
+  //m.insert (std::make_pair ("v1", v));
 
   Arc A1 ("arc1",1, 2,3, m); //map a faire
 
@@ -31,7 +36,8 @@ TEST_CASE ("Test des setters", "[Arc]"){
   }
 }
 
-TEST_CASE ("Test des getters", "[]"){
+TEST_CASE ("Test des getters", "[Arc]"){
+  map<string, VectVal> m;
   Arc A1 ("arc1",1,2,3,m); //map a faire
 
   SECTION ("Get ID"){
