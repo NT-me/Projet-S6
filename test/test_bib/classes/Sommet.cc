@@ -2,6 +2,7 @@
 #include "../../../libExt/catch.hpp"
 #include "../../../src/bib/classes/Sommet.hh"
 #include <map>
+#include <vector>
 
 TEST_CASE ("Test des setters", "[Sommet]"){
   map<string, VectVal> m;
@@ -9,6 +10,9 @@ TEST_CASE ("Test des setters", "[Sommet]"){
   v0.type = false;
   v0.valeur_entiere = 1;
   m.insert(pair<string, VectVal> ("poid", v0));
+  vector<int> va;
+  va.push_back(1);
+  va.push_back(4);
 
   Sommet S0 (1,2,"sommet0",0,m);
 
@@ -27,6 +31,10 @@ TEST_CASE ("Test des setters", "[Sommet]"){
     SECTION ("Set etiquette"){
       S0.setEtiq("sommet0'");
       REQUIRE (S0.getEtiq() == "sommet0'");
+    }
+    SECTION ("Set VecArc"){
+      S0.setVecArc(va);
+      REQUIRE(S0.getVecArc() == va);
     }
     SECTION ("Set SCharge_utile"){
       map<string, VectVal> m0;
@@ -48,8 +56,12 @@ TEST_CASE ("Test des getters", "[Sommet]"){
   v0.valeur_entiere = 12;
 
   m.insert(pair<string, VectVal> ("plus_tot", v0));
+  vector<int> va;
+  va.push_back(1);
+  va.push_back(4);
 
   Sommet S0 (23,32,"sommet0",0,m);
+  S0.setVecArc(va);
 
     SECTION ("Get x"){
       REQUIRE (S0.getPosX() == 23);
@@ -60,6 +72,10 @@ TEST_CASE ("Test des getters", "[Sommet]"){
     SECTION ("Get ID"){
       REQUIRE (S0.getID() == 0);
     }
+    SECTION ("Get VecArc"){
+      REQUIRE (S0.getVecArc() == va);
+    }
+
     SECTION ("Get etiquette"){
       REQUIRE (S0.getEtiq () == "sommet0");
     }
@@ -124,12 +140,18 @@ TEST_CASE ("Test du destructeur de la classe", "[Sommet]"){
 TEST_CASE ("Test de l'opérateur =", "[Sommet]"){
   Sommet S2 (2,3,"sommet2", 2);
   Sommet S5 (4);
+  vector<int> va;
+  va.push_back(1);
+  va.push_back(4);
+  S2.setVecArc(va);
+
   S5 = S2;
 
   REQUIRE (S5.getPosX() == 2);
   REQUIRE (S5.getPosY () == 3);
   REQUIRE (S5.getEtiq() == "sommet2");
   REQUIRE (S5.getID() == 2);
+  REQUIRE (S5.getVecArc() == va);
 }
 
 /*
@@ -142,6 +164,13 @@ TEST_CASE ("Test de l'opérateur ==", "[Sommet]"){
   v0.type = false;
   v0.valeur_entiere = 1;
   m.insert(pair<string, VectVal> ("poid", v0));
+  vector<int> va;
+  va.push_back(1);
+  va.push_back(4);
+
+  vector<int> va0;
+  va.push_back(12);
+  va.push_back(1);
 
   map<string, VectVal> m1;
   VectVal v1;
@@ -151,8 +180,11 @@ TEST_CASE ("Test de l'opérateur ==", "[Sommet]"){
 
   Sommet S0 (23,32,"sommet0",0,m);
   Sommet S0_0 (23,32,"sommet0",0,m);
+  S0.setVecArc(va);
+  S0_0.setVecArc(va);
 
   Sommet S1 (2,3,"sommet1",1,m1);
+  S1.setVecArc(va0);
   // Faire les map
 
   REQUIRE ((S0 != S1));

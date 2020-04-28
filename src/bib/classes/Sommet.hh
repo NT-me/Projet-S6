@@ -26,16 +26,18 @@ class Sommet {
     int getPosY();
     int getID();
     string getEtiq();
+    vector<int> getVecArc();
     map <string, VectVal> getCU();
 
     void setPosX(int x);
     void setPosY(int y);
     void setID(int id);
     void setEtiq(string etiq);
+    void setVecArc(vector<int> v);
     void setCU(map <string, VectVal> S_CU);
 
-    bool operator==(Sommet & S1);
-    bool operator!=(Sommet & S1);
+    bool operator==(Sommet const& S1);
+    bool operator!=(Sommet const& S1);
     void operator=(Sommet const& S1);
 
 };
