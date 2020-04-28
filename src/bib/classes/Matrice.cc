@@ -1,7 +1,7 @@
 #include "Matrice.hh"
 
 Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
-  if(type == 0){  // Matrice Adjacence
+  if(type == ADJACENCE){  // Matrice Adjacence
     this->type = type;
     int cmptV=G.getListe_Sommets().size();
 
@@ -17,7 +17,7 @@ Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Gr
     }
 
   }
-  else if(type == 1){ // Matrice incidence
+  else if(type == INCIDENCE){ // Matrice incidence
     this->type = type;
     int cmptV=G.getListe_Sommets().size(),
         cmptE=G.getListe_Arcs().size();
@@ -46,7 +46,7 @@ Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Gr
 Matrice::Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
   this->taille_V = tailleV;
   this->taille_E = 0;
-  this->type = 0;
+  this->type = ADJACENCE;
   this->tab.resize(tailleV);  //on redimensionne la Matrice
   for(int i=0;i<tailleV;i++){
     this->tab[i].resize(tailleV);
@@ -81,3 +81,38 @@ void setV(int v){this->taille_V = v;}
 void setE(int e){this->taille_E = e;}
 void setType(int type){this->type = type;}
 void setTab(vector<vector <int>> tab){this->tab=tab;}
+
+//Méthodes
+Matrice conversion_incidence(){
+//conversion d'une matrice d'adjacence en matrice d'incidence
+  if(this->type == ADJACENCE){
+    this->type = INCIDENCE;
+    int cmp=0;
+    for(int i=0;i<this->taille_E;i++){
+      for(int j=0;j<this->taille_V;j++){
+        if(this->tab[i][j])cmp++;
+      }
+    }
+
+    Matrice res(this->taille_V,cmp,INCIDENCE);
+    //a finir
+    cmp=0;
+    for(int i=0;i<this->taille_V;i++){
+      for(int j=0;j<this->taille_V;j++){
+        if(this->tab[i][j]){
+          res.tab[i][cmp] = 1; //arc sortant
+          res.tab[j][cmp] = -1; //arc entrant
+          cmp++
+
+        }
+      }
+    }
+    return res;
+
+  }
+  else{
+    std::cout << "/* Mauvaise conversion  */" << '\n';
+    return this;
+  }
+}
+Matrice inversion_Matrice();
