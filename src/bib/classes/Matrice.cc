@@ -1,6 +1,6 @@
-#include "../../../src/bib/classes/Matrice.hh"
+#include "Matrice.hh"
 
-Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
+Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
   if(type == 0){  // Matrice Adjacence
     this->type = type;
     int cmptV=G.getListe_Sommets().size();
@@ -42,7 +42,7 @@ Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
   }
 }
 
-Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
+Matrice::Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
   this->taille_V = tailleV;
   this->taille_E = NULL;
   this->type = 0;
@@ -52,7 +52,7 @@ Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
   }
 }
 
-Matrice(int tailleV, int tailleE, int t){ // Constructeur d'une matrice autre vide
+Matrice::Matrice(int tailleV, int tailleE, int t){ // Constructeur d'une matrice autre vide
   this->V = tailleV;
   this->E = tailleE;
   this->type = t;
@@ -62,7 +62,7 @@ Matrice(int tailleV, int tailleE, int t){ // Constructeur d'une matrice autre vi
   }
 }
 
-Matrice(Matrice &M){ // Construceur de copie d'une Matrice
+Matrice::Matrice(Matrice &M){ // Construceur de copie d'une Matrice
   this->taille_V = M.taille_V;
   this->taille_E = M.taille_E;
   this->type = M.type;
