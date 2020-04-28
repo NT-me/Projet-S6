@@ -138,9 +138,36 @@ Graphe::vector<Sommet> getVecteurSommet(vector<int> id){
 }
 
 // Opérateurs
-Graphe::bool operator==(Graphe const& G1){}
+Graphe::bool operator==(Graphe const& G1){
+	if
+	(
+	this->etiquette == G1.getEtiq()
+	& this->liste_Arcs == G1.liste_Arcs
+	& this->liste_Sommets == G1.liste_Sommets
+	& this->path == G1.path
+	)
+	
+	{ return 1; }
 
-Graphe::bool operator!=(Graphe const& G1){}
+	else {return 0;}
+}
+
+Graphe::bool operator!=(Graphe const& G1){
+	if
+	(
+	this->etiquette != G1.getEtiq()
+	||this->liste_Arcs != G1.liste_Arcs
+	|| this->liste_Sommets != G1.liste_Sommets
+	|| this->path != G1.path
+	)
+	
+	{ return 1; }
+
+	else {return 0;}
+		
+	
+	
+}
 
 Graphe::Graphe operator=(Graphe const& G1){
   this->etiquette = G1.getEtiq();
