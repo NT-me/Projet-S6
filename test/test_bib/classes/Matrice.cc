@@ -3,7 +3,7 @@
 #include "../../../src/bib/classes/Matrice.hh"
 
 
-TEST_CASE ("Test des setters", [matrice]){
+TEST_CASE ("Test des setters", "[Matrice]"){
   Matrice MA1 (3,3,0);
 
   SECTION ("Set tailleV"){
@@ -21,10 +21,9 @@ TEST_CASE ("Test des setters", [matrice]){
   SECTION ("Set tab"){
     // A faire
   }
-
 }
 
-TEST_CASE ("Test des getters", []){
+TEST_CASE ("Test des getters", "[Matrice]"){
   Matrice MA1 (3,3,0);
 
   SECTION ("Get tailleV"){
@@ -43,7 +42,7 @@ TEST_CASE ("Test des getters", []){
 
 
 
-TEST_CASE("Test des constructeur de la classe", [matrice] ){
+TEST_CASE("Test des constructeur de la classe", "[Matrice]" ){
 
   SECTION ("Constructeur avec un grahe et un type"){
 
@@ -72,7 +71,7 @@ TEST_CASE("Test des constructeur de la classe", [matrice] ){
 
 }
 
-TEST_CASE ("Test du destructeur de la classe", [matrice]){
+TEST_CASE ("Test du destructeur de la classe", "[Matrice]"){
   // A faire
 }
 
@@ -87,29 +86,29 @@ TEST_CASE ("Test de l'opérateur =", [matrice]){
 
 }
 
-TEST_CASE ("Test de l'opérateur ==", [matrice]){
+TEST_CASE ("Test de l'opérateur ==", "[Matrice]"){
   Matrice MI1 (1,3,1);
   Matrice MI2 (2,5,1);
 
   REQUIRE ((MI1 == MI2));
 }
 
-TEST_CASE ("Test de conversion en matrice d'incidence", [matrice]){
+TEST_CASE ("Test de conversion en matrice d'incidence", "[Matrice]"){
 
 }
 
-TEST_CASE ("Test d'inversion de la matrice", [matrice]){
+TEST_CASE ("Test d'inversion de la matrice", "[Matrice]"){
 
 }
 
-TEST_CASE ("Test de la conversion en graphe", [matrice]){
+TEST_CASE ("Test de la conversion en graphe", "[Matrice]"){
 
 }
 
-TEST_CASE ("Test  de supression de ligne", [matrice]){
+TEST_CASE ("Test  de supression de ligne", "[Matrice]"){
 
 }
 
-TEST_CASE ("Test de supression de colonne", [matrice]){
+TEST_CASE ("Test de supression de colonne", "[Matrice]"){
 
 }

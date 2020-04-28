@@ -2,7 +2,8 @@
 #include "../../../libExt/catch2/include/catch.hpp"
 #include "../../../src/bib/classes/Sommet.hh"
 
-TEST_CASE ("Test des setters", [sommet]){
+TEST_CASE ("Test des setters", "[Sommet]"){
+  map<string, VectVal> m;
 
   Sommet S0 (1,2,"sommet0",0,m);
 
@@ -24,11 +25,12 @@ TEST_CASE ("Test des setters", [sommet]){
     }
     SECTION ("Set SCharge_utile"){
       S0.setCU ();      // A faire
+      REQUIRE (getCU () == m);
     }
 
 }
 
-TEST_CASE ("Test des getters", []){
+TEST_CASE ("Test des getters", "[Sommet]"){
 
   Sommet S0 (23,32,"sommet0",0,m);
 
@@ -52,7 +54,7 @@ TEST_CASE ("Test des getters", []){
 }
 
 
-TEST_CASE("Test des constructeur de la classe", [sommet] ){
+TEST_CASE("Test des constructeur de la classe", "[Sommet]" ){
 
     SECTION ("Test du constructeur avec tout les arguments"){
       Sommet S1 (2,3,"sommet1",1,vec);
@@ -95,14 +97,14 @@ TEST_CASE("Test des constructeur de la classe", [sommet] ){
 
 }
 
-TEST_CASE ("Test du destructeur de la classe", [sommet]){
+TEST_CASE ("Test du destructeur de la classe", "[Sommet]"){
 
   // A faire
 
 }
 
 
-TEST_CASE ("Test de l'opérateur =", [sommet]){
+TEST_CASE ("Test de l'opérateur =", "[Sommet]"){
   Sommet S2 (2,3,"sommet2", 2);
   Sommet S5 (4);
   S5 = S2;
@@ -118,7 +120,7 @@ TEST_CASE ("Test de l'opérateur =", [sommet]){
 Raison pour laquelle il y a deux parenthèse dans le REQUIRE
 https://stackoverflow.com/questions/59770581/cant-use-overloaded-comparison-operator-with-catch-test
 */
-TEST_CASE ("Test de l'opérateur ==", [sommet]){
+TEST_CASE ("Test de l'opérateur ==", "[Sommet]"){
   Sommet S0 (23,32,"sommet0",0,m);
   Sommet S1 (2,3,"sommet1",1,vec);
   // Faire les map
