@@ -40,11 +40,9 @@ TEST_CASE ("Test des getters", "[Matrice]"){
   }
 }
 
-
-
 TEST_CASE("Test des constructeur de la classe", "[Matrice]" ){
 
-  SECTION ("Constructeur avec un grahe et un type"){
+  SECTION ("Constructeur avec un graphe et un type"){
 
   }
 
