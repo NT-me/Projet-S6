@@ -1,6 +1,5 @@
 #include "Sommet.hh"
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
@@ -79,6 +78,10 @@ string Sommet::getEtiq(){
   return this->etiquette;
 }
 
+vector<int> Sommet::getVecArc(){
+  return this->vecArc;
+}
+
 map <string, VectVal> Sommet::getCU(){
   return this->SCharge_utile;
 }
@@ -99,20 +102,23 @@ void Sommet::setEtiq(string etiq){
   this->etiquette = etiq;
 }
 
+void Sommet::setVecArc(vector<int> v){
+  this->vecArc = v;
+}
+
 void Sommet::setCU(map <string, VectVal> S_CU){
   this->SCharge_utile = S_CU;
 }
 
-bool Sommet::operator==(Sommet & S1){
-  return (this->x == S1.getPosX())&&(this->y == S1.getPosY())&&(this->ID == S1.getID())&&(this->etiquette == S1.getEtiq())&&(this->SCharge_utile == S1.getCU());
+bool Sommet::operator==(Sommet const & S1){
+  return (this->x == S1.x)&&(this->vecArc == S1.vecArc)&&(this->y == S1.y)&&(this->ID == S1.ID)&&(this->etiquette == S1.etiquette)&&(this->SCharge_utile == S1.SCharge_utile);
 }
-bool Sommet::operator!=(Sommet & S1){
-  return (this->x != S1.getPosX())||(this->y != S1.getPosY())||(this->ID != S1.getID())||(this->etiquette != S1.getEtiq())||(this->SCharge_utile != S1.getCU());
-
+bool Sommet::operator!=(Sommet const & S1){
+  return (this->x != S1.x)||(this->vecArc != S1.vecArc)||(this->y != S1.y)||(this->ID != S1.ID)||(this->etiquette != S1.etiquette)||(this->SCharge_utile != S1.SCharge_utile);
 }
 void Sommet::operator=(Sommet const& S1){
   Sommet S(S1.x, S1.y, S1.etiquette, S1.ID, S1.SCharge_utile);
-  // S.setVecArc(v);
+
   this->x = S1.x;
   this->y = S1.y;
   this->ID = S1.ID;
