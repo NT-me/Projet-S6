@@ -1,4 +1,4 @@
-#include "Matrice.hh "
+#include "../../../src/bib/classes/Matrice.hh"
 
 Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
   if(type == 0){  // Matrice Adjacence

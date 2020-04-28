@@ -1,7 +1,9 @@
+#ifndef ARC_HH
+#define ARC_HH
+
 #include "struct.hh"
 
-#ifndef arc
-#define arc
+
 
 
 
