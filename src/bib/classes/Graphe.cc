@@ -136,3 +136,15 @@ vector<Sommet> getVecteurSommet(vector<int> id){
   }
   return res;
 }
+
+// Opérateurs
+bool operator==(Graphe const& G1){}
+
+bool operator!=(Graphe const& G1){}
+
+Graphe operator=(Graphe const& G1){
+  this->etiquette = G1.getEtiq();
+  this->liste_Arcs = G1.getListe_Arcs();
+  this->getListe_Sommets = G1.getListe_Sommets();
+  this->getPath = G1.getPath();
+}

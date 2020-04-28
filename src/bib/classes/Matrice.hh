@@ -3,8 +3,8 @@
 class Matrice {
 
 private:
-  int taille V;		// nombre de sommets
-  int taille E;		// nombre d'arcs (dans le cas d'une matrice d'incidence)
+  int taille_V;		// nombre de sommets
+  int taille_E;		// nombre d'arcs (dans le cas d'une matrice d'incidence)
   int type;			// type de la matrice (0->adjacence,1->incidence)
   vector<vector <int>> tab;			// matrice
 

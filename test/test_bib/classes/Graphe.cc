@@ -4,6 +4,7 @@
 
 TEST_CASE ("Test des setters", "[Graphe]"){
 
+
 }
 
 TEST_CASE ("Test des getters", "[Graphe]"){
@@ -12,10 +13,19 @@ TEST_CASE ("Test des getters", "[Graphe]"){
 
 TEST_CASE("Test des constructeur de la classe", "[Graphe]" ){
 
+  SECTION("Test du constructeur avec tout les arguments"){
+
+  }
+
+  SECTION("Test du constructeur vide"){}
+  SECTION("Test du constructeur par Matrice d'Adjacence"){}
+  SECTION("Test du constructeur par copie")
+  SECTION("Test du constructeur par Liste de Voisin"){}
+
 }
 
-TEST_CASE ("Test du destructeur de la classe", "[Graphe]"){
 
+TEST_CASE ("Test du destructeur de la classe", "[Graphe]"){
 
 }
 
