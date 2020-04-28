@@ -15,6 +15,7 @@ class Sommet {
     int y; // Coordonnées y
     int ID;  // pour le retrrouver
     string etiquette; // nom du sommet
+    vector <int> vecArc;
     map <string, VectVal> SCharge_utile;
 
     public:
@@ -37,9 +38,9 @@ class Sommet {
     void setEtiq(string etiq);
     void setCU(map <string, VectVal> S_CU);
 
-    bool operator==(Sommet const& S1);
-    bool operator!=(Sommet const& S1);
-    Sommet operator=(Sommet const& S1);
+    bool operator==(Sommet & S1);
+    bool operator!=(Sommet & S1);
+    void operator=(Sommet const& S1);
 
 };
 
