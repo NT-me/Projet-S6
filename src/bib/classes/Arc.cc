@@ -53,22 +53,27 @@ Arc::~Arc(){
 
 
 // OPERATEUR DE LA CLASSE ARC
-bool Arc::operator==(Arc &A) {
-  if (etiquette == A.getEtiq() && ID==A.getID() && IDdepart == A.getIDDepart() && IDarrive == A.getIDArrive() && ACharge_Utile == A.getCU()){
+bool Arc::operator==(Arc const &A) {
+  if (etiquette == A.etiquette && ID==A.ID && IDdepart == A.IDdepart && IDarrive == A.IDarrive && ACharge_Utile == A.ACharge_Utile){
     return true;
   }
 return false;
 }
 
-bool Arc::operator!=(Arc &A){
-
-  return false;
+bool Arc::operator!=(Arc const &A){
+  if (etiquette != A.etiquette || ID!=A.ID || IDdepart != A.IDdepart || IDarrive != A.IDarrive || ACharge_Utile != A.ACharge_Utile){
+    return true;
+  }
+return false;
 }
 
 Arc Arc::operator=(Arc &A1){
-  this->ID = A1.getID();
-  this->etiquette = A1.getEtiq();
-  this->IDdepart = A1.getIDDepart ();
-  this->IDarrive = A1.getIDArrive ();
-  this->ACharge_Utile = A1.getCU();
+  Arc A2 (A1.getEtiq(), A1.getID(),A1.getIDDepart (), A1.getIDArrive (), A1.getCU() );
+return A2;
+
+  // this->ID = A1.getID();
+  // this->etiquette = A1.getEtiq();
+  // this->IDdepart = A1.getIDDepart ();
+  // this->IDarrive = A1.getIDArrive ();
+  // this->ACharge_Utile = A1.getCU();
 }
