@@ -11,7 +11,7 @@ class Sommet {
     int y; // Coordonnées y
     int ID;  // pour le retrrouver
     String etiquette; // nom du sommet
-    vector <string, VectVal> SCharge_utile;
+    map <string, VectVal> SCharge_utile;
 
     public:
     Sommet(int posx, int posy, string etiq, int id, VectVal v);
@@ -25,7 +25,7 @@ class Sommet {
     int getPosY();
     int getID();
     string getEtiq();
-    vector <string, VectVal> getCU();
+    map <string, VectVal> getCU();
 
     void setPosX(int x);
     void setPosY(int y);
