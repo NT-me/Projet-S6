@@ -70,29 +70,26 @@ TEST_CASE("anti-arbo","[Algorithmes]"){
 
 }
 
-TEST_CASE("","[Algorithmes]"){
+TEST_CASE("connexite","[Algorithmes]"){
 
 }
 
-TEST_CASE("","[Algorithmes]"){
+TEST_CASE("chaine eulerienne","[Algorithmes]"){
 
 }
 
-TEST_CASE("","[Algorithmes]"){
+TEST_CASE("chaine hamiltonienne","[Algorithmes]"){
 
 }
 
-TEST_CASE("","[Algorithmes]"){
+TEST_CASE("postier chinois","[Algorithmes]"){
 
 }
 
-TEST_CASE("","[Algorithmes]"){
+TEST_CASE("voyageur de commerce","[Algorithmes]"){
 
 }
 
-TEST_CASE("","[Algorithmes]"){
-
-}
 
 
 #endif
