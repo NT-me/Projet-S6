@@ -120,9 +120,9 @@ TEST_CASE ("Test de conversion en matrice d'incidence", "[Matrice]"){
 
   MA1.conversion_incidence();
 
-  Matrice MQ(3,3,4);
+  //Matrice MQ(3,3,4);
 
-  REQUIRE ((MQ.conversion_incidence() == -1));
+  // REQUIRE ((MQ.conversion_incidence() == -1));
   REQUIRE ((MA1 == MI1));
 
 }
@@ -138,9 +138,9 @@ TEST_CASE ("Test d'inversion de la matrice", "[Matrice]"){
   MAI1.modifTab(1,0,1);
   MAI1.modifTab(2,1,1);
 
-  MA1.inversion_Matrice();
 
-  REQUIRE((MA1 == MAI1));
+
+  REQUIRE((MA1.inversion_Matrice() == MAI1));
 
 }
 
@@ -187,7 +187,7 @@ TEST_CASE ("Test de la conversion en graphe", "[Matrice]"){
   G2 = MA1.conversionGraphe();
   G3 = MI1.conversionGraphe();
 
-  REQUIRE((G1 == G2 && G1 == G3));
+  REQUIRE((G1 == G2) && (G1 == G3));
 }
 
 TEST_CASE ("Test  de supression de ligne", "[Matrice]"){

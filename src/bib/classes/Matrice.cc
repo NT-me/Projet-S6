@@ -9,7 +9,7 @@ enum typeM{
   QUELCONQUE = 4
 };
 
-// Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
+ Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
 //   if(type == ADJACENCE){  // Matrice Adjacence
 //     this->type = type;
 //     int cmptV=G.getListe_Sommets().size();
@@ -50,7 +50,7 @@ enum typeM{
 //     this->taille_E = 0;
 //     this->type = type;
 //   }
-// }
+ }
 
 Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
   this->taille_V = tailleV;
@@ -78,6 +78,8 @@ Matrice::Matrice(Matrice &M){ // Construceur de copie d'une Matrice
   this->type = M.type;
   this->tab = M.tab;
 }
+
+Matrice::~Matrice(){}
 
 //Getters
 int Matrice::gettV(){return this->taille_V;}
@@ -244,34 +246,34 @@ int Matrice::modifTab(int x, int y, int n){ // Modifie la case [x][y]
 //
 // }
 
-// bool Matrice::operator==(Matrice & M1){
-//   if(
-//   (this->taille_E == M1.gettE())
-//   && (this->taille_V == M1.gettV())
-//   && (this->type == M1.getType())
-//   && (this->tab == M1.getTab())
-//   )
-//   return 1;
-//   else return 0;
-//
-//
-// }
-//
-// bool Matrice::operator!=(Matrice & M1){
-//   if(
-//      this->taille_E != M1.gettE()
-//   || this->taille_V != M1.gettV()
-//   || this->type != M1.getType()
-//   || this->tab != M1.getTab()
-//   )
-//   return 1;
-//   else return 0;
-//   }
-//
-//   Matrice Matrice::operator=(Matrice & M1){
-//   this->taille_E = M1.gettE();
-//   this->taille_V = M1.gettV();
-//   this->type = M1.getType();
-//   this->tab = M1.getTab();
-//   return *this;
-//   }
+bool Matrice::operator==(Matrice & M1){
+  if(
+  (this->taille_E == M1.gettE())
+  && (this->taille_V == M1.gettV())
+  && (this->type == M1.getType())
+  && (this->tab == M1.getTab())
+  )
+  return 1;
+  else return 0;
+
+
+}
+
+bool Matrice::operator!=(Matrice & M1){
+  if(
+     this->taille_E != M1.gettE()
+  || this->taille_V != M1.gettV()
+  || this->type != M1.getType()
+  || this->tab != M1.getTab()
+  )
+  return 1;
+  else return 0;
+  }
+
+  Matrice Matrice::operator=(Matrice & M1){
+  this->taille_E = M1.gettE();
+  this->taille_V = M1.gettV();
+  this->type = M1.getType();
+  this->tab = M1.getTab();
+  return *this;
+  }

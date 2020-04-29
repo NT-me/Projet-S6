@@ -9,32 +9,32 @@ Graphe::Graphe(string nom, vector<Sommet> listeS, vector<Arc> listeA, string pat
 }
 
 Graphe::Graphe(string nom){ // Création Graphe vide
-  // this->etiquette = nom;
-  // this->path = NULL;
+  this->etiquette = nom;
+  this->path = "\0";
 }
 
 Graphe::Graphe(Matrice& M){ // Création d'un Graphe via une matrice d'adjacence
-  // if(M.getType()!=0){
-  //   std::cout << "/*Mauvais type de Matrice */" << '\n';
-  //   this->etiquette ="ERROR_TYPEMATRICE"
-  // }
-  // else{
-  //   this->etiquette = "Graphe Adjacence";
-  //   int id = 0; //nombre d'arcs
-  //   for(int i=0; i<M.gettV(); i++){
-  //       this->liste_Sommets.push_back(Sommet(i)); // Création du Sommet avec son numéro
-  //   }
-  // res.push_back(liste_Sommets[id[i]]);
-  //   for(int i=0; i<M.gettV(); i++){   // ID Sommet entrant
-  //     for(int j=0; j<M.gettV(); j++){ // ID Sommet sortant
-  //       if(M.getTab()[i][j]){         // Si il existe un arc
-  //         this->liste_Arcs.push_back(Arc(id, i, j)); // Création d'un Arc entre i et j avec son id
-  //         id++; // On incrémente le nombre d'arc
-  //       }
-  //     }
-  //   }
-  // }
-  // this->path = NULL;
+  if(M.getType()!=0){
+    std::cout << "/*Mauvais type de Matrice */" << '\n';
+    this->etiquette ="ERROR_TYPEMATRICE";
+  }
+  else{
+    this->etiquette = "Graphe Adjacence";
+    int id = 0; //nombre d'arcs
+    for(int i=0; i<M.gettV(); i++){
+        this->liste_Sommets.push_back(Sommet(i)); // Création du Sommet avec son numéro
+    }
+  //res.push_back(liste_Sommets[id[i]]); //c'est quoi ça ?
+    for(int i=0; i<M.gettV(); i++){   // ID Sommet entrant
+      for(int j=0; j<M.gettV(); j++){ // ID Sommet sortant
+        if(M.getTab()[i][j]){         // Si il existe un arc
+          this->liste_Arcs.push_back(Arc(id, i, j)); // Création d'un Arc entre i et j avec son id
+          id++; // On incrémente le nombre d'arc
+        }
+      }
+    }
+  }
+  this->path = "\0";
 }
 
 Graphe::Graphe(Graphe& G){  // Constructeur de copie
@@ -64,16 +64,16 @@ Graphe::Graphe(vector<vector<int>> liste_voisin){
 
 // Getters
 
-string Graphe::getEtiq(){/*return etiquette;*/}
-vector<Arc> Graphe::getListe_Arcs(){/*return liste_Arcs;*/}
-vector<Sommet> Graphe::getListe_Sommets(){/*return liste_Sommets;*/}
-string Graphe::getPath(){/*return path;*/}
+string Graphe::getEtiq(){return etiquette;}
+vector<Arc> Graphe::getListe_Arcs(){return liste_Arcs;}
+vector<Sommet> Graphe::getListe_Sommets(){return liste_Sommets;}
+string Graphe::getPath(){return path;}
 
 // Setters
-void Graphe::setEtiq(string etiq){/*this->etiquette = etiq;*/}
-void Graphe::setListe_Arc(vector<Arc> LA){/*this->liste_Arcs = LA;*/}
-void Graphe::setListe_Sommet(vector<Sommet> LS){/*this->liste_Sommets = LS;*/}
-void Graphe::setPath(string p){/*this->path = p;*/}
+void Graphe::setEtiq(string etiq){this->etiquette = etiq;}
+void Graphe::setListe_Arc(vector<Arc> LA){this->liste_Arcs = LA;}
+void Graphe::setListe_Sommet(vector<Sommet> LS){this->liste_Sommets = LS;}
+void Graphe::setPath(string p){this->path = p;}
 
 // Méthodes
 Matrice Graphe::conversion_vers_Matrice_adj(){
