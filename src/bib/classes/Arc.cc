@@ -69,14 +69,11 @@ return false;
 
 Arc Arc::operator=(Arc const&A1){
 
-  this->ID = A1.getID();
-  this->etiquette = A1.getEtiq();
-  this->IDdepart = A1.getIDDepart ();
-  this->IDarrive = A1.getIDArrive ();
-  this->ACharge_Utile = A1.getCU();
+  this->ID = A1.ID;
+  this->etiquette = A1.etiquette;
+  this->IDdepart = A1.IDdepart;
+  this->IDarrive = A1.IDarrive;
+  this->ACharge_Utile = A1.ACharge_Utile;
 
-
-return *this;
-
-
+  return *this;
 }
