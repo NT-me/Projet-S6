@@ -50,8 +50,8 @@ enum typeM{
   INCIDENCE = 1,
   POIDS = 2,
   PARENT = 3,
-  QUELCONQUE = 4
-
+  QUELCONQUE = 4,
+  ADJCENCELMU = 5
 };
 
 #endif

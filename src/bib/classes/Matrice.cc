@@ -43,7 +43,7 @@ Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Gr
   }
 }
 
-Matrice::Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
+Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
   this->taille_V = tailleV;
   this->taille_E = 0;
   this->type = ADJACENCE;
@@ -71,19 +71,19 @@ Matrice::Matrice(Matrice &M){ // Construceur de copie d'une Matrice
 }
 
 //Getters
-int gettV(){return this->taille_V;}
-int gettE(){return this->taille_E;}
-int getType(){return this->type;}
-vector<vector <int>> getTab(){return this->tab;}
+int Matrice::gettV(){return this->taille_V;}
+int Matrice::gettE(){return this->taille_E;}
+int Matrice::getType(){return this->type;}
+vector<vector <int>> Matrice::getTab(){return this->tab;}
 
 //Setters
-void setV(int v){this->taille_V = v;}
-void setE(int e){this->taille_E = e;}
-void setType(int type){this->type = type;}
-void setTab(vector<vector <int>> tab){this->tab=tab;}
+void Matrice::setV(int v){this->taille_V = v;}
+void Matrice::setE(int e){this->taille_E = e;}
+void Matrice::setType(int type){this->type = type;}
+void Matrice::setTab(vector<vector <int>> tab){this->tab=tab;}
 
 //Méthodes
-Matrice conversion_incidence(){
+Matrice Matrice::conversion_incidence(){
 //conversion d'une matrice d'adjacence en matrice d'incidence
   if(this->type == ADJACENCE){
     this->type = INCIDENCE;
@@ -116,9 +116,123 @@ Matrice conversion_incidence(){
   }
 }
 
-Matrice inversion_Matrice();
+Matrice Matrice::inversion_Matrice(){
+  Matrice res;
+  res->type = this->type;
+  res->taille_E = this->taille_E;
+  res->taille_V = this->taille_V;
+  if(this->type == ADJACENCE){
+    for(int i=0;i<this->taille_V;i++){
+      for(int j=0;j<this->taille_V;j++){
+        if(this->tab[i][j]==0)
+          res->tab[i][j]= 1 ;
+        else  res->tab[i][j]= 0 ;
 
-  bool Matrice::operator==(Matrice const& M1){
+      }
+    }
+
+  }
+  else{
+    for(int i=0;i<this->taille_V;i++){
+      for(int j=0;j<this->taille_E;j++){
+        if(this->tab[i][j]==0)
+          res->tab[i][j]= 1 ;
+        else  res->tab[i][j]= 0 ;
+      }
+    }
+  }
+}
+
+Graphe Matrice::conversionGraphe(){
+  Graphe res(this*);
+  return res;
+}
+
+int Matrice::Sommet_non_isole(){ // Cherche si un Sommet est isolé
+  if(this->type == ADJACENCE){ // Pour une matrice d'Adjacence
+    for(int i=0; i<this->taille_V;i++){
+      cmp = 0;
+      for(int j=0;j<this->taille_V;j++){
+        if(this->tab[i][j]){
+          cmp++;
+        }
+        if(this->tab[j][i]){
+          cmp++;
+        }
+      }
+      if(!cmp) return 0; // Sommet isolé
+    }
+  }
+  else{
+    for (int i=0; i<this->taille_V;i++){
+      cmp = 0;
+      for(int j=0; j<this->taille_E;j++){
+        if(this->tab[i][j]){
+          cmp++;
+        }
+      }
+      if(!cmp) return 0; // Sommet isolé
+    }
+  }
+  return 1; // Pas de sommet isolé
+
+}
+
+int Matrice::modifTab(int x, int y, int n){ // Modifie la case [x][y]
+  if(this->type==ADJACENCE){
+    if((x>=this->taille_V)||(x<0)||(y>=this->taille_V)||(y<0)){
+      // Cas d'erreur x ou y hors de la taille des Matrices
+      std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
+      return -1;
+    }
+    else{
+      this->tab[x][y]=n;
+      return 1;
+    }
+
+  }
+  else{
+    if((x>=this->taille_V)||(x<0)||(y>=this->taille_E)||(y<0)){
+      // Cas d'erreur x ou y hors de la taille des Matrices
+      std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
+      return -1;
+    }
+    else{
+      this->tab[x][y]=n;
+      return 1;
+    }
+  }
+}
+
+// void Matrice::supprLigne(int x){ // Suprimme une ligne
+//   // Matrice res();
+//
+//   if((x<0)||(x>this->taille_V)){
+//     std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
+//     std::cout << "/* Nothing happend */" << '\n';
+//   }
+//   else{
+//     if(this->type == ADJACENCE){
+//       this->type = QUELCONQUE;
+//       this->taille_E=this->taille_V;
+//       //this->taille_V--;
+//       for(int i=x;i<this->taille_V;i++){}
+//
+//     }
+//     else{
+//       this->type = QUELCONQUE;
+//
+//     }
+//
+//   }
+//
+// }
+//
+// void Matrice::supprCol(int y){ //supprime une colonne
+//
+// }
+
+bool Matrice::operator==(Matrice const& M1){
   if(
   this->taille_E == M1.gettE()
   && this->taille_V == M1.gettV()
@@ -127,12 +241,11 @@ Matrice inversion_Matrice();
   )
   return 1;
   else return 0;
-	  
-	  
-  }
-  
-  bool Matrice::operator!=(Matrice const& M1){return 1;}
-  Matrice Matrice::operator=(Matrice const& M1){
+
+
+}
+
+bool Matrice::operator!=(Matrice const& M1){
   if(
      this->taille_E != M1.gettE()
   || this->taille_V != M1.gettV()
@@ -142,9 +255,7 @@ Matrice inversion_Matrice();
   return 1;
   else return 0;
   }
-  
-  
-  
+
   Matrice Matrice::operator=(Matrice const& M1){
   this->taille_E = M1.gettE
   this->taille_V = M1.gettV
