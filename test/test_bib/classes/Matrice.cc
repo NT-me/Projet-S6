@@ -2,6 +2,22 @@
 #include "../../../libExt/catch.hpp"
 #include "../../../src/bib/classes/Matrice.hh"
 
+TEST_CASE ("Test des getters", "[Matrice]"){
+  Matrice MA1 (3,3,0);
+
+  SECTION ("Get tailleV"){
+    REQUIRE (MA1.gettV () == 3);
+  }
+  SECTION ("Get tailleE"){
+    REQUIRE (MA1.gettE () == 3);
+  }
+  SECTION ("Get type"){
+    REQUIRE (MA1.getType () == 0);
+  }
+  SECTION ("Get tab"){
+    // A faire
+  }
+}
 
 TEST_CASE ("Test des setters", "[Matrice]"){
   Matrice MA1 (3,3,0);
@@ -23,22 +39,7 @@ TEST_CASE ("Test des setters", "[Matrice]"){
   }
 }
 
-TEST_CASE ("Test des getters", "[Matrice]"){
-  Matrice MA1 (3,3,0);
 
-  SECTION ("Get tailleV"){
-    REQUIRE (MA1.gettV () == 3);
-  }
-  SECTION ("Get tailleE"){
-    REQUIRE (MA1.gettE () == 3);
-  }
-  SECTION ("Get type"){
-    REQUIRE (MA1.getType () == 0);
-  }
-  SECTION ("Get tab"){
-    // A faire
-  }
-}
 
 TEST_CASE("Test des constructeur de la classe", "[Matrice]" ){
 
@@ -73,7 +74,7 @@ TEST_CASE ("Test du destructeur de la classe", "[Matrice]"){
   // A faire
 }
 
-TEST_CASE("test modification d’une case","[matrice]"){
+TEST_CASE("test modification d’une case","[Matrice]"){
   Matrice MQ(3,3,4);
   MQ.modifTab(0,1,1);
   MQ.modifTab(1,2,1);
@@ -85,7 +86,7 @@ TEST_CASE("test modification d’une case","[matrice]"){
 
 }
 
-TEST_CASE ("Test de l'opérateur =", [matrice]){
+TEST_CASE ("Test de l'opérateur =", "[matrice]"){
   Matrice MI1 (1,3,1);
   Matrice MI2 (2,5,1);
   MI2 = MI1;
@@ -143,7 +144,7 @@ TEST_CASE ("Test d'inversion de la matrice", "[Matrice]"){
 
 }
 
-TEST_CASE ("test de sommet isolé d'un graphe", "[matrice]"){
+TEST_CASE ("test de sommet isolé d'un graphe", "[Matrice]"){
   Matrice MA1(3);
   MA1.modifTab(0,1,1);
   MA1.modifTab(1,2,1);
