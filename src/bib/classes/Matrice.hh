@@ -3,8 +3,10 @@
 
 #include <vector>
 #include "struct.hh"
-#include "Graphe.hh"
 #include "iostream"
+
+class Graphe;
+
 class Matrice {
 
 private:
@@ -45,12 +47,6 @@ public:
 
 
 
-enum typeM{
-  ADJACENCE = 0,
-  INCIDENCE = 1,
-  POIDS = 2,
-  PARENT = 3,
-  QUELCONQUE = 4
-};
+
 
 #endif

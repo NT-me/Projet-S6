@@ -1,4 +1,5 @@
 #include "Graphe.hh"
+#include "Matrice.hh"
 
 Graphe::Graphe(string nom, vector<Sommet> listeS, vector<Arc> listeA, string path){
   this->etiquette = nom;

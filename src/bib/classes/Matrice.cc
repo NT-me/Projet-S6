@@ -1,4 +1,13 @@
 #include "Matrice.hh"
+#include "Graphe.hh"
+
+enum typeM{
+  ADJACENCE = 0,
+  INCIDENCE = 1,
+  POIDS = 2,
+  PARENT = 3,
+  QUELCONQUE = 4
+};
 
 Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
   if(type == ADJACENCE){  // Matrice Adjacence

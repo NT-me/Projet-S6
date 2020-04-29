@@ -2,11 +2,11 @@
 
 
 // GETTERS DE LA CLASSE ARC
-int Arc::getID(){return ID;}
-string Arc::getEtiq(){return etiquette;}
-int Arc::getIDDepart(){return IDdepart;}
-int Arc::getIDArrive(){return IDarrive;}
-map <string,VectVal> Arc::getCU(){return ACharge_Utile;}
+int Arc::getID() const{return ID;}
+string Arc::getEtiq() const{return etiquette;}
+int Arc::getIDDepart() const{return IDdepart;}
+int Arc::getIDArrive() const{return IDarrive;}
+map <string,VectVal> Arc::getCU() const{return ACharge_Utile;}
 
 
 // SETTER DE LA CLASSE ARC
@@ -39,7 +39,7 @@ Arc::Arc(int id, int SDepart, int SArrive){
   IDarrive = SArrive;
 }
 
-Arc::Arc(Arc &A){
+Arc::Arc(Arc const&A){
   etiquette = A.getEtiq();
   ID = A.getID ();
   IDdepart = A.getIDDepart();
@@ -67,7 +67,7 @@ bool Arc::operator!=(Arc const &A){
 return false;
 }
 
-Arc Arc::operator=(Arc &A1){
+Arc Arc::operator=(Arc const&A1){
 
   this->ID = A1.getID();
   this->etiquette = A1.getEtiq();
