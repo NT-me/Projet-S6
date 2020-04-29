@@ -35,7 +35,7 @@ class Arc {
 
       bool operator==(Arc const&A);
       bool operator!=(Arc const&A);
-      void operator=(Arc&A);
+      Arc operator=(Arc&A);
 
 };
 

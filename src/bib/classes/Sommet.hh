@@ -41,7 +41,7 @@ class Sommet {
 
     bool operator==(Sommet const& S1);
     bool operator!=(Sommet const& S1);
-    void operator=(Sommet const& S1);
+    Sommet operator=(Sommet const& S1);
 
 };
 

@@ -116,7 +116,7 @@ bool Sommet::operator==(Sommet const & S1){
 bool Sommet::operator!=(Sommet const & S1){
   return (this->x != S1.x)||(this->vecArc != S1.vecArc)||(this->y != S1.y)||(this->ID != S1.ID)||(this->etiquette != S1.etiquette)||(this->SCharge_utile != S1.SCharge_utile);
 }
-void Sommet::operator=(Sommet const& S1){
+Sommet Sommet::operator=(Sommet const& S1){
   Sommet S(S1.x, S1.y, S1.etiquette, S1.ID, S1.SCharge_utile);
 
   this->x = S1.x;
@@ -125,5 +125,7 @@ void Sommet::operator=(Sommet const& S1){
   this->etiquette = S1.etiquette;
   this->vecArc = S1.vecArc;
   this->SCharge_utile = S1.SCharge_utile;
+
+  return *this;
   //return S;
 }
