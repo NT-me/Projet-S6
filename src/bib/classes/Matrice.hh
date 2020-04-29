@@ -4,7 +4,7 @@
 #include <vector>
 #include "struct.hh"
 #include "Graphe.hh"
-
+#include "iostream"
 class Matrice {
 
 private:
@@ -50,8 +50,7 @@ enum typeM{
   INCIDENCE = 1,
   POIDS = 2,
   PARENT = 3,
-  QUELCONQUE = 4,
-  ADJCENCELMU = 5
+  QUELCONQUE = 4
 };
 
 #endif

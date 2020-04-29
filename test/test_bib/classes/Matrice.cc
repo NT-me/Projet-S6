@@ -27,13 +27,13 @@ TEST_CASE ("Test des getters", "[Matrice]"){
   Matrice MA1 (3,3,0);
 
   SECTION ("Get tailleV"){
-    REQUIRE (MA1.gettV () == 3)
+    REQUIRE (MA1.gettV () == 3);
   }
   SECTION ("Get tailleE"){
-    REQUIRE (MA1.gettE () == 3)
+    REQUIRE (MA1.gettE () == 3);
   }
   SECTION ("Get type"){
-    REQUIRE (MA1.getType () == 0)
+    REQUIRE (MA1.getType () == 0);
   }
   SECTION ("Get tab"){
     // A faire
@@ -152,7 +152,7 @@ TEST_CASE ("test de sommet isolé d'un graphe", "[matrice]"){
   Matrice M2(3);
   M2.modifTab(1,0,1);
 
-  REQUIRE((MA1.Sommet_non_isole() == 1 && M2.Sommet_non_isole() == 0))
+  REQUIRE((MA1.Sommet_non_isole() == 1 && M2.Sommet_non_isole() == 0));
 
 
 }
@@ -172,7 +172,7 @@ TEST_CASE ("Test de la conversion en graphe", "[Matrice]"){
   MI1.modifTab(1,0,-1);
   MI1.modifTab(2,1,-1);
 
-  Graphe G1("testG1")
+  Graphe G1("testG1");
   G1.ajout_Sommet(0,0,0);
   G1.ajout_Sommet(1,20,20);
   G1.ajout_Sommet(2,0,30);
@@ -181,7 +181,7 @@ TEST_CASE ("Test de la conversion en graphe", "[Matrice]"){
   G1.ajout_Arc(2,0);
 
   Graphe G2("g2");
-  Graphe G3("g3")
+  Graphe G3("g3");
 
   G2 = MA1.conversionGraphe();
   G3 = MI1.conversionGraphe();
@@ -197,7 +197,7 @@ TEST_CASE ("Test  de supression de ligne", "[Matrice]"){
 
   MQ.supprLigne(1);
 
-  Matrice MQ2(2,3,4)
+  Matrice MQ2(2,3,4);
   MQ2.modifTab(0,1,1);
   MQ2.modifTab(1,0,1);
 
@@ -213,7 +213,7 @@ TEST_CASE ("Test de supression de colonne", "[Matrice]"){
 
   MQ.supprCol(1);
 
-  Matrice MQ3(3,2,4)
+  Matrice MQ3(3,2,4);
 
   MQ3.modifTab(1,1,1);
   MQ3.modifTab(2,0,1);
