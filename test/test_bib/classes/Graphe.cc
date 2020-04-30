@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch.hpp"
-#include "../../../src/bib/classes/Graphe.hh"
+#include "../../../src/bib/classes/GrapheMatrice.hh"
 
 // A FINIR
 TEST_CASE ("Test des setters", "[Graphe]"){
@@ -125,7 +125,7 @@ TEST_CASE("Test des constructeur de la classe", "[Graphe]" ){
       std::vector<Arc> LA; //Liste Arcs vide
 
       Matrice MA1(3); //Matrice Adjacence avec 3 Sommets 0 Arcs
-      Graphe G0(&MA1);
+      Graphe G0(MA1);
       REQUIRE(G0.getEtiq() == "Graphe Adjacence");
       REQUIRE(G0.getListe_Arcs() == LA);
       REQUIRE(G0.getListe_Sommets() == LS);
@@ -160,7 +160,7 @@ TEST_CASE ("Test de l'opérateur ==", "[Graphe]"){
 TEST_CASE ("Test de conversion en matrice d'adjacence et d'incidence", "[Graphe]"){
   /* GRAPHE G1*/
   std::vector<Sommet> listeS;
-  std::std::vector<Arc> listeA;
+  std::vector<Arc> listeA;
   listeS.push_back(Sommet(0));
   listeS.push_back(Sommet(1));
   listeS.push_back(Sommet(2));
@@ -171,7 +171,7 @@ TEST_CASE ("Test de conversion en matrice d'adjacence et d'incidence", "[Graphe]
 
   SECTION("Test de conversion en Matrice d'adjacence"){
     /*Matrice MA1*/
-    Matrice MA1 (3,3,0);
+    Matrice MA1 (3);
 
     REQUIRE(G1.conversion_vers_Matrice_adj() == MA1);
   }

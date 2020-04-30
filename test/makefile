@@ -169,12 +169,13 @@ test_bib_classes_Arc: clean
 	./OUTarc.o
 test_bib_classes_Graphe: clean
 	#Partie code
-	g++ ../src/bib/classes/Graphe.cc -c
+	g++ ../src/bib/classes/GrapheMatrice.cc -c
 	#Partie test
-	g++ Graphe.o test_bib/classes/Graphe.cc -o OUTgraphe.o
+	g++ GrapheMatrice.o test_bib/classes/Graphe.cc -o OUTgraphe.o
 	./OUTgraphe.o
 test_bib_classes_Matrice: clean
 	#Partie code
+	g++ ../src/bib/classes/Graphe.cc -c
 	g++ ../src/bib/classes/Matrice.cc -c
 	#Partie test
 	g++ Matrice.o test_bib/classes/Matrice.cc -o OUTmatrice.o
