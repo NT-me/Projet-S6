@@ -175,8 +175,7 @@ test_bib_classes_Graphe: clean
 	./OUTgraphe.o
 test_bib_classes_Matrice: clean
 	#Partie code
-	g++ ../src/bib/classes/Graphe.cc -c
-	g++ ../src/bib/classes/Matrice.cc -c
+	g++ ../src/bib/classes/GrapheMatrice.cc -c
 	#Partie test
 	g++ Matrice.o test_bib/classes/Matrice.cc -o OUTmatrice.o
 	./OUTmatrice.o
