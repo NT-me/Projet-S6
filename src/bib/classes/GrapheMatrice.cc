@@ -90,17 +90,47 @@ Matrice Graphe::conversion_vers_Matrice_inc(){
 vector<vector<int>>  Graphe::conversion_vers_listeDeVoisins(){
    std::vector<std::vector<int>> v(liste_Sommets.size());
    for(int i = 0; i<=liste_Arcs.size(); i++){
-     v[liste_Arcs[i].getIDDepart()].push_back(liste_Arcs[i].getIDArrive);
+     v[liste_Arcs[i].getIDDepart()].push_back(liste_Arcs[i].getIDArrive());
    }
    return v;
 }
 
 int Graphe::ajout_Sommet(int id, int posx, int posy){
-   this->liste_Sommets.push_back(Sommet(posx,posy,id,id));
+   this->liste_Sommets.push_back(Sommet(posx,posy,to_string(id),id));
 }
 
 int Graphe::supprimer_Sommet(int id){
-   this->liste_Sommets.erase(id); // Efface l'élément à la position donnée.
+  if(id>this->liste_Sommets.size()|| id<0){
+    std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
+    return -1;
+  }
+  //suppression du Sommet
+  this->liste_Sommets.erase(this->liste_Sommets.begin()+id); // Efface l'élément à la position donnée.
+  //Gestion des ids des sommets suivants
+  for(int i=id;i<this->liste_Sommets.size();i++){
+    this->liste_Sommets[i].setID(i);
+  }
+  //suppression de chaque arc contenant le Sommet id
+  for(int i=0;i<this->liste_Arcs.size();i++){
+    if((this->liste_Arcs[i].getIDDepart()==id) || (this->liste_Arcs[i].getIDArrive()==id)){
+      this->liste_Arcs.erase(this->liste_Arcs.begin()+i);
+      i--;
+
+    }
+  }
+
+  for(int i=0;i<this->liste_Arcs.size();i++){
+    //correction des id Arcs
+    this->liste_Arcs[i].setID(i);
+    //correction des ids depart et arrive dans chaque arc arc
+    if(this->liste_Arcs[i].getIDDepart()>id){
+      this->liste_Arcs[i].setIDDepart(this->liste_Arcs[i].getIDDepart()-1);
+    }
+    if(this->liste_Arcs[i].getIDArrive()>id){
+      this->liste_Arcs[i].setIDArrive(this->liste_Arcs[i].getIDArrive()-1);
+    }
+  }
+  return id;
 }
 
 int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
@@ -109,12 +139,21 @@ int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
 }
 
 int Graphe::supprimer_Arc(int id){
-   this->liste_Sommets.erase(id);
+  // this->liste_Sommets.erase(id);
+  if(id>this->liste_Arcs.size()|| id<0){
+    std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
+    return -1;
+  }
+  this->liste_Arcs.erase(this->liste_Arcs.begin()+id); // Efface l'élément à la position donnée.
+
+  for(int i=id;i<this->liste_Arcs.size();i++){
+    this->liste_Arcs[i].setID(i);
+  }
 }
 
 vector<Sommet> Graphe::getVecteurSommet(vector<int> id){
    std::vector<Sommet> res;
-   for (int i=0; i<=id.size(); i++()) {
+   for (int i=0; i<=id.size(); i++) {
      res.push_back(liste_Sommets[id[i]]);
    }
    return res;
@@ -122,39 +161,34 @@ vector<Sommet> Graphe::getVecteurSommet(vector<int> id){
 
 // Opérateurs
 bool Graphe::operator==(Graphe const& G1){
-	 if
-	 (
-	 this->etiquette == G1.getEtiq()
-	 & this->liste_Arcs == G1.liste_Arcs
-	 & this->liste_Sommets == G1.liste_Sommets
-	 & this->path == G1.path
-	 )
-
-	 { return 1; }
-
-	 else {return 0;}
+  bool res;
+  if(this->etiquette == G1.etiquette
+  && this->path == G1.path){
+    if(this->liste_Arcs.size()==G1.liste_Arcs.size()
+    &&this->liste_Sommets.size()==G1.liste_Sommets.size()){
+      for(int i =0;i<this->liste_Arcs.size();i++){
+        res = this->liste_Arcs[i]==G1.liste_Arcs[i];
+        if(res==0)return 0;
+      }
+      for(int i =0;i<this->liste_Sommets.size();i++){
+        res = this->liste_Sommets[i]==G1.liste_Sommets[i];
+        if(res==0)return 0;
+      }
+      return 1;
+    }
+   }
+   return 0;
 }
 
 bool Graphe::operator!=(Graphe const& G1){
-	 if
-	 (
-	 this->etiquette != G1.getEtiq()
-	 ||this->liste_Arcs != G1.liste_Arcs
-	 || this->liste_Sommets != G1.liste_Sommets
-	 || this->path != G1.path
-	 )
-
-	 { return 1; }
-
-	 else {return 0;}
-
+  return !(*this==G1);
 }
 
 void Graphe::operator=(Graphe const& G1){
    this->etiquette = G1.etiquette;
    this->liste_Arcs = G1.liste_Arcs;
-   this->getListe_Sommets = G1.liste_sommets;
-   this->getPath = G1.path;
+   this->liste_Sommets = G1.liste_Sommets;
+   this->path = G1.path;
 }
 
 
