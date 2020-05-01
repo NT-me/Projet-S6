@@ -1,12 +1,11 @@
-#include "../Arc.hh"
-#include "../Sommet.hh"
-#include "../Matrice.hh"
-#include "../Graphe.hh"
-#include "../Struct.hh"
+#include "../classes.hh"
 #include <utility>
 #include <iostream>
 #include <string.h>
 #include <vector.h>
+
+#ifndef HH_LISTE
+#define HH_LISTE
 
 pair<vector<vector<int>, vector<int>>> calcul_Bellman(Matrice M, Sommet S);
 
@@ -49,3 +48,5 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M);
 vector<int> postier_chinois(Matrice M);
 
 vector<int> voyageur_de_commerce(vector<int>, Matrice M);
+
+#endif
