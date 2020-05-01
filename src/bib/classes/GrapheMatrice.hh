@@ -69,7 +69,7 @@ public:
   Graphe(string nom, vector<Sommet> listeS, vector<Arc> listeA, string path);
   Graphe(string nom);
   Graphe(Matrice& M);
-  Graphe(Graphe& G);
+  Graphe(const Graphe& G);
   Graphe(vector<vector<int>> liste_voisin);
   ~Graphe();
 

@@ -37,7 +37,7 @@ Graphe::Graphe(Matrice& M){ // Création d'un Graphe via une matrice d'adjacence
   this->path = "\0";
 }
 
-Graphe::Graphe(Graphe& G){  // Constructeur de copie
+Graphe::Graphe(const Graphe& G){  // Constructeur de copie
   // this->etiquette = G.etiquette;
   // this->liste_Sommets = G.liste_Sommets;
   // this->liste_Arcs = G.liste_Arcs;
@@ -226,7 +226,7 @@ Matrice::Matrice(int tailleV, int tailleE, int t){ // Constructeur d'une matrice
   }
 }
 
-Matrice::Matrice(Matrice &M){ // Construceur de copie d'une Matrice
+Matrice::Matrice(const Matrice &M){ // Construceur de copie d'une Matrice
   this->taille_V = M.taille_V;
   this->taille_E = M.taille_E;
   this->type = M.type;
