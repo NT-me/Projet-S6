@@ -1,3 +1,4 @@
+
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch.hpp"
 #include "../../../src/bib/classes/GrapheMatrice.hh"
@@ -135,10 +136,18 @@ TEST_CASE("Test des constructeur de la classe", "[Graphe]" ){
   SECTION("Test du constructeur par copie"){
     Graphe G1("Bonjour");
     Graphe G2(G1);
-    REQUIRE(G1==G2);
+    REQUIRE(G1.getEtiq()==G2.getEtiq());
+    REQUIRE(G1.getListe_Arcs()==G2.getListe_Arcs());
+    REQUIRE(G1.getListe_Sommets()==G2.getListe_Sommets());
+    REQUIRE(G1.getPath()==G2.getPath());
   }
 //suite a revoir
   SECTION("Test du constructeur par Liste de Voisin"){
+    std::vector<std::vector<int>> LV;
+    LV.push_back({1});
+    LV.push_back({2});
+    LV.push_back({0});
+    Graphe GV(LV);
 
   }
 
