@@ -1,9 +1,14 @@
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch.hpp"
-#include "../../../src/bib/classes/Matrice.hh"
+#include "../../../src/bib/classes/GrapheMatrice.hh"
 
 TEST_CASE ("Test des getters", "[Matrice]"){
-  Matrice MA1 (3,3,0);
+  Matrice MA1 (3);
+  vector <vector<int>> v1;
+  v1.push_back({0,0,0});
+  v1.push_back({0,0,0});
+  v1.push_back({0,0,0});
+  
 
   SECTION ("Get tailleV"){
     REQUIRE (MA1.gettV () == 3);
@@ -15,13 +20,17 @@ TEST_CASE ("Test des getters", "[Matrice]"){
     REQUIRE (MA1.getType () == 0);
   }
   SECTION ("Get tab"){
-    // A faire
+    REQUIRE (MA1.getTab() == v1);
   }
 }
 
 TEST_CASE ("Test des setters", "[Matrice]"){
-  Matrice MA1 (3,3,0);
-
+  Matrice MA1 (3);
+ vector <vector<int>> v1;
+  v1.push_back({0,0,0});
+  v1.push_back({0,0,0});
+  v1.push_back({0,0,0});
+  
   SECTION ("Set tailleV"){
     MA1.setV (5);
     REQUIRE (MA1.gettV() == 5);
@@ -35,7 +44,8 @@ TEST_CASE ("Test des setters", "[Matrice]"){
     REQUIRE (MA1.getType() == 1);
   }
   SECTION ("Set tab"){
-    // A faire
+   MA1.setTab(v1)
+   REQUIRE (MA1.getTab() == v1);
   }
 }
 
@@ -44,6 +54,7 @@ TEST_CASE ("Test des setters", "[Matrice]"){
 TEST_CASE("Test des constructeur de la classe", "[Matrice]" ){
 
   SECTION ("Constructeur avec un graphe et un type"){
+	  
 
   }
 
@@ -71,7 +82,18 @@ TEST_CASE("Test des constructeur de la classe", "[Matrice]" ){
 }
 
 TEST_CASE ("Test du destructeur de la classe", "[Matrice]"){
-  // A faire
+  Matrice MS(3);
+  delete MS;
+  bool B;
+  if(MS == NUl)
+  {
+	  B = 1;
+  }
+  else
+  {
+	  B = 0:
+  }
+  REQUIRE(B == 1);
 }
 
 TEST_CASE("test modification d’une case","[Matrice]"){
