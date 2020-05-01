@@ -21,7 +21,7 @@ class Arc {
 			Arc(Arc const&a);
 			~Arc();
 
-			int getID() const; 
+			int getID() const;
 			string getEtiq() const;
 			int getIDDepart() const;
 			int getIDArrive() const;
@@ -33,7 +33,7 @@ class Arc {
 			void setIDArrive(int id);
 			void setCU(map <string, VectVal> CU);
 
-      bool operator==(Arc const&A);
+      bool operator==(Arc &A);
       bool operator!=(Arc const&A);
       Arc operator=(Arc const&A1);
 
