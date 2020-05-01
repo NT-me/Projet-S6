@@ -38,27 +38,30 @@ Graphe::Graphe(Matrice& M){ // Création d'un Graphe via une matrice d'adjacence
 }
 
 Graphe::Graphe(const Graphe& G){  // Constructeur de copie
-  // this->etiquette = G.etiquette;
-  // this->liste_Sommets = G.liste_Sommets;
-  // this->liste_Arcs = G.liste_Arcs;
-  // this->path = G.path;
+   this->etiquette = G.etiquette;
+   this->liste_Sommets = G.liste_Sommets;
+   this->liste_Arcs = G.liste_Arcs;
+   this->path = G.path;
 }
 
+// vérifier que l'id est pas négatif ==> aucun voisin
 Graphe::Graphe(vector<vector<int>> liste_voisin){
-//   int id = 0;
-//   this->etiquette = "Graphe liste_voisins"
-//   for(int i=0; i <= liste_voisin.size(); i++){
-//       this->liste_Sommets.push_back(Sommet(i)); // Création du Sommet avec son numéro
-//       for(int j=0; j<=liste_voisin[i].size(); j++){
-//           this->liste_Arcs.push_back(Arc(id, i, liste_voisin[i][j])); // Création d'un Arc entre i et j avec son id
-//           id++;
-//       }
-//   }
-//
-//   this->path = NULL;
-// }
-//
-// Graphe::~Graphe(){
+   int id = 0;
+   this->etiquette = "Graphe liste_voisins";
+   for(int i=0; i <= liste_voisin.size(); i++){
+       this->liste_Sommets.push_back(Sommet(i)); // Création du Sommet avec son numéro
+       for(int j=0; j<=liste_voisin[i].size(); j++){
+         if(liste_voisin[i][j]>=0){
+         this->liste_Arcs.push_back(Arc(id, i, liste_voisin[i][j])); // Création d'un Arc entre i et j avec son id
+           id++;
+         }
+       }
+   }
+
+   this->path = "\0";
+ }
+
+ Graphe::~Graphe(){
 
 }
 
@@ -77,81 +80,81 @@ void Graphe::setPath(string p){this->path = p;}
 
 // Méthodes
 Matrice Graphe::conversion_vers_Matrice_adj(){
-  // return matrice(this, 0);
+   return Matrice(*this, 0);
 }
 
 Matrice Graphe::conversion_vers_Matrice_inc(){
-  // return matrice(this, 1);
+   return Matrice(*this, 1);
 }
 
 vector<vector<int>>  Graphe::conversion_vers_listeDeVoisins(){
-  // std::vector<std::vector<int>> v(liste_Sommets.size());
-  // for(int i = 0; i<=liste_Arcs.size(); i++){
-  //   v[liste_Arcs[i].getIDDepart].push_back(liste_Arcs[i].getIDArrive);
-  // }
-  // return v;
+   std::vector<std::vector<int>> v(liste_Sommets.size());
+   for(int i = 0; i<=liste_Arcs.size(); i++){
+     v[liste_Arcs[i].getIDDepart()].push_back(liste_Arcs[i].getIDArrive);
+   }
+   return v;
 }
 
 int Graphe::ajout_Sommet(int id, int posx, int posy){
-  // this->liste_Sommets.push_back(Sommet(posx,posy,id,id));
+   this->liste_Sommets.push_back(Sommet(posx,posy,id,id));
 }
 
 int Graphe::supprimer_Sommet(int id){
-  // this->liste_Sommets.erase(id); // Efface l'élément à la position donnée.
+   this->liste_Sommets.erase(id); // Efface l'élément à la position donnée.
 }
 
 int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
-  // int id = this->liste_Arcs.size()+1;
-  // this->liste_Arcs.push_back(Arc(id,id_Sdepart,id_Sarrive));
+   int id = this->liste_Arcs.size()+1;
+   this->liste_Arcs.push_back(Arc(id,id_Sdepart,id_Sarrive));
 }
 
 int Graphe::supprimer_Arc(int id){
-  // this->liste_Sommets.erase(id);
+   this->liste_Sommets.erase(id);
 }
 
 vector<Sommet> Graphe::getVecteurSommet(vector<int> id){
-  // std::vector<Sommet> res;
-  // for (int i=0; i<=id.size(); i++()) {
-  //   res.push_back(liste_Sommets[id[i]]);
-  // }
-  // return res;
+   std::vector<Sommet> res;
+   for (int i=0; i<=id.size(); i++()) {
+     res.push_back(liste_Sommets[id[i]]);
+   }
+   return res;
 }
 
 // Opérateurs
 bool Graphe::operator==(Graphe const& G1){
-	// if
-	// (
-	// this->etiquette == G1.getEtiq()
-	// & this->liste_Arcs == G1.liste_Arcs
-	// & this->liste_Sommets == G1.liste_Sommets
-	// & this->path == G1.path
-	// )
-  //
-	// { return 1; }
-  //
-	// else {return 0;}
+	 if
+	 (
+	 this->etiquette == G1.getEtiq()
+	 & this->liste_Arcs == G1.liste_Arcs
+	 & this->liste_Sommets == G1.liste_Sommets
+	 & this->path == G1.path
+	 )
+
+	 { return 1; }
+
+	 else {return 0;}
 }
 
 bool Graphe::operator!=(Graphe const& G1){
-	// if
-	// (
-	// this->etiquette != G1.getEtiq()
-	// ||this->liste_Arcs != G1.liste_Arcs
-	// || this->liste_Sommets != G1.liste_Sommets
-	// || this->path != G1.path
-	// )
-  //
-	// { return 1; }
-  //
-	// else {return 0;}
+	 if
+	 (
+	 this->etiquette != G1.getEtiq()
+	 ||this->liste_Arcs != G1.liste_Arcs
+	 || this->liste_Sommets != G1.liste_Sommets
+	 || this->path != G1.path
+	 )
+
+	 { return 1; }
+
+	 else {return 0;}
 
 }
 
 void Graphe::operator=(Graphe const& G1){
-  // this->etiquette = G1.etiquette;
-  // this->liste_Arcs = G1.liste_Arcs;
-  // this->getListe_Sommets = G1.liste_sommets;
-  // this->getPath = G1.path;
+   this->etiquette = G1.etiquette;
+   this->liste_Arcs = G1.liste_Arcs;
+   this->getListe_Sommets = G1.liste_sommets;
+   this->getPath = G1.path;
 }
 
 
@@ -164,46 +167,46 @@ enum typeM{
 };
 
  Matrice::Matrice(Graphe G, int type){// Constructeur d'une matrice issue d'un Graphe
-//   if(type == ADJACENCE){  // Matrice Adjacence
-//     this->type = type;
-//     int cmptV=G.getListe_Sommets().size();
-//
-//     this->taille_V = cmptV;
-//     this->taille_E = -1;
-//
-//     this->tab.resize(cmptV);  // On redimensionne la Matrice
-//     for(int i=0;i<cmptV;i++){
-//       this->tab[i].resize(cmptV);
-//     }
-//     for(Arc x : G.getListe_Arcs()){//on met le poids dans la Matrice
-//       this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids").valeur_entiere;
-//     }
-//
-//   }
-//   else if(type == INCIDENCE){ // Matrice incidence
-//     this->type = type;
-//     int cmptV=G.getListe_Sommets().size(),
-//         cmptE=G.getListe_Arcs().size();
-//
-//
-//     this->taille_V = cmptV;
-//     this->taille_E = cmptE;
-//
-//     this->tab.resize(cmptV);  //on redimensionne la Matrice
-//     for(int i=0;i<cmptV;i++){
-//       this->tab[i].resize(cmptE);
-//     }
-//     for(Arc x : G.getListe_Arcs()){
-//       this->tab[x.getIDDepart()][x.getID()]=1;
-//       this->tab[x.getIDArrive()][x.getID()]=-1;
-//     }
-//   }
-//   else{ //erreur création d'une Matrice vide
-//     std::cout << "/* Mauvais type de Matrice */" << '\n';
-//     this->taille_V = 0;
-//     this->taille_E = 0;
-//     this->type = type;
-//   }
+   if(type == ADJACENCE){  // Matrice Adjacence
+     this->type = type;
+     int cmptV=G.getListe_Sommets().size();
+
+     this->taille_V = cmptV;
+     this->taille_E = -1;
+
+     this->tab.resize(cmptV);  // On redimensionne la Matrice
+     for(int i=0;i<cmptV;i++){
+       this->tab[i].resize(cmptV);
+     }
+     for(Arc x : G.getListe_Arcs()){//on met le poids dans la Matrice
+       this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids").valeur_entiere;
+     }
+
+   }
+   else if(type == INCIDENCE){ // Matrice incidence
+     this->type = type;
+     int cmptV=G.getListe_Sommets().size(),
+         cmptE=G.getListe_Arcs().size();
+
+
+     this->taille_V = cmptV;
+     this->taille_E = cmptE;
+
+     this->tab.resize(cmptV);  //on redimensionne la Matrice
+     for(int i=0;i<cmptV;i++){
+       this->tab[i].resize(cmptE);
+     }
+    for(Arc x : G.getListe_Arcs()){
+       this->tab[x.getIDDepart()][x.getID()]=1;
+       this->tab[x.getIDArrive()][x.getID()]=-1;
+    }
+   }
+   else{ //erreur création d'une Matrice vide
+     std::cout << "/* Mauvais type de Matrice */" << '\n';
+     this->taille_V = 0;
+     this->taille_E = 0;
+     this->type = type;
+   }
  }
 
 Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
