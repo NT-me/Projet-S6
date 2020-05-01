@@ -1,13 +1,15 @@
-#include "../classes.hh"
+#include "../classes/classes.hh"
 #include <utility>
 #include <iostream>
 #include <string.h>
-#include <vector.h>
+#include <vector>
 
 #ifndef HH_LISTE
 #define HH_LISTE
 
-pair<vector<vector<int>, vector<int>>> calcul_Bellman(Matrice M, Sommet S);
+using namespace std;
+
+pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S);
 
 pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M);
 

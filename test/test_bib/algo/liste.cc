@@ -7,9 +7,10 @@
 #define listeTest
 
 TEST_CASE("Calcul Bellman","[Algorithmes]"){
-vector<vector<int>> tab, R_A, R_F;
-vector<int> v_a, v_f;
-pair<vector<vector<int>, vector<int>>> res_F, res_A;
+vector<vector<int>> tab, R_A;
+
+pair<vector<vector<int>>, vector<int>> res_F, res_A;
+S0(0);
 
 vector<int> a{0,0,0};
 vector<int> b{1,0,0};
@@ -18,8 +19,16 @@ tab.push_back(a);
 tab.push_back(b);
 tab.push_back(c);
 
+
 Matrice M0(3);
 M0.setTab(tab);
+
+res_F = calcul_Bellman(M0, S0);
+
+vector<int> v_a{0,1,1}, v1{0}, v2{0,1}, v3{0,2};
+vector<vector<int>> g{v1,v2,v3};
+res_A.fisrt = g;
+res_A.second = v_a;
 
 REQUIRE(res_F == res_A);
 }

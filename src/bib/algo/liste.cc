@@ -1,6 +1,6 @@
 #include "liste.hh"
 
-pair<vector<vector<int>, vector<int>>> calcul_Bellman(Matrice M, Sommet S){}
+pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){}
 
 pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){}
 

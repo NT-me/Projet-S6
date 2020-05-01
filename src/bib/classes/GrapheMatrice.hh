@@ -19,7 +19,7 @@ public:
   Matrice(Graphe G, int type);
   Matrice(int tailleV);
   Matrice(int tailleV, int tailleE, int t);
-  Matrice(Matrice &M);
+  Matrice(const Matrice &M);
   ~Matrice();
   int gettV();
   int gettE();
