@@ -170,8 +170,10 @@ test_bib_classes_Arc: clean
 test_bib_classes_Graphe: clean
 	#Partie code
 	g++ ../src/bib/classes/GrapheMatrice.cc -c
+	g++ ../src/bib/classes/Arc.cc -c
+	g++ ../src/bib/classes/Sommet.cc -c
 	#Partie test
-	g++ GrapheMatrice.o test_bib/classes/Graphe.cc -o OUTgraphe.o
+	g++ Arc.o Sommet.o GrapheMatrice.o test_bib/classes/Graphe.cc -o OUTgraphe.o
 	./OUTgraphe.o
 test_bib_classes_Matrice: clean
 	#Partie code

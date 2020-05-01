@@ -92,7 +92,7 @@ public:
   int supprimer_Arc(int id);
   vector<Sommet> getVecteurSommet(vector<int> id);
 
-  bool operator==(Graphe const& G1);
+  bool const operator==(Graphe const& G1);
   bool operator!=(Graphe const& G1);
   //Graphe operator=(Graphe const& G1);
   void operator=(Graphe const& G1);
