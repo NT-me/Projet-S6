@@ -39,7 +39,7 @@ public:
   void supprLigne(int x);
   void supprCol(int y);
 
-  bool operator==(Matrice & M1);
+  bool operator==(Matrice const & M1)const;
   bool operator!=(Matrice & M1);
   Matrice operator=(Matrice & M1);
 

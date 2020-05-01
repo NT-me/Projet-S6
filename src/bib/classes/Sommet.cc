@@ -110,7 +110,7 @@ void Sommet::setCU(map <string, VectVal> S_CU){
   this->SCharge_utile = S_CU;
 }
 
-bool Sommet::operator==(Sommet const & S1){
+bool Sommet::operator==(Sommet const & S1)const{
   return (this->x == S1.x)&&(this->vecArc == S1.vecArc)&&(this->y == S1.y)&&(this->ID == S1.ID)&&(this->etiquette == S1.etiquette)&&(this->SCharge_utile == S1.SCharge_utile);
 }
 bool Sommet::operator!=(Sommet const & S1){

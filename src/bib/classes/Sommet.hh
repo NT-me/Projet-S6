@@ -39,7 +39,7 @@ class Sommet {
     void setVecArc(vector<int> v);
     void setCU(map <string, VectVal> S_CU);
 
-    bool operator==(Sommet const& S1);
+    bool operator==(Sommet const& S1)const;
     bool operator!=(Sommet const& S1);
     Sommet operator=(Sommet const& S1);
 

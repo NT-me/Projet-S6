@@ -437,12 +437,12 @@ int Matrice::modifTab(int x, int y, int n){ // Modifie la case [x][y]
 //
 // }
 
-bool Matrice::operator==(Matrice & M1){
+bool Matrice::operator==(Matrice const & M1)const{
   if(
-  (this->taille_E == M1.gettE())
-  && (this->taille_V == M1.gettV())
-  && (this->type == M1.getType())
-  && (this->tab == M1.getTab())
+  (this->taille_E == M1.taille_E)
+  && (this->taille_V == M1.taille_V)
+  && (this->type == M1.type)
+  && (this->tab == M1.tab)
   )
   return 1;
   else return 0;

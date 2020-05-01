@@ -53,7 +53,7 @@ Arc::~Arc(){
 
 
 // OPERATEUR DE LA CLASSE ARC
-bool Arc::operator==(Arc  &A) {
+bool Arc::operator==(Arc const &A) const {
   if (etiquette == A.etiquette && ID==A.ID && IDdepart == A.IDdepart && IDarrive == A.IDarrive && ACharge_Utile == A.ACharge_Utile){
     return true;
   }
