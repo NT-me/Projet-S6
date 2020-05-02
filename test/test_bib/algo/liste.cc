@@ -298,11 +298,37 @@ TEST_CASE("pert","[Algorithmes]"){
 }
 
 TEST_CASE("arbo","[Algorithmes]"){
+Matrice M0;
+M0.setTab({{0,1,1},
+          {0,0,0},
+          {0,0,0}})
 
+Graphe G("Retour attendu"), G_ret(M0);
+G.ajout_Sommet(0,0,0);
+G.ajout_Sommet(1,0,0);
+G.ajout_Sommet(2,0,0);
+
+G.ajout_Arc(0,1);
+G.ajout_Arc(0,2);
+
+REQUIRE(arborescence(G_ret) == G);
 }
 
 TEST_CASE("anti-arbo","[Algorithmes]"){
+  Matrice M0;
+  M0.setTab({{0,0,0},
+             {1,0,0},
+             {1,0,0}})
 
+  Graphe G("Retour attendu"), G_ret(M0);
+  G.ajout_Sommet(0,0,0);
+  G.ajout_Sommet(1,0,0);
+  G.ajout_Sommet(2,0,0);
+
+  G.ajout_Arc(0,1);
+  G.ajout_Arc(0,2);
+
+  REQUIRE(anti_arborescence(G_ret) == G);
 }
 
 TEST_CASE("connexite","[Algorithmes]"){
