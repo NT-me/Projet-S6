@@ -62,7 +62,16 @@ TEST_CASE("Calcul Floyd-Warshall","[Algorithmes]"){
 }
 
 TEST_CASE("liste floyd","[Algorithmes]"){
-
+  // Création de la matrice parent
+  Matrice pa(6, 6, 3);
+  vector<vector<int>> pa_m{{0,1,2,1,1,2}, {0,0,2,3,3,2}, {0,0,0,3,3,5}, {0,0,0,0,4,0}, {0,0,0,0,0,0}, {0,0,0,0,0,0}};
+  pa.setTab(pa_m);
+  //------------
+  // Création du vecteur attendu
+  vector<int> v_a{0,1,3,4}, v_f;
+  //------------
+  v_f = liste_floyd(pa, 0, 4);
+  REQUIRE(v_f == v_a);
 }
 
 TEST_CASE("calcul degres entrant","[Algorithmes]"){
