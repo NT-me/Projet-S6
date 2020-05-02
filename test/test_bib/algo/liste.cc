@@ -298,10 +298,10 @@ TEST_CASE("pert","[Algorithmes]"){
 }
 
 TEST_CASE("arbo","[Algorithmes]"){
-Matrice M0;
+Matrice M0(3);
 M0.setTab({{0,1,1},
           {0,0,0},
-          {0,0,0}})
+          {0,0,0}});
 
 Graphe G("Retour attendu"), G_ret(M0);
 G.ajout_Sommet(0,0,0);
@@ -313,10 +313,10 @@ G.ajout_Arc(0,2);
 
 REQUIRE(arborescence(G_ret) == G);
 
-Matrice M1;
+Matrice M1(3); // Matrice sans arbo
 M1.setTab({{0,0,0},
           {1,0,0},
-          {0,0,0}})
+          {0,0,0}});
 Graphe G_err(M1), Gerr_A("ERROR");
 //Gerr_A.setPath("ERROR"); A voir...
 
@@ -324,10 +324,10 @@ REQUIRE(arborescence(G_err) == Gerr_A);
 }
 
 TEST_CASE("anti-arbo","[Algorithmes]"){
-  Matrice M0;
+  Matrice M0(3);
   M0.setTab({{0,0,0},
              {1,0,0},
-             {1,0,0}})
+             {1,0,0}});
 
   Graphe G("Retour attendu"), G_ret(M0);
   G.ajout_Sommet(0,0,0);
@@ -339,10 +339,10 @@ TEST_CASE("anti-arbo","[Algorithmes]"){
 
   REQUIRE(anti_arborescence(G_ret) == G);
 
-  Matrice M1;
+  Matrice M1(3); //Matrice sans anti arbo
   M1.setTab({{0,0,0},
             {1,0,0},
-            {0,0,0}})
+            {0,0,0}});
   Graphe G_err(M1), Gerr_A("ERROR");
   //Gerr_A.setPath("ERROR"); A voir...
 
@@ -350,7 +350,18 @@ TEST_CASE("anti-arbo","[Algorithmes]"){
 }
 
 TEST_CASE("connexite","[Algorithmes]"){
+  Matrice M0(3); // Matrice connexe
+  M0.setTab({{0,0,0},
+             {1,0,0},
+             {1,0,0}});
 
+Matrice M1(3); // Matrice pas connexe
+M1.setTab({{0,0,0},
+           {1,0,0},
+           {0,0,0}});
+
+  REQUIRE(connexite(M0) == 1);
+  REQUIRE(connexite(M0_) == 0);
 }
 
 TEST_CASE("chaine eulerienne","[Algorithmes]"){
