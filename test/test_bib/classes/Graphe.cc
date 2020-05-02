@@ -240,7 +240,7 @@ TEST_CASE ("Test de l'opérateur =", "[Graphe]"){
 
      Graphe G0 ("Graphe G0", listeS, listeA, "/home/Desktop/");
      Graphe G1 (G0);
-              
+
     REQUIRE(G1.getEtiq()==G0.getEtiq());
     REQUIRE(G1.getPath()==G0.getPath());
 
@@ -248,7 +248,7 @@ TEST_CASE ("Test de l'opérateur =", "[Graphe]"){
     REQUIRE(G1.getListe_Arcs().size()==G0.getListe_Arcs().size());
 
     for(int i=0; i<G1.getListe_Sommets().size(); i++){
-        REQUIRE(G1.getListe_Sommets()[i]==G0.getListe_Sommets()[i]);  
+        REQUIRE(G1.getListe_Sommets()[i]==G0.getListe_Sommets()[i]);
     }
     for(int j=0; j<G1.getListe_Arcs().size(); j++){
             REQUIRE(G1.getListe_Arcs()[j]==G0.getListe_Arcs()[j]);
@@ -256,7 +256,14 @@ TEST_CASE ("Test de l'opérateur =", "[Graphe]"){
 }
 
 TEST_CASE ("Test de l'opérateur ==", "[Graphe]"){
-    // A faire
+    Graphe A("graphe");
+    A.ajout_Sommet(0,0,0);
+    A.ajout_Sommet(1,0,0);
+
+    A.ajout_Arc(0,1);
+    Graphe B(A);
+
+    REQUIRE(A == B);
 
 }
 

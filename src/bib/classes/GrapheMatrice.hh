@@ -42,7 +42,7 @@ public:
   bool operator==(Matrice const & M1)const;
   bool operator!=(Matrice & M1);
   Matrice operator=(Matrice const & M1);
-  
+
   void affiche_matrice();
 
 };
@@ -75,10 +75,10 @@ public:
   Graphe(vector<vector<int>> liste_voisin);
   ~Graphe();
 
-  string getEtiq();
-  vector<Arc> getListe_Arcs();
-  vector<Sommet> getListe_Sommets();
-  string getPath();
+  string getEtiq() const;
+  vector<Arc> getListe_Arcs() const;
+  vector<Sommet> getListe_Sommets() const;
+  string getPath() const;
 
   void setEtiq(string etiq);
   void setListe_Arc(vector<Arc> LA);
@@ -94,10 +94,10 @@ public:
   int supprimer_Arc(int id);
   vector<Sommet> getVecteurSommet(vector<int> id);
 
-  bool operator==(Graphe const& G1);
+  bool operator==(Graphe const& G1) const;
   bool operator!=(Graphe const& G1);
   //Graphe operator=(Graphe const& G1);
-  void operator=(Graphe const& G1);
+  Graphe operator=(Graphe const& G1);
 
 };
 

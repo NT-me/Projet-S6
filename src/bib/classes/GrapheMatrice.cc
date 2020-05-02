@@ -66,10 +66,10 @@ Graphe::Graphe(vector<vector<int>> liste_voisin){
 
 // Getters
 
-string Graphe::getEtiq(){return etiquette;}
-vector<Arc> Graphe::getListe_Arcs(){return liste_Arcs;}
-vector<Sommet> Graphe::getListe_Sommets(){return liste_Sommets;}
-string Graphe::getPath(){return path;}
+string Graphe::getEtiq()const{return etiquette;}
+vector<Arc> Graphe::getListe_Arcs()const{return liste_Arcs;}
+vector<Sommet> Graphe::getListe_Sommets()const{return liste_Sommets;}
+string Graphe::getPath()const{return path;}
 
 // Setters
 void Graphe::setEtiq(string etiq){this->etiquette = etiq;}
@@ -171,35 +171,37 @@ vector<Sommet> Graphe::getVecteurSommet(vector<int> id){
 }
 
 // Opérateurs
-bool Graphe::operator==(Graphe const& G1){
-  bool res;
-  if(this->etiquette == G1.etiquette
-  && this->path == G1.path){
-    if(this->liste_Arcs.size()==G1.liste_Arcs.size()
-    &&this->liste_Sommets.size()==G1.liste_Sommets.size()){
-      for(int i =0;i<this->liste_Arcs.size();i++){
-        res = this->liste_Arcs[i]==G1.liste_Arcs[i];
-        if(res==0)return 0;
-      }
-      for(int i =0;i<this->liste_Sommets.size();i++){
-        res = this->liste_Sommets[i]==G1.liste_Sommets[i];
-        if(res==0)return 0;
-      }
-      return 1;
-    }
-   }
-   return 0;
+bool Graphe::operator==(Graphe const & G1) const{
+  // bool res;
+  // if(this->etiquette == G1.etiquette
+  // && this->path == G1.path){
+  //   if(this->liste_Arcs.size()==G1.liste_Arcs.size()
+  //   &&this->liste_Sommets.size()==G1.liste_Sommets.size()){
+  //     for(int i =0;i<this->liste_Arcs.size();i++){
+  //       res = this->liste_Arcs[i]==G1.liste_Arcs[i];
+  //       if(res==0)return 0;
+  //     }
+  //     for(int i =0;i<this->liste_Sommets.size();i++){
+  //       res = this->liste_Sommets[i]==G1.liste_Sommets[i];
+  //       if(res==0)return 0;
+  //     }
+  //     return 1;
+  //   }
+  //  }
+  //  return 0;
+  return ((this->etiquette == G1.etiquette) && (this->liste_Arcs == G1.liste_Arcs) && (this->liste_Sommets == G1.liste_Sommets) && (this->path == G1.path));
 }
 
 bool Graphe::operator!=(Graphe const& G1){
   return !(*this==G1);
 }
 
-void Graphe::operator=(Graphe const& G1){
+Graphe Graphe::operator=(Graphe const& G1){
    this->etiquette = G1.etiquette;
    this->liste_Arcs = G1.liste_Arcs;
    this->liste_Sommets = G1.liste_Sommets;
    this->path = G1.path;
+   return *this;
 }
 
 
