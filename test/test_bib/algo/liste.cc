@@ -166,16 +166,129 @@ TEST_CASE("cliques","[Algorithmes]"){
  vector<vector<int>> v_a{{0,1,2}};
  REQUIRE(cliques_Graphe(MA1_) == v_a);
 
+
 }
 
 TEST_CASE("voisin sommet","[Algorithmes]"){
-
+  // Création de la matrice
+  Matrice MA1(3);
+  MA1.setTab({{0,1,0},
+              {0,0,1},
+              {1,0,0}});
+    //---------
+    vector<int> res_a{1};
+  REQUIRE(voisin_sommet(MA1, 0) == res_a);
 }
 
 TEST_CASE("gestion de flots","[Algorithmes]"){
+  // Création du graphe
+Graphe G3("G3");
+int idS0, idS1, idS2, idS3, idS4, idS5, idS6, idS7, idS8, idS9, idS10, idS11, idS12, idS13, idS14;
+G3.ajout_Sommet(0,0,0);
+G3.ajout_Sommet(1,0,0);
+G3.ajout_Sommet(2,0,0);
+G3.ajout_Sommet(3,0,0);
+G3.ajout_Sommet(4,0,0);
+G3.ajout_Sommet(5,0,0);
+G3.ajout_Sommet(6,0,0);
+G3.ajout_Sommet(7,0,0);
+
+idS0 = G3.ajout_Arc(0,1);
+idS1 = G3.ajout_Arc(0,2);
+idS2 = G3.ajout_Arc(0,6);
+idS3 = G3.ajout_Arc(1,2);
+idS4 = G3.ajout_Arc(1,3);
+idS5 = G3.ajout_Arc(1,4);
+idS6 = G3.ajout_Arc(2,3);
+idS7 = G3.ajout_Arc(3,4);
+idS8 = G3.ajout_Arc(3,5);
+idS9 = G3.ajout_Arc(3,6);
+idS10 = G3.ajout_Arc(4,2);
+idS11 = G3.ajout_Arc(4,5);
+idS12 = G3.ajout_Arc(4,7);
+idS13 = G3.ajout_Arc(5,7);
+idS14 = G3.ajout_Arc(6,7);
+
+VectVal VV0 {true, 30}, VV1 {true, 1},VV2 {true, 2},VV3 {true, 8},
+        VV4 {true, 11}, VV5 {true, 13},VV6 {true, 26},VV7 {true, 9},
+        VV8 {true, 8}, VV9 {true, 22}, VV10 {true, 2}, VV11 {true, 1},
+        VV12 {true, 7}, VV13 {true, 7}, VV14 {true, 27};
+
+map <string, VectVal> cu0, cu1, cu2, cu3, cu4, cu5, cu6, cu7, cu8, cu9, cu10, cu11,
+                      cu12, cu13, cu14;
+
+string flotName = "flot";
+cu0.insert(make_pair(flotName, VV0));
+cu1.insert(make_pair(flotName, VV1));
+cu2.insert(make_pair(flotName, VV2));
+cu3.insert(make_pair(flotName, VV3));
+cu4.insert(make_pair(flotName, VV4));
+cu5.insert(make_pair(flotName, VV5));
+cu6.insert(make_pair(flotName, VV6));
+cu7.insert(make_pair(flotName, VV7));
+cu8.insert(make_pair(flotName, VV8));
+cu9.insert(make_pair(flotName, VV9));
+cu10.insert(make_pair(flotName, VV10));
+cu11.insert(make_pair(flotName, VV11));
+cu12.insert(make_pair(flotName, VV12));
+cu13.insert(make_pair(flotName, VV13));
+cu14.insert(make_pair(flotName, VV14));
+
+vector<Arc> vArc;
+vArc = G3.getListe_Arcs();
+
+for (int banana = 0; banana < vArc.size();++banana){
+    if (vArc[banana].getID() == idS0){
+      vArc[banana].setCU(cu0);
+    }
+    if (vArc[banana].getID() == idS1){
+      vArc[banana].setCU(cu1);
+    }
+    if (vArc[banana].getID() == idS2){
+      vArc[banana].setCU(cu2);
+    }
+    if (vArc[banana].getID() == idS3){
+      vArc[banana].setCU(cu3);
+    }
+    if (vArc[banana].getID() == idS4){
+      vArc[banana].setCU(cu4);
+    }
+    if (vArc[banana].getID() == idS5){
+      vArc[banana].setCU(cu5);
+    }
+    if (vArc[banana].getID() == idS6){
+      vArc[banana].setCU(cu6);
+    }
+    if (vArc[banana].getID() == idS7){
+      vArc[banana].setCU(cu7);
+    }
+    if (vArc[banana].getID() == idS8){
+      vArc[banana].setCU(cu8);
+    }
+    if (vArc[banana].getID() == idS9){
+      vArc[banana].setCU(cu9);
+    }
+    if (vArc[banana].getID() == idS10){
+      vArc[banana].setCU(cu10);
+    }
+    if (vArc[banana].getID() == idS11){
+      vArc[banana].setCU(cu11);
+    }
+    if (vArc[banana].getID() == idS12){
+      vArc[banana].setCU(cu12);
+    }
+    if (vArc[banana].getID() == idS13){
+      vArc[banana].setCU(cu13);
+    }
+    if (vArc[banana].getID() == idS14){
+      vArc[banana].setCU(cu14);
+    }
+  }
+  G3.setListe_Arc(vArc);
+
+  REQUIRE(gestion_flots(G3, 0, 7) == 32);
 
 }
-
 TEST_CASE("calcul posterite","[Algorithmes]"){
 
 }
