@@ -136,6 +136,15 @@ int Graphe::supprimer_Sommet(int id){
 int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
    int id = this->liste_Arcs.size()+1;
    this->liste_Arcs.push_back(Arc(id,id_Sdepart,id_Sarrive));
+
+   vector <int> arc_sor;
+   for(int i = 0; i<this->liste_Sommets.size(); ++i){
+     if (liste_Sommets[i].getID() == id_Sdepart){
+       arc_sor = liste_Sommets[i].getVecArc();
+       arc_sor.push_back(id);
+       liste_Sommets[i].setVecArc(arc_sor);
+     }
+   }
    return id;
 }
 
@@ -413,19 +422,19 @@ int Matrice::modifTab(int x, int y, int n){ // Modifie la case [x][y]
 
 void Matrice::supprLigne(int x){ // Supprime une ligne
     Matrice res();
-	
+
     if((x<0)||(x>this->taille_V)){
 		std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
 		std::cout << "/* Nothing happend */" << '\n';
     }
-    
+
     else{
 		this->taille_V--;
 		this->tab.erase(tab.begin()+x);
-		
+
 		if(this->type == ADJACENCE || INCIDENCE)
 		this->type = QUELCONQUE;
-		
+
 
     }
 
@@ -433,7 +442,7 @@ void Matrice::supprLigne(int x){ // Supprime une ligne
 
  void Matrice::supprCol(int y){ //supprime une colonne
 	Matrice res();
-	
+
     if((y<0)||(y>this->taille_E)){
 		std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
 		std::cout << "/* Nothing happend */" << '\n';
@@ -486,7 +495,7 @@ bool Matrice::operator!=(Matrice & M1){
   }
 
 void Matrice::affiche_matrice(){
-	
+
 	for(int i = 0; i < this->taille_V; i++){
 		for(int j = 0; j < this->taille_E; j++){
 			cout << this->tab[i][j] << " ";
@@ -496,5 +505,5 @@ void Matrice::affiche_matrice(){
 	cout << "taille_V = "  << this->taille_V  << "\n";
 	cout << "taille_E = "  << this->taille_E  << "\n";
 	cout << "type = "  << this->type  << endl;
-	
+
 }
