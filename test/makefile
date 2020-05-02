@@ -248,9 +248,11 @@ test_bib_classes_Graphe: clean
 	./OUTgraphe.o
 test_bib_classes_Matrice: clean
 	#Partie code
+	g++ ../src/bib/classes/Arc.cc -c
 	g++ ../src/bib/classes/GrapheMatrice.cc -c
+	g++ ../src/bib/classes/Sommet.cc -c
 	#Partie test
-	g++ GrapheMatrice.o test_bib/classes/Matrice.cc -o OUTmatrice.o
+	g++ GrapheMatrice.o Arc.o Sommet.o test_bib/classes/Matrice.cc -o OUTmatrice.o
 	./OUTmatrice.o
 test_bib_classes_Sommet: clean
 	#Partie code

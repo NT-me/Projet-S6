@@ -21,10 +21,10 @@ public:
   Matrice(int tailleV, int tailleE, int t);
   Matrice(const Matrice &M);
   ~Matrice();
-  int gettV();
-  int gettE();
-  int getType();
-  vector<vector <int>> getTab();
+  int gettV()const;
+  int gettE()const;
+  int getType()const;
+  vector<vector <int>> getTab()const;
 
   void setV(int v);
   void setE(int e);
@@ -32,7 +32,7 @@ public:
   void setTab(vector<vector <int>> tab);
 
   Matrice conversion_incidence();
-  Matrice inversion_Matrice();
+  Matrice inversion_Matrice() const;
   Graphe conversionGraphe();
   int Sommet_non_isole();
   int modifTab(int x, int y, int n);
@@ -41,7 +41,9 @@ public:
 
   bool operator==(Matrice const & M1)const;
   bool operator!=(Matrice & M1);
-  Matrice operator=(Matrice & M1);
+  Matrice operator=(Matrice const & M1);
+  
+  void affiche_matrice();
 
 };
 

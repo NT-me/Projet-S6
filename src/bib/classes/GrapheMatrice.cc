@@ -273,10 +273,10 @@ Matrice::Matrice(const Matrice &M){ // Construceur de copie d'une Matrice
 Matrice::~Matrice(){}
 
 //Getters
-int Matrice::gettV(){return this->taille_V;}
-int Matrice::gettE(){return this->taille_E;}
-int Matrice::getType(){return this->type;}
-vector<vector <int>> Matrice::getTab(){return this->tab;}
+int Matrice::gettV()const{return this->taille_V;}
+int Matrice::gettE()const{return this->taille_E;}
+int Matrice::getType()const{return this->type;}
+vector<vector <int>> Matrice::getTab()const{return this->tab;}
 
 //Setters
 void Matrice::setV(int v){this->taille_V = v;}
@@ -313,12 +313,12 @@ Matrice Matrice::conversion_incidence(){
 
   }
   else{
-    std::cout << "/* Mauvaise conversion  */" << '\n';
+    std::cout << "/* Mauvaise type pour la conversion  */" << '\n';
     return *this;
   }
 }
 
-Matrice Matrice::inversion_Matrice(){
+Matrice Matrice::inversion_Matrice() const{
   Matrice res(*this);
   res.type = this->type;
   res.taille_E = this->taille_E;
@@ -409,33 +409,47 @@ int Matrice::modifTab(int x, int y, int n){ // Modifie la case [x][y]
   }
 }
 
-// void Matrice::supprLigne(int x){ // Suprimme une ligne
-//   // Matrice res();
-//
-//   if((x<0)||(x>this->taille_V)){
-//     std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
-//     std::cout << "/* Nothing happend */" << '\n';
-//   }
-//   else{
-//     if(this->type == ADJACENCE){
-//       this->type = QUELCONQUE;
-//       this->taille_E=this->taille_V;
-//       //this->taille_V--;
-//       for(int i=x;i<this->taille_V;i++){}
-//
-//     }
-//     else{
-//       this->type = QUELCONQUE;
-//
-//     }
-//
-//   }
-//
-// }
-//
-// void Matrice::supprCol(int y){ //supprime une colonne
-//
-// }
+void Matrice::supprLigne(int x){ // Supprime une ligne
+    Matrice res();
+	
+    if((x<0)||(x>this->taille_V)){
+		std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
+		std::cout << "/* Nothing happend */" << '\n';
+    }
+    
+    else{
+		this->taille_V--;
+		this->tab.erase(tab.begin()+x);
+		
+		if(this->type == ADJACENCE || INCIDENCE)
+		this->type = QUELCONQUE;
+		
+
+    }
+
+}
+
+ void Matrice::supprCol(int y){ //supprime une colonne
+	Matrice res();
+	
+    if((y<0)||(y>this->taille_E)){
+		std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
+		std::cout << "/* Nothing happend */" << '\n';
+    }
+    else{
+		if(this->type == ADJACENCE){
+			this->type = QUELCONQUE;
+			this->taille_E=this->taille_V;
+			this->taille_V--;
+			for(int i=y;i<this->taille_E;i++){}
+
+        }
+        else{
+		    this->type = QUELCONQUE;
+        }
+
+    }
+ }
 
 bool Matrice::operator==(Matrice const & M1)const{
   if(
@@ -461,10 +475,24 @@ bool Matrice::operator!=(Matrice & M1){
   else return 0;
   }
 
-  Matrice Matrice::operator=(Matrice & M1){
+  Matrice Matrice::operator=(Matrice const & M1){
   this->taille_E = M1.gettE();
   this->taille_V = M1.gettV();
   this->type = M1.getType();
   this->tab = M1.getTab();
   return *this;
   }
+
+void Matrice::affiche_matrice(){
+	
+	for(int i = 0; i < this->taille_V; i++){
+		for(int j = 0; j < this->taille_E; j++){
+			cout << this->tab[i][j] << " ";
+		}
+		cout << "\n" ;
+	}
+	cout << "taille_V = "  << this->taille_V  << "\n";
+	cout << "taille_E = "  << this->taille_E  << "\n";
+	cout << "type = "  << this->type  << endl;
+	
+}
