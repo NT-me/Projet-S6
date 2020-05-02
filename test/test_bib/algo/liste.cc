@@ -33,33 +33,32 @@ REQUIRE(res_F == res_A);
 }
 
 TEST_CASE("Calcul Floyd-Warshall","[Algorithmes]"){
-  // pair<Matrice, Matrice> p_f, p_a;
-  // Matrice po(6, 6, 2), pa(6, 6, 3);
-  // vector<vector<int>> po_m{{0,1,1,2,3,2}, {0,0,1,1,2,2}, {0,0,0,1,2,1}, {0,0,0,0,1,0}, {0,0,0,0,0,0}, {0,0,0,0,0,0}},
-  //                     pa_m{{0,1,2,1,1,2}, {0,0,2,3,3,2}, {0,0,0,3,3,5}, {0,0,0,0,4,0}, {0,0,0,0,0,0}, {0,0,0,0,0,0}};
-  //
-  // po.setTab(po_m);
-  // pa.setTab(pa_m);
-  // p_a.first = po;
-  // p_a.second = pa;
-  //
-  // // Création de la matrice M0
-  // vector<int> a{0,0,0};
-  // vector<int> b{1,0,0};
-  // vector<int> c{1,0,0};
-  // tab.push_back(a);
-  // tab.push_back(b);
-  // tab.push_back(c);
-  //
-  //
-  // Matrice M0(3);
-  // M0.setTab(tab);
-  // // ---------------------
-  //
-  // p_f = calcul_Floyd_Warshall(M0);
-  //
-  // REQUIRE(p_f == p_a);
+  Matrice po(6, 6, 2), pa(6, 6, 3);
+  vector<vector<int>> po_m{{0,1,1,2,3,2}, {0,0,1,1,2,2}, {0,0,0,1,2,1}, {0,0,0,0,1,0}, {0,0,0,0,0,0}, {0,0,0,0,0,0}},
+                      pa_m{{0,1,2,1,1,2}, {0,0,2,3,3,2}, {0,0,0,3,3,5}, {0,0,0,0,4,0}, {0,0,0,0,0,0}, {0,0,0,0,0,0}};
 
+  po.setTab(po_m);
+  pa.setTab(pa_m);
+  pair<Matrice, Matrice> p_a(po, pa);
+
+
+  // Création de la matrice M0
+  vector<vector<int>> tab;
+  vector<int> a{0,0,0};
+  vector<int> b{1,0,0};
+  vector<int> c{1,0,0};
+  tab.push_back(a);
+  tab.push_back(b);
+  tab.push_back(c);
+
+
+  Matrice M0(3);
+  M0.setTab(tab);
+  // ---------------------
+
+  pair<Matrice, Matrice> p_f (calcul_Floyd_Warshall(M0));
+
+  REQUIRE(p_f == p_a);
 }
 
 TEST_CASE("liste floyd","[Algorithmes]"){
