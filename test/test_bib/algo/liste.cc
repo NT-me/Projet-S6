@@ -72,6 +72,15 @@ TEST_CASE("liste floyd","[Algorithmes]"){
   //------------
   v_f = liste_floyd(pa, 0, 4);
   REQUIRE(v_f == v_a);
+
+  // Création d'une matrice PAS parent (pour tester le cas d'erreur)
+  Matrice pas_pa(6,5,4);
+  //------------
+  // Création du vecteur d'erreur attendu
+  vector<int> ERRv_a{-1};
+  //------------
+  v_f = liste_floyd(pas_pa, 0, 4);
+  REQUIRE(v_f == ERRv_a);
 }
 
 TEST_CASE("calcul degres entrant","[Algorithmes]"){
