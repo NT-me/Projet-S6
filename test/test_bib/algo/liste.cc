@@ -126,7 +126,18 @@ TEST_CASE("calcul degres entrant sortant","[Algorithmes]"){
 }
 
 TEST_CASE("coloration","[Algorithmes]"){
+  // Création du graphe
+Graphe G("G");
+G.ajout_Sommet(0,0,0);
+G.ajout_Sommet(1,0,0);
+G.ajout_Sommet(2,0,0);
 
+G.ajout_Arc(0,1);
+G.ajout_Arc(0,2);
+// -------------------
+vector<int> v_a{0,1,1};
+
+REQUIRE(coloration_Graphe(G) == v_a);
 }
 
 TEST_CASE("couleur adjacence","[Algorithmes]"){
