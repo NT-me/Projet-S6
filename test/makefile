@@ -11,6 +11,11 @@ clean:
 test_bib: test_bib_classes test_bib_algo
 ## TEST ALGO ===================================================================
 test_bib_algo:
+	# Partie code
+	g++ ../src/bib/algo/liste.cc
+	# Partie test
+	g++ liste.o test_bib/algo/liste.cc -o OUTliste.o
+	./OUTliste.o 
 test_bib_algo_calcul_Bellman: clean
 	# Partie code
 	g++ ../src/bib/algo/liste.cc
