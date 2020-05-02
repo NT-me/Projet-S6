@@ -250,7 +250,7 @@ test_bib_classes_Matrice: clean
 	#Partie code
 	g++ ../src/bib/classes/GrapheMatrice.cc -c
 	#Partie test
-	g++ Matrice.o test_bib/classes/Matrice.cc -o OUTmatrice.o
+	g++ GrapheMatrice.o test_bib/classes/Matrice.cc -o OUTmatrice.o
 	./OUTmatrice.o
 test_bib_classes_Sommet: clean
 	#Partie code
