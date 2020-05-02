@@ -145,10 +145,26 @@ TEST_CASE("couleur adjacence","[Algorithmes]"){
 }
 
 TEST_CASE("stables","[Algorithmes]"){
-
+  // Création de la matrice
+  Matrice MA1(3);
+  MA1.setTab({{0,1,0},
+              {0,0,1},
+              {1,0,0}});
+ //---------
+ vector<vector<int>> v_a{{0},{1,2}};
+ REQUIRE(stables_Graphe(MA1) == v_a);
 }
 
 TEST_CASE("cliques","[Algorithmes]"){
+  // Création de la matrice
+  Matrice MA1_(4);
+  MA1_.setTab({{0,1,0,0},
+               {0,0,1,0},
+               {1,0,0,1},
+               {0,0,0,0}});
+ //---------
+ vector<vector<int>> v_a{{0,1,2}};
+ REQUIRE(cliques_Graphe(MA1_) == v_a);
 
 }
 
