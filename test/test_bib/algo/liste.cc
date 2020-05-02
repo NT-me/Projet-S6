@@ -64,7 +64,12 @@ TEST_CASE("Calcul Floyd-Warshall","[Algorithmes]"){
 TEST_CASE("liste floyd","[Algorithmes]"){
   // Création de la matrice parent
   Matrice pa(6, 6, 3);
-  vector<vector<int>> pa_m{{0,1,2,1,1,2}, {0,0,2,3,3,2}, {0,0,0,3,3,5}, {0,0,0,0,4,0}, {0,0,0,0,0,0}, {0,0,0,0,0,0}};
+  vector<vector<int>> pa_m{{0,1,2,1,1,2},
+                           {0,0,2,3,3,2},
+                           {0,0,0,3,3,5},
+                           {0,0,0,0,4,0},
+                           {0,0,0,0,0,0},
+                           {0,0,0,0,0,0}};
   pa.setTab(pa_m);
   //------------
   // Création du vecteur attendu
@@ -84,15 +89,40 @@ TEST_CASE("liste floyd","[Algorithmes]"){
 }
 
 TEST_CASE("calcul degres entrant","[Algorithmes]"){
+ // Création de la matrice
+ Matrice MA1(3);
+ MA1.setTab({{0,1,0},
+             {0,0,1},
+             {1,0,0}});
+//---------
+  int i_f, i_a = 1;
+  i_f = calcul_degres_entrant(MA1, 1);
+  REQUIRE(i_f == i_a);
+
+  // Test de l'erreur sur une matrice non adj
+  Matrice ME(6,5,4);
+  REQUIRE(calcul_degres_entrant(ME, 1) == -1);
 
 }
 
 TEST_CASE("calcul degres sortant","[Algorithmes]"){
-
+  Sommet S(0);
+  S.setVecArc({1,2});
+  REQUIRE(calcul_degres_sortant(S) == S.getVecArc().size());
 }
 
 TEST_CASE("calcul degres entrant sortant","[Algorithmes]"){
-
+  // Création de la matrice
+  Matrice MA1(3);
+  MA1.setTab({{0,1,0},
+              {0,0,1},
+              {1,0,0}});
+ //---------
+ // Création du sommet
+ Sommet S(0);
+ S.setVecArc({0});
+ pair<int, int> p_a(1,1);
+ REQUIRE(calcul_degres_entrant_sortant(MA1, S) == p_a);
 }
 
 TEST_CASE("coloration","[Algorithmes]"){
