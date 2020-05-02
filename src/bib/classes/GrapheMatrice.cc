@@ -44,13 +44,12 @@ Graphe::Graphe(const Graphe& G){  // Constructeur de copie
    this->path = G.path;
 }
 
-// vérifier que l'id est pas négatif ==> aucun voisin
 Graphe::Graphe(vector<vector<int>> liste_voisin){
    int id = 0;
    this->etiquette = "Graphe liste_voisins";
-   for(int i=0; i <= liste_voisin.size(); i++){
+   for(int i=0; i < liste_voisin.size(); i++){
        this->liste_Sommets.push_back(Sommet(i)); // Création du Sommet avec son numéro
-       for(int j=0; j<=liste_voisin[i].size(); j++){
+       for(int j=0; j<liste_voisin[i].size(); j++){
          if(liste_voisin[i][j]>=0){
          this->liste_Arcs.push_back(Arc(id, i, liste_voisin[i][j])); // Création d'un Arc entre i et j avec son id
            id++;
@@ -89,7 +88,7 @@ Matrice Graphe::conversion_vers_Matrice_inc(){
 
 vector<vector<int>>  Graphe::conversion_vers_listeDeVoisins(){
    std::vector<std::vector<int>> v(liste_Sommets.size());
-   for(int i = 0; i<=liste_Arcs.size(); i++){
+   for(int i = 0; i<liste_Arcs.size(); i++){
      v[liste_Arcs[i].getIDDepart()].push_back(liste_Arcs[i].getIDArrive());
    }
    return v;
@@ -97,6 +96,7 @@ vector<vector<int>>  Graphe::conversion_vers_listeDeVoisins(){
 
 int Graphe::ajout_Sommet(int id, int posx, int posy){
    this->liste_Sommets.push_back(Sommet(posx,posy,to_string(id),id));
+   return id;
 }
 
 int Graphe::supprimer_Sommet(int id){
@@ -136,6 +136,7 @@ int Graphe::supprimer_Sommet(int id){
 int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
    int id = this->liste_Arcs.size()+1;
    this->liste_Arcs.push_back(Arc(id,id_Sdepart,id_Sarrive));
+   return id;
 }
 
 int Graphe::supprimer_Arc(int id){
@@ -149,6 +150,7 @@ int Graphe::supprimer_Arc(int id){
   for(int i=id;i<this->liste_Arcs.size();i++){
     this->liste_Arcs[i].setID(i);
   }
+  return id;
 }
 
 vector<Sommet> Graphe::getVecteurSommet(vector<int> id){

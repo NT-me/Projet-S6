@@ -1,4 +1,5 @@
 
+#include <vector>
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch.hpp"
 #include "../../../src/bib/classes/GrapheMatrice.hh"
@@ -177,7 +178,6 @@ TEST_CASE("Test des constructeur de la classe", "[Graphe]" ){
     //  REQUIRE(G1.getPath() == "\0");
   }
 
-  //faire pour matrice d'incidence
 
   SECTION("Test du constructeur par copie"){
     Graphe G1("Bonjour");
@@ -195,13 +195,27 @@ TEST_CASE("Test des constructeur de la classe", "[Graphe]" ){
     }
 
   }
-//suite a revoir
+
   SECTION("Test du constructeur par Liste de Voisin"){
-    // std::vector<std::vector<int>> LV;
-    // LV.push_back({1});
-    // LV.push_back({2});
-    // LV.push_back({0});
-    // Graphe GV(LV);
+     vector<vector<int>> LV(3);
+     LV[0].push_back({1});
+     LV[1].push_back({2});
+     LV[2].push_back({0});
+     Graphe G1(LV);
+
+     REQUIRE(G1.getEtiq() == "Graphe liste_voisins");
+     REQUIRE(G1.getPath() == "\0");
+
+     REQUIRE(G1.getListe_Sommets().size()==3);
+     REQUIRE(G1.getListe_Arcs().size()==3);
+
+     REQUIRE(G1.getListe_Sommets()[0]==Sommet(0));
+     REQUIRE(G1.getListe_Sommets()[1]==Sommet(1));
+     REQUIRE(G1.getListe_Sommets()[2]==Sommet(2));
+
+     REQUIRE(G1.getListe_Arcs()[0]==Arc(0, 0, 1));
+     REQUIRE(G1.getListe_Arcs()[1]==Arc(1, 1, 2));
+     REQUIRE(G1.getListe_Arcs()[2]==Arc(2, 2, 0));
 
   }
 
@@ -213,15 +227,42 @@ TEST_CASE ("Test du destructeur de la classe", "[Graphe]"){ // A FAIRE
 }
 
 TEST_CASE ("Test de l'opérateur =", "[Graphe]"){
+     vector<Sommet> listeS;
+     vector<Arc> listeA;
 
+     listeS.push_back(Sommet(0));
+     listeS.push_back(Sommet(1));
+     listeS.push_back(Sommet(2));
+
+     listeA.push_back(Arc(0, 0, 1));
+     listeA.push_back(Arc(1, 1, 2));
+     listeA.push_back(Arc(2, 2, 0));
+
+     Graphe G0 ("Graphe G0", listeS, listeA, "/home/Desktop/");
+     Graphe G1 (G0);
+              
+    REQUIRE(G1.getEtiq()==G0.getEtiq());
+    REQUIRE(G1.getPath()==G0.getPath());
+
+    REQUIRE(G1.getListe_Sommets().size()==G0.getListe_Sommets().size());
+    REQUIRE(G1.getListe_Arcs().size()==G0.getListe_Arcs().size());
+
+    for(int i=0; i<G1.getListe_Sommets().size(); i++){
+        REQUIRE(G1.getListe_Sommets()[i]==G0.getListe_Sommets()[i]);  
+    }
+    for(int j=0; j<G1.getListe_Arcs().size(); j++){
+            REQUIRE(G1.getListe_Arcs()[j]==G0.getListe_Arcs()[j]);
+        }
 }
 
 TEST_CASE ("Test de l'opérateur ==", "[Graphe]"){
+    // A faire
 
 }
 
+// A finir
 TEST_CASE ("Test de conversion en matrice d'adjacence et d'incidence", "[Graphe]"){
-  /* GRAPHE G1*/
+  // GRAPHE G1
   std::vector<Sommet> listeS;
   std::vector<Arc> listeA;
   listeS.push_back(Sommet(0));
@@ -233,24 +274,36 @@ TEST_CASE ("Test de conversion en matrice d'adjacence et d'incidence", "[Graphe]
   Graphe G1("Graphe0", listeS, listeA, "NULL");
 
   SECTION("Test de conversion en Matrice d'adjacence"){
-    /*Matrice MA1*/
+    //Matrice MA1
     Matrice MA1 (3);
+    MA1.modifTab(0, 1, 1);
+    MA1.modifTab(1, 2, 1);
+    MA1.modifTab(2, 0, 1);
 
     REQUIRE(G1.conversion_vers_Matrice_adj() == MA1);
   }
 
   SECTION("Test de conversion en Matrice d'incidence"){
-    /*Matrice MI*/
+    //Matrice MI
     Matrice MI1 (1,3,1);
+    MI1.modifTab(0, 0, 1);
+    MI1.modifTab(0, 2, -1);
+    MI1.modifTab(1, 0, -1);
+    MI1.modifTab(1, 1, 1);
+    MI1.modifTab(2, 1, -1);
+    MI1.modifTab(2, 2, 1);
+
 
     REQUIRE(G1.conversion_vers_Matrice_inc() == MI1);
   }
 }
 
+//A FAIRE
 TEST_CASE ("Test ajout de sommet", "[Graphe]"){
 
 }
 
+//A FAIRE
 TEST_CASE ("Test suprression de sommet", "[Graphe]"){
 
 }
@@ -284,7 +337,6 @@ TEST_CASE ("Test de suppression d'arc", "[Graphe]"){
   Graphe G1("Graphe1", listeS, listeA, "NULL");
 }
 
-// A FAIRE KILL ME PLIZ
 TEST_CASE ("Test de conversion en liste de voisin", "[Graphe]"){
   /*GRAPHE G0*/
   vector<Sommet> listeS;
@@ -292,9 +344,10 @@ TEST_CASE ("Test de conversion en liste de voisin", "[Graphe]"){
   listeS.push_back(Sommet(0));
   listeS.push_back(Sommet(1));
   listeS.push_back(Sommet(2));
-  listeS.push_back(Sommet(5));
   listeS.push_back(Sommet(3));
   listeS.push_back(Sommet(4));
+  listeS.push_back(Sommet(5));
+
   listeA.push_back(Arc(0,listeS[1].getID(),listeS[2].getID()));
   listeA.push_back(Arc(1,listeS[0].getID(),listeS[1].getID()));
   listeA.push_back(Arc(2,listeS[0].getID(),listeS[2].getID()));
@@ -303,8 +356,22 @@ TEST_CASE ("Test de conversion en liste de voisin", "[Graphe]"){
   listeA.push_back(Arc(5,listeS[2].getID(),listeS[5].getID()));
   listeA.push_back(Arc(6,listeS[3].getID(),listeS[4].getID()));
   Graphe G0("Graphe0", listeS, listeA, "NULL");
-  vector<vector<int>> result;
-  // vecteur à initialiser
+  vector<vector<int>> result = G0.conversion_vers_listeDeVoisins();
 
-  REQUIRE(G0.conversion_vers_listeDeVoisins() == result);
+  REQUIRE(result.size() == 6);
+  REQUIRE(result[0].size() == 2);
+  REQUIRE(result[1].size() == 2);
+  REQUIRE(result[2].size() == 2);
+  REQUIRE(result[3].size() == 1);
+  REQUIRE(result[4].size() == 0);
+  REQUIRE(result[5].size() == 0);
+
+  REQUIRE(result[0][0] == 1);
+  REQUIRE(result[0][1] == 2);
+  REQUIRE(result[1][0] == 2);
+  REQUIRE(result[1][1] == 3);
+  REQUIRE(result[2][0] == 3);
+  REQUIRE(result[2][1] == 5);
+  REQUIRE(result[3][0] == 4);
+
 }
