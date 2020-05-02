@@ -361,15 +361,27 @@ M1.setTab({{0,0,0},
            {0,0,0}});
 
   REQUIRE(connexite(M0) == 1);
-  REQUIRE(connexite(M0_) == 0);
+  REQUIRE(connexite(M1) == 0);
 }
 
 TEST_CASE("chaine eulerienne","[Algorithmes]"){
+Matrice MA1(3);
+MA1.setTab({{0,1,0},
+            {0,0,1},
+            {1,0,0}});
 
+vector<vector<int>> v_a{{0,1,2}}; //{1,2,0},{2,0,1} A ajouter si on compte TOUS les cas même ceux qui sont juste des réagenemnts du premier
+REQUIRE(chaine_eulerienne(MA1) == v_a);
 }
 
 TEST_CASE("chaine hamiltonienne","[Algorithmes]"){
+  Matrice MA1(3);
+  MA1.setTab({{0,1,0},
+              {0,0,1},
+              {1,0,0}});
 
+  vector<vector<int>> v_a{{0,1,2,0}}; // {1,2,0,1}, {2,0,1,2}
+  REQUIRE(chaine_hamiltonienne(MA1) == v_a);
 }
 
 TEST_CASE("postier chinois","[Algorithmes]"){
