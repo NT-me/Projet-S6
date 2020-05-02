@@ -312,6 +312,15 @@ G.ajout_Arc(0,1);
 G.ajout_Arc(0,2);
 
 REQUIRE(arborescence(G_ret) == G);
+
+Matrice M1;
+M1.setTab({{0,0,0},
+          {1,0,0},
+          {0,0,0}})
+Graphe G_err(M1), Gerr_A("ERROR");
+//Gerr_A.setPath("ERROR"); A voir...
+
+REQUIRE(arborescence(G_err) == Gerr_A);
 }
 
 TEST_CASE("anti-arbo","[Algorithmes]"){
@@ -329,6 +338,15 @@ TEST_CASE("anti-arbo","[Algorithmes]"){
   G.ajout_Arc(0,2);
 
   REQUIRE(anti_arborescence(G_ret) == G);
+
+  Matrice M1;
+  M1.setTab({{0,0,0},
+            {1,0,0},
+            {0,0,0}})
+  Graphe G_err(M1), Gerr_A("ERROR");
+  //Gerr_A.setPath("ERROR"); A voir...
+
+  REQUIRE(anti_arborescence(G_err) == Gerr_A);
 }
 
 TEST_CASE("connexite","[Algorithmes]"){
