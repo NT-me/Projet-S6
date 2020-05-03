@@ -385,7 +385,13 @@ TEST_CASE("chaine hamiltonienne","[Algorithmes]"){
 }
 
 TEST_CASE("postier chinois","[Algorithmes]"){
+  Matrice MA1(3);
+  MA1.setTab({{0,1,0},
+              {0,0,1},
+              {1,0,0}});
 
+ vector<int> v_a{0,1,2};
+ REQUIRE(postier_chinois(MA1) == v_a);
 }
 
 TEST_CASE("voyageur de commerce","[Algorithmes]"){
