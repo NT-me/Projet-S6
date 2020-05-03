@@ -1,8 +1,8 @@
 #include <string.h>
-#include "../bib/Graphe.hh"
-#include "../bib/Sommet.hh"
-#include "../bib/Matrice.hh"
-#include "../bib/Arc.hh"
+
+#include "../../bib/classes/GrapheMatrice.hh"
+#include "../../bib/classes/Arc.hh"
+#include "../../bib/classes/Sommet.hh"
 
 int sauvegarde(String path = NULL, Graphe G);
 

@@ -266,6 +266,10 @@ test_bib_classes_Sommet: clean
 
 # TEST APP =====================================================================
 test_app_fichier: clean
+	#Partie code
+	g++ ../src/app/fichier/gestion_fichier.cc -c
+	#Partie test
+	g++ gestion_fichier.o test_app/fichier/gestion_fichier.cc -o OUTFichier.o
 
 test_app_GUI: clean
 #===============================================================================
