@@ -395,7 +395,13 @@ TEST_CASE("postier chinois","[Algorithmes]"){
 }
 
 TEST_CASE("voyageur de commerce","[Algorithmes]"){
+  Matrice MA1(3);
+  MA1.setTab({{0,1,0},
+              {0,0,1},
+              {1,0,0}});
 
+  vector<int> v_a{0,1,2}, v_f{0,1,2};
+  REQUIRE(voyageur_de_commerce(v_f, MA1) == v_a); 
 }
 
 
