@@ -23,7 +23,7 @@ pair<int, int> calcul_degres_entrant_sortant(Matrice M, Sommet S);
 
 vector<int> coloration_Graphe(Graphe G);
 
-int couleur_adjacente(Sommet S);
+pair<int, vector<int>> couleur_adjacente(Sommet S, vector<int> v, Matrice M);
 
 vector<vector<int>> stables_Graphe(Matrice M);
 
