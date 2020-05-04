@@ -1,26 +1,94 @@
 #include "liste.hh"
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
-  // int INFINI = 999999999;
+  vector<int> dist;
+  vector<int> file;
+  vector<int> pred;
+  vector<vector<int>> liste_res;
+  pair <vector<vector<int>>,vector<int>> res;
 
-  // vector<int> dist;
-  // vector<vector<int>> prev;
-  // dist.resize(M.gettV());
-  // for(int i=0;i<M.gettV();i++){
-  //     //M.getTab()[S.getID][i];//case i j du Tableau tab dans la Matrice M
-  //     // <<0>,<0,1>>,<0,1>
-  //     dist.push_back(INFINI);
-  // }
-  //
-  // dist[S.getID()] = 0;
-  //
-  // for(int i=0;i<M.gettV();i++){
-  //   for(int j=0;j<M.gettE();j++){
-  //     if(dist(i) > (dist(j) + M.getTab()[i][j]))
-  //   }
-  // }
+  if(M.getType()!=0){
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return res;
+  }
+  else{
+    for(int i=0;i<M.gettV();i++){
+        dist.push_back(INFINI);
+        pred.push_back({-1});
+     }
+     dist[S.getID()] = 0;
+
+    int cmpA = 0,cmpW = 0;
+    for(int i=0;i<M.gettV();i++){     // Nb Arcs
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j])
+        cmpA++;//renvoie le nombre d'arcs
+      }
+    }
+
+    file.push_back(S.getID());
+    while(file[0]!=-1 && cmpW<cmpA-1){ // Bellman (poids des chemins)
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[file[0]][j]!=0){
+          if(dist[j] > (dist[file[0]] + M.getTab()[file[0]][j])){
+            dist[j] = dist[file[0]] + M.getTab()[file[0]][j];
+            file.push_back(j);
+            pred[j] = file[0];
+          }
+        }
+      }
+      if(file.size()==1){
+        file[0]=-1;
+      }
+      else {
+        file.erase(file.begin());
+      }
+      cmpW++;
+    }
+    // Cycles négatifs
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[file[0]][j]!=0){
+          if(dist[j] > (dist[file[0]] + M.getTab()[file[0]][j])){
+            std::cout << "NEGATIVE CYCLE" << '\n';
+            return res;
+          }
+        }
+      }
+    }
+    // Liste prédécesseurs
+    for(int i=0;i<pred.size();i++){
+      if(pred[i] == -1){
+        liste_res.push_back({S.getID()});
+      }
+      else if(pred[i]==S.getID()){
+        liste_res.push_back({S.getID(),i});
+
+
+      }
+      else{
+        int j = i;
+        vector<int> tmp;
+        vector<int> tmp2;
+        while(j!=S.getID()){
+          tmp.push_back(j);
+          j = pred[j];
+        }
+        tmp.push_back(S.getID());
+        tmp2.resize(tmp.size());
+        for(int a=0;a<tmp.size();a++){  // Remet à l'endroit
+          tmp2[a] = tmp[tmp.size()-a-1];
+        }
+        liste_res.push_back(tmp2);
+      }
+    }
+
+    res.first = liste_res;
+    res.second = dist;
+    return res;
+  }
 }
-
+//################# FLOYD Warshall  ######################
 pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){
   //parcourt de la matrice d'adjacence
   if(M.getType()!=0){
@@ -35,7 +103,7 @@ pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){
     for(int i=0;i<M.gettV();i++){
       for(int j=0;j<M.gettV();j++){
         if(M.getTab()[i][j]!=0){
-          MP.modifTab(i,j,i);
+          MP.modifTab(i,j,j);
         }
         else
         MP.modifTab(i,j,-1);// il n'y a pas de parent direct
@@ -60,16 +128,13 @@ pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){
 
       }
     }
-    
-
-
     for (int k = 0; k < M.gettV();k++) {
       for (int i = 0; i < M.gettV(); i++) {
         for (int j = 0; j < M.gettV(); j++) {
         //  if(k!=j&&i!=j&&k!=i){
             if(MT.getTab()[i][j]> (MT.getTab()[i][k]+MT.getTab()[k][j])){
               MT.modifTab(i,j,MT.getTab()[i][k]+MT.getTab()[k][j]);
-              MP.modifTab(i,j,k);
+              MP.modifTab(i,j,MP.getTab()[i][k]);
             }
 
         //  }
@@ -81,7 +146,6 @@ pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){
     return res;
 
   }
-
 }
 
 vector<int> liste_floyd(Matrice Parent, int deb, int fin){
