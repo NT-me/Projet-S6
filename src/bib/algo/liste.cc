@@ -21,6 +21,7 @@ vector<int> coloration_Graphe(Graphe G){
     vector<pair<int, Sommet>> L;//vecteur qui contient les Sommets non colorés ainsi que le nb de voisins
     Matrice M(G, 0);
     map<string, VectVal> map;
+    pair<int, vector<int>> voisin;
     int s;
     VectVal v;
     v.type = 0;
@@ -39,12 +40,18 @@ vector<int> coloration_Graphe(Graphe G){
         for(int j=0; j<L.size(); j++){
             if(t.first >= L[j].first){
                 L.insert(L.begin()+j, t);
+                break;
+            }
+            if(L.size()-1){
+                L.push_back(t);
+                break;
             }
         }
     }
+
     // AJOUTER DANS LE GRAPHE LA COULEUR
 
-  /*  res[L[0].second.getID()] = 1;
+    res[L[0].second.getID()] = 1;
     L.erase(L.begin());
     map = G.getListe_Sommets()[0].getCU();
     map.insert(pair<string, VectVal>("couleur", v));
@@ -53,26 +60,40 @@ vector<int> coloration_Graphe(Graphe G){
     while (L.size()>0) {
         //choix du sommet a colorer
         s=0;
+        voisin = couleur_adjacente(L[s].second.getID(), res, M);
         for(int i=1; i<L.size(); i++){
-            if(couleur_adjacente(L[s]) < couleur_adjacente(L[i])){
+            if(voisin.first < couleur_adjacente(L[i].second.getID(), res, M).first){
                 s=i;
+                voisin = couleur_adjacente(L[i].second.getID(), res, M);
             }
-            if(DSAT(L[s]) == DSAT(L[i])){
+            else{
+                if(voisin.first == couleur_adjacente(L[i].second.getID(), res, M).first){
                 if(L[s].first < L[i].first){
                     s=i;
+                    voisin = couleur_adjacente(L[i].second.getID(), res, M);
                 }
             }
+            }
+            
         }
         //coloration du sommet
         while (res[L[s].second.getID()] == 0) {
-            //trouver la plus petite couleur
-            //parcours de la matrice pour trouver les voisins mise dans un vecteur?
-            //puis comparaison avec L?
+            v.valeur_entiere = 1;
+            for(int i=0; i<voisin.second.size(); i++){
+                if(v.valeur_entiere<voisin.second[i]){
+                    res[L[s].second.getID()] = v.valeur_entiere;
+                    map = G.getListe_Sommets()[s].getCU();
+                    map.insert(pair<string, VectVal>("couleur", v));
+                    G.getListe_Sommets()[s].setCU(map);
+                }
+            }
 
         }
         //suppression du sommet de la liste des sommets non colorés
         L.erase(L.begin()+s);
-    }*/
+    }
+
+    return res;
 }
 
 pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
@@ -82,14 +103,16 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
         if(i!=id){
             if(M.getTab()[id][i]==1){
                 for(int j=0; j<res.size(); j++){
-                    if(res[j]>=v[i]){
+                    if(res[j]<v[i]){
                         res.insert(res.begin()+j, v[i]);
-                        if(res[j]!=v[i]){
                             r++;
-                        }
                         break;
                     }
-                    if(j==res.size()){
+                    if(res[(j)==v[i]]){
+                        r++;
+                        break;
+                    }
+                    if(j==res.size()-1){
                         res.push_back(v[i]);
                         r++;
                         break;
@@ -99,14 +122,16 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
             else{
                 if(M.getTab()[i][id]==1){
                     for(int j=0; j<res.size(); j++){
-                     if(res[j]>=v[i]){
+                     if(res[j]<v[i]){
                         res.insert(res.begin()+j, v[i]);
-                        if(res[j]!=v[i]){
-                            r++;
-                        }
+                        r++;
                         break;
                     }
-                    if(j==res.size()){
+                    if(res[j]==v[i]){
+                        r++;
+                        break;
+                    }
+                    if(j==res.size()-1){
                         res.push_back(v[i]);
                         r++;
                         break;
