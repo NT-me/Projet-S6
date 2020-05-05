@@ -25,11 +25,17 @@ Graphe::Graphe(Matrice& M){ // Création d'un Graphe via une matrice d'adjacence
         this->liste_Sommets.push_back(Sommet(i)); // Création du Sommet avec son numéro
     }
   //res.push_back(liste_Sommets[id[i]]); //c'est quoi ça ?
-    for(int i=0; i<M.gettV(); i++){   // ID Sommet entrant
-      for(int j=0; j<M.gettV(); j++){ // ID Sommet sortant
-        if(M.getTab()[i][j]){         // Si il existe un arc
+    for(int i=0; i<M.gettV(); i++){   // ID Sommet depart
+      for(int j=0; j<M.gettV(); j++){ // ID Sommet arrivée
+        if(M.getTab()[i][j] == 1){         // Si il existe un arc
           this->liste_Arcs.push_back(Arc(id, i, j)); // Création d'un Arc entre i et j avec son id
-          id++; // On incrémente le nombre d'arc
+          vector <int> arc_sor;
+		  arc_sor = liste_Sommets[i].getVecArc();
+		  arc_sor.push_back(id);
+		  this->liste_Sommets[i].setVecArc(arc_sor);
+			
+		  
+        id++; // On incrémente le nombre d'arc
         }
       }
     }
@@ -134,7 +140,9 @@ int Graphe::supprimer_Sommet(int id){
 }
 
 int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
-   int id = this->liste_Arcs.size()+1;
+	
+   int id = this->liste_Arcs.size();
+	
    this->liste_Arcs.push_back(Arc(id,id_Sdepart,id_Sarrive));
 
    vector <int> arc_sor;
@@ -204,6 +212,20 @@ Graphe Graphe::operator=(Graphe const& G1){
    return *this;
 }
 
+void Graphe::affiche_graphe(){
+	cout << "etiquette = " << this->etiquette << endl;
+	cout << "path = " << this->path << endl;
+	
+	for(int i = 0; i < this->liste_Sommets.size(); i++){
+		this->liste_Sommets[i].afficher_Sommet();
+	}
+	for(int i = 0; i < this->liste_Arcs.size(); i++){
+		this->liste_Arcs[i].afficher_Arc();
+	}
+	
+	
+	
+}
 
 enum typeM{
   ADJACENCE = 0,
@@ -219,14 +241,16 @@ enum typeM{
      int cmptV=G.getListe_Sommets().size();
 
      this->taille_V = cmptV;
-     this->taille_E = -1;
+     this->taille_E = this->taille_V;
 
      this->tab.resize(cmptV);  // On redimensionne la Matrice
      for(int i=0;i<cmptV;i++){
        this->tab[i].resize(cmptV);
      }
      for(Arc x : G.getListe_Arcs()){//on met le poids dans la Matrice
+	   if(x.getCU().empty() == false)
        this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids").valeur_entiere;
+       else this->tab[x.getIDDepart()][x.getIDArrive()] = 1;
      }
 
    }
@@ -244,8 +268,8 @@ enum typeM{
        this->tab[i].resize(cmptE);
      }
     for(Arc x : G.getListe_Arcs()){
-       this->tab[x.getIDDepart()][x.getID()]=1;
-       this->tab[x.getIDArrive()][x.getID()]=-1;
+       this->tab[x.getIDDepart()][x.getID()]=-1;
+       this->tab[x.getIDArrive()][x.getID()]=1;
     }
    }
    else{ //erreur création d'une Matrice vide
@@ -258,12 +282,15 @@ enum typeM{
 
 Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
   this->taille_V = tailleV;
-  this->taille_E = 0;
+  this->taille_E = tailleV;
   this->type = ADJACENCE;
   this->tab.resize(tailleV);  //on redimensionne la Matrice
   for(int i=0;i<tailleV;i++){
     this->tab[i].resize(tailleV);
   }
+  
+  
+  
 }
 
 Matrice::Matrice(int tailleV, int tailleE, int t){ // Constructeur d'une matrice autre vide
@@ -300,33 +327,29 @@ void Matrice::setTab(vector<vector <int>> tab){this->tab=tab;}
 //Méthodes
 Matrice Matrice::conversion_incidence(){
 //conversion d'une matrice d'adjacence en matrice d'incidence
-  if(this->type == ADJACENCE){
-    this->type = INCIDENCE;
-    int cmp=0;
-    for(int i=0;i<this->taille_E;i++){
-      for(int j=0;j<this->taille_V;j++){
-        if(this->tab[i][j])cmp++;
+   if(this->type == ADJACENCE){
+    vector<int> indices;
+    int c = 0;
+    
+    for(int i = 0 ;i<this->taille_E;i++){
+      for(int j = 0;j<this->taille_V;j++){
+        if(this->tab[i][j] > 0){
+			indices.push_back(i);
+			indices.push_back(j);
+			c += 2;
+		}
       }
     }
-
-    Matrice res(this->taille_V,cmp,INCIDENCE);
-    //a finir
-    cmp=0;
-    for(int i=0;i<this->taille_V;i++){
-      for(int j=0;j<this->taille_V;j++){
-        if(this->tab[i][j]){
-          res.tab[i][cmp] = 1; //arc sortant
-          res.tab[j][cmp] = -1; //arc entrant
-          cmp++;
-
+    Matrice res(this->taille_V,c/2,INCIDENCE);
+    for(int k=0;k<res.taille_E;k++){
+		res.tab[indices[k*2]][k] = -1;
+		res.tab[indices[k*2+1]][k] = 1;
         }
-      }
-    }
     return res;
 
   }
   else{
-    std::cout << "/* Mauvaise type pour la conversion  */" << '\n';
+    std::cout << "/* Mauvais type pour la conversion  */" << '\n';
     return *this;
   }
 }
@@ -336,18 +359,6 @@ Matrice Matrice::inversion_Matrice() const{
   res.type = this->type;
   res.taille_E = this->taille_E;
   res.taille_V = this->taille_V;
-  if(this->type == ADJACENCE){
-    for(int i=0;i<this->taille_V;i++){
-      for(int j=0;j<this->taille_V;j++){
-        if(this->tab[i][j]==0)
-          res.tab[i][j]= 1 ;
-        else  res.tab[i][j]= 0 ;
-
-      }
-    }
-
-  }
-  else{
     for(int i=0;i<this->taille_V;i++){
       for(int j=0;j<this->taille_E;j++){
         if(this->tab[i][j]==0)
@@ -355,7 +366,7 @@ Matrice Matrice::inversion_Matrice() const{
         else  res.tab[i][j]= 0 ;
       }
     }
-  }
+  
 
   return res;
 }
@@ -367,21 +378,7 @@ Graphe Matrice::conversionGraphe(){
 
 int Matrice::Sommet_non_isole(){ // Cherche si un Sommet est isolé
   int cmp;
-  if(this->type == ADJACENCE){ // Pour une matrice d'Adjacence
-    for(int i=0; i<this->taille_V;i++){
-      cmp = 0;
-      for(int j=0;j<this->taille_V;j++){
-        if(this->tab[i][j]){
-          cmp++;
-        }
-        if(this->tab[j][i]){
-          cmp++;
-        }
-      }
-      if(!cmp) return 0; // Sommet isolé
-    }
-  }
-  else{
+
     for (int i=0; i<this->taille_V;i++){
       cmp = 0;
       for(int j=0; j<this->taille_E;j++){
@@ -391,25 +388,13 @@ int Matrice::Sommet_non_isole(){ // Cherche si un Sommet est isolé
       }
       if(!cmp) return 0; // Sommet isolé
     }
-  }
+  
   return 1; // Pas de sommet isolé
 
 }
 
 int Matrice::modifTab(int x, int y, int n){ // Modifie la case [x][y]
-  if(this->type==ADJACENCE){
-    if((x>=this->taille_V)||(x<0)||(y>=this->taille_V)||(y<0)){
-      // Cas d'erreur x ou y hors de la taille des Matrices
-      std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
-      return -1;
-    }
-    else{
-      this->tab[x][y]=n;
-      return 1;
-    }
-
-  }
-  else{
+ 
     if((x>=this->taille_V)||(x<0)||(y>=this->taille_E)||(y<0)){
       // Cas d'erreur x ou y hors de la taille des Matrices
       std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
@@ -420,11 +405,9 @@ int Matrice::modifTab(int x, int y, int n){ // Modifie la case [x][y]
       return 1;
     }
   }
-}
+
 
 void Matrice::supprLigne(int x){ // Supprime une ligne
-    Matrice res();
-
     if((x<0)||(x>this->taille_V)){
 		std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
 		std::cout << "/* Nothing happend */" << '\n';
@@ -432,7 +415,7 @@ void Matrice::supprLigne(int x){ // Supprime une ligne
 
     else{
 		this->taille_V--;
-		this->tab.erase(tab.begin()+x);
+		this->tab.erase(this->tab.begin()+x);
 
 		if(this->type == ADJACENCE || INCIDENCE)
 		this->type = QUELCONQUE;
@@ -443,25 +426,24 @@ void Matrice::supprLigne(int x){ // Supprime une ligne
 }
 
  void Matrice::supprCol(int y){ //supprime une colonne
-	Matrice res();
-
     if((y<0)||(y>this->taille_E)){
 		std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
 		std::cout << "/* Nothing happend */" << '\n';
     }
-    else{
-		if(this->type == ADJACENCE){
-			this->type = QUELCONQUE;
-			this->taille_E=this->taille_V;
-			this->taille_V--;
-			for(int i=y;i<this->taille_E;i++){}
 
-        }
-        else{
-		    this->type = QUELCONQUE;
-        }
+    else{
+		this->taille_E--;
+		for(int i = 0; i<taille_V; i++){
+			
+			this->tab[i].erase(this->tab[i].begin()+y);
+		}
+
+		if(this->type == ADJACENCE || INCIDENCE)
+		this->type = QUELCONQUE;
+
 
     }
+
  }
 
 bool Matrice::operator==(Matrice const & M1)const{
@@ -493,6 +475,7 @@ bool Matrice::operator!=(Matrice & M1){
   this->taille_V = M1.gettV();
   this->type = M1.getType();
   this->tab = M1.getTab();
+  
   return *this;
   }
 
@@ -506,6 +489,6 @@ void Matrice::affiche_matrice(){
 	}
 	cout << "taille_V = "  << this->taille_V  << "\n";
 	cout << "taille_E = "  << this->taille_E  << "\n";
-	cout << "type = "  << this->type  << endl;
+	cout << "type = "  << this->type  << "\n" << endl;
 
 }

@@ -36,6 +36,7 @@ class Arc {
       bool operator==(Arc const&A) const;
       bool operator!=(Arc const&A);
       Arc operator=(Arc const&A1);
+      void afficher_Arc();
 
 };
 
