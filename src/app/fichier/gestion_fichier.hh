@@ -1,13 +1,12 @@
 #include <string.h>
+#include "../../bib/classes/classes.hh"
+#include "../../../libExt/rapidjson/document.h"
 
-#include "../../bib/classes/GrapheMatrice.hh"
-#include "../../bib/classes/Arc.hh"
-#include "../../bib/classes/Sommet.hh"
 
-int sauvegarde(String path = NULL, Graphe G);
+int sauvegarde(Graphe G, std::string path="NULL");
 
-Graphe chargement(String path);
+Graphe chargement(string path);
 
-bool verif_file(Document D);
+bool verif_file(rapidjson::Document D);
 
-int suppression(String path);
+int suppression(string path);
