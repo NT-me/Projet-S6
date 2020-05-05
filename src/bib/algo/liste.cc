@@ -1,4 +1,5 @@
 #include "liste.hh"
+#include <cstdio>
 #include <map>
 #include <string>
 #include <utility>
@@ -102,38 +103,15 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
     int r = 0;
     for (int i=0; i<M.gettV(); i++) {
         if(i!=id){
-            if(M.getTab()[id][i]==1 && v[i]!=0){
+            if(M.getTab()[id][i]==1 && v[i]!=-1){
                 if(res.empty()){
                     res.push_back(v[i]);
                     r++;
                     break;
                 }
-                for(int j=0; j<res.size(); j++){
-                    if(res[j]<v[i]){
-                        res.insert(res.begin()+j, v[i]);
-                        r++;
-                        break;
-                    }
-                    if(res[(j)==v[i]]){
-                        r++;
-                        break;
-                    }
-                    if(j==res.size()-1){
-                        res.push_back(v[i]);
-                        r++;
-                        break;
-                    }
-                }
-            }
-            else{
-                if(v[i]!=0 && M.getTab()[i][id]==1 ){
-                    if(res.empty()){
-                        res.push_back(v[i]);
-                        r++;
-                        break;
-                    }
+                else{
                     for(int j=0; j<res.size(); j++){
-                        if(res[j]<v[i]){
+                        if(res[j]>v[i]){
                             res.insert(res.begin()+j, v[i]);
                             r++;
                             break;
@@ -146,6 +124,32 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
                             res.push_back(v[i]);
                             r++;
                             break;
+                        }
+                }
+                }
+            }
+            else{
+                if(v[i]!=-1 && M.getTab()[i][id]==1 ){
+                    if(res.empty()){
+                        res.push_back(v[i]);
+                        r++;
+                    }
+                    else{
+                        for(int j=0; j<res.size(); j++){
+                            if(res[j]>v[i]){
+                                res.insert(res.begin()+j, v[i]);
+                                r++;
+                                break;
+                            }
+                            if(res[j]==v[i]){
+                                r++;
+                                break;
+                            }
+                            if(j==res.size()-1){
+                                res.push_back(v[i]);
+                                r++;
+                                break;
+                            }
                         }
                     }
                 }
