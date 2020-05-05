@@ -241,14 +241,16 @@ enum typeM{
      int cmptV=G.getListe_Sommets().size();
 
      this->taille_V = cmptV;
-     this->taille_E = -1;
+     this->taille_E = this->taille_V;
 
      this->tab.resize(cmptV);  // On redimensionne la Matrice
      for(int i=0;i<cmptV;i++){
        this->tab[i].resize(cmptV);
      }
      for(Arc x : G.getListe_Arcs()){//on met le poids dans la Matrice
+	   if(x.getCU().empty() == false)
        this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids").valeur_entiere;
+       else this->tab[x.getIDDepart()][x.getIDArrive()] = 1;
      }
 
    }
