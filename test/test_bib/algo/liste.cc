@@ -141,6 +141,26 @@ REQUIRE(coloration_Graphe(G) == v_a);
 }
 
 TEST_CASE("couleur adjacence","[Algorithmes]"){
+    int id = 3; 
+    Matrice M(4);
+    vector<int> v(4);
+    vector<int> tmp(2);
+    
+    M.modifTab(0, 1, 1);
+    M.modifTab(1, 3, 1);
+    M.modifTab(2, 1, 1);
+    M.modifTab(2, 3, 1);
+
+    v[1]=1;
+    v[2]=2;
+
+    tmp[0]=1;
+    tmp[1]=2;
+
+    pair<int, vector<int>> res = couleur_adjacente(id, v, M);
+
+    REQUIRE(res.first==2);
+    REQUIRE(res.second == tmp);
 
 }
 

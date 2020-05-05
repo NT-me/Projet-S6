@@ -97,7 +97,7 @@ test_bib_algo_couleur_adjacente: clean
 	g++ ../src/bib/algo/liste.cc -c
 	# Partie test
 	g++ GrapheMatrice.o Arc.o Sommet.o liste.o test_bib/algo/liste.cc -o OUTliste.o
-	./OUTliste.o "couleur adjacente"
+	./OUTliste.o "couleur adjacence"
 
 test_bib_algo_stables_Graphe: clean
 	# Partie code

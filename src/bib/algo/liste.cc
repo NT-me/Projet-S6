@@ -1,5 +1,6 @@
 #include "liste.hh"
 #include <map>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -99,13 +100,18 @@ vector<int> coloration_Graphe(Graphe G){
 pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
     vector<int> res;
     int r = 0;
-    for (int i=0; i<M.gettE(); i++) {
+    for (int i=0; i<M.gettV(); i++) {
         if(i!=id){
-            if(M.getTab()[id][i]==1){
+            if(M.getTab()[id][i]==1 && v[i]!=0){
+                if(res.empty()){
+                    res.push_back(v[i]);
+                    r++;
+                    break;
+                }
                 for(int j=0; j<res.size(); j++){
                     if(res[j]<v[i]){
                         res.insert(res.begin()+j, v[i]);
-                            r++;
+                        r++;
                         break;
                     }
                     if(res[(j)==v[i]]){
@@ -120,23 +126,28 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
                 }
             }
             else{
-                if(M.getTab()[i][id]==1){
-                    for(int j=0; j<res.size(); j++){
-                     if(res[j]<v[i]){
-                        res.insert(res.begin()+j, v[i]);
-                        r++;
-                        break;
-                    }
-                    if(res[j]==v[i]){
-                        r++;
-                        break;
-                    }
-                    if(j==res.size()-1){
+                if(v[i]!=0 && M.getTab()[i][id]==1 ){
+                    if(res.empty()){
                         res.push_back(v[i]);
                         r++;
                         break;
                     }
-                     }
+                    for(int j=0; j<res.size(); j++){
+                        if(res[j]<v[i]){
+                            res.insert(res.begin()+j, v[i]);
+                            r++;
+                            break;
+                        }
+                        if(res[j]==v[i]){
+                            r++;
+                            break;
+                        }
+                        if(j==res.size()-1){
+                            res.push_back(v[i]);
+                            r++;
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -153,9 +164,38 @@ vector<int> voisin_sommet(Matrice M, int ID){}
 
 int gestion_flots(Graphe G, int ID_source, int ID_puit){}
 
-vector<pert_row> calcul_posterite(vector<pert_row>){}
+vector<pert_row> calcul_posterite(vector<pert_row> v){}
 
-Graphe pert(vector<pert_row>){}
+Graphe pert(vector<pert_row> v){
+    Graphe G ("PERT");
+    vector<Sommet> ListeS;
+    vector<Arc> ListeA;
+    VectVal val; 
+    map<string, VectVal> mapS;
+    map<string, VectVal> mapA;
+
+    val.type = 0;
+    val.valeur_entiere = 0;
+
+    mapA.insert(pair<string, VectVal>("duree", val));
+    mapS.insert(pair<string, VectVal> ("date au plus tot", val));
+    ListeS.push_back(Sommet(100, 100, "Départ", 0, mapS));
+    for(int i=0; i<v.size(); i++){
+        if(v[i].taches_anterieures.empty()){
+            val.valeur_entiere = v[i].duree;
+            mapS["date au plus tot"] = val;
+            ListeS.push_back(Sommet(100, 100, "fin " + to_string(v[i].tache), ListeS.size(), mapS));
+            mapA["duree"]=val;
+            ListeA.push_back(Arc(v[i].nom_tache, v[i].tache, 0, ListeS.back().getID(), mapA));
+            v.erase(v.begin()+i);
+            i=i-1;
+        }
+    }
+    while (!v.empty()) {
+        
+    }
+
+}
 
 Graphe arborescence(Graphe G){}
 
