@@ -109,4 +109,118 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 
 vector<int> postier_chinois(Matrice M){}
 
-vector<int> voyageur_de_commerce(vector<int>, Matrice M){}
+vector<int> voyageur_de_commerce(vector<int>, Matrice M)
+{
+	if(M.getType()!=0)	//Test si c'est adj
+	{
+		return {-1};
+	}
+	
+	vector<vector <int>> T, L, Reg;
+	
+	int Reduc, Regretcol, Regretlig, SommeReduc;
+	
+	int i,j;
+	int x,y;
+	int max;
+	
+	//Test au cas ou valeur négative ?
+	
+	
+	
+	//Réduction de la matrice
+	for(i=0; i<M.gettV(); i++)	//Calcul réduction sur les lignes
+	{
+		for(j=0; j<M.gettV(); j++)
+		{
+			if(T[i][j]<Reduc && j!=i)
+			{
+				Reduc = T[i][j];	//Calcul min de la ligne
+			}
+		}
+		
+		SommeReduc = SommeReduc+Reduc;	//Calcul noeud racine
+		
+		for(j=0; j<M.gettE(); j++)
+		{
+			L[i][j] = T[i][j] - Reduc;		//Création de la matrice réduite
+		}
+	}
+	
+	for(j=0; i<M.gettV(); j++)	//Calcul réduction sur les colonnes
+	{
+		for(i=0; j<M.gettV(); i++)
+		{
+			if(T[i][j]<Reduc && i!=j)
+			{
+				Reduc = T[i][j];	//min de la colonne
+			}
+		}
+		
+		SommeReduc = SommeReduc + Reduc;	//Calcul du noeud racine
+		
+		for(i=0; i<M.gettV(); i++)
+		{
+			L[i][j] = L[i][j] - Reduc;		//Création des colonnes de la matrice réduite
+		}
+	}
+	
+	
+	//Calcul du regret
+	for(i=0; i<M.gettV(); i++)
+	{
+		for(j=0; j<M.gettV(); j++)
+		{
+			Reg[i][j]=0;		//Initialisation à zéro
+		}
+	}
+	
+	
+	
+	for(i=0; i<M.gettV(); i++)
+	{
+		for(j=0; j<M.gettV; j++)
+		{
+			if(L[i][j]==0)
+			{
+				for(x=0; x<M.gettV(); x++)
+				{
+					if(L[i][x]<Regret && x!=i)
+					{
+						Regretlig = L[i][x];
+					}
+				}
+				
+				for(y=0; y<M.gettV(); y++)
+				{
+					if(L[y][j]<Regret && y!=j)
+					{
+						Regretcol = L[y][j]
+					}
+				}
+				
+				Reg[i][j] = Regretlig  + Regretcol;		//Si l'arc est de valeur nulle, calcul de son regret
+			}
+		}
+	}
+	
+	max = 0;
+	for(i=0; i<M.gettV; i++)	//Recherche regret maximum
+	{
+		for(j=0; j<M.gettV; j++)
+		{
+			if(Reg[i][j]>max)
+			{
+				x = i;
+				y = j;
+				max = Reg[i][j];
+			}
+		}
+	}
+	
+	
+		
+	
+	
+	
+}
