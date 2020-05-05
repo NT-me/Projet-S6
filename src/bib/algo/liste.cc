@@ -25,7 +25,6 @@ pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
         cmpA++;//renvoie le nombre d'arcs
       }
     }
-
     file.push_back(S.getID());
     while(file[0]!=-1 && cmpW<cmpA-1){ // Bellman (poids des chemins)
       for(int j=0;j<M.gettV();j++){
@@ -48,8 +47,8 @@ pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
     // Cycles négatifs
     for(int i=0;i<M.gettV();i++){
       for(int j=0;j<M.gettV();j++){
-        if(M.getTab()[file[0]][j]!=0){
-          if(dist[j] > (dist[file[0]] + M.getTab()[file[0]][j])){
+        if(M.getTab()[i][j]!=0){
+          if(dist[j] > (dist[i] + M.getTab()[i][j])){
             std::cout << "NEGATIVE CYCLE" << '\n';
             return res;
           }
@@ -88,6 +87,7 @@ pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
     return res;
   }
 }
+
 //################# FLOYD Warshall  ######################
 pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){
   //parcourt de la matrice d'adjacence

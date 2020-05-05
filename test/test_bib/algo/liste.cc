@@ -25,7 +25,7 @@ M0.setTab(tab);
 // ---------------------
 res_F = calcul_Bellman(M0, S0);
 
-vector<int> v_a{0,1,1}, v1{0}, v2{0,1}, v3{0,2};
+vector<int> v_a{0,INFINI,INFINI}, v1{0}, v2{0}, v3{0};
 vector<vector<int>> g{v1,v2,v3};
 res_A.first = g;
 res_A.second = v_a;
