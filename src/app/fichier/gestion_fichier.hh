@@ -10,3 +10,4 @@ Graphe chargement(string path);
 bool verif_file(rapidjson::Document D);
 
 int suppression(string path);
+

@@ -2,7 +2,7 @@
 #include <vector>
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch.hpp"
-#include "../../../src/bib/classes/GrapheMatrice.hh"
+#include "../../../src/bib/classes/classes.hh"
 
 // A FINIR
 TEST_CASE ("Test des setters", "[Graphe]"){

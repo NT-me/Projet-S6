@@ -4,6 +4,8 @@
 #include <string.h>
 #include <vector>
 
+#define INFINI 999999999
+
 #ifndef HH_LISTE
 #define HH_LISTE
 
