@@ -135,7 +135,7 @@ G.ajout_Sommet(2,0,0);
 G.ajout_Arc(0,1);
 G.ajout_Arc(0,2);
 // -------------------
-vector<int> v_a{0,1,1};
+vector<int> v_a{1,2,2};
 
 REQUIRE(coloration_Graphe(G) == v_a);
 }

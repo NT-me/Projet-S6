@@ -224,7 +224,7 @@ vector<int> coloration_Graphe(Graphe G){
     pair<int, int> tmp = calcul_degres_entrant_sortant(M, G.getListe_Sommets()[0]);
     pair<int, Sommet> t(tmp.first+tmp.second, G.getListe_Sommets()[0]);
     L.push_back(t);
-    
+
     //on classe les sommets par ordre décroissant de degré
     //peut être optimisée il me semble
     for(int i=1; i<G.getListe_Sommets().size(); i++){
@@ -232,11 +232,11 @@ vector<int> coloration_Graphe(Graphe G){
         t.first = tmp.first+tmp.second;
         t.second = G.getListe_Sommets()[i];
         for(int j=0; j<L.size(); j++){
-            if(t.first >= L[j].first){
+            if(t.first > L[j].first){
                 L.insert(L.begin()+j, t);
                 break;
             }
-            if(L.size()-1){
+            if(j == L.size()-1){
                 L.push_back(t);
                 break;
             }
@@ -251,7 +251,7 @@ vector<int> coloration_Graphe(Graphe G){
     map.insert(pair<string, VectVal>("couleur", v));
     G.getListe_Sommets()[0].setCU(map);
 
-    while (L.size()>0) {
+    while (!L.empty()) {
         //choix du sommet a colorer
         s=0;
         voisin = couleur_adjacente(L[s].second.getID(), res, M);
@@ -271,17 +271,25 @@ vector<int> coloration_Graphe(Graphe G){
             
         }
         //coloration du sommet
+        v.valeur_entiere = 1;
         while (res[L[s].second.getID()] == 0) {
-            v.valeur_entiere = 1;
             for(int i=0; i<voisin.second.size(); i++){
                 if(v.valeur_entiere<voisin.second[i]){
                     res[L[s].second.getID()] = v.valeur_entiere;
                     map = G.getListe_Sommets()[s].getCU();
                     map.insert(pair<string, VectVal>("couleur", v));
                     G.getListe_Sommets()[s].setCU(map);
+                    break;
+                }
+                if(i == voisin.second.size()-1){
+                    v.valeur_entiere += 1;
+                    res[L[s].second.getID()] = v.valeur_entiere;
+                    map = G.getListe_Sommets()[s].getCU();
+                    map.insert(pair<string, VectVal>("couleur", v));
+                    G.getListe_Sommets()[s].setCU(map); 
                 }
             }
-
+            v.valeur_entiere++;
         }
         //suppression du sommet de la liste des sommets non colorés
         L.erase(L.begin()+s);
@@ -361,7 +369,7 @@ vector<vector<int>> stables_Graphe(Matrice M){
             res[colo[i]-1].push_back(i);
         }
         else{
-            res.push_back()
+           // res.push_back()
         }
     }
 }
@@ -418,7 +426,7 @@ int gestion_flots(Graphe G, int ID_source, int ID_puit){}
 
 vector<pert_row> calcul_posterite(vector<pert_row> v){}
 
-Graphe pert(vector<pert_row> v){
+Graphe pert(vector<pert_row> p){
     Graphe G ("PERT");
     vector<Sommet> ListeS;
     vector<Arc> ListeA;
@@ -429,22 +437,50 @@ Graphe pert(vector<pert_row> v){
     val.type = 0;
     val.valeur_entiere = 0;
 
+    //création d'un sommet départ
     mapA.insert(pair<string, VectVal>("duree", val));
     mapS.insert(pair<string, VectVal> ("date au plus tot", val));
     ListeS.push_back(Sommet(100, 100, "Départ", 0, mapS));
-    for(int i=0; i<v.size(); i++){
-        if(v[i].taches_anterieures.empty()){
-            val.valeur_entiere = v[i].duree;
+
+    //création des sommets n'ayant aucunes contraîntes d'antériorités et les arcs correspondants
+    for(int i=0; i<p.size(); i++){
+        if(p[i].taches_anterieures.empty()){
+            val.valeur_entiere = p[i].duree;
             mapS["date au plus tot"] = val;
-            ListeS.push_back(Sommet(100, 100, "fin " + to_string(v[i].tache), ListeS.size(), mapS));
+            ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
             mapA["duree"]=val;
-            ListeA.push_back(Arc(v[i].nom_tache, v[i].tache, 0, ListeS.back().getID(), mapA));
-            v.erase(v.begin()+i);
+            ListeA.push_back(Arc(p[i].nom_tache, p[i].tache, 0, ListeS.back().getID(), mapA));
+            p.erase(p.begin()+i);
             i=i-1;
         }
     }
-    while (!v.empty()) {
-        
+    while (!p.empty()) {
+        //on vérifie pour une unique contraînte 
+        for(int i=0; i<p.size(); i++){
+            if(p[i].taches_anterieures.size() == 1){
+                int tmp = 0;
+                for(Sommet s : ListeS){
+                    if("fin " + to_string(p[i].taches_anterieures[0]) == s.getEtiq()){
+                        tmp++;
+                    }
+                }
+                if(tmp == 1){
+                    val.valeur_entiere = p[i].duree + ListeS[p[i].taches_anterieures[0]].getCU().at("date au plus tot").valeur_entiere;
+                    mapS["date au plus tot"] = val;
+                    ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
+                    mapA["duree"]=val;
+                    ListeA.push_back(Arc(p[i].nom_tache, p[i].tache, p[i].taches_anterieures[0], ListeS.back().getID(), mapA));
+                    p.erase(p.begin()+i);
+                    i=i-1;
+                }
+                
+            }
+        }
+
+        //test pour plusieurs contraîntes d'antériorités
+        for(int i=0; i<p.size(); i++){
+
+        }
     }
 
 }
