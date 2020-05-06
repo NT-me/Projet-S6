@@ -1,4 +1,5 @@
 #include "Arc.hh"
+#include <iostream>
 
 
 // GETTERS DE LA CLASSE ARC
@@ -76,4 +77,12 @@ Arc Arc::operator=(Arc const&A1){
   this->ACharge_Utile = A1.ACharge_Utile;
 
   return *this;
+}
+
+void Arc::afficher_Arc(){
+	std::cout << "Arc " << this->ID << " :" << endl;
+	std::cout << "ID = " << this->ID << endl;
+	std::cout << "etiquette = " << this->etiquette << endl;
+	std::cout << "IDdepart = " << this->IDdepart << endl;
+	std::cout << "IDarrive = " << this->IDarrive << "\n" << endl;
 }

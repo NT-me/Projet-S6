@@ -127,3 +127,17 @@ Sommet Sommet::operator=(Sommet const& S1){
   return *this;
   //return S;
 }
+
+void Sommet::afficher_Sommet(){
+	cout << "Sommet " << this->ID << " :" << endl;
+	cout << "etiquette = " << this->etiquette << endl;
+	cout << "ID = " << this->ID << endl;
+	cout << "x = " << this->x << endl;
+	cout << "y = " << this->y <<  endl;
+	cout << "vecArc = { " << endl;
+	for(int i = 0; i<this->vecArc.size(); i++){
+		cout << vecArc[i] << "  ";
+	}
+	cout << "} \n" << endl; 
+	
+}

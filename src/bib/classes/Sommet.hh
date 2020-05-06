@@ -12,7 +12,7 @@ class Sommet {
     private:
     int x; // Coordonnées x
     int y; // Coordonnées y
-    int ID;  // pour le retrrouver
+    int ID;  // pour le retrouver
     string etiquette; // nom du sommet
     vector <int> vecArc;
     map <string, VectVal> SCharge_utile;
@@ -42,7 +42,7 @@ class Sommet {
     bool operator==(Sommet const& S1)const;
     bool operator!=(Sommet const& S1);
     Sommet operator=(Sommet const& S1);
-
+	void afficher_Sommet();
 };
 
 #endif
