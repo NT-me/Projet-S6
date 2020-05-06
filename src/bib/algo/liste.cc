@@ -203,6 +203,7 @@ pair<int, int> calcul_degres_entrant_sortant(Matrice M, Sommet S){
      return result;
 }
 
+
 vector<int> coloration_Graphe(Graphe G){}
 
 int couleur_adjacente(Sommet S){}
@@ -222,6 +223,39 @@ vector<int> voisin_sommet(Matrice M, int ID){
             }
         }
     return voisins;
+}
+
+
+void parcours_largeur(Graphe G, Sommet S)
+{
+	   vector<Sommet> marquage;
+	   marquage.push_back(S);
+	   
+       vector<Sommet> liste_sommet = G.getListe_Sommets();
+       while(!liste_sommet.empty())
+       {
+		   for(int i =0; i<marquage.size(); i++)
+		   {
+			   if(marquage[i] == S)
+			   {
+				   liste_sommet.pop_back();
+			   }
+		   } 
+		   S = liste_sommet.back();
+		
+		   S.afficher_Sommet();
+		   liste_sommet.pop_back();
+		   
+		   
+	   }
+               
+                
+                //~ pour tout voisin t de s dans G
+                         //~ si t non marqué
+                                 //~ f.enfiler(t);
+                                 //~ marquer(t);
+	
+	
 }
 
 int gestion_flots(Graphe G, int ID_source, int ID_puit){}

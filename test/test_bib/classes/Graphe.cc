@@ -2,7 +2,7 @@
 #include <vector>
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch.hpp"
-#include "../../../src/bib/classes/GrapheMatrice.hh"
+#include "../../../src/bib/classes/classes.hh"
 
 // A FINIR
 TEST_CASE ("Test des setters", "[Graphe]"){
@@ -275,9 +275,9 @@ TEST_CASE ("Test de conversion en matrice d'adjacence et d'incidence", "[Graphe]
   listeS.push_back(Sommet(0));
   listeS.push_back(Sommet(1));
   listeS.push_back(Sommet(2));
-  listeA.push_back(Arc(1,listeS[0].getID(),listeS[1].getID()));
-  listeA.push_back(Arc(2,listeS[1].getID(),listeS[2].getID()));
-  listeA.push_back(Arc(3,listeS[2].getID(),listeS[0].getID()));
+  listeA.push_back(Arc(0,listeS[0].getID(),listeS[1].getID()));
+  listeA.push_back(Arc(1,listeS[1].getID(),listeS[2].getID()));
+  listeA.push_back(Arc(2,listeS[2].getID(),listeS[0].getID()));
   Graphe G1("Graphe0", listeS, listeA, "NULL");
 
   SECTION("Test de conversion en Matrice d'adjacence"){
@@ -286,36 +286,83 @@ TEST_CASE ("Test de conversion en matrice d'adjacence et d'incidence", "[Graphe]
     MA1.modifTab(0, 1, 1);
     MA1.modifTab(1, 2, 1);
     MA1.modifTab(2, 0, 1);
-
-    REQUIRE(G1.conversion_vers_Matrice_adj() == MA1);
+    
+    Matrice M2(3);
+    
+    M2 = G1.conversion_vers_Matrice_adj();
+    
+    REQUIRE(M2 == MA1);
   }
 
   SECTION("Test de conversion en Matrice d'incidence"){
     //Matrice MI
-    Matrice MI1 (1,3,1);
-    MI1.modifTab(0, 0, 1);
-    MI1.modifTab(0, 2, -1);
-    MI1.modifTab(1, 0, -1);
-    MI1.modifTab(1, 1, 1);
-    MI1.modifTab(2, 1, -1);
-    MI1.modifTab(2, 2, 1);
-
-
-    REQUIRE(G1.conversion_vers_Matrice_inc() == MI1);
+    Matrice MI1 (3,3,1);
+    MI1.modifTab(0, 0, -1);
+    MI1.modifTab(0, 2, 1);
+    MI1.modifTab(1, 0, 1);
+    MI1.modifTab(1, 1, -1);
+    MI1.modifTab(2, 1, 1);
+    MI1.modifTab(2, 2, -1);
+	
+	
+	
+	Matrice M3(3);
+    
+    M3 = G1.conversion_vers_Matrice_inc();
+    
+    REQUIRE(M3 == MI1);
   }
 }
 
-//A FAIRE
+
 TEST_CASE ("Test ajout de sommet", "[Graphe]"){
-
+	std::vector<Sommet> listeS;
+	std::vector<Arc> listeA;
+	listeS.push_back(Sommet(0));
+	listeS.push_back(Sommet(1));	
+	listeA.push_back(Arc(0,listeS[0].getID(),listeS[1].getID()));
+	Graphe G1("Graphe1", listeS, listeA, "NULL");
+	
+	G1.ajout_Sommet(2,0,0);
+	
+	std::vector<Sommet> listeS2;
+	std::vector<Arc> listeA2;
+	listeS2.push_back(Sommet(0));
+	listeS2.push_back(Sommet(1));	
+	listeS2.push_back(Sommet(2));
+	listeA2.push_back(Arc(0,listeS2[0].getID(),listeS2[1].getID()));
+	Graphe G2("Graphe1", listeS2, listeA2, "NULL");
+	
+	REQUIRE((G1 == G2));
+	
 }
 
-//A FAIRE
-TEST_CASE ("Test suprression de sommet", "[Graphe]"){
 
+TEST_CASE ("Test suppression de sommet", "[Graphe]"){
+	
+	std::vector<Sommet> listeS;
+	std::vector<Arc> listeA;
+	listeS.push_back(Sommet(0));
+	listeS.push_back(Sommet(1));
+	listeS.push_back(Sommet(2));
+	listeA.push_back(Arc(0,listeS[0].getID(),listeS[1].getID()));
+	listeA.push_back(Arc(1,listeS[1].getID(),listeS[2].getID()));
+	listeA.push_back(Arc(2,listeS[2].getID(),listeS[0].getID()));
+	Graphe G1("Graphe2", listeS, listeA, "NULL");
+	
+	G1.supprimer_Sommet(2);
+	
+	std::vector<Sommet> listeS2;
+	std::vector<Arc> listeA2;
+	listeS2.push_back(Sommet(0));
+	listeS2.push_back(Sommet(1));	
+	listeA2.push_back(Arc(0,listeS2[0].getID(),listeS2[1].getID()));
+	Graphe G2("Graphe2", listeS2, listeA2, "NULL");
+	
+	REQUIRE((G1 == G2));
 }
 
-// A FAIRE
+
 TEST_CASE ("Test ajout d'arc", "[Graphe]"){
   /* GRAPHE G1*/
   vector<Sommet> listeS;
@@ -330,7 +377,7 @@ TEST_CASE ("Test ajout d'arc", "[Graphe]"){
 
 }
 
-// A FAIRE
+
 TEST_CASE ("Test de suppression d'arc", "[Graphe]"){
   /* GRAPHE G1*/
   vector<Sommet> listeS;

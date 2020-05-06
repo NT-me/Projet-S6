@@ -25,7 +25,7 @@ M0.setTab(tab);
 // ---------------------
 res_F = calcul_Bellman(M0, S0);
 
-vector<int> v_a{0,1,1}, v1{0}, v2{0,1}, v3{0,2};
+vector<int> v_a{0,INFINI,INFINI}, v1{0}, v2{0}, v3{0};
 vector<vector<int>> g{v1,v2,v3};
 res_A.first = g;
 res_A.second = v_a;
@@ -33,9 +33,9 @@ REQUIRE(res_F == res_A);
 }
 
 TEST_CASE("Calcul Floyd-Warshall","[Algorithmes]"){
-  Matrice po(6, 6, 2), pa(6, 6, 3);
-  vector<vector<int>> po_m{{0,1,1,2,3,2}, {0,0,1,1,2,2}, {0,0,0,1,2,1}, {0,0,0,0,1,0}, {0,0,0,0,0,0}, {0,0,0,0,0,0}},
-                      pa_m{{0,1,2,1,1,2}, {0,0,2,3,3,2}, {0,0,0,3,3,5}, {0,0,0,0,4,0}, {0,0,0,0,0,0}, {0,0,0,0,0,0}};
+  Matrice po(3, 3, 2), pa(3, 3, 3);
+  vector<vector<int>> po_m{{0,INFINI,INFINI},{1,0,INFINI},{1,INFINI,0}},
+                      pa_m{{-1,-1,-1},{0,-1,-1},{0,-1,-1}};
 
   po.setTab(po_m);
   pa.setTab(pa_m);
@@ -401,7 +401,7 @@ TEST_CASE("voyageur de commerce","[Algorithmes]"){
               {1,0,0}});
 
   vector<int> v_a{0,1,2}, v_f{0,1,2};
-  REQUIRE(voyageur_de_commerce(v_f, MA1) == v_a); 
+  REQUIRE(voyageur_de_commerce(v_f, MA1) == v_a);
 }
 
 
