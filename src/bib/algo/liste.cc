@@ -188,7 +188,37 @@ vector<vector<int>> stables_Graphe(Matrice M){}
 vector<vector<int>> cliques_Graphe(Matrice M){}
 
 vector<int> voisin_sommet(Matrice M, int ID){}
-
+void parcours_largeur(Graphe G, Sommet S)
+{
+	   vector<Sommet> marquage;
+	   marquage.push_back(S);
+	   
+       vector<Sommet> liste_sommet = G.getListe_Sommets();
+       while(!liste_sommet.empty())
+       {
+		   for(int i =0; i<marquage.size(); i++)
+		   {
+			   if(marquage[i] == S)
+			   {
+				   liste_sommet.pop_back();
+			   }
+		   } 
+		   S = liste_sommet.back();
+		
+		   S.afficher_Sommet();
+		   liste_sommet.pop_back();
+		   
+		   
+	   }
+               
+                
+                //~ pour tout voisin t de s dans G
+                         //~ si t non marqué
+                                 //~ f.enfiler(t);
+                                 //~ marquer(t);
+	
+	
+}
 int gestion_flots(Graphe G, int ID_source, int ID_puit){}
 
 vector<pert_row> calcul_posterite(vector<pert_row>){}
