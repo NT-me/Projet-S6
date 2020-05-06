@@ -171,7 +171,7 @@ TEST_CASE("stables","[Algorithmes]"){
               {0,0,1},
               {1,0,0}});
  //---------
- vector<vector<int>> v_a{{0},{1,2}};
+ vector<vector<int>> v_a{{0},{1},{2}};
  REQUIRE(stables_Graphe(MA1) == v_a);
 }
 

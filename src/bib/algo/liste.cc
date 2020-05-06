@@ -160,7 +160,19 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
     return pair<int, vector<int>>(r, res);
 }
 
-vector<vector<int>> stables_Graphe(Matrice M){}
+vector<vector<int>> stables_Graphe(Matrice M){
+    Graphe G(M);
+    vector<int> colo = coloration_Graphe(G);
+    vector<vector<int>> res;
+    for(int i=0; i<colo.size(); i++){
+        if(colo[i]<colo.size()){
+            res[colo[i]-1].push_back(i);
+        }
+        else{
+            res.push_back()
+        }
+    }
+}
 
 vector<vector<int>> cliques_Graphe(Matrice M){}
 
