@@ -117,23 +117,47 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	}
 	
 	vector<vector <int>> T, L, Reg;
+	Matrice N = new Matrice(M);
 	
 	int Reduc, Regretcol, Regretlig, SommeReduc;
 	
 	int i,j;
 	int x,y;
 	int max;
+	int test = 0;
 	
-	//Test au cas ou valeur négative ?
+	
+	T = M.getTab();
+	
+	//Test si premiere itération
+	for(i=0; i<M.gettV(); i++)
+	{
+		for(j=0; j<M.gettV(); j++)
+		{
+			if(T[i][j]<0)
+			{
+				test = 1;	//Valeur négative dans le tableau
+			}
+		}
+	}
+	
+	if(test == 0)	//Si pas de valeur négative dans le tableau
+	{
+		for(i=0; i<M.gettV(); i++
+		{
+			T[i][i] = -1;	//Diagonal de la matrice prend la valeur -1 au lieu de zéro.
+		}
+	}
 	
 	
 	
 	//Réduction de la matrice
 	for(i=0; i<M.gettV(); i++)	//Calcul réduction sur les lignes
 	{
+		Reduc = T[i][0];
 		for(j=0; j<M.gettV(); j++)
 		{
-			if(T[i][j]<Reduc && j!=i)
+			if(T[i][j]<Reduc && T[i][j]>-1)
 			{
 				Reduc = T[i][j];	//Calcul min de la ligne
 			}
@@ -143,17 +167,19 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 		
 		for(j=0; j<M.gettE(); j++)
 		{
-			L[i][j] = T[i][j] - Reduc;		//Création de la matrice réduite
+			L[i][j] = T[i][j] - Reduc;		//Création de la matrice partiellement réduite
 		}
 	}
 	
-	for(j=0; i<M.gettV(); j++)	//Calcul réduction sur les colonnes
+	
+	for(j=0; j<M.gettV(); j++)	//Calcul réduction sur les colonnes
 	{
-		for(i=0; j<M.gettV(); i++)
+		Reduc = L[0][j];
+		for(i=0; i<M.gettV(); i++)
 		{
-			if(T[i][j]<Reduc && i!=j)
+			if(L[i][j]<Reduc && T[i][j]>-1)
 			{
-				Reduc = T[i][j];	//min de la colonne
+				Reduc = L[i][j];	//min de la colonne
 			}
 		}
 		
@@ -161,7 +187,7 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 		
 		for(i=0; i<M.gettV(); i++)
 		{
-			L[i][j] = L[i][j] - Reduc;		//Création des colonnes de la matrice réduite
+			L[i][j] = L[i][j] - Reduc;		//Création de la matrice réduite
 		}
 	}
 	
@@ -171,7 +197,7 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	{
 		for(j=0; j<M.gettV(); j++)
 		{
-			Reg[i][j]=0;		//Initialisation à zéro
+			Reg[i][j]=0;		//Initialisation du tableau des regrets à zéro
 		}
 	}
 	
@@ -181,31 +207,39 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	{
 		for(j=0; j<M.gettV; j++)
 		{
-			if(L[i][j]==0)
+			if(L[i][j]==0)				//Si l'arc est de valeur nul
 			{
+				Regretlig = L[i][0];
+				Regretcol = L[0][j];
 				for(x=0; x<M.gettV(); x++)
 				{
-					if(L[i][x]<Regret && x!=i)
+					if(L[i][x]<Regretlig && x!=i)
 					{
-						Regretlig = L[i][x];
+						if(L[i][x]>-1)				//On ne prend pas en compte les valeurs négatives et L[i][j]
+						{
+							Regretlig = L[i][x];
+						}
 					}
 				}
 				
 				for(y=0; y<M.gettV(); y++)
 				{
-					if(L[y][j]<Regret && y!=j)
+					if(L[y][j]<Regretcol && y!=j)
 					{
-						Regretcol = L[y][j]
+						if(L{y][j]>-1)
+						{
+							Regretcol = L[y][j];
+						}
 					}
 				}
 				
-				Reg[i][j] = Regretlig  + Regretcol;		//Si l'arc est de valeur nulle, calcul de son regret
+				Reg[i][j] = Regretlig  + Regretcol;		//Calcul du regret de l'arc nul
 			}
 		}
 	}
 	
 	max = 0;
-	for(i=0; i<M.gettV; i++)	//Recherche regret maximum
+	for(i=0; i<M.gettV; i++)	//Recherche regret maximum du tableau
 	{
 		for(j=0; j<M.gettV; j++)
 		{
@@ -213,7 +247,7 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 			{
 				x = i;
 				y = j;
-				max = Reg[i][j];
+				max = Reg[i][j];	
 			}
 		}
 	}
