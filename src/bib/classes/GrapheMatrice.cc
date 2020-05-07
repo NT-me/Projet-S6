@@ -361,7 +361,7 @@ Matrice Matrice::inversion_Matrice() const{
   res.taille_V = this->taille_V;
     for(int i=0;i<this->taille_V;i++){
       for(int j=0;j<this->taille_E;j++){
-        if(this->tab[i][j]==0)
+        if(this->tab[i][j]==0 && i != j)
           res.tab[i][j]= 1 ;
         else  res.tab[i][j]= 0 ;
       }
