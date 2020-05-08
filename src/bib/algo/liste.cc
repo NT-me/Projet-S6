@@ -252,9 +252,11 @@ vector<int> coloration_Graphe(Graphe G){
     G.getListe_Sommets()[0].setCU(map);
 
     while (!L.empty()) {
+        
         //choix du sommet a colorer
         s=0;
         voisin = couleur_adjacente(L[s].second.getID(), res, M);
+
         for(int i=1; i<L.size(); i++){
             if(voisin.first < couleur_adjacente(L[i].second.getID(), res, M).first){
                 s=i;
@@ -262,34 +264,45 @@ vector<int> coloration_Graphe(Graphe G){
             }
             else{
                 if(voisin.first == couleur_adjacente(L[i].second.getID(), res, M).first){
-                if(L[s].first < L[i].first){
-                    s=i;
-                    voisin = couleur_adjacente(L[i].second.getID(), res, M);
+                    if(L[s].first < L[i].first){
+                        s=i;
+                        voisin = couleur_adjacente(L[i].second.getID(), res, M);
+                    }
                 }
             }
-            }
-            
         }
         //coloration du sommet
         v.valeur_entiere = 1;
         while (res[L[s].second.getID()] == 0) {
-            for(int i=0; i<voisin.second.size(); i++){
-                if(v.valeur_entiere<voisin.second[i]){
-                    res[L[s].second.getID()] = v.valeur_entiere;
-                    map = G.getListe_Sommets()[s].getCU();
-                    map.insert(pair<string, VectVal>("couleur", v));
-                    G.getListe_Sommets()[s].setCU(map);
-                    break;
-                }
-                if(i == voisin.second.size()-1){
-                    v.valeur_entiere += 1;
-                    res[L[s].second.getID()] = v.valeur_entiere;
-                    map = G.getListe_Sommets()[s].getCU();
-                    map.insert(pair<string, VectVal>("couleur", v));
-                    G.getListe_Sommets()[s].setCU(map); 
-                }
+            if(voisin.first == 0){
+                res[L[s].second.getID()] = v.valeur_entiere;
+                map = G.getListe_Sommets()[s].getCU();
+                map.insert(pair<string, VectVal>("couleur", v));
+                G.getListe_Sommets()[s].setCU(map);
             }
-            v.valeur_entiere++;
+            else{
+                for(int i=0; i<voisin.second.size(); i++){
+                    if(v.valeur_entiere<voisin.second[i]){
+                        res[L[s].second.getID()] = v.valeur_entiere;
+                        map = G.getListe_Sommets()[s].getCU();
+                        map.insert(pair<string, VectVal>("couleur", v));
+                        G.getListe_Sommets()[s].setCU(map);
+                        break;
+                    }else{
+                        if(i == voisin.second.size()-1){
+                            v.valeur_entiere += 1;
+                            res[L[s].second.getID()] = v.valeur_entiere;
+                            map = G.getListe_Sommets()[s].getCU();
+                            map.insert(pair<string, VectVal>("couleur", v));
+                            G.getListe_Sommets()[s].setCU(map); 
+                        }
+                    }
+                    v.valeur_entiere++;
+
+                }
+               
+            }
+             
         }
         //suppression du sommet de la liste des sommets non colorés
         L.erase(L.begin()+s);
@@ -303,11 +316,10 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
     int r = 0;
     for (int i=0; i<M.gettV(); i++) {
         if(i!=id){
-            if(M.getTab()[id][i]==1 && v[i]!=-1){
+            if(M.getTab()[id][i]==1 && v[i]!=0){
                 if(res.empty()){
                     res.push_back(v[i]);
                     r++;
-                    break;
                 }
                 else{
                     for(int j=0; j<res.size(); j++){
@@ -329,7 +341,7 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
                 }
             }
             else{
-                if(v[i]!=-1 && M.getTab()[i][id]==1 ){
+                if(v[i]!=0 && M.getTab()[i][id]==1 ){
                     if(res.empty()){
                         res.push_back(v[i]);
                         r++;
@@ -363,18 +375,36 @@ pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
 vector<vector<int>> stables_Graphe(Matrice M){
     Graphe G(M);
     vector<int> colo = coloration_Graphe(G);
+
     vector<vector<int>> res;
     for(int i=0; i<colo.size(); i++){
-        if(colo[i]<colo.size()){
+        if(colo[i]<=res.size()){
             res[colo[i]-1].push_back(i);
         }
         else{
-           // res.push_back()
-        }
+            vector<int>tmp;
+            tmp.push_back(i);
+            res.push_back(tmp);
+        } 
     }
+    return res;
 }
 
-vector<vector<int>> cliques_Graphe(Matrice M){}
+vector<vector<int>> cliques_Graphe(Matrice M){
+    //invesion de la matrice (au sens d'un graphe non orienté)
+    for(int i=0; i<M.gettV(); i++){
+        for(int j=i+1; j<M.gettV(); j++){
+            if(M.getTab()[i][j] == 0 && M.getTab()[j][i] == 0){
+                M.modifTab(i, j, 1);
+            }
+            else{
+                M.modifTab(i, j, 0);
+                M.modifTab(j, i, 0);
+            }
+        }
+    }
+    return stables_Graphe(M);
+}
 
 vector<int> voisin_sommet(Matrice M, int ID){
      /* déclare variable vector vide  */
@@ -424,7 +454,7 @@ void parcours_largeur(Graphe G, Sommet S)
 
 int gestion_flots(Graphe G, int ID_source, int ID_puit){}
 
-vector<pert_row> calcul_posterite(vector<pert_row> v){}
+vector<pert_row> calcul_posterite(vector<pert_row> p){}
 
 Graphe pert(vector<pert_row> p){
     Graphe G ("PERT");

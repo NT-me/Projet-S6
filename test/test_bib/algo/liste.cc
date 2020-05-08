@@ -1,3 +1,4 @@
+#include <vector>
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch.hpp"
 #include "../../../src/bib/algo/liste.hh"
@@ -131,13 +132,26 @@ Graphe G("G");
 G.ajout_Sommet(0,0,0);
 G.ajout_Sommet(1,0,0);
 G.ajout_Sommet(2,0,0);
+G.ajout_Sommet(3,0,0);
 
 G.ajout_Arc(0,1);
-G.ajout_Arc(0,2);
+G.ajout_Arc(1,2);
+G.ajout_Arc(2,3);
+G.ajout_Arc(3,0);
 // -------------------
-vector<int> v_a{1,2,2};
+vector<int> v_a{1,2,1,2};
 
 REQUIRE(coloration_Graphe(G) == v_a);
+
+//deuxième cas de test avec un graphe sans arcs
+Graphe G0("G0");
+G0.ajout_Sommet(0,0,0);
+G0.ajout_Sommet(1,0,0);
+G0.ajout_Sommet(2,0,0);
+
+vector<int> v{1,1,1};
+
+REQUIRE((coloration_Graphe(G0) == v));
 }
 
 TEST_CASE("couleur adjacence","[Algorithmes]"){
@@ -149,7 +163,7 @@ TEST_CASE("couleur adjacence","[Algorithmes]"){
     M.modifTab(0, 1, 1);
     M.modifTab(1, 3, 1);
     M.modifTab(2, 1, 1);
-    M.modifTab(2, 3, 1);
+    M.modifTab(3, 2, 1);
 
     v[1]=1;
     v[2]=2;
@@ -162,6 +176,7 @@ TEST_CASE("couleur adjacence","[Algorithmes]"){
     REQUIRE(res.first==2);
     REQUIRE(res.second == tmp);
 
+
 }
 
 TEST_CASE("stables","[Algorithmes]"){
@@ -173,15 +188,22 @@ TEST_CASE("stables","[Algorithmes]"){
  //---------
  vector<vector<int>> v_a{{0},{1},{2}};
  REQUIRE(stables_Graphe(MA1) == v_a);
+
+  Matrice MA2(3);
+  MA2.setTab({{0,0,0},
+              {0,0,0},
+              {0,0,0}});
+ //---------
+ vector<vector<int>> v{{0,1,2}};
+ REQUIRE(stables_Graphe(MA2) == v);
 }
 
 TEST_CASE("cliques","[Algorithmes]"){
   // Création de la matrice
-  Matrice MA1_(4);
-  MA1_.setTab({{0,1,0,0},
-               {0,0,1,0},
-               {1,0,0,1},
-               {0,0,0,0}});
+  Matrice MA1_(3);
+  MA1_.setTab({{0,1,0,},
+               {0,0,1,},
+               {1,0,0,}});
  //---------
  vector<vector<int>> v_a{{0,1,2}};
  REQUIRE(cliques_Graphe(MA1_) == v_a);
