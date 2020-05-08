@@ -202,16 +202,16 @@ Graphe anti_arborescence(Graphe G){}
 int connexite(Matrice M){}
 
 vector<vector<int>> chaine_eulerienne(Matrice M){
-	vector<int> path;
-  vector<vector<int>> result;
+vector<int> path;
+  vector<vector<int>> res;
 
   if(M.getType() != 0){
     std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
-    return result;
+    return res;
   }
   else{
     int pred=0,succ=0,Dmax=0,Fmax=0;
-    int deb=0;fin=0;
+    int deb=0,fin=0;
     vector<int> out;
 
     // Vérifie si il existe un chemin Eulérien
@@ -266,7 +266,7 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
     int i = deb;
     while(out[i] != 0){
       for(int j=0;j<M.gettV();j++){
-        if(M.getTab[i][j]){
+        if(M.getTab()[i][j]){
           --out[i];
           path.push_back(i);
           i = j;
@@ -276,11 +276,10 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
       i++;
     }
 
-    path.push_back(i);
+    if(path.size() ==  nbA+1) res.push_back(path);
     }
 
-    if(path.size() ==  nbA+1) res.first = path
-  }
+    
   return res;
 }
 
