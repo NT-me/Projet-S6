@@ -1,6 +1,9 @@
 #include <QtWidgets>
 #include <QtTest/QtTest>
 
+#ifndef TESTMAINW
+#define TESTMAINW
+
 class TestMainWindow: public QObject
 {
     Q_OBJECT
@@ -41,5 +44,6 @@ private slots:
     void testDBEaddArc();
     void testDBEdeleteSommet();
     void testDBEdeleteArc();
-
 };
+
+#endif
