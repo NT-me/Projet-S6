@@ -1,0 +1,4 @@
+libExt/rapidjson
+libExt/rapidjson/error
+libExt/rapidjson/internal
+libExt/rapidjson/msinttypes
