@@ -201,7 +201,88 @@ Graphe anti_arborescence(Graphe G){}
 
 int connexite(Matrice M){}
 
-vector<vector<int>> chaine_eulerienne(Matrice M){}
+vector<vector<int>> chaine_eulerienne(Matrice M){
+	vector<int> path;
+  vector<vector<int>> result;
+
+  if(M.getType() != 0){
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return result;
+  }
+  else{
+    int pred=0,succ=0,Dmax=0,Fmax=0;
+    int deb=0;fin=0;
+    vector<int> out;
+
+    // Vérifie si il existe un chemin Eulérien
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]) succ++;
+        if(M.getTab()[j][i]) pred++;
+      }
+      out.push_back(succ);    // Stocke le nombre de successeurs
+
+      if(succ-pred>1 || pred-succ>1){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      else{
+        if(pred-succ==1){
+          fin = i;          // Sommet d'arrivée
+          Fmax++;
+        }
+        else if(succ-pred==1){
+          deb = i;         // Sommet de départ
+          Dmax++;
+        }
+      }
+
+      if(!connexite(M) && !succ && !pred){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      if(Dmax>1 || Fmax>1){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      succ = 0;
+      pred = 0;
+    }
+
+    // Nombre d'arcs
+    int nbA;
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]) nbA++;
+      }
+    }
+
+    // Sommet de départ
+    for(int i=0;i<M.gettV();i++){
+      if(deb==0 && out[i]>0) deb = i;
+    }
+
+    // #########################
+    int i = deb;
+    while(out[i] != 0){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab[i][j]){
+          --out[i];
+          path.push_back(i);
+          i = j;
+          j = 0;
+        }
+      }
+      i++;
+    }
+
+    path.push_back(i);
+    }
+
+    if(path.size() ==  nbA+1) res.first = path
+  }
+  return res;
+}
 
 vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 
