@@ -157,9 +157,10 @@ int Graphe::supprimer_Sommet(int id){
     liste_Sommets[i].setVecArc({});
   }
 
+ int idD;
   // On remet les bons ID
   for(int i=0;i<this->liste_Arcs.size();++i){
-    idD = liste_Arcs[i].IDdepart();
+    idD = liste_Arcs[i].getIDDepart();
     for(int j=0;j<this->liste_Sommets.size();++j){
       if(this->liste_Sommets[j].getID() == idD){
         vector<int> vac;
