@@ -457,12 +457,12 @@ int gestion_flots(Graphe G, int ID_source, int ID_puit){}
 vector<pert_row> calcul_posterite(vector<pert_row> p){}
 
 Graphe pert(vector<pert_row> p){
-    Graphe G ("PERT");
     vector<Sommet> ListeS;
     vector<Arc> ListeA;
     VectVal val; 
     map<string, VectVal> mapS;
     map<string, VectVal> mapA;
+    map<string, VectVal> mapT;
 
     val.type = 0;
     val.valeur_entiere = 0;
@@ -479,7 +479,7 @@ Graphe pert(vector<pert_row> p){
             mapS["date au plus tot"] = val;
             ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
             mapA["duree"]=val;
-            ListeA.push_back(Arc(p[i].nom_tache, p[i].tache, 0, ListeS.back().getID(), mapA));
+            ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), 0, ListeS.back().getID(), mapA));
             p.erase(p.begin()+i);
             i=i-1;
         }
@@ -499,7 +499,7 @@ Graphe pert(vector<pert_row> p){
                     mapS["date au plus tot"] = val;
                     ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
                     mapA["duree"]=val;
-                    ListeA.push_back(Arc(p[i].nom_tache, p[i].tache, p[i].taches_anterieures[0], ListeS.back().getID(), mapA));
+                    ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), p[i].taches_anterieures[0], ListeS.back().getID(), mapA));
                     p.erase(p.begin()+i);
                     i=i-1;
                 }
@@ -509,9 +509,84 @@ Graphe pert(vector<pert_row> p){
 
         //test pour plusieurs contraîntes d'antériorités
         for(int i=0; i<p.size(); i++){
-
+            //on vérifie que les taches antérieures sont déjà traitées
+            int tmp = 0;
+            for(Sommet s : ListeS){
+                for(int j=0; j<p[i].taches_anterieures.size(); j++)
+                if("fin " + to_string(p[i].taches_anterieures[j]) == s.getEtiq()){
+                    tmp++;
+                }
+            }
+            if(tmp == p[i].taches_anterieures.size()){
+                //recherche de l'antécédent avec la date au plus tôt la plus élevée
+                int x = 0; // id de la tâche
+                int id; // id du sommet dans la liste
+                for(int k=0; k<ListeS.size(); k++){
+                    if("fin " + to_string(p[i].taches_anterieures[0]) == ListeS[k].getEtiq()){
+                        id = k;
+                    }
+                    for(int j=1; j<p[i].taches_anterieures.size(); j++)
+                        if("fin " + to_string(p[i].taches_anterieures[j]) == ListeS[k].getEtiq()){
+                            if (ListeS[id].getCU()["date au plus tot"].valeur_entiere 
+                                < ListeS[k].getCU()["date au plus tot"].valeur_entiere){
+                                    id = k;
+                                    x = j;
+                                }
+                        }
+                }
+                //si l'antécédent avec la date au plus tôt la plus élevée à un unique sommet postérieur
+                if(p[x].taches_posterieures.size() == 1){
+                    val.valeur_entiere = p[i].duree + ListeS[id].getCU().at("date au plus tot").valeur_entiere;
+                    mapS["date au plus tot"] = val;
+                    ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
+                    mapA["duree"]=val;
+                    ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), ListeS[id].getID(), ListeS.back().getID(), mapA));
+                    p.erase(p.begin()+i);
+                    i=i-1;
+                    //ajouter les arcs fictifs entre tous les sommets antérieurs et le sommet xi
+                    val.valeur_entiere = 0;
+                    mapA["duree"]=val;
+                    for(int j=1; j<p[i].taches_anterieures.size(); j++){
+                        for(Sommet s : ListeS){
+                            if("fin " + to_string(p[i].taches_anterieures[j]) == s.getEtiq() && s.getID()!= id){
+                                ListeA.push_back(Arc("fictif", ListeA.size(), s.getID(), id, mapA));
+                             }
+                        }
+                     }
+                }
+                 //si il a plusieurs sommets postérieurs
+                else{
+                    //créer un sommet fin de toutes les tâches antérieurs
+                    val.valeur_entiere = ListeS[id].getCU().at("date au plus tot").valeur_entiere;
+                    mapS["date au plus tot"] = val;
+                    string etiq = " fin ";
+                    for(int j=0; j<p[i].taches_anterieures.size(); j++){
+                        etiq += ", " + to_string(p[i].taches_anterieures[j]);
+                    }
+                    ListeS.push_back(Sommet(100, 100, etiq, ListeS.size(), mapS));
+                    val.valeur_entiere = 0;
+                    mapA["duree"]=val;
+                    for(int j=1; j<p[i].taches_anterieures.size(); j++){
+                        for(Sommet s : ListeS){
+                            if("fin " + to_string(p[i].taches_anterieures[j]) == s.getEtiq()){
+                                ListeA.push_back(Arc("fictif", ListeA.size(), s.getID(), ListeS.back().getID(), mapA));
+                             }
+                        }
+                    }
+                    val.valeur_entiere = p[i].duree + ListeS.back().getCU().at("date au plus tot").valeur_entiere;
+                    mapS["date au plus tot"] = val;
+                    ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
+                    val.valeur_entiere = p[i].duree;
+                    mapA["durée"] = val;
+                    ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), ListeS[ListeS.size()-2].getID(),ListeS.back().getID(), mapS));
+                }
+            }
         }
     }
+    //création du sommet fin
+    //affecter les dates au plus tard
+    //création du Graphe
+    return Graphe("PERT", ListeS, ListeA, "\0");
 
 }
 
