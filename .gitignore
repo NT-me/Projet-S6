@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# bordel des IDE
+*.cflags
+*.config
+*.creator
+*.user
+*.cxxflags
+*.files
+*.includes
