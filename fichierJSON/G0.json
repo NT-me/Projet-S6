@@ -23,5 +23,25 @@
             "etiquette": "2",
             "vecArc": []
         }
+    ],
+    "listeA": [
+        {
+            "id": 1,
+            "etiquette": "1",
+            "IDdepart": 0,
+            "IDarrive": 1
+        },
+        {
+            "id": 2,
+            "etiquette": "2",
+            "IDdepart": 1,
+            "IDarrive": 2
+        },
+        {
+            "id": 3,
+            "etiquette": "3",
+            "IDdepart": 2,
+            "IDarrive": 0
+        }
     ]
 }
