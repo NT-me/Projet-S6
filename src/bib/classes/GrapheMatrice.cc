@@ -6,15 +6,17 @@ Graphe::Graphe(string nom, vector<Sommet> listeS, vector<Arc> listeA, string pat
   this->liste_Sommets = listeS;
   this->liste_Arcs = listeA;
   this->path = path;
+  int Aid;
+  int id_Sdepart;
 
-  vector <int> arc_sor;
   for(int k = 0; k < this->liste_Arcs.size();++k){
-    arc_sor.erase();
+    vector <int> arc_sor;
     id_Sdepart = this->liste_Arcs[k].getIDDepart();
+    Aid = this->liste_Arcs[k].getID();
     for(int i = 0; i<this->liste_Sommets.size(); ++i){
       if (liste_Sommets[i].getID() == id_Sdepart){
         arc_sor = liste_Sommets[i].getVecArc();
-        arc_sor.push_back(id);
+        arc_sor.push_back(Aid);
         liste_Sommets[i].setVecArc(arc_sor);
       }
     }
@@ -147,6 +149,24 @@ int Graphe::supprimer_Sommet(int id){
     }
     if(this->liste_Arcs[i].getIDArrive()>id){
       this->liste_Arcs[i].setIDArrive(this->liste_Arcs[i].getIDArrive()-1);
+    }
+  }
+
+  //On efface le vecArc de tous les sommets
+  for(int i=0;i<this->liste_Sommets.size();++i){
+    liste_Sommets[i].setVecArc({});
+  }
+
+  // On remet les bons ID
+  for(int i=0;i<this->liste_Arcs.size();++i){
+    idD = liste_Arcs[i].IDdepart();
+    for(int j=0;j<this->liste_Sommets.size();++j){
+      if(this->liste_Sommets[j].getID() == idD){
+        vector<int> vac;
+        vac = this->liste_Sommets[j].getVecArc();
+        vac.push_back(liste_Arcs[i].getID());
+        this->liste_Sommets[j].setVecArc(vac);
+      }
     }
   }
   return id;
