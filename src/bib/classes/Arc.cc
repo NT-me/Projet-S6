@@ -31,6 +31,8 @@ Arc::Arc(string etiq, int id, int SDepart, int SArrive){
   ID=id;
   IDdepart = SDepart;
   IDarrive = SArrive;
+  map <string, VectVal> M;
+  ACharge_Utile = M;
 }
 
 Arc::Arc(int id, int SDepart, int SArrive){
@@ -38,6 +40,8 @@ Arc::Arc(int id, int SDepart, int SArrive){
   ID=id;
   IDdepart = SDepart;
   IDarrive = SArrive;
+  map <string, VectVal> M;
+  ACharge_Utile = M;
 }
 
 Arc::Arc(Arc const&A){
