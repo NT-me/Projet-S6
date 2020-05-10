@@ -118,18 +118,26 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	
 	vector<vector <int>> T, L, Reg;
 	Matrice N = new Matrice(M);
+	Graphe G = new Graphe("Arbre binaire");
+	Sommet S = new Sommet(100,100,"etiq",Num,<"etiq",<>);
+	Arc A = new Arc();
 	
 	int Reduc, Regretcol, Regretlig, SommeReduc;
 	
-	int i,j;
-	int x,y;
-	int max;
-	int test = 0;
+	int i,j;	//itérateur de boucle
+	int x,y;	//second itérateur de boucle
+	int Num = 0;	//compteur pour l'id des sommets et des arcs
+	int S = 0;	//itérateur pour les sommets du graphe
+	int max;	//stock le plus grand regret trouvé dans le tableau
+	int test = 0;	
+	
+	SommeReduc = 0;
+	G.ajout_Sommet(S,100,100);	//Noeud racine de l'arbre binaire
 	
 	
 	T = M.getTab();
 	
-	//Test si premiere itération
+	//Test si matrice d'entrée possède valeur négative
 	for(i=0; i<M.gettV(); i++)
 	{
 		for(j=0; j<M.gettV(); j++)
@@ -191,6 +199,9 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 		}
 	}
 	
+	S.setID(Num);
+	S.setCU(<"etiq",SommeReduc>);	//Sommet ayant la valeur de la réduction de matrice
+	N.setTab(L);		//Initialisation de la copie de matrice M avec réduction 
 	
 	//Calcul du regret
 	for(i=0; i<M.gettV(); i++)
@@ -247,14 +258,35 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 			{
 				x = i;
 				y = j;
-				max = Reg[i][j];	
+				max = Reg[i][j];	//On garde la valeur max, ainsi que les sommets entant et sortant de l'arc
 			}
 		}
 	}
 	
+	//Itératif
 	
-		
 	
 	
+	//Si on ne prend pas l'arc de regret max
+	Sommet I = new Sommet(Num+1);			//Sommet quand l'arc n'est pas choisi
+	I.setCU(<"etiq",S.getCU()+Reg[i][j]);	//Sommet I prend la valeur du regret plus la valeur du parent
+											//poour la map, on sélectionne la valeur regret du père
+	
+	G.ajout_Sommet(I.id(),100,100);	
+	G.ajout_Arc(Num,Num+1);
+	
+	//Si on prend l'arc de regret max
+	Sommet J = new Sommet(Num+2);
+	J.setCU(<"etiq",S.getCU());
+	N.supprLigne(x);						//Suppression de la ligne i et de la colonne j de la matrice
+	N.supprCol(y);							//Afin d'éviter une boucle dans la recherche de regret.
+	
+	N.modifTab(y,x,-1);						//On ne considère l'arc en sens inverse de celui choisi
+	
+	while(/*Test si l'arbre binaire de recherche est égale au nombre de sommet en entrée*/);
+	
+	//parcours de l'arbre + plus court chemin
+	//Créer un arbre binaire complet, puis on recherche la feuille de poids minimum
+	//Son chemin sera le plus court chemin pour l'algo de Little
 	
 }
