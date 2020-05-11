@@ -10,12 +10,14 @@
             "vecArc": [
                 1
             ],
-            "AChargeUtile": [
+            "SChargeUtile": [
                 {
-                    "vecteur": 5
+                    "poid1": 1,
+                    "Valeur reel": 10.100000381469727
                 },
                 {
-                    "vecteur": 5
+                    "poid2": 0,
+                    "Valeur entiere": 144
                 }
             ]
         },
@@ -27,7 +29,7 @@
             "vecArc": [
                 2
             ],
-            "AChargeUtile": []
+            "SChargeUtile": []
         },
         {
             "x": 0,
@@ -37,27 +39,39 @@
             "vecArc": [
                 3
             ],
-            "AChargeUtile": []
+            "SChargeUtile": []
         }
     ],
     "listeA": [
         {
             "id": 1,
-            "etiquette": "1",
+            "etiquette": "Arc1",
             "IDdepart": 0,
-            "IDarrive": 1
+            "IDarrive": 1,
+            "AChargeUtile": [
+                {
+                    "poid1": 1,
+                    "Valeur reel": 10.100000381469727
+                },
+                {
+                    "poid2": 0,
+                    "Valeur entiere": 144
+                }
+            ]
         },
         {
             "id": 2,
             "etiquette": "2",
             "IDdepart": 1,
-            "IDarrive": 2
+            "IDarrive": 2,
+            "AChargeUtile": []
         },
         {
             "id": 3,
             "etiquette": "3",
             "IDdepart": 2,
-            "IDarrive": 0
+            "IDarrive": 0,
+            "AChargeUtile": []
         }
     ]
 }
