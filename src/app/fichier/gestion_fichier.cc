@@ -72,15 +72,17 @@ if (path == ""){
          string mot = itr->first; // Accede au premier champs de la map (string)
          VectVal V = itr->second; // Accede au deuxieme champs de la map (VectVal)
          writer.StartObject();
-         writer.Key(mot.c_str());
+         writer.Key("mot");
+         writer.String(mot.c_str());
+         writer.Key("type");
          writer.Uint(V.type);
 
          if (V.type == 1){
-           writer.Key("Valeur reel");
+           writer.Key("Valeur_reel");
            writer.Double(V.valeur_reel);
          }
          if (V.type == 0){
-           writer.Key("Valeur entiere");
+           writer.Key("Valeur_entiere");
            writer.Uint(V.valeur_entiere);
          }
 
@@ -132,15 +134,18 @@ if (path == ""){
          VectVal V2 = itr->second;
 
          writer.StartObject();
-         writer.Key (mot2.c_str());
-         writer.Uint (V2.type);
+
+         writer.Key("mot");
+         writer.String(mot2.c_str());
+         writer.Key("type");
+         writer.Uint(V2.type);
 
            if (V2.type == 1){
-             writer.Key("Valeur reel");
+             writer.Key("Valeur_reel");
              writer.Double(V2.valeur_reel);
            }
            if (V2.type == 0){
-             writer.Key("Valeur entiere");
+             writer.Key("Valeur_entiere");
              writer.Uint(V2.valeur_entiere);
            }
 
@@ -228,15 +233,17 @@ if (path == ""){
         string mot = itr->first; // Accede au premier champs de la map (string)
         VectVal V = itr->second; // Accede au deuxieme champs de la map (VectVal)
         writer.StartObject();
-        writer.Key(mot.c_str());
+        writer.Key("mot");
+        writer.String(mot.c_str());
+        writer.Key("type");
         writer.Uint(V.type);
 
         if (V.type == 1){
-          writer.Key("Valeur reel");
+          writer.Key("Valeur_reel");
           writer.Double(V.valeur_reel);
         }
         if (V.type == 0){
-          writer.Key("Valeur entiere");
+          writer.Key("Valeur_entiere");
           writer.Uint(V.valeur_entiere);
         }
 
@@ -288,15 +295,17 @@ if (path == ""){
         VectVal V2 = itr->second;
 
         writer.StartObject();
-        writer.Key (mot2.c_str());
-        writer.Uint (V2.type);
+        writer.Key("mot");
+        writer.String(mot2.c_str());
+        writer.Key("type");
+        writer.Uint(V2.type);
 
           if (V2.type == 1){
-            writer.Key("Valeur reel");
+            writer.Key("Valeur_reel");
             writer.Double(V2.valeur_reel);
           }
           if (V2.type == 0){
-            writer.Key("Valeur entiere");
+            writer.Key("Valeur_entiere");
             writer.Uint(V2.valeur_entiere);
           }
 
@@ -346,31 +355,79 @@ Graphe chargement (string path){
 
   vector <Sommet> LISTESOM;
   int compteurSom = doc["listeS"].Size();
-  LISTESOM.resize (compteurSom,0);
+  LISTESOM.resize (compteurSom, Sommet (0));
 
   vector <Arc> LISTEARC;
   int compteurArc = doc["listeA"].Size();
-  LISTEARC.resize(compteurArc,0);
+  LISTEARC.resize(compteurArc,Arc (0,0,0));
 
 
 
-  
+
   for (int i = 0; i<doc["listeS"].Size(); i++){
     LISTESOM[i].setPosX (doc["listeS"][i]["x"].GetInt());
     LISTESOM[i].setPosY (doc["listeS"][i]["y"].GetInt());
     LISTESOM[i].setID(doc["listeS"][i]["id"].GetInt());
     LISTESOM[i].setEtiq(doc["listeS"][i]["etiquette"].GetString());
 
+
+    map <string, VectVal> m1;
+
+      for (int j = 0; j < doc["listeS"][i]["SChargeUtile"].Size(); j++){
+
+        string nom = doc["listeS"][i]["SChargeUtile"][j]["mot"].GetString();
+        VectVal v;
+
+        v.type = doc["listeS"][i]["SChargeUtile"][j]["type"].GetInt();
+          if (v.type == 0){
+            v.valeur_entiere = doc["listeS"][i]["SChargeUtile"][j]["Valeur_entiere"].GetInt();
+            v.valeur_reel = 0;
+          }
+          if (v.type == 1){
+            v.valeur_reel = doc["listeS"][i]["SChargeUtile"][j]["Valeur_reel"].GetDouble();
+            v.valeur_entiere = 0;
+          }
+
+          m1.insert(pair<string,VectVal> (nom, v));
+
+      }
+
+        map <string,VectVal>::iterator k;
+        for (k = m1.begin() ; k != m1.end(); k++ ){
+          string mot = k->first;
+          VectVal V2 = k->second;
+
+          cout <<"mot : " << mot << "type : " << V2.type << "entier : " <<V2.valeur_entiere << "reel : " << V2.valeur_reel << endl;
+
+        }
+
+    LISTESOM[i].setCU(m1);
+
+
+
     cout << "Position X : "<< LISTESOM[i].getPosX() << endl;
     cout << "Position Y : "<< LISTESOM[i].getPosY() << endl;
     cout << "ID : "<< LISTESOM[i].getID() << endl;
     cout << "Etiquette : "<< LISTESOM[i].getEtiq() << endl << endl;
+
   }
 
 
 
 
+
   for (int i = 0; i < doc["listeA"].Size(); i++){
+    LISTEARC[i].setID(doc["listeA"][i]["id"].GetInt());
+    LISTEARC[i].setEtiq(doc["listeA"][i]["etiquette"].GetString());
+    LISTEARC[i].setIDDepart(doc["listeA"][i]["IDdepart"].GetInt());
+    LISTEARC[i].setIDArrive(doc["listeA"][i]["IDarrive"].GetInt());
+
+
+
+    cout << "ID : " << LISTEARC[i].getID() << endl;
+    cout << "Etiquette : " << LISTEARC[i].getEtiq() << endl;
+    cout << "IDdepart : " << LISTEARC[i].getIDDepart() << endl;
+    cout << "IDarrive : " << LISTEARC[i].getIDArrive() << endl << endl;
 
   }
 

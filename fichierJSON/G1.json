@@ -10,7 +10,18 @@
             "vecArc": [
                 1
             ],
-            "SChargeUtile": []
+            "SChargeUtile": [
+                {
+                    "mot": "poid1",
+                    "type": 1,
+                    "Valeur_reel": 10.1
+                },
+                {
+                    "mot": "poid2",
+                    "type": 0,
+                    "Valeur_entiere": 144
+                }
+            ]
         },
         {
             "x": 66,
@@ -20,7 +31,18 @@
             "vecArc": [
                 2
             ],
-            "SChargeUtile": []
+            "SChargeUtile": [
+                {
+                    "mot": "poid3",
+                    "type": 1,
+                    "Valeur_reel": 17.319
+                },
+                {
+                    "mot": "poid4",
+                    "type": 1,
+                    "Valeur_reel": 4566.222
+                }
+            ]
         },
         {
             "x": 21,

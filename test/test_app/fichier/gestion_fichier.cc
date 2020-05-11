@@ -56,11 +56,33 @@ TEST_CASE ("Test de la sauvegarde", "[]"){
 
 TEST_CASE ("Test du chargement", "[]"){
 
+  map<string, VectVal> m0,m1;
+  VectVal v1,v2,v3,v4;
+  v1.type = true;
+  v1.valeur_reel = 10.1;
+
+  v2.type = false;
+  v2.valeur_entiere = 144;
+
+  v3.type = true;
+  v3.valeur_reel = 17.32;
+
+  v4.type = true;
+  v4.valeur_reel = 4566.222;
+
+  m0.insert(pair<string, VectVal> ("poid1", v1));
+  m0.insert(pair<string, VectVal> ("poid2", v2));
+
+  m1.insert(pair<string, VectVal> ("poid3", v3));
+  m1.insert(pair<string, VectVal> ("poid4", v4));
+
+
+
   vector<Sommet> listeS;
   vector<Arc> listeA;
 
-  listeS.push_back(Sommet(20,15, "sommet0", 0));
-  listeS.push_back(Sommet(66,55, "sommet1",1));
+  listeS.push_back(Sommet(20,15, "sommet0", 0, m0));
+  listeS.push_back(Sommet(66,55, "sommet1",1, m1));
   listeS.push_back(Sommet(21, 1, "sommet2",2));
   listeA.push_back(Arc(1,listeS[0].getID(),listeS[1].getID()));
   listeA.push_back(Arc(2,listeS[1].getID(),listeS[2].getID()));
