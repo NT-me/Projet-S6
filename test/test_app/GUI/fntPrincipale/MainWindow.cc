@@ -9,8 +9,6 @@ class TestMainWindow: public QObject
     Q_OBJECT
 private slots:
     void testMainWindow(){
-      mainW A(0);
-      QVERIFY(A.ret());
     }
     void testDestructeur(){} // lol
     void testprintConsole(){}
