@@ -54,16 +54,16 @@ if (path == ""){
 
        // Revoir avec les maps
 
-       // writer.Key("AChargeUtile");
-       // writer.StartArray ();
-       //   for (int k = 0; k < /*G.getListe_Sommets()[i].getCU().size()*/ 5 ;k++){
-       //    writer.StartObject();
-       //    writer.Key("vecteur");
-       //    writer.Uint (5);
-       //    writer.EndObject();
-       //   }
-       // writer.EndArray ();
-       //
+       writer.Key("AChargeUtile");
+       writer.StartArray ();
+         for (int k = 0; k < G.getListe_Sommets()[i].getCU().size() ;k++){
+          // writer.StartArray();
+          // writer.Key(G.getListe_Sommets()[i].getCU().size());
+          // writer.Uint(G.getListe_Sommets()[i].getCU().size());
+          // writer.EndArray();
+         }
+       writer.EndArray ();
+
 
 
        writer.EndObject();
@@ -166,16 +166,16 @@ if (path == ""){
 
       // Revoir avec les maps
 
-      // writer.Key("AChargeUtile");
-      // writer.StartArray ();
-      //   for (int k = 0; k < /*G.getListe_Sommets()[i].getCU().size()*/ 5 ;k++){
-      //    writer.StartObject();
-      //    writer.Key("vecteur");
-      //    writer.Uint (5);
-      //    writer.EndObject();
-      //   }
-      // writer.EndArray ();
-      //
+      writer.Key("AChargeUtile");
+      writer.StartArray ();
+        for (int k = 0; k < G.getListe_Sommets()[i].getCU().size() ;k++){
+         writer.StartObject();
+         writer.Key("vecteur");
+         writer.Uint (5);
+         writer.EndObject();
+        }
+      writer.EndArray ();
+
 
 
       writer.EndObject();
@@ -216,21 +216,13 @@ if (path == ""){
 
       writer.EndObject();
     }
-
     writer.EndArray (); // Fin des Arcs
 
-
-
-    writer.EndObject();
-
-    cout << s.GetString() <<endl;
-
+    writer.EndObject(); // Fin du fichier
 
     // Utilisation du fichier ayant pour chemin celui du graphe pour modifier les valeurs dans le fichier.
     std::ofstream o(path.c_str());
     o<<s.GetString ();
-
-    //cout << "fin" << G.getPath () <<endl;
 
      if (!o.good())
        return 1;
@@ -238,12 +230,9 @@ if (path == ""){
     return 0;
   }
 
-  return 2;
+  return 2; // Revoir les returns
 
 }
-
-
-
 
 
 

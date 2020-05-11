@@ -6,22 +6,38 @@
             "x": 0,
             "y": 0,
             "id": 0,
-            "etiquette": "0",
-            "vecArc": []
+            "etiquette": "sommet0",
+            "vecArc": [
+                1
+            ],
+            "AChargeUtile": [
+                {
+                    "vecteur": 5
+                },
+                {
+                    "vecteur": 5
+                }
+            ]
         },
         {
             "x": 0,
             "y": 0,
             "id": 1,
             "etiquette": "1",
-            "vecArc": []
+            "vecArc": [
+                2
+            ],
+            "AChargeUtile": []
         },
         {
             "x": 0,
             "y": 0,
             "id": 2,
             "etiquette": "2",
-            "vecArc": []
+            "vecArc": [
+                3
+            ],
+            "AChargeUtile": []
         }
     ],
     "listeA": [

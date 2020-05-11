@@ -1,5 +1,6 @@
 #include <string.h>
 #include "../../bib/classes/classes.hh"
+
 #include "../../../libExt/rapidjson/document.h"
 
 
@@ -10,4 +11,3 @@ Graphe chargement(string path);
 bool verif_file(rapidjson::Document D);
 
 int suppression(string path);
-
