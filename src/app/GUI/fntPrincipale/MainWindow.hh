@@ -1,24 +1,24 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+// #include <QMainWindow> // Il le trouve pas chez moi
 #include "UI_MainWindow.hh"
 
-QT BEGIN NAMESPACE //chelou à voir si c'est vraiment utile
+//QT BEGIN NAMESPACE //chelou à voir si c'est vraiment utile
 namespace Ui {
 class MainWindow;
 }
-QT END NAMESPACE //chelou à voir si c'est vraiment utile
+//QT END NAMESPACE //chelou à voir si c'est vraiment utile
 
 class MainWindow : public QMainWindow
 {
 Q OBJECT
 private :
-  Ui::MainWindow ∗ui;
+  Ui::MainWindow *ui;
   Graphe grapheCourant;
   int dernierBoutonEnclenche;
 public :
-  MainWindow(QWidget ∗parent = nullptr );
+  MainWindow(QWidget *parent = nullptr );
   ~MainWindow();
   int printConsole(string nomMethode, string valRetFunc);
   int printCaraSelection();
