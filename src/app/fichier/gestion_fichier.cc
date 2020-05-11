@@ -5,6 +5,9 @@
 #include "../../../libExt/rapidjson/prettywriter.h"
 
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <iostream>
 
 using namespace rapidjson;
 
@@ -16,6 +19,7 @@ if (path == ""){
      StringBuffer s;
      PrettyWriter <StringBuffer> writer(s);
      writer.StartObject();
+     writer.SetMaxDecimalPlaces (3);
 
      writer.Key("etiquette");
      writer.String(G.getEtiq().c_str());
@@ -52,24 +56,46 @@ if (path == ""){
        writer.EndArray();
 
 
-       // Revoir avec les maps
 
-       writer.Key("AChargeUtile");
+       // Poids sur les sommets avec des valeurs entieres ou reelles
+       writer.Key("SChargeUtile");
        writer.StartArray ();
-         for (int k = 0; k < G.getListe_Sommets()[i].getCU().size() ;k++){
-          // writer.StartArray();
-          // writer.Key(G.getListe_Sommets()[i].getCU().size());
-          // writer.Uint(G.getListe_Sommets()[i].getCU().size());
-          // writer.EndArray();
+       /*Iterateur sur la liste de sommets pour les poids*/
+       map<string, VectVal>::iterator itr = G.getListe_Sommets()[i].getCU().begin();
+       map<string, VectVal> m  = G.getListe_Sommets()[i].getCU();
+
+
+        while (itr != m.end()){
+
+         string mot = itr->first; // Accede au premier champs de la map (string)
+         VectVal V = itr->second; // Accede au deuxieme champs de la map (VectVal)
+         writer.StartObject();
+         writer.Key(mot.c_str());
+         writer.Uint(V.type);
+
+         if (V.type == 1){
+           writer.Key("Valeur reel");
+           writer.Double(V.valeur_reel);
          }
-       writer.EndArray ();
+         if (V.type == 0){
+           writer.Key("Valeur entiere");
+           writer.Uint(V.valeur_entiere);
+         }
 
+         writer.EndObject();
+         itr ++;
 
+       }
+       writer.EndArray (); // Fin de SChargeUtile
 
-       writer.EndObject();
+     writer.EndObject(); //Fin de listeS
      }
 
      writer.EndArray (); // Fin des Sommets
+
+
+
+
 
      writer.Key ("listeA");
      writer.StartArray ();
@@ -90,25 +116,47 @@ if (path == ""){
        writer.Key("IDarrive");
        writer.Uint(G.getListe_Arcs()[i].getIDArrive());
 
-       // Revoir avec les maps
 
-       // writer.Key("AChargeUtile");
-       // writer.StartArray ();
-       //   for (int k = 0; k < /*G.getListe_Sommets()[i].getCU().size()*/ 5 ;k++){
-       //    writer.StartObject();
-       //    writer.Key("vecteur");
-       //    writer.Uint (5);
-       //    writer.EndObject();
-       //   }
-       // writer.EndArray ();
 
-       writer.EndObject();
+       writer.Key("AChargeUtile");
+       writer.StartArray();
+
+       map<string, VectVal> map2 = G.getListe_Arcs()[i].getCU();
+       map<string, VectVal>::iterator itr = map2.begin();
+
+       while (itr != map2.end()){
+
+         string mot2 = itr->first;
+         VectVal V2 = itr->second;
+
+         writer.StartObject();
+         writer.Key (mot2.c_str());
+         writer.Uint (V2.type);
+
+           if (V2.type == 1){
+             writer.Key("Valeur reel");
+             writer.Double(V2.valeur_reel);
+           }
+           if (V2.type == 0){
+             writer.Key("Valeur entiere");
+             writer.Uint(V2.valeur_entiere);
+           }
+
+         writer.EndObject();
+         itr ++;
+       }
+
+       writer.EndArray(); // Fin de AChargeUtile
+
+
+       writer.EndObject(); // Fin de listeA
      }
 
-     writer.EndArray (); // Fin des Arcs
+       writer.EndArray (); // Fin des Arcs
 
 
    writer.EndObject(); // Fin du fichier
+
 
      // Utilisation du fichier ayant pour chemin celui du graphe pour modifier les valeurs dans le fichier.
      std::ofstream o(G.getPath().c_str());
@@ -164,24 +212,46 @@ if (path == ""){
       writer.EndArray();
 
 
-      // Revoir avec les maps
 
-      writer.Key("AChargeUtile");
+      // Poids sur les sommets avec des valeurs entieres ou reelles
+      writer.Key("SChargeUtile");
       writer.StartArray ();
-        for (int k = 0; k < G.getListe_Sommets()[i].getCU().size() ;k++){
-         writer.StartObject();
-         writer.Key("vecteur");
-         writer.Uint (5);
-         writer.EndObject();
+      /*Iterateur sur la liste de sommets pour les poids*/
+      map<string, VectVal>::iterator itr = G.getListe_Sommets()[i].getCU().begin();
+      map<string, VectVal> m  = G.getListe_Sommets()[i].getCU();
+
+
+       while (itr != m.end()){
+
+        string mot = itr->first; // Accede au premier champs de la map (string)
+        VectVal V = itr->second; // Accede au deuxieme champs de la map (VectVal)
+        writer.StartObject();
+        writer.Key(mot.c_str());
+        writer.Uint(V.type);
+
+        if (V.type == 1){
+          writer.Key("Valeur reel");
+          writer.Double(V.valeur_reel);
         }
-      writer.EndArray ();
+        if (V.type == 0){
+          writer.Key("Valeur entiere");
+          writer.Uint(V.valeur_entiere);
+        }
 
+        writer.EndObject();
+        itr ++;
 
+      }
+      writer.EndArray (); // Fin de SChargeUtile
 
-      writer.EndObject();
+    writer.EndObject(); //Fin de listeS
     }
 
     writer.EndArray (); // Fin des Sommets
+
+
+
+
 
     writer.Key ("listeA");
     writer.StartArray ();
@@ -202,23 +272,47 @@ if (path == ""){
       writer.Key("IDarrive");
       writer.Uint(G.getListe_Arcs()[i].getIDArrive());
 
-      // Revoir avec les maps
 
-      // writer.Key("AChargeUtile");
-      // writer.StartArray ();
-      //   for (int k = 0; k < /*G.getListe_Sommets()[i].getCU().size()*/ 5 ;k++){
-      //    writer.StartObject();
-      //    writer.Key("vecteur");
-      //    writer.Uint (5);
-      //    writer.EndObject();
-      //   }
-      // writer.EndArray ();
 
-      writer.EndObject();
+      writer.Key("AChargeUtile");
+      writer.StartArray();
+
+      map<string, VectVal> map2 = G.getListe_Arcs()[i].getCU();
+      map<string, VectVal>::iterator itr = map2.begin();
+
+      while (itr != map2.end()){
+
+        string mot2 = itr->first;
+        VectVal V2 = itr->second;
+
+        writer.StartObject();
+        writer.Key (mot2.c_str());
+        writer.Uint (V2.type);
+
+          if (V2.type == 1){
+            writer.Key("Valeur reel");
+            writer.Double(V2.valeur_reel);
+          }
+          if (V2.type == 0){
+            writer.Key("Valeur entiere");
+            writer.Uint(V2.valeur_entiere);
+          }
+
+        writer.EndObject();
+        itr ++;
+      }
+
+      writer.EndArray(); // Fin de AChargeUtile
+
+
+      writer.EndObject(); // Fin de listeA
     }
-    writer.EndArray (); // Fin des Arcs
 
-    writer.EndObject(); // Fin du fichier
+      writer.EndArray (); // Fin des Arcs
+
+
+  writer.EndObject(); // Fin du fichier
+
 
     // Utilisation du fichier ayant pour chemin celui du graphe pour modifier les valeurs dans le fichier.
     std::ofstream o(path.c_str());
@@ -227,8 +321,8 @@ if (path == ""){
      if (!o.good())
        return 1;
 
-    return 0;
-  }
+   return 0;
+ }
 
   return 2; // Revoir les returns
 

@@ -22,8 +22,9 @@ TEST_CASE ("Test de la sauvegarde", "[]"){
   VectVal v1,v2;
   v1.type = true;
   v1.valeur_reel = 10.1;
+
   v2.type = false;
-  v2.valeur_reel = 144.6;
+  v2.valeur_entiere = 144;
   m0.insert(pair<string, VectVal> ("poid1", v1));
   m0.insert(pair<string, VectVal> ("poid2", v2));
 
@@ -35,7 +36,7 @@ TEST_CASE ("Test de la sauvegarde", "[]"){
   listeS.push_back(Sommet(1));
   listeS.push_back(Sommet(2));
 
-  listeA.push_back(Arc(1,listeS[0].getID(),listeS[1].getID()));
+  listeA.push_back(Arc("Arc1",1,listeS[0].getID(),listeS[1].getID(), m0));
   listeA.push_back(Arc(2,listeS[1].getID(),listeS[2].getID()));
   listeA.push_back(Arc(3,listeS[2].getID(),listeS[0].getID()));
 
