@@ -1,0 +1,59 @@
+{
+    "etiquette": "graphe0",
+    "path": "../fichierJSON/G1.json",
+    "listeS": [
+        {
+            "x": 20,
+            "y": 15,
+            "id": 0,
+            "etiquette": "sommet0",
+            "vecArc": [
+                1
+            ],
+            "SChargeUtile": []
+        },
+        {
+            "x": 66,
+            "y": 55,
+            "id": 1,
+            "etiquette": "sommet1",
+            "vecArc": [
+                2
+            ],
+            "SChargeUtile": []
+        },
+        {
+            "x": 21,
+            "y": 1,
+            "id": 2,
+            "etiquette": "sommet2",
+            "vecArc": [
+                3
+            ],
+            "SChargeUtile": []
+        }
+    ],
+    "listeA": [
+        {
+            "id": 1,
+            "etiquette": "1",
+            "IDdepart": 0,
+            "IDarrive": 1,
+            "AChargeUtile": []
+        },
+        {
+            "id": 2,
+            "etiquette": "2",
+            "IDdepart": 1,
+            "IDarrive": 2,
+            "AChargeUtile": []
+        },
+        {
+            "id": 3,
+            "etiquette": "3",
+            "IDdepart": 2,
+            "IDarrive": 0,
+            "AChargeUtile": []
+        }
+    ]
+}

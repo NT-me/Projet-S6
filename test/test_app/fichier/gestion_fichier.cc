@@ -52,37 +52,38 @@ TEST_CASE ("Test de la sauvegarde", "[]"){
     REQUIRE (sauvegarde(G0,"../fichierJSON/G0modif.json") == 0);
   }
 }
-//
-//
-// TEST_CASE ("Test du chargement", "[]"){
-//
-//   vector<Sommet> listeS;
-//   vector<Arc> listeA;
-//
-//   listeS.push_back(Sommet(0));
-//   listeS.push_back(Sommet(1));
-//   listeS.push_back(Sommet(2));
-//   listeA.push_back(Arc(1,listeS[0].getID(),listeS[1].getID()));
-//   listeA.push_back(Arc(2,listeS[1].getID(),listeS[2].getID()));
-//   listeA.push_back(Arc(3,listeS[2].getID(),listeS[0].getID()));
-//
-//   Graphe G0 ("graphe0", listeS, listeA, "/fichierJSON/G0.json");
-//   sauvegarde (G0,"");
-//   REQUIRE (G0 == chargement("/fichierJSON/G0.json"));
-//
-// }
-//
-//
-//
-// TEST_CASE ("Test de la verification de fichier", "[]"){
-//
-//   // string fic "/fichierJSON/G0.json";
-//   // D = fic parser ????
-//
-//   // rapidjson::Document D;
-//   // REQUIRE (verif_file (D) == 0);
-//
-// }
+
+
+TEST_CASE ("Test du chargement", "[]"){
+
+  vector<Sommet> listeS;
+  vector<Arc> listeA;
+
+  listeS.push_back(Sommet(20,15, "sommet0", 0));
+  listeS.push_back(Sommet(66,55, "sommet1",1));
+  listeS.push_back(Sommet(21, 1, "sommet2",2));
+  listeA.push_back(Arc(1,listeS[0].getID(),listeS[1].getID()));
+  listeA.push_back(Arc(2,listeS[1].getID(),listeS[2].getID()));
+  listeA.push_back(Arc(3,listeS[2].getID(),listeS[0].getID()));
+
+  Graphe G0 ("graphe0", listeS, listeA, "../fichierJSON/G1.json");
+  //Graphe G0 ("../fichierJSON/G0.json");
+  sauvegarde (G0,"");
+  REQUIRE (G0 == chargement("../fichierJSON/G1.json"));
+
+}
+
+
+
+TEST_CASE ("Test de la verification de fichier", "[]"){
+
+  // string fic "/fichierJSON/G0.json";
+  // D = fic parser ????
+
+  // rapidjson::Document D;
+  // REQUIRE (verif_file (D) == 0);
+
+}
 
 
 

@@ -1,8 +1,10 @@
 #include "gestion_fichier.hh"
 // #include "../../../libExt/rapidjson/stringbuffer.h"
 #include "../../../libExt/rapidjson/writer.h"
-#include "../../../libExt/rapidjson/filewritestream.h"
+// #include "../../../libExt/rapidjson/filewritestream.h"
 #include "../../../libExt/rapidjson/prettywriter.h"
+#include "../../../libExt/rapidjson/istreamwrapper.h"
+
 
 #include <fstream>
 #include <iterator>
@@ -332,7 +334,51 @@ if (path == ""){
 
 Graphe chargement (string path){
 
-  Graphe G0 (0);
+
+
+  ifstream fichier(path);
+  IStreamWrapper fic (fichier);
+
+  rapidjson::Document doc;
+  doc.ParseStream<0>(fic);
+  string chemin = doc["path"].GetString(); // Recupere le path du graphe
+  string etiq = doc ["etiquette"].GetString(); // Recupere le nom du Graphe
+
+  vector <Sommet> LISTESOM;
+  int compteurSom = doc["listeS"].Size();
+  LISTESOM.resize (compteurSom,0);
+
+  vector <Arc> LISTEARC;
+  int compteurArc = doc["listeA"].Size();
+  LISTEARC.resize(compteurArc,0);
+
+
+
+  
+  for (int i = 0; i<doc["listeS"].Size(); i++){
+    LISTESOM[i].setPosX (doc["listeS"][i]["x"].GetInt());
+    LISTESOM[i].setPosY (doc["listeS"][i]["y"].GetInt());
+    LISTESOM[i].setID(doc["listeS"][i]["id"].GetInt());
+    LISTESOM[i].setEtiq(doc["listeS"][i]["etiquette"].GetString());
+
+    cout << "Position X : "<< LISTESOM[i].getPosX() << endl;
+    cout << "Position Y : "<< LISTESOM[i].getPosY() << endl;
+    cout << "ID : "<< LISTESOM[i].getID() << endl;
+    cout << "Etiquette : "<< LISTESOM[i].getEtiq() << endl << endl;
+  }
+
+
+
+
+  for (int i = 0; i < doc["listeA"].Size(); i++){
+
+  }
+
+
+
+
+  Graphe G0 (etiq, LISTESOM, LISTEARC, chemin);
+
   return G0;
 
 }
