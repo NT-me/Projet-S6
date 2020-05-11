@@ -276,7 +276,7 @@ test_app_fichier: clean
 
 test_app_GUI: clean
 
-test_app_GUI_mainwindow: clean
+test_app_GUI_fntPrincipale_mainwindow: clean
 	cd test_app/GUI/fntPrincipale; \
 	qmake -makefile -o Makefile MainWindow.pro; \
 	make; \
@@ -286,4 +286,33 @@ test_app_GUI_mainwindow: clean
 	rm moc_predefs.h; \
 	rm .qmake.stash; \
 
+test_app_GUI_fntPrincipale_QArc: clean
+	cd test_app/GUI/fntPrincipale; \
+	qmake -makefile -o Makefile QArc.pro; \
+	make; \
+	./QArc; \
+	rm QArc; \
+	rm *.moc; \
+	rm moc_predefs.h; \
+	rm .qmake.stash; \
+
+test_app_GUI_fntPrincipale_QSommet: clean
+	cd test_app/GUI/fntPrincipale; \
+	qmake -makefile -o Makefile QSommet.pro; \
+	make; \
+	./QSommet; \
+	rm QSommet; \
+	rm *.moc; \
+	rm moc_predefs.h; \
+	rm .qmake.stash; \
+
+test_app_GUI_fntPrincipale_QZoneDeDessin: clean
+	cd test_app/GUI/fntPrincipale; \
+	qmake -makefile -o Makefile QZoneDeDessin.pro; \
+	make; \
+	./QZoneDeDessin; \
+	rm QZoneDeDessin; \
+	rm *.moc; \
+	rm moc_predefs.h; \
+	rm .qmake.stash; \
 #===============================================================================
