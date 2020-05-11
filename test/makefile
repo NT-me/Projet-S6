@@ -275,4 +275,15 @@ test_app_fichier: clean
 	g++ GrapheMatrice.o Arc.o Sommet.o gestion_fichier.o test_app/fichier/gestion_fichier.cc -o OUTFichier.o
 
 test_app_GUI: clean
+
+test_app_GUI_mainwindow: clean
+	cd test_app/GUI/fntPrincipale; \
+	qmake -makefile -o Makefile MainWindow.pro; \
+	make; \
+	./MainWindow; \
+	rm MainWindow; \
+	rm *.moc; \
+	rm moc_predefs.h; \
+	rm .qmake.stash; \
+
 #===============================================================================
