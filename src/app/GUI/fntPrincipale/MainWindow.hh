@@ -1,8 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-// #include <QMainWindow> // Il le trouve pas chez moi
+#include <QtWidgets/QMainWindow>
+#include <QString>
 #include "UI_MainWindow.hh"
+#include "../../../bib/bib.hh"
 
 //QT BEGIN NAMESPACE //chelou à voir si c'est vraiment utile
 namespace Ui {
@@ -12,7 +14,7 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
-Q OBJECT
+Q_OBJECT
 private :
   Ui::MainWindow *ui;
   Graphe grapheCourant;
@@ -22,8 +24,8 @@ public :
   ~MainWindow();
   int printConsole(string nomMethode, string valRetFunc);
   int printCaraSelection();
-  int ajouterOnglet(Qstring nomOnglet, Graphe G);
-  int supprimerOnglet(Qstring nomOnglet);
+  int ajouterOnglet(QString nomOnglet, Graphe G);
+  int supprimerOnglet(QString nomOnglet);
 
 public slots :
   void nv_graphe_vide();

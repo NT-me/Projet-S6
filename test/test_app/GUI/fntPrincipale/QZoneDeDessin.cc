@@ -8,9 +8,9 @@ private slots:
 };
 
 #ifndef QTT_MAIN
-#define
+#define QTT_MAIN
 
 QTEST_MAIN(TestQZoneDeDessin);
-#endif QTT_MAIN
+#endif
 
 #include "QZoneDeDessin.moc"
