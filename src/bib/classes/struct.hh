@@ -22,9 +22,6 @@ struct VectVal {
    valeur_reel = v2.valeur_reel;
    return *this;
  }
-
-
-
 };
 
 inline bool operator== (VectVal v1, VectVal v2){
