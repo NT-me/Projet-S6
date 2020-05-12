@@ -52,9 +52,12 @@ if (path == ""){
        writer.StartArray();
        //writer.StartObject();
        //Boucle pour savoir a quels arcs le sommet et relié
-        for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++)
+        for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++){
+          writer.StartObject();
+          writer.Key("Tab");
           writer.Uint (G.getListe_Sommets()[i].getVecArc()[j]);
-       //writer.EndObject();
+          writer.EndObject();
+        }
        writer.EndArray();
 
 
@@ -213,9 +216,12 @@ if (path == ""){
       writer.StartArray();
       //writer.StartObject();
       //Boucle pour savoir a quels arcs le sommet et relié
-       for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++)
+       for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++){
+         writer.StartObject();
+         writer.Key("Tab");
          writer.Uint (G.getListe_Sommets()[i].getVecArc()[j]);
-      //writer.EndObject();
+         writer.EndObject();
+       }
       writer.EndArray();
 
 
@@ -362,8 +368,6 @@ Graphe chargement (string path){
   LISTEARC.resize(compteurArc,Arc (0,0,0));
 
 
-
-
   for (int i = 0; i<doc["listeS"].Size(); i++){
     LISTESOM[i].setPosX (doc["listeS"][i]["x"].GetInt());
     LISTESOM[i].setPosY (doc["listeS"][i]["y"].GetInt());
@@ -371,7 +375,19 @@ Graphe chargement (string path){
     LISTESOM[i].setEtiq(doc["listeS"][i]["etiquette"].GetString());
 
 
-    map <string, VectVal> m1;
+    vector <int> VecteurArc;
+    VecteurArc.resize(doc["listeS"][i]["vecArc"].Size() ,0);
+
+    for (int j = 0; j <  doc["listeS"][i]["vecArc"].Size(); j++){
+      VecteurArc[j] = doc["listeS"][i]["vecArc"][j]["Tab"].GetInt();
+      cout <<"VecArc : "<< VecteurArc[j] << endl;
+    }
+
+
+   LISTESOM[i].setVecArc(VecteurArc);
+
+
+      map <string, VectVal> m1;
 
       for (int j = 0; j < doc["listeS"][i]["SChargeUtile"].Size(); j++){
 
@@ -389,17 +405,8 @@ Graphe chargement (string path){
           }
 
           m1.insert(pair<string,VectVal> (nom, v));
-
       }
 
-        map <string,VectVal>::iterator k;
-        for (k = m1.begin() ; k != m1.end(); k++ ){
-          string mot = k->first;
-          VectVal V2 = k->second;
-
-          cout <<"mot : " << mot << "type : " << V2.type << "entier : " <<V2.valeur_entiere << "reel : " << V2.valeur_reel << endl;
-
-        }
 
     LISTESOM[i].setCU(m1);
 

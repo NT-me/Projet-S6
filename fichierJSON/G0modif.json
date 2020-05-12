@@ -8,7 +8,12 @@
             "id": 0,
             "etiquette": "sommet0",
             "vecArc": [
-                1
+                {
+                    "Tab": 1
+                },
+                {
+                    "Tab": 4
+                }
             ],
             "SChargeUtile": [
                 {
@@ -29,7 +34,9 @@
             "id": 1,
             "etiquette": "1",
             "vecArc": [
-                2
+                {
+                    "Tab": 2
+                }
             ],
             "SChargeUtile": []
         },
@@ -39,7 +46,9 @@
             "id": 2,
             "etiquette": "2",
             "vecArc": [
-                3
+                {
+                    "Tab": 3
+                }
             ],
             "SChargeUtile": []
         }
@@ -75,6 +84,13 @@
             "etiquette": "3",
             "IDdepart": 2,
             "IDarrive": 0,
+            "AChargeUtile": []
+        },
+        {
+            "id": 4,
+            "etiquette": "4",
+            "IDdepart": 0,
+            "IDarrive": 2,
             "AChargeUtile": []
         }
     ]

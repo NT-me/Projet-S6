@@ -39,6 +39,7 @@ TEST_CASE ("Test de la sauvegarde", "[]"){
   listeA.push_back(Arc("Arc1",1,listeS[0].getID(),listeS[1].getID(), m0));
   listeA.push_back(Arc(2,listeS[1].getID(),listeS[2].getID()));
   listeA.push_back(Arc(3,listeS[2].getID(),listeS[0].getID()));
+  listeA.push_back(Arc(4,listeS[0].getID(),listeS[2].getID()));
 
   SECTION ("Test de la sauvegarde normale"){
     Graphe G0 ("graphe0", listeS, listeA, "../fichierJSON/G0.json");
@@ -87,6 +88,7 @@ TEST_CASE ("Test du chargement", "[]"){
   listeA.push_back(Arc(1,listeS[0].getID(),listeS[1].getID()));
   listeA.push_back(Arc(2,listeS[1].getID(),listeS[2].getID()));
   listeA.push_back(Arc(3,listeS[2].getID(),listeS[0].getID()));
+  listeA.push_back(Arc(4,listeS[0].getID(),listeS[2].getID()));
 
   Graphe G0 ("graphe0", listeS, listeA, "../fichierJSON/G1.json");
   //Graphe G0 ("../fichierJSON/G0.json");
