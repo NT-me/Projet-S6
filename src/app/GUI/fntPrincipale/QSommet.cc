@@ -19,12 +19,12 @@ int QSommet::getRayon() const{return this->rayon;}
 QColor QSommet::getCoul() const{return this->coul;}
 bool QSommet::getSelect() const{return this->select;}
 
-void QSommet::setID(int id){}
-void QSommet::setPosX(int x){}
-void QSommet::setPosY(int y){}
-void QSommet::setRayon(int r){}
-void QSommet::setCoul(QColor color){}
-void QSommet::setSelect(bool select){}
+void QSommet::setID(int id){this->id = id;}
+void QSommet::setPosX(int x){this->posx = x;}
+void QSommet::setPosY(int y){this->posy = y;}
+void QSommet::setRayon(int r){this->rayon = r;}
+void QSommet::setCoul(QColor color){this->coul = color;}
+void QSommet::setSelect(bool select){this->select = select;}
 
 void QSommet::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){}
 QRectF QSommet::boundingRect() const{}

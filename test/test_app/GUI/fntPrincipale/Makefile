@@ -50,8 +50,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = QSommet.cc 
-OBJECTS       = QSommet.o
+SOURCES       = ../../../../src/bib/classes/Sommet.cc \
+		QSommet.cc 
+OBJECTS       = Sommet.o \
+		QSommet.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -125,7 +127,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		QSommet.pro  QSommet.cc
+		QSommet.pro ../../../../src/app/GUI/fntPrincipale/QSommet.hh ../../../../src/bib/classes/Sommet.cc \
+		QSommet.cc
 QMAKE_TARGET  = QSommet
 DESTDIR       = 
 TARGET        = QSommet
@@ -309,7 +312,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents QSommet.cc $(DISTDIR)/
+	$(COPY_FILE) --parents ../../../../src/app/GUI/fntPrincipale/QSommet.hh $(DISTDIR)/
+	$(COPY_FILE) --parents ../../../../src/bib/classes/Sommet.cc QSommet.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -354,6 +358,7 @@ QSommet.moc: ../../../../src/app/GUI/fntPrincipale/QSommet.hh \
 		../../../../src/bib/classes/GrapheMatrice.hh \
 		../../../../src/bib/algo/liste.hh \
 		../../../../src/bib/classes/classes.hh \
+		../../../../src/app/GUI/fntPrincipale/QSommet.cc \
 		QSommet.cc \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -371,6 +376,10 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_source_clean
 
 ####### Compile
 
+Sommet.o: ../../../../src/bib/classes/Sommet.cc ../../../../src/bib/classes/Sommet.hh \
+		../../../../src/bib/classes/struct.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Sommet.o ../../../../src/bib/classes/Sommet.cc
+
 QSommet.o: QSommet.cc ../../../../src/app/GUI/fntPrincipale/QSommet.hh \
 		../../../../src/bib/bib.hh \
 		../../../../src/bib/classes/struct.hh \
@@ -379,6 +388,7 @@ QSommet.o: QSommet.cc ../../../../src/app/GUI/fntPrincipale/QSommet.hh \
 		../../../../src/bib/classes/GrapheMatrice.hh \
 		../../../../src/bib/algo/liste.hh \
 		../../../../src/bib/classes/classes.hh \
+		../../../../src/app/GUI/fntPrincipale/QSommet.cc \
 		QSommet.moc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QSommet.o QSommet.cc
 
