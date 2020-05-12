@@ -318,26 +318,18 @@ if (path == ""){
         writer.EndObject();
         itr ++;
       }
-
       writer.EndArray(); // Fin de AChargeUtile
-
-
       writer.EndObject(); // Fin de listeA
     }
-
       writer.EndArray (); // Fin des Arcs
-
-
   writer.EndObject(); // Fin du fichier
 
 
     // Utilisation du fichier ayant pour chemin celui du graphe pour modifier les valeurs dans le fichier.
     std::ofstream o(path.c_str());
     o<<s.GetString ();
-
      if (!o.good())
        return 1;
-
    return 0;
  }
 
@@ -429,6 +421,28 @@ Graphe chargement (string path){
     LISTEARC[i].setIDDepart(doc["listeA"][i]["IDdepart"].GetInt());
     LISTEARC[i].setIDArrive(doc["listeA"][i]["IDarrive"].GetInt());
 
+    map <string, VectVal> m1;
+
+    for (int j = 0; j < doc["listeA"][i]["AChargeUtile"].Size(); j++){
+
+      string nom = doc["listeA"][i]["AChargeUtile"][j]["mot"].GetString();
+      VectVal v;
+
+      v.type = doc["listeA"][i]["AChargeUtile"][j]["type"].GetInt();
+        if (v.type == 0){
+          v.valeur_entiere = doc["listeA"][i]["AChargeUtile"][j]["valeur_entiere"].GetInt();
+          v.valeur_reel = 0;
+        }
+        if (v.type == 1){
+          v.valeur_reel = doc["listeA"][i]["AChargeUtile"][j]["valeur_reel"].GetDouble();
+          v.valeur_entiere = 0;
+        }
+
+        m1.insert(pair<string,VectVal> (nom, v));
+    }
+
+
+    LISTEARC[i].setCU(m1);
 
 
     cout << "ID : " << LISTEARC[i].getID() << endl;
@@ -442,6 +456,7 @@ Graphe chargement (string path){
 
 
   Graphe G0 (etiq, LISTESOM, LISTEARC, chemin);
+
 
   return G0;
 

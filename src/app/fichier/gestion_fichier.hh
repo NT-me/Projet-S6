@@ -1,6 +1,5 @@
 #include <string.h>
 #include "../../bib/classes/classes.hh"
-
 #include "../../../libExt/rapidjson/document.h"
 
 
