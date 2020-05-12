@@ -1,3 +1,4 @@
+#include <map>
 #include <vector>
 #define CATCH_CONFIG_MAIN
 #include "../../../libExt/catch.hpp"
@@ -336,6 +337,51 @@ TEST_CASE("calcul posterite","[Algorithmes]"){
 }
 
 TEST_CASE("pert","[Algorithmes]"){
+
+    vector<pert_row> perts;
+    pert_row tache;
+    vector<Sommet> ListeS;
+    vector<Arc> ListeA;
+    map<string, VectVal> mapT;
+    map<string, VectVal> mapU;
+    VectVal v;
+    v.type = 0;
+    v.valeur_entiere = 0;
+
+    //ajout sommet départ et fin
+    mapT.insert(pair<string, VectVal> ("date au plus tot", v));
+    mapT.insert(pair<string, VectVal> ("date au plus tard", v));
+    v.valeur_entiere = 1;
+    mapT.insert(pair<string, VectVal> ("critique", v));
+    ListeS.push_back(Sommet(100, 100, "Départ", 0, mapT));
+
+    v.valeur_entiere = 17;
+    mapT["date au plus tot"] = v;
+    mapT["date au plus tard"] = v;
+    ListeS.push_back(Sommet(100, 100, "Fin", 1, mapT));
+
+    //premier Sommet
+    tache.tache = 1;
+    tache.nom_tache = "tache 1";
+    tache.taches_anterieures = vector<int>(0);
+    tache.taches_posterieures = vector<int>(2);
+    tache.taches_posterieures[0] = 5;
+    tache.taches_posterieures[1] = 8;
+    perts.push_back(tache);
+
+    //ajout des Sommets et Arcs correspondants au graphe
+    v.valeur_entiere = 5;
+    mapT["date au plus tot"] = v;
+    mapT["date au plus tard"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 1", 2, mapT));
+    mapU.insert(pair<string, VectVal> ("duree",v));
+    ListeA.push_back(Arc("1tache 1", 0, 0, 2, mapU));
+
+    Graphe res = pert(perts);
+    Graphe tmp("PERT", ListeS, ListeA, "\0");
+
+    REQUIRE(res == tmp);
+
 
 }
 

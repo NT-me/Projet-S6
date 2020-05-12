@@ -463,6 +463,10 @@ Graphe pert(vector<pert_row> p){
     map<string, VectVal> mapS;
     map<string, VectVal> mapA;
     map<string, VectVal> mapT;
+    VectVal fin;
+
+    fin.type = 0;
+    fin.valeur_entiere = 0;
 
     val.type = 0;
     val.valeur_entiere = 0;
@@ -472,6 +476,9 @@ Graphe pert(vector<pert_row> p){
     mapS.insert(pair<string, VectVal> ("date au plus tot", val));
     ListeS.push_back(Sommet(100, 100, "Départ", 0, mapS));
 
+    //création du sommet fin
+    ListeS.push_back(Sommet(100, 100, "Fin",1));
+
     //création des sommets n'ayant aucunes contraîntes d'antériorités et les arcs correspondants
     for(int i=0; i<p.size(); i++){
         if(p[i].taches_anterieures.empty()){
@@ -480,6 +487,15 @@ Graphe pert(vector<pert_row> p){
             ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
             mapA["duree"]=val;
             ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), 0, ListeS.back().getID(), mapA));
+            if(p[i].taches_posterieures.empty()){
+                if(val.valeur_entiere>fin.valeur_entiere){
+                    fin.valeur_entiere = val.valeur_entiere;
+                }
+                //ajouter arc
+                val.valeur_entiere = 0;
+                mapA["duree"]=val;
+                ListeA.push_back(Arc("fictif", ListeA.size(), ListeS.back().getID(), 1, mapA));
+            }
             p.erase(p.begin()+i);
             i=i-1;
         }
@@ -500,6 +516,15 @@ Graphe pert(vector<pert_row> p){
                     ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
                     mapA["duree"]=val;
                     ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), p[i].taches_anterieures[0], ListeS.back().getID(), mapA));
+                    if(p[i].taches_posterieures.empty()){
+                        if(val.valeur_entiere>fin.valeur_entiere){
+                            fin.valeur_entiere = val.valeur_entiere;
+                        }
+                        //ajouter arc
+                        val.valeur_entiere = 0;
+                        mapA["duree"]=val;
+                        ListeA.push_back(Arc("fictif", ListeA.size(), ListeS.back().getID(), 1, mapA));
+                    }
                     p.erase(p.begin()+i);
                     i=i-1;
                 }
@@ -541,6 +566,15 @@ Graphe pert(vector<pert_row> p){
                     ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
                     mapA["duree"]=val;
                     ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), ListeS[id].getID(), ListeS.back().getID(), mapA));
+                    if(p[i].taches_posterieures.empty()){
+                        if(val.valeur_entiere>fin.valeur_entiere){
+                            fin.valeur_entiere = val.valeur_entiere;
+                        }
+                        //ajouter arc
+                        val.valeur_entiere = 0;
+                        mapA["duree"]=val;
+                        ListeA.push_back(Arc("fictif", ListeA.size(), ListeS.back().getID(), 1, mapA));
+                    }
                     p.erase(p.begin()+i);
                     i=i-1;
                     //ajouter les arcs fictifs entre tous les sommets antérieurs et le sommet xi
@@ -579,12 +613,52 @@ Graphe pert(vector<pert_row> p){
                     val.valeur_entiere = p[i].duree;
                     mapA["durée"] = val;
                     ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), ListeS[ListeS.size()-2].getID(),ListeS.back().getID(), mapS));
+                    if(p[i].taches_posterieures.empty()){
+                        if(val.valeur_entiere>fin.valeur_entiere){
+                            fin.valeur_entiere = val.valeur_entiere;
+                        }
+                        //ajouter arc
+                        val.valeur_entiere = 0;
+                        mapA["duree"]=val;
+                        ListeA.push_back(Arc("fictif", ListeA.size(), ListeS.back().getID(), 1, mapA));
+                    }
+                    p.erase(p.begin()+i);
+                    i=i-1;
                 }
             }
         }
     }
-    //création du sommet fin
-    //affecter les dates au plus tard
+    mapS["date au plus tot"] = fin;
+    mapS.insert(pair<string, VectVal> ("date au plus tard", fin));
+    ListeS[2].setCU(mapS);
+
+    //calcul de toutes les dates au plus tard
+    vector<Arc> li = ListeA;
+    int poid = 0;
+    fin.valeur_entiere = INFINI;
+    for(int i = ListeS.size(); i>=0; i--){
+        mapS = ListeS[i].getCU();
+        if(i != 1){
+            for(int j=li.size(); j>=0; j++){
+                if(li[j].getIDDepart()==i){
+                    if(ListeS[i].getCU()["date au plus tot"].valeur_entiere < fin.valeur_entiere){
+                        fin.valeur_entiere = ListeS[i].getCU()["date au plus tot"].valeur_entiere;
+                        poid = li[j].getCU()["duree"].valeur_entiere;
+                    }
+                    li.erase(li.begin() + j);
+                }
+            }
+            fin.valeur_entiere -= poid;
+            mapS.insert(pair<string, VectVal> ("date au plus tard", fin));
+        }
+        if(ListeS[i].getCU()["date au plus tot"].valeur_entiere == fin.valeur_entiere){
+            val.valeur_entiere = 1;
+        }
+        else{val.valeur_entiere = 0;}
+        mapS.insert(pair<string, VectVal> ("critique", val));
+        ListeS[i].setCU(mapS);
+    }
+
     //création du Graphe
     return Graphe("PERT", ListeS, ListeA, "\0");
 
@@ -600,8 +674,6 @@ vector<vector<int>> chaine_eulerienne(Matrice M){}
 
 vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 
-vector<int> postier_chinois(Matrice M){
-
-}
+vector<int> postier_chinois(Matrice M){}
 
 vector<int> voyageur_de_commerce(vector<int>, Matrice M){}
