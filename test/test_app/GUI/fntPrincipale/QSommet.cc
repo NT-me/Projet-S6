@@ -1,5 +1,6 @@
 #include <QtTest/QtTest>
 #include "../../../../src/app/GUI/fntPrincipale/QSommet.hh"
+#include "../../../../src/app/GUI/fntPrincipale/QSommet.cc"
 
 class TestQSommet: public QObject
 {
@@ -29,12 +30,12 @@ private slots:
   }
 
 
-  void TestGetters();
-  void TestSetters();
-
-  void TestmouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-  void TestboundingRect();
-  void Testpaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+  // void TestGetters();
+  // void TestSetters();
+  //
+  // void TestmouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+  // void TestboundingRect();
+  // void Testpaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 };
 
 #ifndef QTT_MAIN
