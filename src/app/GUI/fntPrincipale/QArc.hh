@@ -2,6 +2,8 @@
 #define H_QARC
 
 #include <QGraphicsItem>
+#include <QList>
+#include "QSommet.hh"
 #include "../../../bib/bib.hh"
 
 class Qarc : public QGraphicsItem{
