@@ -202,7 +202,7 @@ Graphe anti_arborescence(Graphe G){}
 int connexite(Matrice M){}
 
 vector<vector<int>> chaine_eulerienne(Matrice M){
-vector<int> path;
+  vector<int> path;
   vector<vector<int>> res;
 
   if(M.getType() != 0){
@@ -279,11 +279,65 @@ vector<int> path;
     if(path.size() ==  nbA+1) res.push_back(path);
     }
 
-    
   return res;
 }
 
-vector<vector<int>> chaine_hamiltonienne(Matrice M){}
+vector<vector<int>> chaine_hamiltonienne(Matrice M){
+  vector<int> mark;
+  vector<int> path;
+  vector<vector<int>> res;
+
+  if(M.getType() != 0){
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return res;
+  }
+  else{
+      int pred, succ, Pmax, Smax;
+      int deb=-1,fin=-1;
+      
+      for(int i=0;i<M.gettV();i++){
+          for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j]) succ++;      // Nb successeur pour i
+            if(M.getTab()[j][i]) pred++;      // Nb predecesseur pour j
+
+            mark.push_back(0);
+          }
+          if(!succ){
+            Smax++;
+            deb = i;
+          } 
+          if(!pred){
+            Pmax++;
+            fin = i;
+          } 
+          succ = 0;
+          pred = 0;
+      }
+      if(Smax > 1 || Pmax > 1){                 // Plusieurs sommets sans successeurs ou prédecesseurs
+           std::cout << "NO HAMILTTONIAN PATH" << '\n';
+            return res;
+      }
+      
+      if(deb != -1){
+          i = deb;
+          while(!mark[i]){
+            for(int j=0;j<M.gettV();j++){
+                if(M.getTab()[i][j] && !mark[i][j]){
+                    mark[j] = 1;
+                    path.push_back(i);
+                    i = j;
+                }
+            }
+          }
+          if(path.size() != M.gettV()){ // Si plus de chemin et pas tout les sommets visités
+            path.pop_back();
+            i = path.back();    // Reviens en arrière d'un sommet
+          }
+      }
+
+  }
+  return res;
+}
 
 vector<int> postier_chinois(Matrice M){}
 
