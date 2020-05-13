@@ -360,13 +360,89 @@ TEST_CASE("pert","[Algorithmes]"){
     mapT["date au plus tard"] = v;
     ListeS.push_back(Sommet(100, 100, "Fin", 1, mapT));
 
-    //premier Sommet
+    //Sommet 1
     tache.tache = 1;
     tache.nom_tache = "tache 1";
+    tache.duree = 5;
     tache.taches_anterieures = vector<int>(0);
-    tache.taches_posterieures = vector<int>(2);
-    tache.taches_posterieures[0] = 5;
-    tache.taches_posterieures[1] = 8;
+    tache.taches_posterieures = vector<int>{5, 6, 7, 8};
+    perts.push_back(tache);
+    //sommet 2
+    tache.tache = 2;
+    tache.nom_tache = "tache 2";
+    tache.duree = 1;
+    tache.taches_anterieures = vector<int>(0);
+    tache.taches_posterieures = vector<int>{4};
+    perts.push_back(tache);
+    //sommet 3
+    tache.tache = 3;
+    tache.nom_tache = "tache 3";
+    tache.duree = 7;
+    tache.taches_anterieures = vector<int>(0);
+    tache.taches_posterieures = vector<int>{7};
+    perts.push_back(tache);
+    //sommet 4
+    tache.tache = 4;
+    tache.nom_tache = "tache 4";
+    tache.duree = 3;
+    tache.taches_anterieures = vector<int>{2};
+    tache.taches_posterieures = vector<int>{6};
+    perts.push_back(tache);
+    //sommet 5
+    tache.tache = 5;
+    tache.nom_tache = "tache 5";
+    tache.duree = 5;
+    tache.taches_anterieures = vector<int>{1};
+    tache.taches_posterieures = vector<int>{};
+    perts.push_back(tache);
+    //sommet 6
+    tache.tache = 6;
+    tache.nom_tache = "tache 6";
+    tache.duree = 3;
+    tache.taches_anterieures = vector<int>{1, 4};
+    tache.taches_posterieures = vector<int>{10};
+    perts.push_back(tache);
+    //sommet 7
+    tache.tache = 7;
+    tache.nom_tache = "tache 7";
+    tache.duree = 4;
+    tache.taches_anterieures = vector<int>{1, 3};
+    tache.taches_posterieures = vector<int>{10};
+    perts.push_back(tache);
+    //sommet 8
+    tache.tache = 8;
+    tache.nom_tache = "tache 8";
+    tache.duree = 4;
+    tache.taches_anterieures = vector<int>{1};
+    tache.taches_posterieures = vector<int>{9, 11};
+    perts.push_back(tache);
+    //sommet 9
+    tache.tache = 9;
+    tache.nom_tache = "tache 9";
+    tache.duree = 3;
+    tache.taches_anterieures = vector<int>{8};
+    tache.taches_posterieures = vector<int>{10};
+    perts.push_back(tache);
+    //sommet 10
+    tache.tache = 10;
+    tache.nom_tache = "tache 10";
+    tache.duree = 5;
+    tache.taches_anterieures = vector<int>{6, 7, 9};
+    tache.taches_posterieures = vector<int>{};
+    perts.push_back(tache);
+    //sommet 11
+    tache.tache = 11;
+    tache.nom_tache = "tache 11";
+    tache.duree = 3;
+    tache.taches_anterieures = vector<int>{8};
+    tache.taches_posterieures = vector<int>{12};
+    perts.push_back(tache);
+    //sommet 12
+    tache.tache = 12;
+    tache.nom_tache = "tache 12";
+    tache.duree = 2;
+    tache.taches_anterieures = vector<int>{11};
+    tache.taches_posterieures = vector<int>{};
     perts.push_back(tache);
 
     //ajout des Sommets et Arcs correspondants au graphe
@@ -376,6 +452,141 @@ TEST_CASE("pert","[Algorithmes]"){
     ListeS.push_back(Sommet(100, 100, "fin 1", 2, mapT));
     mapU.insert(pair<string, VectVal> ("duree",v));
     ListeA.push_back(Arc("1tache 1", 0, 0, 2, mapU));
+
+    v.valeur_entiere = 1;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 6;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 0;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 2", 3, mapT));
+    v.valeur_entiere = 1;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("2tache 2", 1, 0, 3, mapU));
+
+    v.valeur_entiere = 7;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 8;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 0;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 3", 4, mapT));
+    v.valeur_entiere = 7;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("3tache 3", 2, 0, 4, mapU));
+
+    v.valeur_entiere = 4;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 9;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 0;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 4", 5, mapT));
+    v.valeur_entiere = 3;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("4tache 4", 3, 3, 5, mapU));
+
+    v.valeur_entiere = 10;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 17;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 0;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 5", 6, mapT));
+    v.valeur_entiere = 5;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("5tache 5", 4, 2, 6, mapU));
+
+    v.valeur_entiere = 9;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 9;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 1;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 8", 7, mapT));
+    v.valeur_entiere = 4;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("8tache 8", 5, 2, 7, mapU));
+
+    v.valeur_entiere = 12;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 12;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 1;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 9", 8, mapT));
+    v.valeur_entiere = 3;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("9tache 9", 6, 7, 8, mapU));
+
+    v.valeur_entiere = 12;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 15;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 0;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 11", 9, mapT));
+    v.valeur_entiere = 3;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("11tache 11", 7, 7, 9, mapU));
+
+    v.valeur_entiere = 14;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 17;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 0;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 12", 10, mapT));
+    v.valeur_entiere = 2;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("12tache 12", 8, 9, 10, mapU));
+
+    v.valeur_entiere = 8;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 12;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 0;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 6", 11, mapT));
+    v.valeur_entiere = 3;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("6tache 6", 9, 2, 11, mapU));
+    v.valeur_entiere = 0;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("fictif", 10, 5, 2, mapU));
+
+    v.valeur_entiere = 11;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 12;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 0;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 7", 12, mapT));
+    v.valeur_entiere = 4;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("7tache 7", 11, 4, 12, mapU));
+    v.valeur_entiere = 0;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("fictif", 12, 2, 4, mapU));
+
+    v.valeur_entiere = 17;
+    mapT["date au plus tot"] = v;
+    v.valeur_entiere = 17;
+    mapT["date au plus tard"] = v;
+    v.valeur_entiere = 1;
+    mapT["critique"] = v;
+    ListeS.push_back(Sommet(100, 100, "fin 10", 13, mapT));
+    v.valeur_entiere = 5;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("10tache 10", 13, 8, 13, mapU));
+    v.valeur_entiere = 0;
+    mapU["duree"] = v;
+    ListeA.push_back(Arc("fictif", 14, 11, 8, mapU));
+    ListeA.push_back(Arc("fictif", 15, 12, 8, mapU));
+
+    ListeA.push_back(Arc("fictif", 15, 6, 1, mapU));
+    ListeA.push_back(Arc("fictif", 16, 13, 1, mapU));
+    ListeA.push_back(Arc("fictif", 17, 10, 1, mapU));
 
     Graphe res = pert(perts);
     Graphe tmp("PERT", ListeS, ListeA, "\0");
