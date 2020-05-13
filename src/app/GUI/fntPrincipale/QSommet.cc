@@ -8,6 +8,7 @@ QSommet::QSommet(Sommet S){
   this->rayon = TAILLE_RAYON;
   this->coul = QColor(0,0,0); // On le met en noir
   this->select = 0;
+  setData(0, "Sommet");
 }
 
 QSommet::~QSommet(){}
