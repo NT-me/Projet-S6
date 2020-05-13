@@ -37,7 +37,22 @@ void testConstruct(){
 }
 
 void testGettersSetters(){
+  // On construit le Sommet
+  Arc A1("arc1", 1, 2, 0);
 
+  // On construit le QArc
+  Qarc QA1(A1);
+  QA1.setID(12);
+  QA1.setPosXA(1);
+  QA1.setPosYA(1);
+  QA1.setPosXB(3);
+  QA1.setPosYB(3);
+
+  QVERIFY(QA1.getID() == 12);
+  QVERIFY(QA1.getPosXA() == 1);
+  QVERIFY(QA1.getPosYA() == 1);
+  QVERIFY(QA1.getPosXB() == 3);
+  QVERIFY(QA1.getPosYB() == 3);
 }
 
 };
