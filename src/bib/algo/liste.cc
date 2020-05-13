@@ -250,7 +250,7 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
     }
 
     // Nombre d'arcs
-    int nbA;
+    int nbA = 0;
     for(int i=0;i<M.gettV();i++){
       for(int j=0;j<M.gettV();j++){
         if(M.getTab()[i][j]) nbA++;
