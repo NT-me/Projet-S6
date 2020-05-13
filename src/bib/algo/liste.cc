@@ -640,12 +640,44 @@ Graphe pert(vector<pert_row> p){
     mapS.insert(pair<string, VectVal> ("date au plus tard", fin));
     ListeS[1].setCU(mapS);
 
-cout<<mapS["date au plus tard"].valeur_entiere<<endl; 
+
+    
 
 
-cout<<ListeS.size()<<"-";
-    cout<<ListeA.size()<<endl;
-    cout<<"p = "<<p.size()<<endl;
+    //calcul de toutes les dates au plus tard
+    vector<Arc> li = ListeA;
+    int poid = 0;
+    while(!li.empty()){
+        for(int i = ListeS.size()-1; i>=0; i--){
+            fin.valeur_entiere = INFINI;
+            mapS = ListeS[i].getCU();
+            if(i != 1){
+                for(int j=li.size()-1; j>=0; j--){
+                    if(li[j].getIDDepart()==i){
+                        if(ListeS[li[j].getIDArrive()].getCU().count("date au plus tard") == 1 &&
+                            fin.valeur_entiere > ListeS[li[j].getIDArrive()].getCU()["date au plus tard"].valeur_entiere - li[j].getCU()["duree"].valeur_entiere){
+                                fin.valeur_entiere = ListeS[li[j].getIDArrive()].getCU()["date au plus tard"].valeur_entiere - li[j].getCU()["duree"].valeur_entiere;
+                                mapS.insert(pair<string, VectVal> ("date au plus tard", fin));
+                                if(ListeS[i].getCU()["date au plus tot"].valeur_entiere == fin.valeur_entiere){
+                                    val.valeur_entiere = 1;
+                                }
+                                else{val.valeur_entiere = 0;}
+                                mapS.insert(pair<string, VectVal> ("critique", val));
+                                ListeS[i].setCU(mapS);
+                        }
+                    /* if(ListeS[i].getCU()["date au plus tot"].valeur_entiere < fin.valeur_entiere){
+                            fin.valeur_entiere = ListeS[i].getCU()["date au plus tot"].valeur_entiere;
+                            poid = li[j].getCU()["duree"].valeur_entiere;
+                        }*/
+                        li.erase(li.begin() + j);
+                    }
+                }
+            // fin.valeur_entiere -= poid;
+               
+            }
+            
+        }
+    }
 
     cout<<"listeS: ";
     for(Sommet s: ListeS){
@@ -659,35 +691,7 @@ cout<<ListeS.size()<<"-";
     }
     cout<<endl;
 
-/*
 
-    //calcul de toutes les dates au plus tard
-    vector<Arc> li = ListeA;
-    int poid = 0;
-    fin.valeur_entiere = INFINI;
-    for(int i = ListeS.size()-1; i>=0; i--){
-        mapS = ListeS[i].getCU();
-        if(i != 1){
-            for(int j=li.size(); j>=0; j++){
-               /* if(li[j].getIDDepart()==i){
-                    if(ListeS[i].getCU()["date au plus tot"].valeur_entiere < fin.valeur_entiere){
-                        fin.valeur_entiere = ListeS[i].getCU()["date au plus tot"].valeur_entiere;
-                        poid = li[j].getCU()["duree"].valeur_entiere;
-                    }
-                    li.erase(li.begin() + j);
-                }
-            }
-            fin.valeur_entiere -= poid;
-            mapS.insert(pair<string, VectVal> ("date au plus tard", fin));
-        }
-        if(ListeS[i].getCU()["date au plus tot"].valeur_entiere == fin.valeur_entiere){
-            val.valeur_entiere = 1;
-        }
-        else{val.valeur_entiere = 0;}
-        mapS.insert(pair<string, VectVal> ("critique", val));
-        ListeS[i].setCU(mapS);
-    }
-*/
     //création du Graphe
     return Graphe("PERT", ListeS, ListeA, "\0");
 
