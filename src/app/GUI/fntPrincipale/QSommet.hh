@@ -21,6 +21,7 @@ private:
 
 public:
     QSommet(Sommet S);
+    QSommet(QSommet const &S);
     ~QSommet();
 
     int getID() const;

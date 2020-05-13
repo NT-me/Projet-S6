@@ -22,12 +22,19 @@ private slots:
 
     // On construit le QSommet
     QSommet QS0(S0);
+    QSommet QS0_(QS0);
 
     QVERIFY(QS0.getID() == S0.getID());
     QVERIFY(QS0.getPosX() == S0.getPosX());
     QVERIFY(QS0.getPosY() == S0.getPosY());
     QVERIFY(QS0.getRayon() == TAILLE_RAYON);
     QVERIFY(QS0.getSelect() == 0);
+
+    QVERIFY(QS0_.getID() == S0.getID());
+    QVERIFY(QS0_.getPosX() == S0.getPosX());
+    QVERIFY(QS0_.getPosY() == S0.getPosY());
+    QVERIFY(QS0_.getRayon() == TAILLE_RAYON);
+    QVERIFY(QS0_.getSelect() == 0);
   }
 
 

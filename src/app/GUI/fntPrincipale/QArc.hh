@@ -17,6 +17,7 @@ private:
 
 public:
     Qarc (Arc A);
+    Qarc (Qarc const &A);
     ~Qarc();
 
     int getID() const;

@@ -32,13 +32,21 @@ void testConstruct(){
   Arc A1("arc1", 1, 2, 0, cu);
   // On construit le QArc
   Qarc QA1(A1);
+  Qarc QA1_(QA1);
   scene->addItem(&QA1);
+  scene->addItem(&QA1_);
 
   QVERIFY(QA1.getID() == 1);
   QCOMPARE(QA1.getPosXA(), 0); // Pour savoir pk 0 voir QArc.cc
   QVERIFY(QA1.getPosYA() == 0);
   QVERIFY(QA1.getPosXB() == 0);
   QVERIFY(QA1.getPosYB() == 0);
+
+  QVERIFY(QA1_.getID() == 1);
+  QCOMPARE(QA1_.getPosXA(), 0); // Pour savoir pk 0 voir QArc.cc
+  QVERIFY(QA1_.getPosYA() == 0);
+  QVERIFY(QA1_.getPosXB() == 0);
+  QVERIFY(QA1_.getPosYB() == 0);
 }
 
 void testGettersSetters(){

@@ -11,6 +11,16 @@ QSommet::QSommet(Sommet S){
   setData(0, "Sommet");
 }
 
+QSommet::QSommet(QSommet const &S){
+  this->id = S.id;
+  this->posx = S.posx;
+  this->posy = S.posy;
+  this->rayon = S.rayon;
+  this->coul = S.coul; // On le met en noir
+  this->select = S.select;
+  setData(0, "Sommet");
+}
+
 QSommet::~QSommet(){}
 
 int QSommet::getID() const{return this->id;}

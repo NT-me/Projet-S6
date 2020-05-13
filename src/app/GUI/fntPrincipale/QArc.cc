@@ -38,6 +38,14 @@ Qarc::Qarc (Arc A){
   }
 }
 
+Qarc::Qarc(Qarc const &A){
+  this->id = A.id;
+  this->posxA = A.posxA;
+  this->posyA = A.posyA;
+  this->posxB = A.posxB;
+  this->posyB = A.posyB;
+}
+
 Qarc::~Qarc(){
 
 }
