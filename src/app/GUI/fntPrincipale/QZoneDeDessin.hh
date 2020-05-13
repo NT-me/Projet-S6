@@ -16,6 +16,13 @@ private:
 
 public :
     explicit QZoneDeDessin(QWidget *parent = 0);
+
+    vector<int> getSelected_list();
+    Graphe getGraphe_dessine();
+
+    void setSelected_list(vector<int> sl);
+    void setGraphe_dessine(Graphe g);
+
     void force_Atlas2();
     pair<int,int> distance(QSommet a, QSommet b);
     void addSelect_Sommet(int ID);
