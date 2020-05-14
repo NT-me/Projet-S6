@@ -13,13 +13,37 @@ void QZoneDeDessin::setGraphe_dessine(Graphe g){this->graphe_dessine = g;}
 void QZoneDeDessin::setScene(QGraphicsScene * scene){this->sc = scene;}
 
 void QZoneDeDessin::force_Atlas2(){}
-pair<int,int> QZoneDeDessin::distance(QSommet a, QSommet b){}
-void QZoneDeDessin::addSelect_Sommet(int ID){}
-void QZoneDeDessin::deleteSelect_Sommet(int ID){}
-void QZoneDeDessin::razSelected_list(){}
-void QZoneDeDessin::afficher_Graphe(Graphe G){}
-void QZoneDeDessin::afficher_Sommet(Sommet id){}
-void QZoneDeDessin::afficher_arc(Arc id){}
+pair<int,int> QZoneDeDessin::distance(QSommet a, QSommet b){
+  pair<int,int> res;
+  res.first = fabs(a.getPosX() - b.getPosX());
+  res.second = fabs(a.getPosY() - b.getPosY());
+  return res;
+
+}
+
+void QZoneDeDessin::addSelect_Sommet(int ID){
+
+}
+
+void QZoneDeDessin::deleteSelect_Sommet(int ID){
+
+}
+
+void QZoneDeDessin::razSelected_list(){
+
+}
+
+void QZoneDeDessin::afficher_Graphe(Graphe G){
+
+}
+
+void QZoneDeDessin::afficher_Sommet(Sommet id){
+
+}
+
+void QZoneDeDessin::afficher_arc(Arc id){
+
+}
 
 void QZoneDeDessin::mousePressEvent(QMouseEvent * e){}
 void QZoneDeDessin::dessiner_sommet(int x, int y){}

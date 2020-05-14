@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QWidget>
+#include <math.h>
 #include "QSommet.hh"
 #include "QArc.hh"
 

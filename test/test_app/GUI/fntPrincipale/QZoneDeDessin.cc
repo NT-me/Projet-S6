@@ -37,7 +37,7 @@ private slots:
   void Testdistance(){
     QZoneDeDessin qzdd;
     Sommet S0(0,0,"S0",0), S1(1,1,"S1",1);
-    QSommet QS0(S0), QS1(S0);
+    QSommet QS0(S0), QS1(S1);
     pair<int,int> a (1,1);
     pair<int,int> b;
     b = qzdd.distance(QS0, QS1);
