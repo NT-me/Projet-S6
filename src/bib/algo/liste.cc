@@ -241,12 +241,10 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
       }
 
       if(!connexite(M) && !succ && !pred){
-        std::cout << " 9eme etape" << endl;
         std::cout << "NO EULERIAN PATH" << '\n';
         return res;
       }
       if(Dmax>1 || Fmax>1){
-          std::cout << " 10eme etape" << endl;
         std::cout << "NO EULERIAN PATH" << '\n';
         return res;
       }
@@ -292,7 +290,7 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
   return res;
 }
 
-vector<vector<int>> chaine_hamiltonienne(Matrice M){/*
+vector<vector<int>> chaine_hamiltonienne(Matrice M){
   vector<int> mark;
   vector<int> path;
   vector<vector<int>> res;
@@ -305,7 +303,8 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){/*
       int pred, succ, Pmax, Smax;
       int deb=-1,fin=-1;
       
-      for(int i=0;i<M.gettV();i++){
+      // Vérifie si il existe un chemin Hamiltonien
+      for(int i=0;i<M.gettV();i++){   
           for(int j=0;j<M.gettV();j++){
             if(M.getTab()[i][j]) succ++;      // Nb successeur pour i
             if(M.getTab()[j][i]) pred++;      // Nb predecesseur pour j
@@ -314,11 +313,11 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){/*
           }
           if(!succ){
             Smax++;
-            deb = i;
+            fin = i;
           } 
           if(!pred){
             Pmax++;
-            fin = i;
+            deb = i;
           } 
           succ = 0;
           pred = 0;
@@ -328,25 +327,33 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){/*
             return res;
       }
       
-      if(deb != -1){
-          i = deb;
-          while(!mark[i]){
-            for(int j=0;j<M.gettV();j++){
-                if(M.getTab()[i][j] && !mark[i][j]){
-                    mark[j] = 1;
-                    path.push_back(i);
-                    i = j;
-                }
+      // Sommet de départ
+      if(deb == -1) deb = 0;
+
+      int i = deb;
+      while(!mark[i]){
+        if(path.size() == M.gettV()-1){
+            path.push_back(i);
+            res.push_back(path);
+            return res;
+        }
+        for(int j=0;j<M.gettV();j++){
+          if(M.getTab()[i][j] && !mark[j]){
+            mark[i] = 1;
+            path.push_back(i);
+            i = j;
+            j = 0;
             }
-          }
-          if(path.size() != M.gettV()){ // Si plus de chemin et pas tout les sommets visités
+        } // Fin for
+      } // Fin while
+        
+        /*  if(path.size() != M.gettV()){ // Si plus de chemin et pas tout les sommets visités
             path.pop_back();
             i = path.back();    // Reviens en arrière d'un sommet
-          }
-      }
-
-  }
-  return res;*/
+          }*/
+   
+    } // Fin else
+  return res;
 }
 
 vector<int> postier_chinois(Matrice M){}

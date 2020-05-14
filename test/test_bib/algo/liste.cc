@@ -370,8 +370,7 @@ MA1.setTab({{0,1,0},
             {0,0,1},
             {1,0,0}});
 
-vector<vector<int>> v_a{{0,1,2,0}}; //{1,2,0},{2,0,1} A ajouter si on compte TOUS les cas même ceux qui sont juste des réagenemnts du premier
-
+vector<vector<int>> v_a{{0,1,2,0}};
 REQUIRE(chaine_eulerienne(MA1) == v_a);
 }
 
@@ -381,7 +380,16 @@ TEST_CASE("chaine hamiltonienne","[Algorithmes]"){
               {0,0,1},
               {1,0,0}});
 
-  vector<vector<int>> v_a{{0,1,2,0}}; // {1,2,0,1}, {2,0,1,2}
+  vector<vector<int>> v_a{{0,1,2,}};
+  /*Matrice MA1(7);
+  MA1.setTab({{0,1,0,1,0,0,0},
+              {0,0,1,1,0,0,0},
+              {0,1,0,1,0,0,0},
+              {0,0,1,0,1,0,0},
+              {0,1,0,0,0,1,0},
+              {0,0,1,0,0,0,1},
+              {0,0,0,0,0,0,0}});
+  vector<vector<int>> v_a{{0,1,2,3,4,5,6}};*/
   REQUIRE(chaine_hamiltonienne(MA1) == v_a);
 }
 
