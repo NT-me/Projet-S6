@@ -3,6 +3,7 @@
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QWidget>
 #include "QSommet.hh"
 #include "QArc.hh"
 

@@ -1,6 +1,9 @@
 #include "QZoneDeDessin.hh"
 
-explicit QZoneDeDessin::QZoneDeDessin(QWidget *parent = 0){}
+QZoneDeDessin::QZoneDeDessin(QWidget *parent) : QGraphicsView(parent), graphe_dessine("EMPTY_GRAPH"), selected_list({})
+{
+
+}
 
 vector<int> QZoneDeDessin::getSelected_list() const{}
 Graphe QZoneDeDessin::getGraphe_dessine() const{}

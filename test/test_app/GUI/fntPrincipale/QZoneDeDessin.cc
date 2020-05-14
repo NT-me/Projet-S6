@@ -1,5 +1,15 @@
 #include <QtTest/QtTest>
 #include "../../../../src/app/GUI/fntPrincipale/QZoneDeDessin.hh"
+#include "../../../../src/app/GUI/fntPrincipale/QZoneDeDessin.cc"
+
+
+#include "../../../../src/app/GUI/fntPrincipale/QArc.hh"
+#include "../../../../src/app/GUI/fntPrincipale/QArc.cc"
+#include "../../../../src/app/GUI/fntPrincipale/QSommet.hh"
+#include "../../../../src/app/GUI/fntPrincipale/QSommet.cc"
+#include "../../../../src/bib/classes/GrapheMatrice.cc"
+#include "../../../../src/bib/classes/Sommet.cc"
+#include "../../../../src/bib/classes/Arc.cc"
 
 class TestQZoneDeDessin: public QObject
 {
@@ -142,6 +152,18 @@ private slots:
     QCOMPARE(QS0->getRayon(), QS0_r.getRayon());
     QCOMPARE(QS0->getCoul(), QS0_r.getCoul());
     QCOMPARE(QS0->getSelect(), QS0_r.getSelect());
+  }
+
+  void testMousePressEvent(){
+
+  }
+
+  void testDessiner_sommet(){
+
+  }
+
+  void testDessiner_arc(){
+
   }
 };
 
