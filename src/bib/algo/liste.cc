@@ -267,7 +267,66 @@ Graphe arborescence(Graphe G){
     return A;
 }
 
-Graphe anti_arborescence(Graphe G){}
+Graphe anti_arborescence(Graphe G){
+  int succ=0,Smax=0;
+    int fin=-1;
+    Matrice M = G.conversion_vers_Matrice_adj();
+    Graphe A("Anti-Arborescence");
+    Graphe tmp("Anti-Arborescence");
+    vector<int>in;
+    
+    // Vérifie si il existe une anti-arborescence
+    for(int i=0;i<M.gettV();i++){
+        for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j]) succ++;   // Successeurs
+        }
+        if(!succ){      // Si pas de successeurs
+            fin = i;
+            Smax++;
+        } 
+        if(Smax >1 || !Smax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+            std::cout << "NO ANTI-ARBORESCENCE" << '\n';
+            tmp.ajout_Sommet(-1,-1,-1);
+            return tmp;
+        }
+        succ = 0;
+        in.push_back(0);
+    }
+
+    // ##############
+    int min=INFINI;
+    for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
+    
+    int out = 0;
+    for(int i=0; i<M.gettV() && !in[i];i++){
+        if(i==fin)i++;
+        for(int j=0;j<M.gettV();j++){   // Calcul Arc de poids min
+            if(M.getTab()[i][j] && M.getTab()[i][j]<min){
+                min = M.getTab()[i][j];     // Arc entrant de poids min
+                if(j == fin) out++;
+            }
+        }
+        
+        for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
+            int val = M.getTab()[i][j]-min;
+            if(!val && !in[i]){
+                in[i] = 1;
+                A.ajout_Arc(i,j);
+                break;
+            }
+        }
+
+        min = INFINI;
+        if(i == fin) i = -1;
+    }
+   
+    if(!out){   // Si pas d'arcs de poids min partant du sommet 
+        std::cout << "NO ANTI-ARBORESCENCE" << '\n';
+        tmp.ajout_Sommet(-1, -1,-1);
+        return tmp;
+    }
+    return A;
+}
 
 int connexite(Matrice M){}
 
