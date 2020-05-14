@@ -211,14 +211,17 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
   }
   else{
     int pred=0,succ=0,Dmax=0,Fmax=0;
-    int deb=0,fin=0;
+    int deb=0,fin=-1;
     vector<int> out;
+
+    int mark[M.gettV()][M.gettV()];
 
     // Vérifie si il existe un chemin Eulérien
     for(int i=0;i<M.gettV();i++){
       for(int j=0;j<M.gettV();j++){
         if(M.getTab()[i][j]) succ++;
         if(M.getTab()[j][i]) pred++;
+        mark[i][j] = 0;
       }
       out.push_back(succ);    // Stocke le nombre de successeurs
 
@@ -238,10 +241,12 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
       }
 
       if(!connexite(M) && !succ && !pred){
+        std::cout << " 9eme etape" << endl;
         std::cout << "NO EULERIAN PATH" << '\n';
         return res;
       }
       if(Dmax>1 || Fmax>1){
+          std::cout << " 10eme etape" << endl;
         std::cout << "NO EULERIAN PATH" << '\n';
         return res;
       }
@@ -258,31 +263,41 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
     }
 
     // Sommet de départ
-    for(int i=0;i<M.gettV();i++){
-      if(deb==0 && out[i]>0) deb = i;
+    if(deb==0 && !out[deb]){
+        for(int i=0;i<M.gettV();i++){
+            if(out[i]>0) deb = i;
+        }
     }
-
+    
     // #########################
     int i = deb;
-    while(out[i] != 0){
-      for(int j=0;j<M.gettV();j++){
-        if(M.getTab()[i][j]){
-          --out[i];
-          path.push_back(i);
-          i = j;
-          j = 0;
-        }
-      }
-      i++;
-    }
-
-    if(path.size() ==  nbA+1) res.push_back(path);
-    }
-
+    while (out[i]>0){ // Tant que sommets non visité 
+        for(int j=0;j<M.gettV();j++){         
+            if(M.getTab()[i][j]){
+                --out[i];
+                std::cout << "out["<< i<<"] = " << out[i] <<'\n';
+                path.push_back(i);
+                if(!mark[i][j]){
+                     mark[i][j] = 1;
+                     i = j;
+                }
+                j = 0;
+                std::cout << "path = "<< path.back()<< '\n';
+                std::cout << " i = " << i << " j = " << j << '\n';
+            }
+            
+            if(!out[i] && path.size() == nbA){
+                path.push_back(i);
+                res.push_back(path);
+                return res;
+            }           
+        } // Fin for
+    } // Fin while
+  } // Fin else
   return res;
 }
 
-vector<vector<int>> chaine_hamiltonienne(Matrice M){
+vector<vector<int>> chaine_hamiltonienne(Matrice M){/*
   vector<int> mark;
   vector<int> path;
   vector<vector<int>> res;
@@ -336,7 +351,7 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
       }
 
   }
-  return res;
+  return res;*/
 }
 
 vector<int> postier_chinois(Matrice M){}
