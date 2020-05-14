@@ -23,17 +23,24 @@ pair<int,int> QZoneDeDessin::distance(QSommet a, QSommet b){
 
 void QZoneDeDessin::addSelect_Sommet(int ID){
   vector<int> tmp;
-  tmp = selected_list;
+  tmp = this->selected_list;
   tmp.push_back(ID);
   this->selected_list = tmp;
 }
 
 void QZoneDeDessin::deleteSelect_Sommet(int ID){
-
+  vector<int> tmp, res;
+  tmp = this->selected_list;
+  for(int i = 0; i<tmp.size();++i){
+    if(tmp[i] != ID){
+      res.push_back(tmp[i]);
+    }
+  }
+  this->selected_list = res;
 }
 
 void QZoneDeDessin::razSelected_list(){
-
+  this->selected_list = {};
 }
 
 void QZoneDeDessin::afficher_Graphe(Graphe G){
