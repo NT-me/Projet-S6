@@ -364,21 +364,14 @@ M1.setTab({{0,0,0},
   REQUIRE(connexite(M1) == 0);
 }
 
-TEST_CASE("chaine eulerienne","[Algorithmes]"){/*
+TEST_CASE("chaine eulerienne","[Algorithmes]"){
 Matrice MA1(3);
 MA1.setTab({{0,1,0},
             {0,0,1},
             {1,0,0}});
 
 vector<vector<int>> v_a{{0,1,2,0}}; //{1,2,0},{2,0,1} A ajouter si on compte TOUS les cas même ceux qui sont juste des réagenemnts du premier
-*/
-Matrice MA1(5);
-MA1.setTab({{0,1,0,0,0},
-              {0,0,1,1,0},
-              {1,0,0,0,1},
-              {0,1,1,0,0},
-              {0,0,0,1,0}});
-vector<vector<int>> v_a ={{0,1,2,4,3,1,3,2,0}};
+
 REQUIRE(chaine_eulerienne(MA1) == v_a);
 }
 
