@@ -11,7 +11,7 @@ class QZoneDeDessin : public QGraphicsView{
     Q_OBJECT
 
 private:
-     QGraphicsScene *scene;
+     QGraphicsScene *sc;
      vector<int> selected_list;
      Graphe graphe_dessine;
 

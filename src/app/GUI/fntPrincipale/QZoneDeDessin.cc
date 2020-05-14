@@ -1,17 +1,16 @@
 #include "QZoneDeDessin.hh"
 
-QZoneDeDessin::QZoneDeDessin(QWidget *parent) : QGraphicsView(parent), graphe_dessine("EMPTY_GRAPH"), selected_list({})
-{
-
+QZoneDeDessin::QZoneDeDessin(QWidget *parent) : QGraphicsView(parent), graphe_dessine("EMPTY_GRAPH"){
+this->selected_list = {};
 }
 
-vector<int> QZoneDeDessin::getSelected_list() const{}
-Graphe QZoneDeDessin::getGraphe_dessine() const{}
-QGraphicsScene* QZoneDeDessin::getScene() const{}
+vector<int> QZoneDeDessin::getSelected_list() const{return this->selected_list;}
+Graphe QZoneDeDessin::getGraphe_dessine() const{return this->graphe_dessine;}
+QGraphicsScene* QZoneDeDessin::getScene() const{return this->sc;}
 
-void QZoneDeDessin::setSelected_list(vector<int> sl){}
-void QZoneDeDessin::setGraphe_dessine(Graphe g){}
-void QZoneDeDessin::setScene(QGraphicsScene * scene){}
+void QZoneDeDessin::setSelected_list(vector<int> sl){this->selected_list = sl;}
+void QZoneDeDessin::setGraphe_dessine(Graphe g){this->graphe_dessine = g;}
+void QZoneDeDessin::setScene(QGraphicsScene * scene){this->sc = scene;}
 
 void QZoneDeDessin::force_Atlas2(){}
 pair<int,int> QZoneDeDessin::distance(QSommet a, QSommet b){}

@@ -1,8 +1,7 @@
 #include <QtTest/QtTest>
 #include "../../../../src/app/GUI/fntPrincipale/QZoneDeDessin.hh"
+
 #include "../../../../src/app/GUI/fntPrincipale/QZoneDeDessin.cc"
-
-
 #include "../../../../src/app/GUI/fntPrincipale/QArc.hh"
 #include "../../../../src/app/GUI/fntPrincipale/QArc.cc"
 #include "../../../../src/app/GUI/fntPrincipale/QSommet.hh"
@@ -80,7 +79,7 @@ private slots:
     qzdd.afficher_Sommet(S);
     QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(1,1));
 
-    QCOMPARE(QS->data(0), "Sommet");
+    QVERIFY(QS->data(0) == "Sommet");
     QCOMPARE(QS->getID(), QS_r.getID());
     QCOMPARE(QS->getPosX(), QS_r.getPosX());
     QCOMPARE(QS->getPosY(), QS_r.getPosY());
@@ -103,7 +102,7 @@ private slots:
     qzdd.afficher_arc(A);
     Qarc* QA = qgraphicsitem_cast<Qarc*>(qzdd.itemAt(1,1));
 
-    QCOMPARE(QA->data(0), "Arc");
+    QVERIFY(QA->data(0) == "Arc");
     QCOMPARE(QA->getPosXA(), QA_r.getPosXA());
     QCOMPARE(QA->getPosYA(), QA_r.getPosYA());
     QCOMPARE(QA->getPosXB(), QA_r.getPosXB());
@@ -129,14 +128,14 @@ private slots:
     qzdd.afficher_arc(A);
     Qarc* QA = qgraphicsitem_cast<Qarc*>(qzdd.itemAt(1,1));
 
-    QCOMPARE(QA->data(0), "Arc");
+    QVERIFY(QA->data(0) == "Arc");
     QCOMPARE(QA->getPosXA(), QA_r.getPosXA());
     QCOMPARE(QA->getPosYA(), QA_r.getPosYA());
     QCOMPARE(QA->getPosXB(), QA_r.getPosXB());
     QCOMPARE(QA->getPosYA(), QA_r.getPosYB());
 
     QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(0,0));
-    QCOMPARE(QS->data(0), "Sommet");
+    QVERIFY(QS->data(0) == "Sommet");
     QCOMPARE(QS->getID(), QS_r.getID());
     QCOMPARE(QS->getPosX(), QS_r.getPosX());
     QCOMPARE(QS->getPosY(), QS_r.getPosY());
@@ -145,7 +144,7 @@ private slots:
     QCOMPARE(QS->getSelect(), QS_r.getSelect());
 
     QSommet* QS0 = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(2,2));
-    QCOMPARE(QS0->data(0), "Sommet");
+    QVERIFY(QS0->data(0) == "Sommet");
     QCOMPARE(QS0->getID(), QS0_r.getID());
     QCOMPARE(QS0->getPosX(), QS0_r.getPosX());
     QCOMPARE(QS0->getPosY(), QS0_r.getPosY());
