@@ -255,16 +255,18 @@ Graphe arborescence(Graphe G){
 
         if(i == deb) i = -1;
     }
+   
+    if(!out){   // Si pas d'arcs de poids min partant du sommet 
+        std::cout << "NO ARBORESCENCE" << '\n';
+        tmp.ajout_Sommet(-1, -1,-1);
+        return tmp;
+    }
+    
     Matrice aff = A.conversion_vers_Matrice_adj();
     for(int i=0;i<aff.gettV();i++){
         for(int j=0;j<aff.gettV();j++){
             std::cout << "["<<i<<"]["<<j<<"] = "<<aff.getTab()[i][j]<<endl;
         }
-    }
-    if(!out){   // Si pas d'arcs de poids min partant du sommet 
-        std::cout << "NO ARBORESCENCE" << '\n';
-        tmp.ajout_Sommet(-1, -1,-1);
-        return tmp;
     }
     return A;
 }
