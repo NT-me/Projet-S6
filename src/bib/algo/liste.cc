@@ -1,4 +1,5 @@
 #include "liste.hh"
+#include <iostream>
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
   vector<int> dist;
@@ -195,7 +196,78 @@ vector<pert_row> calcul_posterite(vector<pert_row>){}
 
 Graphe pert(vector<pert_row>){}
 
-Graphe arborescence(Graphe G){}
+Graphe arborescence(Graphe G){
+    int succ=0,pred=0,Smax=0,Pmax=0;
+    int deb=-1;
+    Matrice M = G.conversion_vers_Matrice_adj();
+    Graphe A("Arborescence");
+    Graphe tmp("Arborescence");
+    vector<int>in;
+    
+    // Vérifie si il existe une arborescence
+    for(int i=0;i<M.gettV();i++){
+        std::cout<<"début i = "<<i<<endl;
+        for(int j=0;j<M.gettV();j++){
+            std::cout<<"COUCOU"<<endl;
+            if(M.getTab()[i][j]) succ++;   // Successeurs
+            if(M.getTab()[j][i]) pred++;   // Prédecesseurs
+            std::cout<<"gettab = "<<M.getTab()[j][i]<<endl;
+        }
+        if(!pred){      // Si pas de prédecesseurs
+            deb = i;
+            Pmax++;
+        } 
+        std::cout<<" Pmax = "<<Pmax<<endl;
+        if(Pmax >1 || !Pmax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+            std::cout << "NO ARBORESCENCE" << '\n';
+            tmp.ajout_Sommet(-1, -1,-1);
+            return tmp;
+        }
+        succ = 0;
+        pred = 0;
+        in.push_back(0);
+    }
+
+    // ##############
+    int min=INFINI;
+    for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
+    
+    int out = 0;
+    for(int i=0; i<M.gettV() && !in[i];i++){
+        if(i==deb)i++;
+        for(int j=0;j<M.gettV();j++){   // Calcul Arc de poids min
+            if(M.getTab()[j][i] && M.getTab()[j][i]<min){
+                min = M.getTab()[j][i];     // Arc entrant de poids min
+                if(j == deb) out++;
+            }
+        }
+        
+        for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
+            int val = M.getTab()[j][i]-min;
+            if(!val && !in[i]){
+                in[i] = 1;
+                A.ajout_Arc(j,i);
+                break;
+            }
+        }
+
+        min = INFINI;
+
+        if(i == deb) i = -1;
+    }
+    Matrice aff = A.conversion_vers_Matrice_adj();
+    for(int i=0;i<aff.gettV();i++){
+        for(int j=0;j<aff.gettV();j++){
+            std::cout << "["<<i<<"]["<<j<<"] = "<<aff.getTab()[i][j]<<endl;
+        }
+    }
+    if(!out){   // Si pas d'arcs de poids min partant du sommet 
+        std::cout << "NO ARBORESCENCE" << '\n';
+        tmp.ajout_Sommet(-1, -1,-1);
+        return tmp;
+    }
+    return A;
+}
 
 Graphe anti_arborescence(Graphe G){}
 
@@ -346,12 +418,6 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
             }
         } // Fin for
       } // Fin while
-        
-        /*  if(path.size() != M.gettV()){ // Si plus de chemin et pas tout les sommets visités
-            path.pop_back();
-            i = path.back();    // Reviens en arrière d'un sommet
-          }*/
-   
     } // Fin else
   return res;
 }
