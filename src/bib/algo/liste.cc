@@ -206,18 +206,14 @@ Graphe arborescence(Graphe G){
     
     // Vérifie si il existe une arborescence
     for(int i=0;i<M.gettV();i++){
-        std::cout<<"début i = "<<i<<endl;
         for(int j=0;j<M.gettV();j++){
-            std::cout<<"COUCOU"<<endl;
             if(M.getTab()[i][j]) succ++;   // Successeurs
             if(M.getTab()[j][i]) pred++;   // Prédecesseurs
-            std::cout<<"gettab = "<<M.getTab()[j][i]<<endl;
         }
         if(!pred){      // Si pas de prédecesseurs
             deb = i;
             Pmax++;
         } 
-        std::cout<<" Pmax = "<<Pmax<<endl;
         if(Pmax >1 || !Pmax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
             std::cout << "NO ARBORESCENCE" << '\n';
             tmp.ajout_Sommet(-1, -1,-1);
@@ -262,12 +258,12 @@ Graphe arborescence(Graphe G){
         return tmp;
     }
     
-    Matrice aff = A.conversion_vers_Matrice_adj();
+  /*  Matrice aff = A.conversion_vers_Matrice_adj();
     for(int i=0;i<aff.gettV();i++){
         for(int j=0;j<aff.gettV();j++){
             std::cout << "["<<i<<"]["<<j<<"] = "<<aff.getTab()[i][j]<<endl;
         }
-    }
+    }*/
     return A;
 }
 

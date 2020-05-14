@@ -329,8 +329,8 @@ G.ajout_Sommet(4,0,0);
 
 G.ajout_Arc(0,1);
 G.ajout_Arc(0,2);
-G.ajout_Arc(1,4);
 G.ajout_Arc(4,3);
+G.ajout_Arc(1,4);
 
 VectVal komtuveu;
 komtuveu.type = 0;
@@ -343,7 +343,7 @@ komtuveu.valeur_entiere = 1;
 nom.insert(pair<string,VectVal>("poids",komtuveu));
 G.getListe_Arcs()[1].setCU(nom);
 
-komtuveu.valeur_entiere = 3;
+komtuveu.valeur_entiere = 1;
 nom.insert(pair<string,VectVal>("poids",komtuveu));
 G.getListe_Arcs()[2].setCU(nom);
 
