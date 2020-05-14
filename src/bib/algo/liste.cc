@@ -271,26 +271,21 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
     
     // #########################
     int i = deb;
-    while (out[i]>0){ // Tant que sommets non visité 
+    while (out[i]){
         for(int j=0;j<M.gettV();j++){         
-            if(M.getTab()[i][j]){
+            if(M.getTab()[i][j] && !mark[i][j]){   // Si arc
                 --out[i];
-                std::cout << "out["<< i<<"] = " << out[i] <<'\n';
+                mark[i][j] = 1;
                 path.push_back(i);
-                if(!mark[i][j]){
-                     mark[i][j] = 1;
-                     i = j;
-                }
+                i = j;
                 j = 0;
-                std::cout << "path = "<< path.back()<< '\n';
-                std::cout << " i = " << i << " j = " << j << '\n';
             }
-            
+
             if(!out[i] && path.size() == nbA){
                 path.push_back(i);
                 res.push_back(path);
                 return res;
-            }           
+            }       
         } // Fin for
     } // Fin while
   } // Fin else
