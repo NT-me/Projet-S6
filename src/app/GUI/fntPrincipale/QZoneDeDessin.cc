@@ -22,7 +22,10 @@ pair<int,int> QZoneDeDessin::distance(QSommet a, QSommet b){
 }
 
 void QZoneDeDessin::addSelect_Sommet(int ID){
-
+  vector<int> tmp;
+  tmp = selected_list;
+  tmp.push_back(ID);
+  this->selected_list = tmp;
 }
 
 void QZoneDeDessin::deleteSelect_Sommet(int ID){
