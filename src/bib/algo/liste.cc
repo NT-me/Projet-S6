@@ -455,7 +455,58 @@ void parcours_largeur(Graphe G, Sommet S)
 
 int gestion_flots(Graphe G, int ID_source, int ID_puit){}
 
-vector<pert_row> calcul_posterite(vector<pert_row> p){}
+
+
+vector<pert_row> calcul_posterite(vector<pert_row> p){
+  vector<pert_row> tmp = p;
+  int ex;
+  for(int i = 0; i<tmp.size(); i++){
+    ex = tmp[i].taches_anterieures.size();
+    for(int j = 0; j<tmp[i].taches_anterieures.size(); j++){
+      for(int k = 0; k<tmp.size(); k++){
+        if(tmp[i].taches_anterieures[j] == tmp[k].tache){
+          tmp[k].taches_posterieures.push_back(tmp[i].tache);
+          ex --;
+        }
+      }
+    }
+    if(ex != 0){
+    //  cout<<"/* ERROR NON-EXISTENT TASK */"<<endl;
+      return p;
+    }
+  }
+  cout <<"coucou";
+
+  for(int i = 0; i<tmp.size(); i++){
+    if(tmp[i].taches_anterieures.size() == 0){
+      vector<int> v;
+      vector<int> suiv = tmp[i].taches_posterieures;
+      while(!suiv.empty()){
+        for(int j = 0; j<v.size(); j++){
+            if(suiv[0] == v[j]){
+                cout<<"/* ERROR SELF-PERPETUATING TASK */"<<endl;
+                return p;
+            }
+        }
+        for(int j = 0; j<tmp.size(); j++){
+          if (tmp[j].tache == suiv[0]){
+            for(int k = 0; k<tmp[j].taches_posterieures.size(); k++){
+              suiv.push_back(tmp[j].taches_posterieures[k]);
+            }
+          }
+        }
+        v.push_back(suiv[0]);
+        suiv.erase(suiv.begin());
+
+      }
+
+    }
+  }
+
+  return tmp;
+}
+
+
 
 Graphe pert(vector<pert_row> p){
     std::vector<pert_row> pe = p;

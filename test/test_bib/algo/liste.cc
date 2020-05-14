@@ -333,8 +333,92 @@ for (int banana = 0; banana < vArc.size();++banana){
 
 }
 TEST_CASE("calcul posterite","[Algorithmes]"){
-  vector<pert_row> perts;
+  vector<pert_row> perts, res, per, pe;
   pert_row tache;
+
+  tache.tache = 1;
+  tache.nom_tache = "tache 1";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>(0);
+  tache.taches_posterieures = vector<int>(0);
+  perts.push_back(tache);
+  tache.taches_posterieures = vector<int>{2};
+  res.push_back(tache);
+
+  tache.tache = 2;
+  tache.nom_tache = "tache 2";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>{1};
+  tache.taches_posterieures = vector<int>(0);
+  perts.push_back(tache);
+  tache.taches_posterieures = vector<int>{3, 4};
+  res.push_back(tache);
+
+  tache.tache = 3;
+  tache.nom_tache = "tache 3";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>{2};
+  tache.taches_posterieures = vector<int>(0);
+  perts.push_back(tache);
+  tache.taches_posterieures = vector<int>{4};
+  res.push_back(tache);
+
+  tache.tache = 4;
+  tache.nom_tache = "tache 4";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>{2, 4};
+  tache.taches_posterieures = vector<int>(0);
+  perts.push_back(tache);
+  tache.taches_posterieures = vector<int>(0);
+  res.push_back(tache);
+
+  //perts = calcul_posterite(perts);
+//  REQUIRE(res.size() == perts.size());
+
+  tache.tache = 1;
+  tache.nom_tache = "tache 1";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>{0};
+  per.push_back(tache);
+//  REQUIRE(per == calcul_posterite(per));
+
+  tache.tache = 1;
+  tache.nom_tache = "tache 1";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>(0);
+  tache.taches_posterieures = vector<int>(0);
+  pe.push_back(tache);
+
+  tache.tache = 2;
+  tache.nom_tache = "tache 2";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>{1, 4};
+  tache.taches_posterieures = vector<int>(0);
+  pe.push_back(tache);
+
+  tache.tache = 3;
+  tache.nom_tache = "tache 3";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>{2};
+  tache.taches_posterieures = vector<int>(0);
+  perts.push_back(tache);
+
+  tache.tache = 4;
+  tache.nom_tache = "tache 4";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>{3};
+  tache.taches_posterieures = vector<int>(0);
+  pe.push_back(tache);
+
+  tache.tache = 5;
+  tache.nom_tache = "tache 5";
+  tache.duree = 5;
+  tache.taches_anterieures = vector<int>{4};
+  tache.taches_posterieures = vector<int>(0);
+  pe.push_back(tache);
+
+  REQUIRE(pe == calcul_posterite(pe));
+
 
 }
 
@@ -456,6 +540,7 @@ TEST_CASE("pert","[Algorithmes]"){
     v.valeur_entiere = 1;
     mapT["critique"] = v;
     ListeS.push_back(Sommet(100, 100, "fin 1", 2, mapT));
+    v.valeur_entiere = 5;
     mapU.insert(pair<string, VectVal> ("duree",v));
     ListeA.push_back(Arc("1tache 1", 0, 0, 2, mapU));
 
@@ -558,7 +643,7 @@ TEST_CASE("pert","[Algorithmes]"){
     v.valeur_entiere = 5;
     mapT["date au plus tot"] = v;
     v.valeur_entiere = 9;
-    mapT["date au plus tot"] = v;
+    mapT["date au plus tard"] = v;
     v.valeur_entiere = 0;
     mapT["critique"] = v;
     ListeS.push_back(Sommet(100, 100, " fin , 1, 4", 11, mapT));
@@ -575,7 +660,7 @@ TEST_CASE("pert","[Algorithmes]"){
     ListeA.push_back(Arc("fictif", 12, 5, 11, mapU));
     v.valeur_entiere = 3;
     mapU["duree"] = v;
-    ListeA.push_back(Arc("6tache 6", 13, 5, 11, mapU));
+    ListeA.push_back(Arc("6tache 6", 13, 11, 12, mapU));
 
 
     v.valeur_entiere = 11;
@@ -611,17 +696,7 @@ TEST_CASE("pert","[Algorithmes]"){
     Graphe res = pert(perts);
     Graphe tmp("PERT", ListeS, ListeA, "\0");
 
-    //REQUIRE(res == tmp);
-    REQUIRE(res.getEtiq() == tmp.getEtiq());
-    REQUIRE(res.getPath() == tmp.getPath());
-    for(int i = 0; i<res.getListe_Sommets().size(); i++){
-        REQUIRE(res.getListe_Sommets()[i].getID() == tmp.getListe_Sommets()[i].getID());
-        REQUIRE(res.getListe_Sommets()[i].getEtiq() == tmp.getListe_Sommets()[i].getEtiq());
-        REQUIRE(res.getListe_Sommets()[i].getPosX() == tmp.getListe_Sommets()[i].getPosX());
-        REQUIRE(res.getListe_Sommets()[i].getPosY() == tmp.getListe_Sommets()[i].getPosY());
-        REQUIRE(res.getListe_Sommets()[i].getCU() == tmp.getListe_Sommets()[i].getCU());
-    }
-
+    REQUIRE(res == tmp);
 
 }
 
