@@ -40,6 +40,6 @@ void QSommet::setSelect(bool select){this->select = select;}
 void QSommet::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){}
 QRectF QSommet::boundingRect() const{
   qreal penWidth = 1;
-  return QRectF(-radius - penWidth / 2, -radius - penWidth / 2, diameter + penWidth, diameter + penWidth);
+  return QRectF(-TAILLE_RAYON - penWidth / 2, -TAILLE_RAYON - penWidth / 2, TAILLE_RAYON*2 + penWidth, TAILLE_RAYON*2 + penWidth);
 }
 void QSommet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){}
