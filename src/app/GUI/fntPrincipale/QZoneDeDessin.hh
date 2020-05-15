@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QWidget>
 #include <math.h>
+#include <QDebug>
 #include "QSommet.hh"
 #include "QArc.hh"
 
@@ -13,6 +14,7 @@ class QZoneDeDessin : public QGraphicsView{
 
 private:
      QGraphicsScene *sc;
+     // QGraphicsItem itemParent;
      vector<int> selected_list;
      Graphe graphe_dessine;
 
