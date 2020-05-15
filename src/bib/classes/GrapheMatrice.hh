@@ -98,7 +98,7 @@ public:
   bool operator!=(Graphe const& G1);
   //Graphe operator=(Graphe const& G1);
   Graphe operator=(Graphe const& G1);
-  
+
   void affiche_graphe();
 
 };
