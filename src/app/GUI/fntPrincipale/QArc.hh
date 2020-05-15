@@ -6,7 +6,7 @@
 #include "QSommet.hh"
 #include "../../../bib/bib.hh"
 
-class Qarc : public QGraphicsItem{
+class QArc : public QGraphicsItem{
 
 private:
     int id;
@@ -16,9 +16,9 @@ private:
     int posyB;
 
 public:
-    Qarc (Arc A);
-    Qarc (Qarc const &A);
-    ~Qarc();
+    QArc (Arc A);
+    QArc (QArc const &A);
+    ~QArc();
 
     int getID() const;
     int getPosXA() const;

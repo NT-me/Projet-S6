@@ -1,7 +1,7 @@
 #include <typeinfo>
 #include "QArc.hh"
 
-Qarc::Qarc (Arc A){
+QArc::QArc (Arc A){
   this->id = A.getID();
   setData(0,"Arc");
 
@@ -38,7 +38,7 @@ Qarc::Qarc (Arc A){
   }
 }
 
-Qarc::Qarc(Qarc const &A){
+QArc::QArc(QArc const &A){
   this->id = A.id;
   this->posxA = A.posxA;
   this->posyA = A.posyA;
@@ -46,22 +46,22 @@ Qarc::Qarc(Qarc const &A){
   this->posyB = A.posyB;
 }
 
-Qarc::~Qarc(){
+QArc::~QArc(){
 
 }
 
-int Qarc::getID() const{return this->id;}
-int Qarc::getPosXA() const{return this->posxA;}
-int Qarc::getPosYA() const{return this->posyA;}
-int Qarc::getPosXB() const{return this->posxB;}
-int Qarc::getPosYB() const{return this->posyB;}
+int QArc::getID() const{return this->id;}
+int QArc::getPosXA() const{return this->posxA;}
+int QArc::getPosYA() const{return this->posyA;}
+int QArc::getPosXB() const{return this->posxB;}
+int QArc::getPosYB() const{return this->posyB;}
 
-void Qarc::setID(int id){this->id = id;}
-void Qarc::setPosXA(int x){this->posxA = x;}
-void Qarc::setPosYA(int y){this->posyA = y;}
-void Qarc::setPosXB(int x){this->posxB = x;}
-void Qarc::setPosYB(int y){this->posyB = y;}
+void QArc::setID(int id){this->id = id;}
+void QArc::setPosXA(int x){this->posxA = x;}
+void QArc::setPosYA(int y){this->posyA = y;}
+void QArc::setPosXB(int x){this->posxB = x;}
+void QArc::setPosYB(int y){this->posyB = y;}
 
-void Qarc::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){}
-QRectF Qarc::boundingRect() const{}
-void Qarc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){}
+void QArc::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){}
+QRectF QArc::boundingRect() const{}
+void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){}
