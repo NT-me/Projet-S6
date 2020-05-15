@@ -20,3 +20,4 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 SOURCES += QZoneDeDessin.cc
+HEADERS += ../../../../src/app/GUI/fntPrincipale/QZoneDeDessin.hh

@@ -39,3 +39,4 @@
 *.cxxflags
 *.files
 *.includes
+test/test_app/GUI/fntPrincipale/Makefile

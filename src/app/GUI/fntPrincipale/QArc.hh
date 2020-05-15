@@ -2,8 +2,11 @@
 #define H_QARC
 
 #include <QGraphicsItem>
+#include <QList>
+#include "QSommet.hh"
 #include "../../../bib/bib.hh"
-class Qarc : public QGraphicsItem{
+
+class QArc : public QGraphicsItem{
 
 private:
     int id;
@@ -13,11 +16,25 @@ private:
     int posyB;
 
 public:
-    Qarc (Arc A);
-    ~Qarc();
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-    QRectF boundingRect();
+    QArc (Arc A);
+    QArc (QArc const &A);
+    ~QArc();
 
+    int getID() const;
+    int getPosXA() const;
+    int getPosYA() const;
+    int getPosXB() const;
+    int getPosYB() const;
+
+    void setID(int id);
+    void setPosXA(int x);
+    void setPosYA(int y);
+    void setPosXB(int x);
+    void setPosYB(int y);
+
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 };
 
 #endif
