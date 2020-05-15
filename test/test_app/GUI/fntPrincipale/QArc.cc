@@ -31,8 +31,8 @@ void testConstruct(){
   // On construit l'arc
   Arc A1("arc1", 1, 2, 0, cu);
   // On construit le QArc
-  Qarc QA1(A1);
-  Qarc QA1_(QA1);
+  QArc QA1(A1);
+  QArc QA1_(QA1);
   scene->addItem(&QA1);
   scene->addItem(&QA1_);
 
@@ -54,7 +54,7 @@ void testGettersSetters(){
   Arc A1("arc1", 1, 2, 0);
 
   // On construit le QArc
-  Qarc QA1(A1);
+  QArc QA1(A1);
   QA1.setID(12);
   QA1.setPosXA(1);
   QA1.setPosYA(1);
