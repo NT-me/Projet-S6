@@ -14,6 +14,11 @@ class TestQZoneDeDessin: public QObject
 {
     Q_OBJECT
 private slots:
+  void initTestCase()
+  {
+      qDebug("Called before everything else.");
+  }
+
   void TestConstructQZoneDeDessin(){
     // Pas grand chose à tester jpense
   }
@@ -77,7 +82,16 @@ private slots:
     Sommet S(1,1,"Sommet",0);
     QSommet QS_r (S);
     qzdd.afficher_Sommet(S);
+
+    QList<QGraphicsItem*> listS = qzdd.scene()->items();
+
+    for(int i=0; i< listS.size(); ++i){
+      QSommet* QS_t = qgraphicsitem_cast<QSommet*>(listS[i]);
+      printf("%d\n\n", QS_t);
+    }
+
     QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(1,1));
+    printf("%d\n\n", QS);
 
     QVERIFY(QS->data(0) == "Sommet");
     QCOMPARE(QS->getID(), QS_r.getID());

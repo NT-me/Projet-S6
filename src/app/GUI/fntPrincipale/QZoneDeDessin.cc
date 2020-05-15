@@ -10,7 +10,10 @@ QGraphicsScene* QZoneDeDessin::getScene() const{return this->sc;}
 
 void QZoneDeDessin::setSelected_list(vector<int> sl){this->selected_list = sl;}
 void QZoneDeDessin::setGraphe_dessine(Graphe g){this->graphe_dessine = g;}
-void QZoneDeDessin::setScene(QGraphicsScene * scene){this->sc = scene;}
+void QZoneDeDessin::setScene(QGraphicsScene * scene){
+  this->sc = scene;
+  QGraphicsView::setScene(scene);
+}
 
 void QZoneDeDessin::force_Atlas2(){}
 pair<int,int> QZoneDeDessin::distance(QSommet a, QSommet b){
@@ -43,15 +46,19 @@ void QZoneDeDessin::razSelected_list(){
   this->selected_list = {};
 }
 
+void QZoneDeDessin::afficher_Sommet(Sommet s){
+  QSommet QS(s);
+  QS.setPos(QS.getPosX(), QS.getPosY());
+  this->sc->addItem(&QS);
+  setScene(this->sc);
+
+}
+
+void QZoneDeDessin::afficher_arc(Arc a){
+
+}
+
 void QZoneDeDessin::afficher_Graphe(Graphe G){
-
-}
-
-void QZoneDeDessin::afficher_Sommet(Sommet id){
-
-}
-
-void QZoneDeDessin::afficher_arc(Arc id){
 
 }
 
