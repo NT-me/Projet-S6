@@ -90,7 +90,7 @@ private slots:
     //   printf("%d\n\n", QS_t);
     // }
 
-    QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(1,1));
+    QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(1,1)); // Cast de QGraphicsItem* vers QSommet*
     printf("%d\n\n", QS);
 
     QVERIFY(QS->data(0) == "Sommet");
