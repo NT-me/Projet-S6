@@ -83,12 +83,12 @@ private slots:
     QSommet QS_r (S);
     qzdd.afficher_Sommet(S);
 
-    QList<QGraphicsItem*> listS = qzdd.scene()->items();
-
-    for(int i=0; i< listS.size(); ++i){
-      QSommet* QS_t = qgraphicsitem_cast<QSommet*>(listS[i]);
-      printf("%d\n\n", QS_t);
-    }
+    // QList<QGraphicsItem*> listS = qzdd.items();
+    //
+    // for(int i=0; i< listS.size(); ++i){
+    //   QSommet* QS_t = qgraphicsitem_cast<QSommet*>(listS[i]);
+    //   printf("%d\n\n", QS_t);
+    // }
 
     QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(1,1));
     printf("%d\n\n", QS);
