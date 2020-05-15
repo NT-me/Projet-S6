@@ -366,21 +366,21 @@ TEST_CASE("calcul posterite","[Algorithmes]"){
   tache.tache = 4;
   tache.nom_tache = "tache 4";
   tache.duree = 5;
-  tache.taches_anterieures = vector<int>{2, 4};
+  tache.taches_anterieures = vector<int>{2, 3};
   tache.taches_posterieures = vector<int>(0);
   perts.push_back(tache);
   tache.taches_posterieures = vector<int>(0);
   res.push_back(tache);
 
-  //perts = calcul_posterite(perts);
-//  REQUIRE(res.size() == perts.size());
+  perts = calcul_posterite(perts);
+  REQUIRE(res == perts);
 
   tache.tache = 1;
   tache.nom_tache = "tache 1";
   tache.duree = 5;
   tache.taches_anterieures = vector<int>{0};
   per.push_back(tache);
-//  REQUIRE(per == calcul_posterite(per));
+  REQUIRE(per == calcul_posterite(per));
 
   tache.tache = 1;
   tache.nom_tache = "tache 1";
@@ -401,7 +401,7 @@ TEST_CASE("calcul posterite","[Algorithmes]"){
   tache.duree = 5;
   tache.taches_anterieures = vector<int>{2};
   tache.taches_posterieures = vector<int>(0);
-  perts.push_back(tache);
+  pe.push_back(tache);
 
   tache.tache = 4;
   tache.nom_tache = "tache 4";
@@ -692,6 +692,22 @@ TEST_CASE("pert","[Algorithmes]"){
     ListeA.push_back(Arc("fictif", 17, 14, 1, mapU));
     ListeA.push_back(Arc("fictif", 18, 12, 8, mapU));
     ListeA.push_back(Arc("fictif", 19, 13, 8, mapU));
+
+    ListeS[0].setVecArc(vector<int>{0, 1, 2});
+    ListeS[1].setVecArc(vector<int>{});
+    ListeS[2].setVecArc(vector<int>{4, 6, 11, 15});
+    ListeS[3].setVecArc(vector<int>{3});
+    ListeS[4].setVecArc(vector<int>{14});
+    ListeS[5].setVecArc(vector<int>{12});
+    ListeS[6].setVecArc(vector<int>{5});
+    ListeS[7].setVecArc(vector<int>{7, 8});
+    ListeS[8].setVecArc(vector<int>{16});
+    ListeS[9].setVecArc(vector<int>{9});
+    ListeS[10].setVecArc(vector<int>{10});
+    ListeS[11].setVecArc(vector<int>{13});
+    ListeS[12].setVecArc(vector<int>{18});
+    ListeS[13].setVecArc(vector<int>{19});
+    ListeS[14].setVecArc(vector<int>{17});
 
     Graphe res = pert(perts);
     Graphe tmp("PERT", ListeS, ListeA, "\0");

@@ -471,33 +471,42 @@ vector<pert_row> calcul_posterite(vector<pert_row> p){
       }
     }
     if(ex != 0){
-    //  cout<<"/* ERROR NON-EXISTENT TASK */"<<endl;
+      cout<<"/* ERROR NON-EXISTENT TASK */"<<endl;
       return p;
     }
   }
-  cout <<"coucou";
 
   for(int i = 0; i<tmp.size(); i++){
     if(tmp[i].taches_anterieures.size() == 0){
-      vector<int> v;
+      vector<int> v={tmp[i].tache};
       vector<int> suiv = tmp[i].taches_posterieures;
       while(!suiv.empty()){
         for(int j = 0; j<v.size(); j++){
             if(suiv[0] == v[j]){
-                cout<<"/* ERROR SELF-PERPETUATING TASK */"<<endl;
+                cout<<"/* ERROR SELF-PERPETUATING TASK *//*"<<endl;
                 return p;
             }
         }
         for(int j = 0; j<tmp.size(); j++){
+
           if (tmp[j].tache == suiv[0]){
             for(int k = 0; k<tmp[j].taches_posterieures.size(); k++){
-              suiv.push_back(tmp[j].taches_posterieures[k]);
+              int cmp = 0;
+              for(int l=0; l<suiv.size(); l++){
+                if(suiv[l] == tmp[j].taches_posterieures[k]){
+                  cmp++;
+                }
+              }
+              if(cmp==0){
+                suiv.push_back(tmp[j].taches_posterieures[k]);
+              }
+
             }
           }
         }
+
         v.push_back(suiv[0]);
         suiv.erase(suiv.begin());
-
       }
 
     }
@@ -615,7 +624,6 @@ Graphe pert(vector<pert_row> p){
                                 }
                         }
                 }
-                cout<<p[i].tache<<" - "<<id<<" - "<<x<<" - "<<pe[x].tache<<endl;
                 //si l'antécédent avec la date au plus tôt la plus élevée a au plus un sommet postérieur
                 if(pe[x].taches_posterieures.size() <= 1){
                     val.valeur_entiere = p[i].duree + ListeS[id].getCU().at("date au plus tot").valeur_entiere;
@@ -669,10 +677,8 @@ Graphe pert(vector<pert_row> p){
                     val.valeur_entiere = p[i].duree + ListeS.back().getCU().at("date au plus tot").valeur_entiere;
                     mapS["date au plus tot"] = val;
                     ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
-                    cout<<p[i].tache<<" - "<<p[i].duree<<endl;
                     val.valeur_entiere = p[i].duree;
                     mapA["duree"] = val;
-                    cout<<mapA["duree"].valeur_entiere;
                     ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), ListeS[ListeS.size()-2].getID(),ListeS.back().getID(), mapA));
                     if(p[i].taches_posterieures.empty()){
                       val.valeur_entiere =  p[i].duree + ListeS.back().getCU().at("date au plus tot").valeur_entiere;
@@ -715,6 +721,7 @@ Graphe pert(vector<pert_row> p){
         map<string, VectVal> m = ListeS[i].getCU();
 
         for(int j = li.size()-1; j>=0; j--){
+          vector<int> sortant = ListeS[i].getVecArc();
           if(li[j].getIDDepart() == ListeS[i].getID()){
             if(f[li[j].getIDArrive()] == 1){
               int tmp = ListeS[li[j].getIDArrive()].getCU()["date au plus tard"].valeur_entiere - li[j].getCU()["duree"].valeur_entiere;
@@ -731,7 +738,28 @@ Graphe pert(vector<pert_row> p){
                   fin.valeur_entiere = tmp;
                   m.insert(pair<string, VectVal> ("date au plus tard", fin));
                 }
+
               }
+
+              if(sortant.empty()){
+                sortant.push_back(li[j].getID());
+              }
+              else{
+                for (int t = 0; t < sortant.size(); t++) {
+                  if(li[j].getID() < sortant[t]){
+                    sortant.insert(sortant.begin() + t, li[j].getID());
+                    break;
+                  }
+                  else{
+                    if(t == sortant.size()-1){
+                      sortant.push_back(li[j].getID());
+                      break;
+                    }
+                  }
+                }
+              }
+
+              ListeS[i].setVecArc(sortant);
               ListeS[i].setCU(m);
               li.erase(li.begin() + j);
 
@@ -755,54 +783,6 @@ Graphe pert(vector<pert_row> p){
       mapT.insert(pair<string, VectVal> ("critique", fin));
       ListeS[i].setCU(mapT);
     }
-
-
-    //int poid = 0;
-  /*  while(!li.empty()){
-        for(int i = ListeS.size()-1; i>=0; i--){
-            fin.valeur_entiere = INFINI;
-            mapS = ListeS[i].getCU();
-            if(i != 1){
-                for(int j=li.size()-1; j>=0; j--){
-                    if(li[j].getIDDepart()==i){
-                        if(ListeS[li[j].getIDArrive()].getCU().count("date au plus tard") == 1 &&
-                            fin.valeur_entiere > ListeS[li[j].getIDArrive()].getCU()["date au plus tard"].valeur_entiere - li[j].getCU()["duree"].valeur_entiere){
-                                fin.valeur_entiere = ListeS[li[j].getIDArrive()].getCU()["date au plus tard"].valeur_entiere - li[j].getCU()["duree"].valeur_entiere;
-                                mapS.insert(pair<string, VectVal> ("date au plus tard", fin));
-                                if(ListeS[i].getCU()["date au plus tot"].valeur_entiere == fin.valeur_entiere){
-                                    val.valeur_entiere = 1;
-                                }
-                                else{val.valeur_entiere = 0;}
-                                mapS.insert(pair<string, VectVal> ("critique", val));
-                                ListeS[i].setCU(mapS);
-                                li.erase(li.begin() + j);
-                        }
-                    /* if(ListeS[i].getCU()["date au plus tot"].valeur_entiere < fin.valeur_entiere){
-                            fin.valeur_entiere = ListeS[i].getCU()["date au plus tot"].valeur_entiere;
-                            poid = li[j].getCU()["duree"].valeur_entiere;
-                        }
-
-                    }
-                }
-            // fin.valeur_entiere -= poid;
-
-            }
-
-        }
-    }*/
-
-    cout<<"listeS: ";
-    for(Sommet s: ListeS){
-        cout<<s.getID()<<"->"<<s.getEtiq()<<" ("<< s.getCU()["date au plus tot"].valeur_entiere<<","<<s.getCU()["date au plus tard"].valeur_entiere<<","<<s.getCU()["critique"].valeur_entiere<<") , ";
-    }
-    cout<<endl<<endl;
-
-    cout<<"listeA: ";
-    for(Arc a: ListeA){
-        cout<<a.getEtiq()<<" ("<<a.getIDDepart()<<","<<a.getIDArrive()<<","<<a.getCU()["duree"].valeur_entiere<<") , ";
-    }
-    cout<<endl;
-
 
     //création du Graphe
     return Graphe("PERT", ListeS, ListeA, "\0");
