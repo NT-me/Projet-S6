@@ -2,6 +2,11 @@
 
 QZoneDeDessin::QZoneDeDessin(QWidget *parent) : QGraphicsView(parent), graphe_dessine("EMPTY_GRAPH"){
 this->selected_list = {};
+QGraphicsScene sc_(parent = this);
+// scene = sc_;
+this->setSceneRect(50, 50, 350, 350);
+this->sc = &sc_;
+QGraphicsView::setScene(&sc_);
 }
 
 vector<int> QZoneDeDessin::getSelected_list() const{return this->selected_list;}
