@@ -2,11 +2,11 @@
 
 QZoneDeDessin::QZoneDeDessin(QWidget *parent) : QGraphicsView(parent), graphe_dessine("EMPTY_GRAPH"){
 this->selected_list = {};
-QGraphicsScene sc_(parent = this);
+QGraphicsScene * sc_;
 // scene = sc_;
 this->setSceneRect(50, 50, 350, 350);
-this->sc = &sc_;
-QGraphicsView::setScene(&sc_);
+this->sc = sc_;
+QGraphicsView::setScene(sc_);
 }
 
 vector<int> QZoneDeDessin::getSelected_list() const{return this->selected_list;}
@@ -54,8 +54,12 @@ void QZoneDeDessin::razSelected_list(){
 void QZoneDeDessin::afficher_Sommet(Sommet s){
   QSommet QS(s);
   QS.setPos(QS.getPosX(), QS.getPosY());
-  this->sc->addItem(&QS);
-  setScene(this->sc);
+  QGraphicsScene * Qtmp;
+  Qtmp = scene();
+  Qtmp->addItem(&QS);
+  setScene(Qtmp);
+  // this->sc->addItem(&QS);
+  // setScene(this->sc);
 
 }
 

@@ -38,6 +38,7 @@ private slots:
     QCOMPARE(qzdd.getGraphe_dessine(), G);
     QCOMPARE(qzdd.getScene(), sc_);
     QCOMPARE(qzdd.scene(), sc_);
+    QCOMPARE(qzdd.scene(), qzdd.getScene());
 
   }
 
@@ -79,33 +80,33 @@ private slots:
     qzdd.razSelected_list();
     QCOMPARE(qzdd.getSelected_list(), v1);
   }
-  // void Testafficher_Sommet(){
-  //   QZoneDeDessin qzdd;
-  //   // QGraphicsScene sc(parent = &qzdd);
-  //   // qzdd.setScene(&sc);
-  //
-  //   Sommet S(1,1,"Sommet",0);
-  //   QSommet QS_r (S);
-  //   qzdd.afficher_Sommet(S);
-  //
-  //   // QList<QGraphicsItem*> listS = qzdd.items();
-  //   //
-  //   // for(int i=0; i< listS.size(); ++i){
-  //   //   QSommet* QS_t = qgraphicsitem_cast<QSommet*>(listS[i]);
-  //   //   printf("%d\n\n", QS_t);
-  //   // }
-  //
-  //   QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(1,1)); // Cast de QGraphicsItem* vers QSommet*
-  //   printf("%d\n\n", QS);
-  //
-  //   QVERIFY(QS->data(0) == "Sommet");
-  //   QCOMPARE(QS->getID(), QS_r.getID());
-  //   QCOMPARE(QS->getPosX(), QS_r.getPosX());
-  //   QCOMPARE(QS->getPosY(), QS_r.getPosY());
-  //   QCOMPARE(QS->getRayon(), QS_r.getRayon());
-  //   QCOMPARE(QS->getCoul(), QS_r.getCoul());
-  //   QCOMPARE(QS->getSelect(), QS_r.getSelect());
-  // }
+  void Testafficher_Sommet(){
+    QZoneDeDessin qzdd;
+    // QGraphicsScene * sc;
+    // qzdd.setScene(sc);
+
+    Sommet S(1,1,"Sommet",0);
+    QSommet QS_r (S);
+    qzdd.afficher_Sommet(S);
+
+    QList<QGraphicsItem*> listS = qzdd.items();
+
+    for(int i=0; i< listS.size(); ++i){
+      QSommet* QS_t = qgraphicsitem_cast<QSommet*>(listS[i]);
+      printf("%d\n\n", QS_t);
+    }
+
+    QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(1,1)); // Cast de QGraphicsItem* vers QSommet*
+    printf("%d\n\n", QS);
+
+    QVERIFY(QS->data(0) == "Sommet");
+    QCOMPARE(QS->getID(), QS_r.getID());
+    QCOMPARE(QS->getPosX(), QS_r.getPosX());
+    QCOMPARE(QS->getPosY(), QS_r.getPosY());
+    QCOMPARE(QS->getRayon(), QS_r.getRayon());
+    QCOMPARE(QS->getCoul(), QS_r.getCoul());
+    QCOMPARE(QS->getSelect(), QS_r.getSelect());
+  }
   void Testafficher_arc(){
     QZoneDeDessin qzdd;
     Sommet S0(0,0,"Sommet",0);
