@@ -474,32 +474,37 @@ bool verif_file (string path){
     ifstream fichier(path);
     IStreamWrapper fic (fichier);
 
-    ifstream schm("../../fichierJSON/graph_schema.json");
+    ifstream schm("../fichierJSON/graphschema.json");
     IStreamWrapper sch(schm);
 
-  //  ifstream fichier(path);
-    //IStreamWrapper fic (fichier);
 
-    rapidjson::Document doc;
-    rapidjson::Document sd;
+      rapidjson::Document doc;
 
-    if( sd.ParseStream(sch).HasParseError()){
-      cout<<" le schéma est pas un json valide"<<endl;
-      return false;
-    }
+      if( doc.ParseStream<0>(fic).HasParseError()){
+        cout<<" le docuement est pas un json valide"<<endl;
+        return false;
+      }
+
+
+      rapidjson::Document sd;
+
+      sd.ParseStream<0>(sch);
+      if (sd.HasParseError()){
+        cout << "allo" << endl;
+        return false;
+      }
+
+
     rapidjson::SchemaDocument schema(sd);
 
-    if( doc.ParseStream(fic).HasParseError()) {
-      cout<<" le fichier est pas un json valide"<<endl;
-      return false;
-    }
+
 
     SchemaValidator validator(schema);
     if(!doc.Accept(validator)){
       cout<<"le fichier ne correspond pas au schéma"<<endl;
       return false;
     }
-  //  doc.ParseStream<0>(fic);
+
 /*
     if (doc.HasParseError()){
       cout << "Erreur de parsing du fichier .json" << endl;
