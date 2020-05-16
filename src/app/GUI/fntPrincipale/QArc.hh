@@ -3,6 +3,7 @@
 
 #include <QGraphicsItem>
 #include <QList>
+#include <QGraphicsLineItem>
 #include "QSommet.hh"
 #include "../../../bib/bib.hh"
 

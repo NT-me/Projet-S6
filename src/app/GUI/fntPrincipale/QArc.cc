@@ -63,5 +63,9 @@ void QArc::setPosXB(int x){this->posxB = x;}
 void QArc::setPosYB(int y){this->posyB = y;}
 
 void QArc::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){}
-QRectF QArc::boundingRect() const{}
+QRectF QArc::boundingRect() const{
+  QLineF l(posxA, posyA, posxB, posyB);
+  QGraphicsLineItem line(l);
+  return line.boundingRect();
+}
 void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){}
