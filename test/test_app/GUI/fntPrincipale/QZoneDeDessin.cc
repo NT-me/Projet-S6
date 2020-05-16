@@ -98,29 +98,38 @@ private slots:
     QCOMPARE(QS->getCoul(), QS_r.getCoul());
     QCOMPARE(QS->getSelect(), QS_r.getSelect());
   }
-  //
-  // void Testafficher_arc(){
-  //   QZoneDeDessin qzdd;
-  //   Sommet S0(0,0,"Sommet",0);
-  //   Sommet S1(2,2,"Sommet",1);
-  //   QSommet QS0 (S0), QS1 (S1);
-  //   QGraphicsScene * sc;
-  //   sc->addItem(&QS0);
-  //   sc->addItem(&QS1);
-  //   qzdd.setScene(sc);
-  //
-  //   Arc A("5", 5, 0, 1);
-  //   QArc QA_r(A);
-  //   qzdd.afficher_arc(A);
-  //   QArc* QA = qgraphicsitem_cast<QArc*>(qzdd.itemAt(1,1));
-  //
-  //   QVERIFY(QA->data(0) == "Arc");
-  //   QCOMPARE(QA->getPosXA(), QA_r.getPosXA());
-  //   QCOMPARE(QA->getPosYA(), QA_r.getPosYA());
-  //   QCOMPARE(QA->getPosXB(), QA_r.getPosXB());
-  //   QCOMPARE(QA->getPosYA(), QA_r.getPosYB());
-  //
-  // }
+
+  void Testafficher_arc(){
+    QZoneDeDessin qzdd;
+    Sommet S0(100,100,"Sommet",0);
+    Sommet S1(300,300,"Sommet",1);
+    qzdd.afficher_Sommet(S0);
+    qzdd.afficher_Sommet(S1);
+
+    Arc A("5", 5, 0, 1);
+    QArc QA_r(A);
+    QA_r.setPosXA(100);
+    QA_r.setPosYA(100);
+    QA_r.setPosXB(300);
+    QA_r.setPosYB(300);
+    qzdd.afficher_arc(A);
+    QArc* QA = qgraphicsitem_cast<QArc*>(qzdd.itemAt(QPoint(200,200)));
+    qDebug()<< "QA data " << QA->data(0) << "\n\n";
+
+    // QList<QGraphicsItem*> listS = qzdd.items();
+    // for(int i=0; i< listS.size(); ++i){
+    //   QArc* QA = qgraphicsitem_cast<QArc*>(listS[i]);
+    //   qDebug()<< "QA data " << QA->data(0);
+    //   qDebug()<< "QA posx " << QA->pos();
+    // }
+
+    QVERIFY(QA->data(0) == "Arc");
+    QCOMPARE(QA->getPosXA(), QA_r.getPosXA());
+    QCOMPARE(QA->getPosYA(), QA_r.getPosYA());
+    QCOMPARE(QA->getPosXB(), QA_r.getPosXB());
+    QCOMPARE(QA->getPosYB(), QA_r.getPosYB());
+
+  }
   // void Testafficher_Graphe(){
   //   QZoneDeDessin qzdd;
   //   Sommet S0(0,0,"Sommet",0);

@@ -61,6 +61,38 @@ void QZoneDeDessin::afficher_Sommet(Sommet s){
 }
 
 void QZoneDeDessin::afficher_arc(Arc a){
+  int IDa, IDb, dblFlag = 0;
+  IDa = a.getIDDepart();
+  IDb = a.getIDArrive();
+
+  QArc *QA = new QArc(a);
+
+  QList<QGraphicsItem*> listS = items();
+  for(int i=0; i< listS.size(); ++i){
+    QSommet* QS = qgraphicsitem_cast<QSommet*>(listS[i]);
+    if(QS->data(0) == "Sommet"){
+      if(QS->getID() == IDa){ //On cherche le sommet de départ
+        ++dblFlag;
+        QA->setPosXA(QS->getPosX());
+        QA->setPosYA(QS->getPosY());
+      }
+      else if (QS->getID() == IDb){ // On cherche le sommet d'arrivée
+        ++dblFlag;
+        QA->setPosXB(QS->getPosX());
+        QA->setPosYB(QS->getPosY());
+      }
+    }
+  }
+  if (dblFlag != 2){
+    qDebug() <<"--> SOMMETS NON TROUVES ID QARC :" <<QA->getID();
+  }
+  else{
+    QPointF qpfA = mapToScene(QPoint(QA->getPosXA(),QA->getPosYA()));
+    // QPointF qpfB = mapToScene(QPoint(QA->getPosXB(),QA->getPosYB()));
+    QA->setPos(qpfA.x(), qpfA.y());
+    QA->setVisible(1);
+    this->sc->addItem(QA);
+  }
 
 }
 
