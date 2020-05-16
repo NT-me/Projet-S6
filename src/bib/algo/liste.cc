@@ -117,22 +117,23 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	}
 	
 	vector<vector <int>> T, L, Reg;
-	Matrice N = new Matrice(M);
-	Graphe G = new Graphe("Arbre binaire");
-	Sommet S = new Sommet(100,100,"etiq",Num,<"etiq",<>);
-	Arc A = new Arc();
+	int Num = 0;	//compteur pour l'id des sommets et des arcs
+	Matrice N = Matrice(M);
+	Graphe G = Graphe("Arbre binaire");
+	Sommet S = Sommet("etiq",Num);
+	//Arc A = Arc();
 	
 	int Reduc, Regretcol, Regretlig, SommeReduc;
 	
 	int i,j;	//itérateur de boucle
 	int x,y;	//second itérateur de boucle
-	int Num = 0;	//compteur pour l'id des sommets et des arcs
-	int S = 0;	//itérateur pour les sommets du graphe
+
+	int s = 0;	//itérateur pour les sommets du graphe
 	int max;	//stock le plus grand regret trouvé dans le tableau
 	int test = 0;	
 	
 	SommeReduc = 0;
-	G.ajout_Sommet(S,100,100);	//Noeud racine de l'arbre binaire
+	G.ajout_Sommet(S.getID(),100,100);	//Noeud racine de l'arbre binaire
 	
 	
 	T = M.getTab();
@@ -149,35 +150,45 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 		}
 	}
 	
+	
 	if(test == 0)	//Si pas de valeur négative dans le tableau
 	{
-		for(i=0; i<M.gettV(); i++
+		for(i=0; i<M.gettV(); i++)
 		{
 			T[i][i] = -1;	//Diagonal de la matrice prend la valeur -1 au lieu de zéro.
 		}
 	}
 	
 	
-	
 	//Réduction de la matrice
 	for(i=0; i<M.gettV(); i++)	//Calcul réduction sur les lignes
 	{
-		Reduc = T[i][0];
+		Reduc = 100000000;
 		for(j=0; j<M.gettV(); j++)
 		{
 			if(T[i][j]<Reduc && T[i][j]>-1)
 			{
 				Reduc = T[i][j];	//Calcul min de la ligne
+				printf("Reduc = %d, i= %d, j= %d \n",Reduc,i,j);
 			}
 		}
 		
 		SommeReduc = SommeReduc+Reduc;	//Calcul noeud racine
+		printf("SommeReduc = %d",SommeReduc);
 		
-		for(j=0; j<M.gettE(); j++)
+		for(j=0; j<M.gettV(); j++)
 		{
+			
 			L[i][j] = T[i][j] - Reduc;		//Création de la matrice partiellement réduite
+			printf("test2");
+			printf("L[%d][%d] = %d ",i,j,L[i][j]);
 		}
+		printf("\n");
 	}
+	
+	printf("done");
+	
+	/*
 	
 	
 	for(j=0; j<M.gettV(); j++)	//Calcul réduction sur les colonnes
@@ -250,7 +261,7 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	}
 	
 	max = 0;
-	for(i=0; i<M.gettV; i++)	//Recherche regret maximum du tableau
+	for(i=0; i<M.gettV(); i++)	//Recherche regret maximum du tableau
 	{
 		for(j=0; j<M.gettV; j++)
 		{
@@ -283,7 +294,7 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	
 	N.modifTab(y,x,-1);						//On ne considère l'arc en sens inverse de celui choisi
 	
-	while(/*Test si l'arbre binaire de recherche est égale au nombre de sommet en entrée*/);
+	while(/*Test si l'arbre binaire de recherche est égale au nombre de sommet en entrée*///);
 	
 	//parcours de l'arbre + plus court chemin
 	//Créer un arbre binaire complet, puis on recherche la feuille de poids minimum
