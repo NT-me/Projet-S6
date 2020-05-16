@@ -2,8 +2,7 @@
   "type": "object",
   "properties":{
     "etiquette": {"type": "string"},
-    "path": {"type": "string"},
-    
-  "required": ["etiquette", "path", "version", "listeS", "liste_sommet"],
-  "additionalProperties": false ,
+    "path": {"type": "string"}
+  }
+
 }
