@@ -85,10 +85,17 @@ private slots:
     QSommet QS_r (S);
     qzdd.afficher_Sommet(S);
 
-    QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(QPoint(1,1))); // Cast de QGraphicsItem* vers QSommet*
+    QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(qzdd.mapFromScene(QPointF (1,1)))); // Cast de QGraphicsItem* vers QSommet*
     qDebug()<< "QS data " << QS->data(0) << "\n\n";
 
-    qDebug()<< QS->pos() << "\n\n";
+      // QList<QGraphicsItem*> listS = qzdd.items();
+      // for(int i=0; i< listS.size(); ++i){
+      //   QSommet* QS = qgraphicsitem_cast<QSommet*>(listS[i]);
+      //   qDebug()<< "QS data " << QS->data(0);
+      //   qDebug()<< "QS pos " << QS->pos();
+      // }
+
+    //qDebug()<< QS->pos() << "\n\n";
 
     QVERIFY(QS->data(0) == "Sommet");
     QCOMPARE(QS->getID(), QS_r.getID());
@@ -113,8 +120,8 @@ private slots:
     QA_r.setPosXB(300);
     QA_r.setPosYB(300);
     qzdd.afficher_arc(A);
-    QArc* QA = qgraphicsitem_cast<QArc*>(qzdd.itemAt(QPoint(200,200)));
-    qDebug()<< "QA data " << QA->data(0) << "\n\n";
+    QArc* QA = qgraphicsitem_cast<QArc*>(qzdd.itemAt(qzdd.mapFromScene(QPointF (200,200))));
+    //qDebug()<< "QA data " << QA->data(0) << "\n\n";
 
     // QList<QGraphicsItem*> listS = qzdd.items();
     // for(int i=0; i< listS.size(); ++i){
@@ -132,30 +139,36 @@ private slots:
   }
   // void Testafficher_Graphe(){
   //   QZoneDeDessin qzdd;
-  //   Sommet S0(0,0,"Sommet",0);
-  //   Sommet S1(2,2,"Sommet",1);
+  //   Graphe g("G-test");
+  //   g.ajout_Sommet(0,100, 100);
+  //   g.ajout_Sommet(1,300, 300);
+  //   g.ajout_Arc(0,1);
   //
-  //   QGraphicsScene * sc;
-  //   qzdd.setScene(sc);
+  //   Sommet S0(100,100,"Sommet",0);
+  //   Sommet S1(300,300,"Sommet",1);
   //
   //   QSommet QS_r(S0);
   //   QSommet QS0_r(S1);
   //
-  //   qzdd.afficher_Sommet(S0);
-  //   qzdd.afficher_Sommet(S1);
-  //
-  //   Arc A("5", 5, 0, 1);
+  //   Arc A(0, 0, 1);
   //   QArc QA_r(A);
-  //   qzdd.afficher_arc(A);
-  //   QArc* QA = qgraphicsitem_cast<QArc*>(qzdd.itemAt(1,1));
+  //   QA_r.setPosXA(S0.getPosX());
+  //   QA_r.setPosYA(S0.getPosY());
+  //   QA_r.setPosXB(S1.getPosY());
+  //   QA_r.setPosYB(S1.getPosY());
+  //
+  //   qzdd.afficher_Graphe(g);
+  //   QArc* QA = qgraphicsitem_cast<QArc*>(qzdd.itemAt(QPoint(200,200)));
+  //   qDebug()<< "Bounding Rect" << QA->boundingRect();
+  //   qDebug()<< QA->pos();
   //
   //   QVERIFY(QA->data(0) == "Arc");
   //   QCOMPARE(QA->getPosXA(), QA_r.getPosXA());
   //   QCOMPARE(QA->getPosYA(), QA_r.getPosYA());
   //   QCOMPARE(QA->getPosXB(), QA_r.getPosXB());
-  //   QCOMPARE(QA->getPosYA(), QA_r.getPosYB());
+  //   QCOMPARE(QA->getPosYB(), QA_r.getPosYB());
   //
-  //   QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(0,0));
+  //   QSommet* QS = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(QPoint(100,100)));
   //   QVERIFY(QS->data(0) == "Sommet");
   //   QCOMPARE(QS->getID(), QS_r.getID());
   //   QCOMPARE(QS->getPosX(), QS_r.getPosX());
@@ -164,7 +177,9 @@ private slots:
   //   QCOMPARE(QS->getCoul(), QS_r.getCoul());
   //   QCOMPARE(QS->getSelect(), QS_r.getSelect());
   //
-  //   QSommet* QS0 = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(2,2));
+  //   QSommet* QS0 = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(QPoint(300,300)));
+  //   qDebug()<< "QS0 data " << QS0->data(0) << "\n\n";
+  //
   //   QVERIFY(QS0->data(0) == "Sommet");
   //   QCOMPARE(QS0->getID(), QS0_r.getID());
   //   QCOMPARE(QS0->getPosX(), QS0_r.getPosX());

@@ -53,18 +53,17 @@ void QZoneDeDessin::razSelected_list(){
 
 void QZoneDeDessin::afficher_Sommet(Sommet s){
   QSommet *QS = new QSommet(s);
-  QPointF qpf = mapToScene(QPoint(QS->getPosX(),QS->getPosY()));
-  QS->setPos(qpf.x(),qpf.y());
   QS->setVisible(1); // -
   this->sc->addItem(QS);
-
+  QS->setPos(QS->getPosX(),QS->getPosY());
 }
 
 void QZoneDeDessin::afficher_arc(Arc a){
   int IDa, IDb, dblFlag = 0;
   IDa = a.getIDDepart();
   IDb = a.getIDArrive();
-
+  QPoint posA, posB;
+  QPointF posRef;
   QArc *QA = new QArc(a);
 
   QList<QGraphicsItem*> listS = items();
@@ -73,13 +72,15 @@ void QZoneDeDessin::afficher_arc(Arc a){
     if(QS->data(0) == "Sommet"){
       if(QS->getID() == IDa){ //On cherche le sommet de départ
         ++dblFlag;
-        QA->setPosXA(QS->getPosX());
-        QA->setPosYA(QS->getPosY());
+        posA.setX(QS->getPosX());
+        posA.setY(QS->getPosY());
+        posRef.setX(QS->x());
+        posRef.setY(QS->y());
       }
       else if (QS->getID() == IDb){ // On cherche le sommet d'arrivée
         ++dblFlag;
-        QA->setPosXB(QS->getPosX());
-        QA->setPosYB(QS->getPosY());
+        posB.setX(QS->getPosX());
+        posB.setY(QS->getPosY());
       }
     }
   }
@@ -87,17 +88,24 @@ void QZoneDeDessin::afficher_arc(Arc a){
     qDebug() <<"--> SOMMETS NON TROUVES ID QARC :" <<QA->getID();
   }
   else{
-    QPointF qpfA = mapToScene(QPoint(QA->getPosXA(),QA->getPosYA()));
-    // QPointF qpfB = mapToScene(QPoint(QA->getPosXB(),QA->getPosYB()));
-    QA->setPos(qpfA.x(), qpfA.y());
-    QA->setVisible(1);
     this->sc->addItem(QA);
+    QA->setPos(posRef);
+    QA->setPosXA(posA.x());
+    QA->setPosYA(posA.y());
+    QA->setPosXB(posB.x());
+    QA->setPosYB(posB.y());
+    QA->setVisible(1);
   }
 
 }
 
 void QZoneDeDessin::afficher_Graphe(Graphe G){
+  vector<Arc> La = G.getListe_Arcs();
+  vector<Sommet> Ls = G.getListe_Sommets();
 
+  for(int i =0; i<Ls.size(); ++i) afficher_Sommet(Ls[i]);
+
+  for(int i =0; i<La.size(); ++i) afficher_arc(La[i]);
 }
 
 void QZoneDeDessin::mousePressEvent(QMouseEvent * e){}
