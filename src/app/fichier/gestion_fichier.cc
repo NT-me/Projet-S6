@@ -333,7 +333,7 @@ if (path == ""){
    return 0;
  }
 
-  return 2; // Revoir les returns
+  return 0; /
 
 }
 
@@ -347,7 +347,11 @@ Graphe chargement (string path){
   IStreamWrapper fic (fichier);
 
   rapidjson::Document doc;
+
   doc.ParseStream<0>(fic);
+  verif_file (path);
+
+
   string chemin = doc["path"].GetString(); // Recupere le path du graphe
   string etiq = doc ["etiquette"].GetString(); // Recupere le nom du Graphe
 
@@ -372,7 +376,7 @@ Graphe chargement (string path){
 
     for (int j = 0; j <  doc["listeS"][i]["vecArc"].Size(); j++){
       VecteurArc[j] = doc["listeS"][i]["vecArc"][j]["Tab"].GetInt();
-      cout <<"VecArc : "<< VecteurArc[j] << endl;
+      // cout <<"VecArc : "<< VecteurArc[j] << endl;
     }
 
 
@@ -404,10 +408,10 @@ Graphe chargement (string path){
 
 
 
-    cout << "Position X : "<< LISTESOM[i].getPosX() << endl;
-    cout << "Position Y : "<< LISTESOM[i].getPosY() << endl;
-    cout << "ID : "<< LISTESOM[i].getID() << endl;
-    cout << "Etiquette : "<< LISTESOM[i].getEtiq() << endl << endl;
+    // cout << "Position X : "<< LISTESOM[i].getPosX() << endl;
+    // cout << "Position Y : "<< LISTESOM[i].getPosY() << endl;
+    // cout << "ID : "<< LISTESOM[i].getID() << endl;
+    // cout << "Etiquette : "<< LISTESOM[i].getEtiq() << endl << endl;
 
   }
 
@@ -445,10 +449,10 @@ Graphe chargement (string path){
     LISTEARC[i].setCU(m1);
 
 
-    cout << "ID : " << LISTEARC[i].getID() << endl;
-    cout << "Etiquette : " << LISTEARC[i].getEtiq() << endl;
-    cout << "IDdepart : " << LISTEARC[i].getIDDepart() << endl;
-    cout << "IDarrive : " << LISTEARC[i].getIDArrive() << endl << endl;
+    // cout << "ID : " << LISTEARC[i].getID() << endl;
+    // cout << "Etiquette : " << LISTEARC[i].getEtiq() << endl;
+    // cout << "IDdepart : " << LISTEARC[i].getIDDepart() << endl;
+    // cout << "IDarrive : " << LISTEARC[i].getIDArrive() << endl << endl;
 
   }
 
@@ -463,7 +467,26 @@ Graphe chargement (string path){
 }
 
 
-bool verif_file (rapidjson::Document D){
+bool verif_file (string path){
+
+
+    ifstream fichier(path);
+    IStreamWrapper fic (fichier);
+
+    rapidjson::Document doc;
+
+    doc.ParseStream<0>(fic);
+
+    if (doc.HasParseError()){
+      cout << "Erreur de parsing du fichier .json" << endl;
+      return false;
+    }
+
+    SchemaDocument schDoc(doc);
+    SchemaValidator valid(schDoc);
+
+
+
 
   return true;
 }
