@@ -141,11 +141,11 @@ private slots:
     QZoneDeDessin qzdd;
     Graphe g("G-test");
     g.ajout_Sommet(0,100, 100);
-    g.ajout_Sommet(1,300, 300);
+    g.ajout_Sommet(1,300, 100);
     g.ajout_Arc(0,1);
 
     Sommet S0(100,100,"Sommet",0);
-    Sommet S1(300,300,"Sommet",1);
+    Sommet S1(300,100,"Sommet",1);
 
     QSommet QS_r(S0);
     QSommet QS0_r(S1);
@@ -154,15 +154,15 @@ private slots:
     QArc QA_r(A);
     QA_r.setPosXA(S0.getPosX());
     QA_r.setPosYA(S0.getPosY());
-    QA_r.setPosXB(S1.getPosY());
+    QA_r.setPosXB(S1.getPosX());
     QA_r.setPosYB(S1.getPosY());
 
     qzdd.afficher_Graphe(g);
-    QArc* QA = qgraphicsitem_cast<QArc*>(qzdd.itemAt(qzdd.mapFromScene(QPointF (200,200))));
+    QArc* QA = qgraphicsitem_cast<QArc*>(qzdd.itemAt(qzdd.mapFromScene(QPointF (200,102))));
     qDebug()<< "Bounding Rect" << QA->boundingRect();
     qDebug()<< "Bounding Rect TOP" << QA->boundingRect().top();
     qDebug()<< "Bounding Rect BOTTOM" << QA->boundingRect().bottom();
-    qDebug()<<"bounding Rect DANS SCENE" << QA->sceneBoundingRect();
+    qDebug()<< "bounding Rect DANS SCENE" << QA->sceneBoundingRect();
     qDebug()<< QA->pos();
 
     QVERIFY(QA->data(0) == "Arc");
@@ -182,7 +182,7 @@ private slots:
     QCOMPARE(QS->getCoul(), QS_r.getCoul());
     QCOMPARE(QS->getSelect(), QS_r.getSelect());
 
-    QSommet* QS0 = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(qzdd.mapFromScene(QPointF (303,303))));
+    QSommet* QS0 = qgraphicsitem_cast<QSommet*>(qzdd.itemAt(qzdd.mapFromScene(QPointF (300,100))));
     qDebug()<< "QS0 data " << QS0->data(0) << "\n\n";
 
     QVERIFY(QS0->data(0) == "Sommet");

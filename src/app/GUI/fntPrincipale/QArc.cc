@@ -70,6 +70,12 @@ QRectF QArc::boundingRect() const{
   qreal sin =(posyB-posyA)/qSqrt( qPow(posxB-posxA,2) + qPow(posxB-posxA,2));
   qreal cos =(posxB-posxA)/qSqrt( qPow(posxB-posxA,2) + qPow(posxB-posxA,2));
   qreal radius = TAILLE_RAYON;
-  return mapRectFromScene(QRectF(posxA+cos*radius, posyA+sin*radius, posxB-posxA-2*cos*radius, posyB-posyA-2*sin*radius));
+  qreal rx = 0;
+  qreal ry = 0;
+
+  if (qFabs(posyB-posyA) < 10 ) ry = 10;
+  if (qFabs(posxB-posxA) < 10 ) rx = 10;
+
+  return mapRectFromScene(QRectF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2), posxB-posxA-2*cos*radius+rx, posyB-posyA-2*sin*radius+ry));
 }
 void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){}
