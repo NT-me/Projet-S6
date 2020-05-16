@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QList>
 #include <QGraphicsLineItem>
+#include <QtMath>
 #include "QSommet.hh"
 #include "../../../bib/bib.hh"
 

@@ -57,15 +57,19 @@ int QArc::getPosXB() const{return this->posxB;}
 int QArc::getPosYB() const{return this->posyB;}
 
 void QArc::setID(int id){this->id = id;}
-void QArc::setPosXA(int x){this->posxA = x;}
-void QArc::setPosYA(int y){this->posyA = y;}
-void QArc::setPosXB(int x){this->posxB = x;}
-void QArc::setPosYB(int y){this->posyB = y;}
+void QArc::setPosXA(int x){ prepareGeometryChange() ;this->posxA = x;}
+void QArc::setPosYA(int y){ prepareGeometryChange() ;this->posyA = y;}
+void QArc::setPosXB(int x){ prepareGeometryChange() ;this->posxB = x;}
+void QArc::setPosYB(int y){ prepareGeometryChange() ;this->posyB = y;}
 
 void QArc::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){}
 QRectF QArc::boundingRect() const{
-  QLineF l(posxA, posyA, posxB, posyB);
-  QGraphicsLineItem line(l);
-  return line.boundingRect();
+  // QLineF l(posxA, posyA, posxB, posyB);
+  // QGraphicsLineItem line(l);
+  // return line.boundingRect();
+  qreal sin =(posyB-posyA)/qSqrt( qPow(posxB-posxA,2) + qPow(posxB-posxA,2));
+  qreal cos =(posxB-posxA)/qSqrt( qPow(posxB-posxA,2) + qPow(posxB-posxA,2));
+  qreal radius = TAILLE_RAYON;
+  return mapRectFromScene(QRectF(posxA+cos*radius, posyA+sin*radius, posxB-posxA-2*cos*radius, posyB-posyA-2*sin*radius));
 }
 void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){}
