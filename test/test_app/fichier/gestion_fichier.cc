@@ -108,11 +108,11 @@ TEST_CASE ("Test du chargement", "[]"){
 
 TEST_CASE ("Test de la verification de fichier", "[]"){
 
-  // string fic "/fichierJSON/G0.json";
+   string fic = "../fichierJSON/G0.json";
   // D = fic parser ????
 
   // rapidjson::Document D;
-  // REQUIRE (verif_file (D) == 0);
+   REQUIRE (verif_file (fic) == true);
 
 }
 

@@ -8,6 +8,6 @@ int sauvegarde(Graphe G, std::string path="NULL");
 
 Graphe chargement(string path);
 
-bool verif_file(path);
+bool verif_file(string path);
 
 int suppression(string path);

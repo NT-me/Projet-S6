@@ -273,6 +273,7 @@ test_app_fichier: clean
 	g++ ../src/app/fichier/gestion_fichier.cc -c
 	#Partie test
 	g++ GrapheMatrice.o Arc.o Sommet.o gestion_fichier.o test_app/fichier/gestion_fichier.cc -o OUTFichier.o
+	./OUTFichier.o
 
 test_app_GUI: clean
 
