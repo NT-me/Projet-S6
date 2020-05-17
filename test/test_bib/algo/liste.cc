@@ -442,7 +442,7 @@ TEST_CASE("postier chinois","[Algorithmes]"){
               {0,0,1},
               {1,0,0}});
 
- vector<int> v_a{0,1,2};
+ vector<int> v_a{0,1,2,0};
  REQUIRE(postier_chinois(MA1) == v_a);
 }
 
