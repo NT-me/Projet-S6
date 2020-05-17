@@ -109,6 +109,66 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 
 vector<int> postier_chinois(Matrice M){}
 
+Matrice reduction(Matrice M, int &SommeReduc)
+{
+	int Reduc;
+	int i,j; 
+	vector<vector <int>> T, L;
+	Matrice N = Matrice(M);
+	
+	T = M.getTab();
+	
+	for(i = 0; i<M.gettV(); i++)
+	{
+		L.push_back({});		//initialisation à vide
+	}
+	
+	
+	
+	for(i=0; i<M.gettV(); i++)	//Calcul réduction sur les lignes
+	{
+		Reduc = 100000000;
+		for(j=0; j<M.gettV(); j++)
+		{
+			if(T[i][j]<Reduc && T[i][j]>-1)
+			{
+				Reduc = T[i][j];	//Calcul min de la ligne
+			}
+		}
+		
+		SommeReduc = SommeReduc+Reduc;	//Calcul noeud racine
+
+		
+		for(j=0; j<M.gettV(); j++)
+		{
+			L[i][j].push_back({T[i][j] - Reduc});		//Création de la matrice partiellement réduite
+		}
+	}
+	
+	
+	
+	for(j=0; j<M.gettV(); j++)	//Calcul réduction sur les colonnes
+	{
+		Reduc = L[0][j];
+		for(i=0; i<M.gettV(); i++)
+		{
+			if(L[i][j]<Reduc && T[i][j]>-1)
+			{
+				Reduc = L[i][j];	//min de la colonne
+			}
+		}
+		
+		SommeReduc = SommeReduc + Reduc;	//Calcul du noeud racine
+		
+		for(i=0; i<M.gettV(); i++)
+		{
+			L[i][j].push_back({L[i][j] - Reduc});		//Création de la matrice réduite
+		}
+	}
+	N.setTab(L);
+	return N;
+}
+
 vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 {
 	if(M.getType()!=0)	//Test si c'est adj
@@ -118,12 +178,15 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	
 	vector<vector <int>> T, L, Reg;
 	int Num = 0;	//compteur pour l'id des sommets et des arcs
-	Matrice N = Matrice(M);
+	
 	Graphe G = Graphe("Arbre binaire");
 	Sommet S = Sommet("etiq",Num);
 	//Arc A = Arc();
 	
-	int Reduc, Regretcol, Regretlig, SommeReduc;
+	int Regretcol, Regretlig, SommeReduc;
+	
+	
+	Matrice N = reduction(M, &SommeReduc);
 	
 	int i,j;	//itérateur de boucle
 	int x,y;	//second itérateur de boucle
@@ -136,7 +199,15 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	G.ajout_Sommet(S.getID(),100,100);	//Noeud racine de l'arbre binaire
 	
 	
+	
+	
 	T = M.getTab();
+	
+	for(i = 0; i<M.gettV(); i++)
+	{
+		L.push_back({});
+		Reg.push_back({});	//initialisation à vide
+	}
 	
 	//Test si matrice d'entrée possède valeur négative
 	for(i=0; i<M.gettV(); i++)
@@ -161,54 +232,7 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	
 	
 	//Réduction de la matrice
-	for(i=0; i<M.gettV(); i++)	//Calcul réduction sur les lignes
-	{
-		Reduc = 100000000;
-		for(j=0; j<M.gettV(); j++)
-		{
-			if(T[i][j]<Reduc && T[i][j]>-1)
-			{
-				Reduc = T[i][j];	//Calcul min de la ligne
-				printf("Reduc = %d, i= %d, j= %d \n",Reduc,i,j);
-			}
-		}
-		
-		SommeReduc = SommeReduc+Reduc;	//Calcul noeud racine
-		printf("SommeReduc = %d",SommeReduc);
-		
-		for(j=0; j<M.gettV(); j++)
-		{
-			
-			L[i][j] = T[i][j] - Reduc;		//Création de la matrice partiellement réduite
-			printf("test2");
-			printf("L[%d][%d] = %d ",i,j,L[i][j]);
-		}
-		printf("\n");
-	}
 	
-	printf("done");
-	
-	/*
-	
-	
-	for(j=0; j<M.gettV(); j++)	//Calcul réduction sur les colonnes
-	{
-		Reduc = L[0][j];
-		for(i=0; i<M.gettV(); i++)
-		{
-			if(L[i][j]<Reduc && T[i][j]>-1)
-			{
-				Reduc = L[i][j];	//min de la colonne
-			}
-		}
-		
-		SommeReduc = SommeReduc + Reduc;	//Calcul du noeud racine
-		
-		for(i=0; i<M.gettV(); i++)
-		{
-			L[i][j] = L[i][j] - Reduc;		//Création de la matrice réduite
-		}
-	}
 	
 	S.setID(Num);
 	S.setCU(<"etiq",SommeReduc>);	//Sommet ayant la valeur de la réduction de matrice
