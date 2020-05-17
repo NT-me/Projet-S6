@@ -23,6 +23,7 @@ void QZoneDeDessin::setScene(QGraphicsScene * scene){
 void QZoneDeDessin::force_Atlas2(){
   int stable = 0;
   vector<QSommet> QS;
+  Matrice MG = Matrice(this.graphe_dessine);
 
   // recuperation des QSommet
   QList<QGraphicsItem*> listS = qzdd.items();
@@ -51,20 +52,20 @@ void QZoneDeDessin::force_Atlas2(){
         if(i != j){
           if((SommetCo.find(SommetCo.begin(),SommetCo.end(), j ) != SommetCo.end()) || j == SommetCo.at(SommetCo.end()) ){
             if(distanceForce(QS[i], QS[j]) > 0){
-               ft = distanceForce(QS[i], QS[j]) - 1*(((this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()].Degrs_entrant_et_sortant()+1)*(this.getGraphe_dessine().getListe_Sommets()[QS[j].getID()].Degrs_entrant_et_sortant()+1))/distanceForce(QS[i], QS[j])) ;
+               ft = distanceForce(QS[i], QS[j]) - 1*((Degrs_entrant_et_sortant(M,this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()])+1)*(Degrs_entrant_et_sortant(M,this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()])+1)/distanceForce(QS[i], QS[j])) ;
             }
             else if(distanceForce(QS[i], QS[j]) < 0){
-               ft = 0-100*((this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()].Degrs_entrant_et_sortant()+1)*(this.getGraphe_dessine().getListe_Sommets()[QS[j].getID()].Degrs_entrant_et_sortant()+1));
+               ft = 0-100*((Degrs_entrant_et_sortant(M,this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()]+1)*(Degrs_entrant_et_sortant(M,this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()])+1);
 
             }
             else ft = 1;
           }
           else {
             if(distanceForce(QS[i], QS[j]) > 0){
-               ft = 0-1*(((this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()].Degrs_entrant_et_sortant()+1)*(this.getGraphe_dessine().getListe_Sommets()[QS[j].getID()].Degrs_entrant_et_sortant()+1))/distanceForce(QS[i], QS[j])) ;
+               ft = 0-1*(((Degrs_entrant_et_sortant(M,this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()])+1)*(Degrs_entrant_et_sortant(M,this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()])+1))/distanceForce(QS[i], QS[j])) ;
             }
             else if(distanceForce(QS[i], QS[j]) < 0){
-               ft = 0-100*((this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()].Degrs_entrant_et_sortant()+1)*(this.getGraphe_dessine().getListe_Sommets()[QS[j].getID()].Degrs_entrant_et_sortant()+1));
+               ft = 0-100*((Degrs_entrant_et_sortant(M,this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()])+1)*(Degrs_entrant_et_sortant(M,this.getGraphe_dessine().getListe_Sommets()[QS[i].getID()])+1));
 
             }
             else ft = 1;
