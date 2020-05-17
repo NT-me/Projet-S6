@@ -109,7 +109,7 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 
 vector<int> postier_chinois(Matrice M){}
 
-Matrice reduction(Matrice M, int &SommeReduc)
+Matrice reduction(Matrice M, int* SommeReduc)
 {
 	int Reduc;
 	int i,j; 
@@ -117,14 +117,9 @@ Matrice reduction(Matrice M, int &SommeReduc)
 	Matrice N = Matrice(M);
 	
 	T = M.getTab();
+	L = M.getTab();
 	
-	for(i = 0; i<M.gettV(); i++)
-	{
-		L.push_back({});		//initialisation à vide
-	}
-	
-	
-	
+	printf("Réductionn ligne\n");
 	for(i=0; i<M.gettV(); i++)	//Calcul réduction sur les lignes
 	{
 		Reduc = 100000000;
@@ -133,6 +128,7 @@ Matrice reduction(Matrice M, int &SommeReduc)
 			if(T[i][j]<Reduc && T[i][j]>-1)
 			{
 				Reduc = T[i][j];	//Calcul min de la ligne
+				printf("Reduc = %d\n",Reduc);
 			}
 		}
 		
@@ -141,11 +137,12 @@ Matrice reduction(Matrice M, int &SommeReduc)
 		
 		for(j=0; j<M.gettV(); j++)
 		{
-			L[i][j].push_back({T[i][j] - Reduc});		//Création de la matrice partiellement réduite
+			L[i][j] = T[i][j] - Reduc;		//Création de la matrice partiellement réduite
+			printf("L[%d][%d] = %d\n",i,j,L[i][j]);
 		}
 	}
 	
-	
+	printf("Réduction colonne\n");
 	
 	for(j=0; j<M.gettV(); j++)	//Calcul réduction sur les colonnes
 	{
@@ -155,6 +152,7 @@ Matrice reduction(Matrice M, int &SommeReduc)
 			if(L[i][j]<Reduc && T[i][j]>-1)
 			{
 				Reduc = L[i][j];	//min de la colonne
+				printf("Reduc = %d\n", Reduc);
 			}
 		}
 		
@@ -162,10 +160,12 @@ Matrice reduction(Matrice M, int &SommeReduc)
 		
 		for(i=0; i<M.gettV(); i++)
 		{
-			L[i][j].push_back({L[i][j] - Reduc});		//Création de la matrice réduite
+			L[i][j] = L[i][j] - Reduc;		//Création de la matrice réduite
+			printf("L[%d][%d] = %d\n",i,j,L[i][j]);
 		}
 	}
 	N.setTab(L);
+	printf("done");
 	return N;
 }
 
@@ -176,17 +176,19 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 		return {-1};
 	}
 	
-	vector<vector <int>> T, L, Reg;
+	vector<vector <int>> T, Reg;
 	int Num = 0;	//compteur pour l'id des sommets et des arcs
 	
 	Graphe G = Graphe("Arbre binaire");
 	Sommet S = Sommet("etiq",Num);
 	//Arc A = Arc();
 	
-	int Regretcol, Regretlig, SommeReduc;
+	int Regretcol, Regretlig;
+	int SommeReduc;
 	
 	
-	Matrice N = reduction(M, &SommeReduc);
+
+	
 	
 	int i,j;	//itérateur de boucle
 	int x,y;	//second itérateur de boucle
@@ -202,12 +204,6 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	
 	
 	T = M.getTab();
-	
-	for(i = 0; i<M.gettV(); i++)
-	{
-		L.push_back({});
-		Reg.push_back({});	//initialisation à vide
-	}
 	
 	//Test si matrice d'entrée possède valeur négative
 	for(i=0; i<M.gettV(); i++)
@@ -232,8 +228,9 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	
 	
 	//Réduction de la matrice
+	Matrice N = reduction(M, &SommeReduc);
 	
-	
+	/*
 	S.setID(Num);
 	S.setCU(<"etiq",SommeReduc>);	//Sommet ayant la valeur de la réduction de matrice
 	N.setTab(L);		//Initialisation de la copie de matrice M avec réduction 
