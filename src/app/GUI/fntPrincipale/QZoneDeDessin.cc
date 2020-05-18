@@ -129,10 +129,6 @@ void QZoneDeDessin::afficher_Graphe(Graphe G){
 void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
   int dbe = property("DBE").toInt();
 
-  if (itemAt(e->pos())->data(0) == "Sommet"){
-
-  }
-
   if(dbe == 1){
     //select
     if (itemAt(e->pos())->data(0) == "Sommet"){
