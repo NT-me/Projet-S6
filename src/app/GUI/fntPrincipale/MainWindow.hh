@@ -20,7 +20,7 @@ private :
   Graphe grapheCourant;
   int dernierBoutonEnclenche;
 public :
-  MainWindow(QWidget *parent = nullptr );
+  MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
   int printConsole(string nomMethode, string valRetFunc);
   int printCaraSelection();

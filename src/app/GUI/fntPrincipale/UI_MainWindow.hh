@@ -171,7 +171,7 @@ public:
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tab = new QWidget();
+        tab = new QWidget(MainWindow);
         tab->setObjectName(QStringLiteral("tab"));
         horizontalLayout = new QHBoxLayout(tab);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));

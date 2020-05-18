@@ -1,5 +1,5 @@
 #include "QSommet.hh"
-
+#include <QDebug>
 
 QSommet::QSommet(Sommet S){
   this->id = S.getID();
@@ -37,9 +37,24 @@ void QSommet::setRayon(int r){this->rayon = r;}
 void QSommet::setCoul(QColor color){this->coul = color;}
 void QSommet::setSelect(bool select){this->select = select;}
 
-void QSommet::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){}
+void QSommet::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
+  qDebug()<<"HE STOP";
+}
 QRectF QSommet::boundingRect() const{
   qreal penWidth = 1;
   return QRectF(-TAILLE_RAYON - penWidth / 2, -TAILLE_RAYON - penWidth / 2, TAILLE_RAYON*2 + penWidth, TAILLE_RAYON*2 + penWidth);
 }
-void QSommet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){}
+void QSommet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+  if(select == 0){
+    QRectF rect = boundingRect();
+    QPen pen(Qt::black, 3 );
+    painter->setPen(pen);
+    painter->drawEllipse(rect);
+  }
+  else{
+    QRectF rect = boundingRect();
+    QPen pen(Qt::red, 3 );
+    painter->setPen(pen);
+    painter->drawEllipse(rect);
+  }
+}

@@ -4,6 +4,8 @@
 #include <QGraphicsItem>
 #include <map>
 #include <vector>
+#include <QPen>
+#include <QPainter>
 #include "../../../bib/bib.hh"
 
 //Taille du rayon des QSommets en pixel

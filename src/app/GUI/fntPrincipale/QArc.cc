@@ -13,7 +13,7 @@ QArc::QArc (Arc A){
 // - On change la signature du constructeur et on lui ajoute la scene en paramètre
 // - On change le constructeur et on lui donne direct les positions.
 // Je préfère la première comme ça on change pas nos signature.
-
+/*
   if(scene() != nullptr){
     QList<QGraphicsItem*> listS = scene()->items();
     for(int i=0; i< listS.size(); ++i){
@@ -36,6 +36,11 @@ QArc::QArc (Arc A){
     this->posxB = 0;
     this->posyB = 0;
   }
+  */
+  this->posxA = 0;
+  this->posyA = 0;
+  this->posxB = 0;
+  this->posyB = 0;
 }
 
 QArc::QArc(QArc const &A){
@@ -74,8 +79,45 @@ QRectF QArc::boundingRect() const{
   qreal ry = 0;
 
   if (qFabs(posyB-posyA) < 10 ) ry = 10;
-  if (qFabs(posxB-posxA) < 10 ) rx = 10;
+  if (qFabs(posxB-posxA) < 10 ){
+    rx = 10;
+    sin = (posyB-posyA)/qFabs(posyB-posyA);
+    cos = 0;
+  }
 
-  return mapRectFromScene(QRectF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2), posxB-posxA-2*cos*radius+rx, posyB-posyA-2*sin*radius+ry));
+  return mapRectFromScene(QRectF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2), posxB-posxA-2*cos*radius+rx, posyB-posyA-2*sin*radius+ry).normalized());
 }
-void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){}
+void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+  QRectF rect = boundingRect();
+  QPen greenPen(Qt::green, 3 );
+  painter->setPen(greenPen);
+  painter->drawRect(rect);
+
+  QPen blackPen(Qt::black, 3 );
+  painter->setPen(blackPen);
+  QPoint firstp,secondp;
+  QPointF pA = mapFromScene(posxA,posyA);
+  QPointF pB = mapFromScene(posxB,posyB);
+
+  // qreal sin =(posyB-posyA)/qSqrt( qPow(posxB-posxA,2) + qPow(posxB-posxA,2));
+  // qreal cos =(posxB-posxA)/qSqrt( qPow(posxB-posxA,2) + qPow(posxB-posxA,2));
+  // if (qFabs(posxB-posxA) < 10 ){
+  //   sin = (posyB-posyA)/qFabs(posyB-posyA);
+  //   cos = 0;
+  // }
+  // firstp.setX(pA.x()+cos*TAILLE_RAYON); firstp.setY(pA.y()+sin*TAILLE_RAYON);
+  // secondp.setX(pB.x()-cos*TAILLE_RAYON); secondp.setY(pB.y()-sin*TAILLE_RAYON);
+  firstp.setX(pA.x()); firstp.setY(pA.y());
+  secondp.setX(pB.x()); secondp.setY(pB.y());
+  painter->drawLine(firstp,secondp);
+
+  QBrush whiteBrush(Qt::white,Qt::SolidPattern);
+  QPen darkbluePen(Qt::darkBlue,3);
+  painter->setBrush(whiteBrush);
+  // painter->setPen(darkbluePen);
+  painter->drawEllipse(pA,TAILLE_RAYON,TAILLE_RAYON);
+  painter->drawEllipse(pB,TAILLE_RAYON,TAILLE_RAYON);
+  // painter->setPen(pen2);
+  // painter->drawEllipse(pA,TAILLE_RAYON,TAILLE_RAYON);
+  // painter->drawEllipse(pB,TAILLE_RAYON,TAILLE_RAYON);
+}

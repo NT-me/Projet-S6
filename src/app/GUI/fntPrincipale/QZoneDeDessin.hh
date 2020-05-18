@@ -4,8 +4,10 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QWidget>
+#include <QMouseEvent>
 #include <math.h>
 #include <QDebug>
+#include <QVariant>
 #include "QSommet.hh"
 #include "QArc.hh"
 
