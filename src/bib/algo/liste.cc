@@ -219,8 +219,9 @@ Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 	//PARTIE 3, ON VA SELECTIONNER LE PLUS GRAND REGRET DANS LE VECTEUR AYANT STOCKE LES REGRETS
 	// OU UNE CASE VALAIT 0 D APRES LA MATRICE REDUITE.
 	//////////////////////////////////////////////////////////////////////////////////////
+	int unsigned i;
 	
-	for(int unsigned i= 0; i<regrets.size(); i++)
+	for(i= 0; i<regrets.size(); i++)
 	 // usigned car le nombre d'element renvoyé par le la taile 
 	// du vecteur est un entier non signé.
 	
@@ -241,8 +242,32 @@ Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 			regretY = regrets[a][2];
 		}
 	}
-	vector<int> REGRET_FINAL {regret, regretX, regretY};
-	regrets.clear(); // on supprimme tous les élèments du vecteur.
+	vector<int> REGRET_FINAL {regret, regretX, regretY}; // ici regret final contient la case avec le plus haut regret ainsi que ses coordonnées X et Y.
+	regrets.clear(); // on supprimme tous les élèments du vecteur ca on n'en a plus besoin ici.kjhk
+	
+	////////////////////////////////////////////////////////////////////////////////////////
+	// PARTIE 4: ON AJOUTE A L ABRE LE CAS DE LAJOUT DU CHEMIN VERS CE SOMMET AVAEC LE PLUS GRAND REGRET
+	// ET ENSUITE LE CAS OU ON NE PREND PAS CE MEME CHEMIN
+	////////////////////////////////////////////////////////////////////////////////////////
+	 // on cherche à recuperer la valeur du plus grand indice de sommet
+	int unsigned taille = arbre.getListe_Sommets().size();
+	
+	Arc A1 = Arc(regret,taille, taille+1);
+	Arc A2 = Arc(regret, taille,taille+2);
+	
+	int ACALCULER = 0;
+	string name1_1 = to_string(regrets[i][1]);
+	string name1_2 = to_string(regrets[i][2]);
+	string name = name1_1 + name1_2;
+	
+ //   Sommet avec_sommet = Sommet(regretX, regretY, taille +1, name, ACALCULER);
+	//Sommet sans_sommet = Sommet(regretX, regretY, taille +2, name, ACALCULER);
+	
+	
+	
+	
+	
+	//arbre.ajout_Sommet();
 	
 	
 	
