@@ -108,7 +108,51 @@ vector<vector<int>> chaine_eulerienne(Matrice M){}
 vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 
 vector<int> postier_chinois(Matrice M){}
-
+Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
+{
+	//on ne fait pas le premier cas, où la racine dois etre crée.
+	//Ici, on va créer l'arbre à partir de la matrice des regrets.
+    vector< vector<int> > tableau = reduite.getListe_Sommets;	
+    vector< vector<int> > regrets; // 
+    //1er element -> regret
+    //2eme element = coordonnées x
+    //3eme element = coordonnées y
+    
+    int regret; // on initie un entier regret, qui contiendra la valeur du regret pour une case donnée.
+    
+    //ces deux entiers serviront à la recherche de l'entier minimal en x et en y.
+    // car regret = min(x) et min(y).
+    int regretX = max_element(tableau.begin(), tableau.end()); 
+    int regretY = max_element(tableau.begin(), tableau.end());
+    
+    
+	for(int x = 0; x<reduite.gettV; x++)
+	{
+		for(int y = 0; y<reduite.gettV; y++)
+		{
+			if(tableau[x][y] == 0)
+			{
+				for(int i = O; i<reduite.gettV; i++)
+				{
+					if(regretX > tableau[i][y])
+					{
+						regretX = tableau[i][y];
+					}
+				}
+				for(int y = 0; y<reduite.gettV;y++)
+				{
+					if(regretY > tableau[Y][j])
+					{
+						regretY = tableau[Y][j];
+					}	
+				}
+				regret = regretX + regretY;
+				regrets.push_back(
+			}
+		}
+	}
+	
+}
 Matrice reduction(Matrice M, int* SommeReduc)
 {
 	int Reduc;
