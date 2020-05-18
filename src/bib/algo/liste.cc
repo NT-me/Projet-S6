@@ -117,7 +117,7 @@ Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 	//on ne fait pas le premier cas, où la racine dois etre crée.
 	//Ici, on va créer l'arbre à partir de la matrice des regrets.
     vector< vector<int> > tableau = reduite.getTab();	
-    vector<int> regrets; // on ajoutera des vecteur avec trois element, dans ce vecteur regrets
+    vector< vector<int>> regrets; // on ajoutera des vecteur avec trois element, dans ce vecteur regrets
     
     //pour un vecteur donner, il y aura:
     //1er element -> regret
@@ -130,11 +130,15 @@ Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
     ////////////////////////////////////////////////////////////////////////////////////////////////
     int regret = 0; // on initie un entier regret, qui contiendra la valeur du regret pour une case donnée.
     //ces deux entiers serviront à la recherche de l'entier minimal en x et en y.
-    // car regret = min(x) et min(y).
+    // car regret = minimum en x + minimum en y.
     int regretX = 0;
     int regretY = 0;
     
     
+    
+    //////////////////////////////////////////////////////////////////////////////////
+    // PARTIE 1: ON INSTANCIE REGRET A UNE VALEUR ELEVE
+    ////////////////////////////
     // il est important de leur associer une valeur élevé afin d'obtenu la plus petite valeur du tableau.
     for(int i = 0; i < reduite.gettV(); i++)  
     {
@@ -142,43 +146,54 @@ Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 		 {
 			if(tableau[i][j]>regret)
 			{
-				regretX = tableau[i][j];
+				regret = tableau[i][j];
 			}
 		 }
     
     }
-    regretY = regretX;
+    regretX= regret;
+    regretY= regret;
     /////////////////////////////////////////////////////////////////////////////////
     
-    
+    // PARTIE 2: ON RECHERCHE LES CASES DE LA MATRICE REDUITE DONT LA VALEUR EST ZERO
+    // ET ON CALCULE LES REGRETS ASSOCIE, ON STOCKERA DANS UN VECTEUR TOUTS LES REGRETS
     
 	for(int x = 0; x<reduite.gettV(); x++)
 	{
 		for(int y = 0; y<reduite.gettV(); y++)
 		{
 			if(tableau[x][y] == 0) 
-			// si une case vaut zéro, il faut calculer le regret asscocié,
-			// si on ne prendrait pas ce chemin
 			{
+			// Si une case vaut zéro, il faut calculer le regret asscocié,
+			// si on ne prendrait pas ce chemin
+			
 				for(int i = 0; i<reduite.gettV(); i++)
 				{
-					if(regretX > tableau[i][y])
+					// on fera attention en cherchant la valeur minimale comme regret de pas prendre 0
+					// ca c'est va valeur de la case étudiée justement.
+					if(regretX > tableau[i][y] && (i != x) ) 
 					{
 						regretX = tableau[i][y];
 					}
 				}
 				for(int j = 0; y<reduite.gettV();y++)
 				{
-					if(regretY > tableau[y][j])
+					if(regretY > tableau[y][j] && (j != y) )
 					{
 						regretY = tableau[y][j];
 					}	
 				}
 				regret = regretX + regretY;
-				vector< int> regret_actuel;
-				regret_actuel.push_back({});
-				//regrets.push_back(regret
+				vector<int> regret_actuel {regret, x, y};
+				regrets.push_back(regret_actuel);
 			}
+			
+			///////////////////////////////////////
+			// on remet à zero les valeur de regretX et regretY puis on leur donne la valeur max possible.
+			regretX = 0;
+			regretY = 0;
+			regret = 0;
+			
 			 for(int i = 0; i < reduite.gettE(); i++)  
 			 {
 				for(int j = 0; j < reduite.gettE(); j++) 
@@ -192,8 +207,45 @@ Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 			 }
 			regretX = regret;
 			regretY = regret;
+			///////////////////////////////////////////////
+			
 		}
 	}
+	
+	
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////
+	//PARTIE 3, ON VA SELECTIONNER LE PLUS GRAND REGRET DANS LE VECTEUR AYANT STOCKE LES REGRETS
+	// OU UNE CASE VALAIT 0 D APRES LA MATRICE REDUITE.
+	//////////////////////////////////////////////////////////////////////////////////////
+	
+	for(int unsigned i= 0; i<regrets.size(); i++)
+	 // usigned car le nombre d'element renvoyé par le la taile 
+	// du vecteur est un entier non signé.
+	
+	// on va stocker les coordonnées X et Y du plus grand regret, afin de le recuperer après.
+	{
+		if(regrets[i][0]> regret)
+		{
+			regret = regrets[i][0];
+		}
+	}
+	for(int unsigned i= 0; i<regrets.size(); i++)
+	{
+		int a = i; // on initilise l'entier a car i est un int unsigned et cela ne fonctionne pas 
+		// pour s'en servir pour acceder aux indices des tableaux.
+		if(regrets[a][0] == regret)
+		{
+			regretX = regrets[a][1];
+			regretY = regrets[a][2];
+		}
+	}
+	vector<int> REGRET_FINAL {regret, regretX, regretY};
+	regrets.clear(); // on supprimme tous les élèments du vecteur.
+	
+	
+	
 	return arbre;
 }
 Matrice reduction(Matrice M, int* SommeReduc)
