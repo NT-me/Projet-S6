@@ -149,7 +149,7 @@ public:
   bool operator!=(Matrice & M1);
   
   /**
-   * \brief Surchage de l'op&eacute;rateur d'affection
+   * \brief Surchage de l'op&eacute;rateur d'affectation
    * Test si l'objet Matrice en argument est &eacute;gal &agrave; l'objet Matrice renvoy&eacute;
    * */
   Matrice operator=(Matrice const & M1);
@@ -176,6 +176,7 @@ public:
 
 /**
  * \brief Classe Graphe
+ * Cette classe rep&eacute;sente un Graphe orient&eacute;
  * */
 class Graphe{
 private:
