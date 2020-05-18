@@ -10,12 +10,24 @@
 using namespace std;
 
 
-
+/**
+ * \brief Structure VectVal
+ * Cette structure permet de stocker des donn&eacutes;es sur sur les Sommets et Arcs
+ * */
 struct VectVal {
-  bool type; // Si 0 entier, si 1 réel.
-  int valeur_entiere;
-  float valeur_reel;
-
+	/**
+	 * \brief Type de valeur
+	 * 0 Si entier
+	 * 1 si réel
+	 * */
+  bool type; 
+  int valeur_entiere;	/// Valeur de type entiere
+  float valeur_reel;	/// Valeur de type r&eacute;elle
+  
+  
+  /**
+   * \brief Surcharge de l'op&eacute;rateur d'affectation
+   * */
   VectVal operator=(VectVal v2){
    type = v2.type;
    valeur_entiere = v2.valeur_entiere;
@@ -24,6 +36,11 @@ struct VectVal {
  }
 };
 
+/**
+ * \brief Surchage de l'op&eacute;rateur d'&eacute;galit&eacute;
+ * @return true si les deux structures VectVal sont &eacute;gales
+ * @return false si les deux structures VectVal sont diff&eacute;rentes
+ * */
 inline bool operator== (VectVal v1, VectVal v2){
   if (v1.type == v2.type){
     if (v1.valeur_entiere == v2.valeur_entiere || v1.valeur_reel == v2.valeur_reel){
@@ -35,13 +52,16 @@ inline bool operator== (VectVal v1, VectVal v2){
 
 
 
-
+/**
+ * \brief Structure ROW
+ * Cette structure est utilis&eacute;e lors de l'impl&eacute;mentation de l'algorithme de PERT afin de g&eacute;rer les taches
+ * */
 typedef struct ROW{
-  int tache;
-  string nom_tache;
-  int duree;
-  vector <int> taches_anterieures;
-  vector <int> taches_posterieures;
+  int tache;				/// Identifiant de la tache
+  string nom_tache;			/// Etiquette de la tache
+  int duree;				/// Dur&eacute;e de la tache
+  vector <int> taches_anterieures;	/// Identifiants des taches ant&eacute;rieures
+  vector <int> taches_posterieures; /// Identifiants des taches post&eacute;rieures
 } pert_row;
 
 
