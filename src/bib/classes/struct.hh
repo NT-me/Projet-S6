@@ -5,16 +5,24 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <iostream>
 
 using namespace std;
 
 
 
-typedef struct Valeur_Vecteur{
+struct VectVal {
   bool type; // Si 0 entier, si 1 réel.
   int valeur_entiere;
   float valeur_reel;
-}VectVal;
+
+  VectVal operator=(VectVal v2){
+   type = v2.type;
+   valeur_entiere = v2.valeur_entiere;
+   valeur_reel = v2.valeur_reel;
+   return *this;
+ }
+};
 
 inline bool operator== (VectVal v1, VectVal v2){
   if (v1.type == v2.type){
@@ -24,6 +32,9 @@ inline bool operator== (VectVal v1, VectVal v2){
   }
   return false;
 }
+
+
+
 
 typedef struct ROW{
   int tache;

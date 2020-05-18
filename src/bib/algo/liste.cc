@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 
+
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
   vector<int> dist;
   vector<int> file;
@@ -789,15 +790,288 @@ Graphe pert(vector<pert_row> p){
 
 }
 
-Graphe arborescence(Graphe G){}
+Graphe arborescence(Graphe G){
+    int succ=0,pred=0,Smax=0,Pmax=0;
+    int deb=-1;
+    Matrice M = G.conversion_vers_Matrice_adj();
+    Graphe A("Arborescence");
+    Graphe tmp("Arborescence");
+    vector<int>in;
+    
+    // Vérifie si il existe une arborescence
+    for(int i=0;i<M.gettV();i++){
+        for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j]) succ++;   // Successeurs
+            if(M.getTab()[j][i]) pred++;   // Prédecesseurs
+        }
+        if(!pred){      // Si pas de prédecesseurs
+            deb = i;
+            Pmax++;
+        } 
+        if(Pmax >1 || !Pmax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+            std::cout << "NO ARBORESCENCE" << '\n';
+            tmp.ajout_Sommet(-1, -1,-1);
+            return tmp;
+        }
+        succ = 0;
+        pred = 0;
+        in.push_back(0);
+    }
 
-Graphe anti_arborescence(Graphe G){}
+    // ##############
+    int min=INFINI;
+    for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
+    
+    int out = 0;
+    for(int i=0; i<M.gettV() && !in[i];i++){
+        if(i==deb)i++;
+        for(int j=0;j<M.gettV();j++){   // Calcul Arc de poids min
+            if(M.getTab()[j][i] && M.getTab()[j][i]<min){
+                min = M.getTab()[j][i];     // Arc entrant de poids min
+                if(j == deb) out++;
+            }
+        }
+        
+        for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
+            int val = M.getTab()[j][i]-min;
+            if(!val && !in[i]){
+                in[i] = 1;
+                A.ajout_Arc(j,i);
+                break;
+            }
+        }
+
+        min = INFINI;
+
+        if(i == deb) i = -1;
+    }
+   
+    if(!out){   // Si pas d'arcs de poids min partant du sommet 
+        std::cout << "NO ARBORESCENCE" << '\n';
+        tmp.ajout_Sommet(-1, -1,-1);
+        return tmp;
+    }
+    
+  /*  Matrice aff = A.conversion_vers_Matrice_adj();
+    for(int i=0;i<aff.gettV();i++){
+        for(int j=0;j<aff.gettV();j++){
+            std::cout << "["<<i<<"]["<<j<<"] = "<<aff.getTab()[i][j]<<endl;
+        }
+    }*/
+    return A;
+}
+
+Graphe anti_arborescence(Graphe G){
+  int succ=0,Smax=0;
+    int fin=-1;
+    Matrice M = G.conversion_vers_Matrice_adj();
+    Graphe A("Anti-Arborescence");
+    Graphe tmp("Anti-Arborescence");
+    vector<int>in;
+    
+    // Vérifie si il existe une anti-arborescence
+    for(int i=0;i<M.gettV();i++){
+        for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j]) succ++;   // Successeurs
+        }
+        if(!succ){      // Si pas de successeurs
+            fin = i;
+            Smax++;
+        } 
+        if(Smax >1 || !Smax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+            std::cout << "NO ANTI-ARBORESCENCE" << '\n';
+            tmp.ajout_Sommet(-1,-1,-1);
+            return tmp;
+        }
+        succ = 0;
+        in.push_back(0);
+    }
+
+    // ##############
+    int min=INFINI;
+    for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
+    
+    int out = 0;
+    for(int i=0; i<M.gettV() && !in[i];i++){
+        if(i==fin)i++;
+        for(int j=0;j<M.gettV();j++){   // Calcul Arc de poids min
+            if(M.getTab()[i][j] && M.getTab()[i][j]<min){
+                min = M.getTab()[i][j];     // Arc entrant de poids min
+                if(j == fin) out++;
+            }
+        }
+        
+        for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
+            int val = M.getTab()[i][j]-min;
+            if(!val && !in[i]){
+                in[i] = 1;
+                A.ajout_Arc(i,j);
+                break;
+            }
+        }
+
+        min = INFINI;
+        if(i == fin) i = -1;
+    }
+   
+    if(!out){   // Si pas d'arcs de poids min partant du sommet 
+        std::cout << "NO ANTI-ARBORESCENCE" << '\n';
+        tmp.ajout_Sommet(-1, -1,-1);
+        return tmp;
+    }
+    return A;
+}
 
 int connexite(Matrice M){}
 
-vector<vector<int>> chaine_eulerienne(Matrice M){}
+vector<vector<int>> chaine_eulerienne(Matrice M){
+  vector<int> path;
+  vector<vector<int>> res;
 
-vector<vector<int>> chaine_hamiltonienne(Matrice M){}
+  if(M.getType() != 0){
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return res;
+  }
+  else{
+    int pred=0,succ=0,Dmax=0,Fmax=0;
+    int deb=0,fin=-1;
+    vector<int> out;
+
+    int mark[M.gettV()][M.gettV()];
+
+    // Vérifie si il existe un chemin Eulérien
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]) succ++;
+        if(M.getTab()[j][i]) pred++;
+        mark[i][j] = 0;
+      }
+      out.push_back(succ);    // Stocke le nombre de successeurs
+
+      if(succ-pred>1 || pred-succ>1){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      else{
+        if(pred-succ==1){
+          fin = i;          // Sommet d'arrivée
+          Fmax++;
+        }
+        else if(succ-pred==1){
+          deb = i;         // Sommet de départ
+          Dmax++;
+        }
+      }
+
+      if(!connexite(M) && !succ && !pred){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      if(Dmax>1 || Fmax>1){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      succ = 0;
+      pred = 0;
+    }
+
+    // Nombre d'arcs
+    int nbA = 0;
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]) nbA++;
+      }
+    }
+
+    // Sommet de départ
+    if(deb==0 && !out[deb]){
+        for(int i=0;i<M.gettV();i++){
+            if(out[i]>0) deb = i;
+        }
+    }
+    
+    // #########################
+    int i = deb;
+    while (out[i]){
+        for(int j=0;j<M.gettV();j++){         
+            if(M.getTab()[i][j] && !mark[i][j]){   // Si arc
+                --out[i];
+                mark[i][j] = 1;
+                path.push_back(i);
+                i = j;
+                j = 0;
+            }
+
+            if(!out[i] && path.size() == nbA){
+                path.push_back(i);
+                res.push_back(path);
+                return res;
+            }       
+        } // Fin for
+    } // Fin while
+  } // Fin else
+  return res;
+}
+
+vector<vector<int>> chaine_hamiltonienne(Matrice M){
+  vector<int> mark;
+  vector<int> path;
+  vector<vector<int>> res;
+
+  if(M.getType() != 0){
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return res;
+  }
+  else{
+      int pred, succ, Pmax, Smax;
+      int deb=-1,fin=-1;
+      
+      // Vérifie si il existe un chemin Hamiltonien
+      for(int i=0;i<M.gettV();i++){   
+          for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j]) succ++;      // Nb successeur pour i
+            if(M.getTab()[j][i]) pred++;      // Nb predecesseur pour j
+
+            mark.push_back(0);
+          }
+          if(!succ){
+            Smax++;
+            fin = i;
+          } 
+          if(!pred){
+            Pmax++;
+            deb = i;
+          } 
+          succ = 0;
+          pred = 0;
+      }
+      if(Smax > 1 || Pmax > 1){                 // Plusieurs sommets sans successeurs ou prédecesseurs
+           std::cout << "NO HAMILTTONIAN PATH" << '\n';
+            return res;
+      }
+      
+      // Sommet de départ
+      if(deb == -1) deb = 0;
+
+      int i = deb;
+      while(!mark[i]){
+        if(path.size() == M.gettV()-1){
+            path.push_back(i);
+            res.push_back(path);
+            return res;
+        }
+        for(int j=0;j<M.gettV();j++){
+          if(M.getTab()[i][j] && !mark[j]){
+            mark[i] = 1;
+            path.push_back(i);
+            i = j;
+            j = 0;
+            }
+        } // Fin for
+      } // Fin while
+    } // Fin else
+  return res;
+}
 
 vector<int> postier_chinois(Matrice M){}
 

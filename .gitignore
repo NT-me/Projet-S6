@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# bordel des IDE
+*.cflags
+*.config
+*.creator
+*.user
+*.cxxflags
+*.files
+*.includes
+test/test_app/GUI/fntPrincipale/Makefile

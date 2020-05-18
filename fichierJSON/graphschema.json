@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties":{
+    "etiquette": {"type": "string"},
+    "path": {"type": "string"}
+  }
+
+}

@@ -273,6 +273,47 @@ test_app_fichier: clean
 	g++ ../src/app/fichier/gestion_fichier.cc -c
 	#Partie test
 	g++ GrapheMatrice.o Arc.o Sommet.o gestion_fichier.o test_app/fichier/gestion_fichier.cc -o OUTFichier.o
+	./OUTFichier.o
 
 test_app_GUI: clean
+
+test_app_GUI_fntPrincipale_mainwindow: clean
+	cd test_app/GUI/fntPrincipale; \
+	qmake -makefile -o Makefile MainWindow.pro; \
+	make; \
+	./MainWindow; \
+	rm MainWindow; \
+	rm *.moc; \
+	rm moc_predefs.h; \
+	rm .qmake.stash; \
+
+test_app_GUI_fntPrincipale_QArc: clean
+	cd test_app/GUI/fntPrincipale; \
+	qmake -makefile -o Makefile QArc.pro; \
+	make; \
+	./QArc; \
+	rm QArc; \
+	rm *.moc; \
+	rm moc_predefs.h; \
+	rm .qmake.stash; \
+
+test_app_GUI_fntPrincipale_QSommet: clean
+	cd test_app/GUI/fntPrincipale; \
+	qmake -makefile -o Makefile QSommet.pro; \
+	make; \
+	./QSommet; \
+	rm QSommet; \
+	rm *.moc; \
+	rm moc_predefs.h; \
+	rm .qmake.stash; \
+
+test_app_GUI_fntPrincipale_QZoneDeDessin: clean
+	cd test_app/GUI/fntPrincipale; \
+	qmake -makefile -o Makefile QZoneDeDessin.pro; \
+	make; \
+	./QZoneDeDessin; \
+	rm QZoneDeDessin; \
+	rm *.moc; \
+	rm moc_predefs.h; \
+	rm .qmake.stash; \
 #===============================================================================

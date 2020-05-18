@@ -155,12 +155,9 @@ TEST_CASE ("Test d'inversion de la matrice", "[Matrice]"){
   MA1.modifTab(2,0,1);
 
   Matrice MAI1(3);
-  MAI1.modifTab(0,0,1);
   MAI1.modifTab(0,2,1);
   MAI1.modifTab(1,0,1);
-  MAI1.modifTab(1,1,1);
   MAI1.modifTab(2,1,1);
-  MAI1.modifTab(2,2,1);
   Matrice MA2(MA1);
   MA2 = MA1.inversion_Matrice();
   

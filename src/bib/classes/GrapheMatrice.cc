@@ -6,6 +6,21 @@ Graphe::Graphe(string nom, vector<Sommet> listeS, vector<Arc> listeA, string pat
   this->liste_Sommets = listeS;
   this->liste_Arcs = listeA;
   this->path = path;
+  int Aid;
+  int id_Sdepart;
+
+  for(int k = 0; k < this->liste_Arcs.size();++k){
+    vector <int> arc_sor;
+    id_Sdepart = this->liste_Arcs[k].getIDDepart();
+    Aid = this->liste_Arcs[k].getID();
+    for(int i = 0; i<this->liste_Sommets.size(); ++i){
+      if (liste_Sommets[i].getID() == id_Sdepart){
+        arc_sor = liste_Sommets[i].getVecArc();
+        arc_sor.push_back(Aid);
+        liste_Sommets[i].setVecArc(arc_sor);
+      }
+    }
+  }
 }
 
 Graphe::Graphe(string nom){ // Création Graphe vide
@@ -27,14 +42,14 @@ Graphe::Graphe(Matrice& M){ // Création d'un Graphe via une matrice d'adjacence
   //res.push_back(liste_Sommets[id[i]]); //c'est quoi ça ?
     for(int i=0; i<M.gettV(); i++){   // ID Sommet depart
       for(int j=0; j<M.gettV(); j++){ // ID Sommet arrivée
-        if(M.getTab()[i][j] == 1){         // Si il existe un arc
+        if(M.getTab()[i][j]){         // Si il existe un arc
           this->liste_Arcs.push_back(Arc(id, i, j)); // Création d'un Arc entre i et j avec son id
           vector <int> arc_sor;
 		  arc_sor = liste_Sommets[i].getVecArc();
 		  arc_sor.push_back(id);
 		  this->liste_Sommets[i].setVecArc(arc_sor);
-			
-		  
+
+
         id++; // On incrémente le nombre d'arc
         }
       }
@@ -136,13 +151,32 @@ int Graphe::supprimer_Sommet(int id){
       this->liste_Arcs[i].setIDArrive(this->liste_Arcs[i].getIDArrive()-1);
     }
   }
+
+  //On efface le vecArc de tous les sommets
+  for(int i=0;i<this->liste_Sommets.size();++i){
+    liste_Sommets[i].setVecArc({});
+  }
+
+ int idD;
+  // On remet les bons ID
+  for(int i=0;i<this->liste_Arcs.size();++i){
+    idD = liste_Arcs[i].getIDDepart();
+    for(int j=0;j<this->liste_Sommets.size();++j){
+      if(this->liste_Sommets[j].getID() == idD){
+        vector<int> vac;
+        vac = this->liste_Sommets[j].getVecArc();
+        vac.push_back(liste_Arcs[i].getID());
+        this->liste_Sommets[j].setVecArc(vac);
+      }
+    }
+  }
   return id;
 }
 
 int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
-	
+
    int id = this->liste_Arcs.size();
-	
+
    this->liste_Arcs.push_back(Arc(id,id_Sdepart,id_Sarrive));
 
    vector <int> arc_sor;
@@ -215,16 +249,16 @@ Graphe Graphe::operator=(Graphe const& G1){
 void Graphe::affiche_graphe(){
 	cout << "etiquette = " << this->etiquette << endl;
 	cout << "path = " << this->path << endl;
-	
+
 	for(int i = 0; i < this->liste_Sommets.size(); i++){
 		this->liste_Sommets[i].afficher_Sommet();
 	}
 	for(int i = 0; i < this->liste_Arcs.size(); i++){
 		this->liste_Arcs[i].afficher_Arc();
 	}
-	
-	
-	
+
+
+
 }
 
 enum typeM{
@@ -288,9 +322,9 @@ Matrice::Matrice(int tailleV){ //Construceur d'une matrice d'adjacence vide
   for(int i=0;i<tailleV;i++){
     this->tab[i].resize(tailleV);
   }
-  
-  
-  
+
+
+
 }
 
 Matrice::Matrice(int tailleV, int tailleE, int t){ // Constructeur d'une matrice autre vide
@@ -330,7 +364,7 @@ Matrice Matrice::conversion_incidence(){
    if(this->type == ADJACENCE){
     vector<int> indices;
     int c = 0;
-    
+
     for(int i = 0 ;i<this->taille_E;i++){
       for(int j = 0;j<this->taille_V;j++){
         if(this->tab[i][j] > 0){
@@ -361,12 +395,12 @@ Matrice Matrice::inversion_Matrice() const{
   res.taille_V = this->taille_V;
     for(int i=0;i<this->taille_V;i++){
       for(int j=0;j<this->taille_E;j++){
-        if(this->tab[i][j]==0)
+        if(this->tab[i][j]==0 && i != j)
           res.tab[i][j]= 1 ;
         else  res.tab[i][j]= 0 ;
       }
     }
-  
+
 
   return res;
 }
@@ -388,13 +422,13 @@ int Matrice::Sommet_non_isole(){ // Cherche si un Sommet est isolé
       }
       if(!cmp) return 0; // Sommet isolé
     }
-  
+
   return 1; // Pas de sommet isolé
 
 }
 
 int Matrice::modifTab(int x, int y, int n){ // Modifie la case [x][y]
- 
+
     if((x>=this->taille_V)||(x<0)||(y>=this->taille_E)||(y<0)){
       // Cas d'erreur x ou y hors de la taille des Matrices
       std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
@@ -434,7 +468,7 @@ void Matrice::supprLigne(int x){ // Supprime une ligne
     else{
 		this->taille_E--;
 		for(int i = 0; i<taille_V; i++){
-			
+
 			this->tab[i].erase(this->tab[i].begin()+y);
 		}
 
@@ -475,7 +509,7 @@ bool Matrice::operator!=(Matrice & M1){
   this->taille_V = M1.gettV();
   this->type = M1.getType();
   this->tab = M1.getTab();
-  
+
   return *this;
   }
 
