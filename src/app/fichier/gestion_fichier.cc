@@ -1,8 +1,10 @@
 #include "gestion_fichier.hh"
 // #include "../../../libExt/rapidjson/stringbuffer.h"
 #include "../../../libExt/rapidjson/writer.h"
-#include "../../../libExt/rapidjson/filewritestream.h"
+// #include "../../../libExt/rapidjson/filewritestream.h"
 #include "../../../libExt/rapidjson/prettywriter.h"
+#include "../../../libExt/rapidjson/istreamwrapper.h"
+
 
 #include <fstream>
 #include <iterator>
@@ -50,9 +52,12 @@ if (path == ""){
        writer.StartArray();
        //writer.StartObject();
        //Boucle pour savoir a quels arcs le sommet et relié
-        for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++)
+        for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++){
+          writer.StartObject();
+          writer.Key("Tab");
           writer.Uint (G.getListe_Sommets()[i].getVecArc()[j]);
-       //writer.EndObject();
+          writer.EndObject();
+        }
        writer.EndArray();
 
 
@@ -70,15 +75,17 @@ if (path == ""){
          string mot = itr->first; // Accede au premier champs de la map (string)
          VectVal V = itr->second; // Accede au deuxieme champs de la map (VectVal)
          writer.StartObject();
-         writer.Key(mot.c_str());
+         writer.Key("mot");
+         writer.String(mot.c_str());
+         writer.Key("type");
          writer.Uint(V.type);
 
          if (V.type == 1){
-           writer.Key("Valeur reel");
+           writer.Key("Valeur_reel");
            writer.Double(V.valeur_reel);
          }
          if (V.type == 0){
-           writer.Key("Valeur entiere");
+           writer.Key("Valeur_entiere");
            writer.Uint(V.valeur_entiere);
          }
 
@@ -130,15 +137,18 @@ if (path == ""){
          VectVal V2 = itr->second;
 
          writer.StartObject();
-         writer.Key (mot2.c_str());
-         writer.Uint (V2.type);
+
+         writer.Key("mot");
+         writer.String(mot2.c_str());
+         writer.Key("type");
+         writer.Uint(V2.type);
 
            if (V2.type == 1){
-             writer.Key("Valeur reel");
+             writer.Key("Valeur_reel");
              writer.Double(V2.valeur_reel);
            }
            if (V2.type == 0){
-             writer.Key("Valeur entiere");
+             writer.Key("Valeur_entiere");
              writer.Uint(V2.valeur_entiere);
            }
 
@@ -206,9 +216,12 @@ if (path == ""){
       writer.StartArray();
       //writer.StartObject();
       //Boucle pour savoir a quels arcs le sommet et relié
-       for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++)
+       for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++){
+         writer.StartObject();
+         writer.Key("Tab");
          writer.Uint (G.getListe_Sommets()[i].getVecArc()[j]);
-      //writer.EndObject();
+         writer.EndObject();
+       }
       writer.EndArray();
 
 
@@ -226,15 +239,17 @@ if (path == ""){
         string mot = itr->first; // Accede au premier champs de la map (string)
         VectVal V = itr->second; // Accede au deuxieme champs de la map (VectVal)
         writer.StartObject();
-        writer.Key(mot.c_str());
+        writer.Key("mot");
+        writer.String(mot.c_str());
+        writer.Key("type");
         writer.Uint(V.type);
 
         if (V.type == 1){
-          writer.Key("Valeur reel");
+          writer.Key("Valeur_reel");
           writer.Double(V.valeur_reel);
         }
         if (V.type == 0){
-          writer.Key("Valeur entiere");
+          writer.Key("Valeur_entiere");
           writer.Uint(V.valeur_entiere);
         }
 
@@ -286,41 +301,35 @@ if (path == ""){
         VectVal V2 = itr->second;
 
         writer.StartObject();
-        writer.Key (mot2.c_str());
-        writer.Uint (V2.type);
+        writer.Key("mot");
+        writer.String(mot2.c_str());
+        writer.Key("type");
+        writer.Uint(V2.type);
 
           if (V2.type == 1){
-            writer.Key("Valeur reel");
+            writer.Key("Valeur_reel");
             writer.Double(V2.valeur_reel);
           }
           if (V2.type == 0){
-            writer.Key("Valeur entiere");
+            writer.Key("Valeur_entiere");
             writer.Uint(V2.valeur_entiere);
           }
 
         writer.EndObject();
         itr ++;
       }
-
       writer.EndArray(); // Fin de AChargeUtile
-
-
       writer.EndObject(); // Fin de listeA
     }
-
       writer.EndArray (); // Fin des Arcs
-
-
   writer.EndObject(); // Fin du fichier
 
 
     // Utilisation du fichier ayant pour chemin celui du graphe pour modifier les valeurs dans le fichier.
     std::ofstream o(path.c_str());
     o<<s.GetString ();
-
      if (!o.good())
        return 1;
-
    return 0;
  }
 
@@ -332,7 +341,123 @@ if (path == ""){
 
 Graphe chargement (string path){
 
-  Graphe G0 (0);
+
+
+  ifstream fichier(path);
+  IStreamWrapper fic (fichier);
+
+  rapidjson::Document doc;
+  doc.ParseStream<0>(fic);
+  string chemin = doc["path"].GetString(); // Recupere le path du graphe
+  string etiq = doc ["etiquette"].GetString(); // Recupere le nom du Graphe
+
+  vector <Sommet> LISTESOM;
+  int compteurSom = doc["listeS"].Size();
+  LISTESOM.resize (compteurSom, Sommet (0));
+
+  vector <Arc> LISTEARC;
+  int compteurArc = doc["listeA"].Size();
+  LISTEARC.resize(compteurArc,Arc (0,0,0));
+
+
+  for (int i = 0; i<doc["listeS"].Size(); i++){
+    LISTESOM[i].setPosX (doc["listeS"][i]["x"].GetInt());
+    LISTESOM[i].setPosY (doc["listeS"][i]["y"].GetInt());
+    LISTESOM[i].setID(doc["listeS"][i]["id"].GetInt());
+    LISTESOM[i].setEtiq(doc["listeS"][i]["etiquette"].GetString());
+
+
+    vector <int> VecteurArc;
+    VecteurArc.resize(doc["listeS"][i]["vecArc"].Size() ,0);
+
+    for (int j = 0; j <  doc["listeS"][i]["vecArc"].Size(); j++){
+      VecteurArc[j] = doc["listeS"][i]["vecArc"][j]["Tab"].GetInt();
+      cout <<"VecArc : "<< VecteurArc[j] << endl;
+    }
+
+
+   LISTESOM[i].setVecArc(VecteurArc);
+
+
+      map <string, VectVal> m1;
+
+      for (int j = 0; j < doc["listeS"][i]["SChargeUtile"].Size(); j++){
+
+        string nom = doc["listeS"][i]["SChargeUtile"][j]["mot"].GetString();
+        VectVal v;
+
+        v.type = doc["listeS"][i]["SChargeUtile"][j]["type"].GetInt();
+          if (v.type == 0){
+            v.valeur_entiere = doc["listeS"][i]["SChargeUtile"][j]["Valeur_entiere"].GetInt();
+            v.valeur_reel = 0;
+          }
+          if (v.type == 1){
+            v.valeur_reel = doc["listeS"][i]["SChargeUtile"][j]["Valeur_reel"].GetDouble();
+            v.valeur_entiere = 0;
+          }
+
+          m1.insert(pair<string,VectVal> (nom, v));
+      }
+
+
+    LISTESOM[i].setCU(m1);
+
+
+
+    cout << "Position X : "<< LISTESOM[i].getPosX() << endl;
+    cout << "Position Y : "<< LISTESOM[i].getPosY() << endl;
+    cout << "ID : "<< LISTESOM[i].getID() << endl;
+    cout << "Etiquette : "<< LISTESOM[i].getEtiq() << endl << endl;
+
+  }
+
+
+
+
+
+  for (int i = 0; i < doc["listeA"].Size(); i++){
+    LISTEARC[i].setID(doc["listeA"][i]["id"].GetInt());
+    LISTEARC[i].setEtiq(doc["listeA"][i]["etiquette"].GetString());
+    LISTEARC[i].setIDDepart(doc["listeA"][i]["IDdepart"].GetInt());
+    LISTEARC[i].setIDArrive(doc["listeA"][i]["IDarrive"].GetInt());
+
+    map <string, VectVal> m1;
+
+    for (int j = 0; j < doc["listeA"][i]["AChargeUtile"].Size(); j++){
+
+      string nom = doc["listeA"][i]["AChargeUtile"][j]["mot"].GetString();
+      VectVal v;
+
+      v.type = doc["listeA"][i]["AChargeUtile"][j]["type"].GetInt();
+        if (v.type == 0){
+          v.valeur_entiere = doc["listeA"][i]["AChargeUtile"][j]["valeur_entiere"].GetInt();
+          v.valeur_reel = 0;
+        }
+        if (v.type == 1){
+          v.valeur_reel = doc["listeA"][i]["AChargeUtile"][j]["valeur_reel"].GetDouble();
+          v.valeur_entiere = 0;
+        }
+
+        m1.insert(pair<string,VectVal> (nom, v));
+    }
+
+
+    LISTEARC[i].setCU(m1);
+
+
+    cout << "ID : " << LISTEARC[i].getID() << endl;
+    cout << "Etiquette : " << LISTEARC[i].getEtiq() << endl;
+    cout << "IDdepart : " << LISTEARC[i].getIDDepart() << endl;
+    cout << "IDarrive : " << LISTEARC[i].getIDArrive() << endl << endl;
+
+  }
+
+
+
+
+  Graphe G0 (etiq, LISTESOM, LISTEARC, chemin);
+
+
   return G0;
 
 }

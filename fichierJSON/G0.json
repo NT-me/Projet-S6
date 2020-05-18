@@ -8,16 +8,23 @@
             "id": 0,
             "etiquette": "sommet0",
             "vecArc": [
-                1
+                {
+                    "Tab": 1
+                },
+                {
+                    "Tab": 4
+                }
             ],
             "SChargeUtile": [
                 {
-                    "poid1": 1,
-                    "Valeur reel": 10.1
+                    "mot": "poid1",
+                    "type": 1,
+                    "Valeur_reel": 10.1
                 },
                 {
-                    "poid2": 0,
-                    "Valeur entiere": 144
+                    "mot": "poid2",
+                    "type": 0,
+                    "Valeur_entiere": 144
                 }
             ]
         },
@@ -27,7 +34,9 @@
             "id": 1,
             "etiquette": "1",
             "vecArc": [
-                2
+                {
+                    "Tab": 2
+                }
             ],
             "SChargeUtile": []
         },
@@ -37,7 +46,9 @@
             "id": 2,
             "etiquette": "2",
             "vecArc": [
-                3
+                {
+                    "Tab": 3
+                }
             ],
             "SChargeUtile": []
         }
@@ -50,12 +61,14 @@
             "IDarrive": 1,
             "AChargeUtile": [
                 {
-                    "poid1": 1,
-                    "Valeur reel": 10.1
+                    "mot": "poid1",
+                    "type": 1,
+                    "Valeur_reel": 10.1
                 },
                 {
-                    "poid2": 0,
-                    "Valeur entiere": 144
+                    "mot": "poid2",
+                    "type": 0,
+                    "Valeur_entiere": 144
                 }
             ]
         },
@@ -71,6 +84,13 @@
             "etiquette": "3",
             "IDdepart": 2,
             "IDarrive": 0,
+            "AChargeUtile": []
+        },
+        {
+            "id": 4,
+            "etiquette": "4",
+            "IDdepart": 0,
+            "IDarrive": 2,
             "AChargeUtile": []
         }
     ]

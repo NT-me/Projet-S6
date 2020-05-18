@@ -1,10 +1,10 @@
 {
     "etiquette": "graphe0",
-    "path": "../fichierJSON/G0modif.json",
+    "path": "../fichierJSON/G1.json",
     "listeS": [
         {
-            "x": 0,
-            "y": 0,
+            "x": 20,
+            "y": 15,
             "id": 0,
             "etiquette": "sommet0",
             "vecArc": [
@@ -19,7 +19,7 @@
                 {
                     "mot": "poid1",
                     "type": 1,
-                    "Valeur_reel": 10.100000381469727
+                    "Valeur_reel": 10.1
                 },
                 {
                     "mot": "poid2",
@@ -29,22 +29,33 @@
             ]
         },
         {
-            "x": 0,
-            "y": 0,
+            "x": 66,
+            "y": 55,
             "id": 1,
-            "etiquette": "1",
+            "etiquette": "sommet1",
             "vecArc": [
                 {
                     "Tab": 2
                 }
             ],
-            "SChargeUtile": []
+            "SChargeUtile": [
+                {
+                    "mot": "poid3",
+                    "type": 1,
+                    "Valeur_reel": 17.319
+                },
+                {
+                    "mot": "poid4",
+                    "type": 1,
+                    "Valeur_reel": 4566.222
+                }
+            ]
         },
         {
-            "x": 0,
-            "y": 0,
+            "x": 21,
+            "y": 1,
             "id": 2,
-            "etiquette": "2",
+            "etiquette": "sommet2",
             "vecArc": [
                 {
                     "Tab": 3
@@ -56,21 +67,10 @@
     "listeA": [
         {
             "id": 1,
-            "etiquette": "Arc1",
+            "etiquette": "1",
             "IDdepart": 0,
             "IDarrive": 1,
-            "AChargeUtile": [
-                {
-                    "mot": "poid1",
-                    "type": 1,
-                    "Valeur_reel": 10.100000381469727
-                },
-                {
-                    "mot": "poid2",
-                    "type": 0,
-                    "Valeur_entiere": 144
-                }
-            ]
+            "AChargeUtile": []
         },
         {
             "id": 2,
