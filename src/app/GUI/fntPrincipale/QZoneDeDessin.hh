@@ -8,6 +8,8 @@
 #include <QDebug>
 #include "QSommet.hh"
 #include "QArc.hh"
+#include <stdlib.h>
+#include <time.h> 
 
 class QZoneDeDessin : public QGraphicsView{
     Q_OBJECT
