@@ -1,3 +1,8 @@
+#include "UI_modifObjet.hh"
+#include <utility>
+#include <string>
+
+/*
 class Ui_Dialog {
 public:
 
@@ -10,7 +15,8 @@ public:
     QDialogButtonBox *buttonBox;
 
 };
-
+*/
+/*
 namespace Ui {
 class modifObjet;
 }
@@ -23,7 +29,7 @@ public:
     ~modifObjet();
 
 private:
-ui::modifObjet *ui;
+Ui::modifObjet *ui;
 pair<string, map<string,vectVal>> res;
 
 
@@ -32,3 +38,4 @@ public slots:
     void addCU();
 
 };
+*/
