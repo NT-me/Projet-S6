@@ -44,7 +44,12 @@ typedef struct ROW{
   vector <int> taches_posterieures;
 } pert_row;
 
-
-
+inline bool operator== (pert_row v1, pert_row v2){
+  if (v1.tache == v2.tache && v1.nom_tache == v2.nom_tache && v1.taches_anterieures == v2.taches_anterieures
+      && v1.taches_posterieures == v2.taches_posterieures){
+        return true;
+  }
+  return false;
+}
 
 #endif
