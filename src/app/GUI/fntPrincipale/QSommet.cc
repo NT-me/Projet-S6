@@ -9,6 +9,8 @@ QSommet::QSommet(Sommet S){
   this->coul = QColor(0,0,0); // On le met en noir
   this->select = 0;
   setData(0, "Sommet");
+  setFlag(QGraphicsItem::ItemIsMovable, 1);
+  setFlag(QGraphicsItem::QGraphicsItem::ItemIsSelectable, 1);
 }
 
 QSommet::QSommet(QSommet const &S){
@@ -19,6 +21,8 @@ QSommet::QSommet(QSommet const &S){
   this->coul = S.coul; // On le met en noir
   this->select = S.select;
   setData(0, "Sommet");
+  setFlag(QGraphicsItem::ItemIsMovable, 1);
+  setFlag(QGraphicsItem::QGraphicsItem::ItemIsSelectable, 1);
 }
 
 QSommet::~QSommet(){}
