@@ -1,5 +1,5 @@
 #include "liste.hh"
-
+/*
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){}
 
 pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){}
@@ -108,50 +108,93 @@ vector<vector<int>> chaine_eulerienne(Matrice M){}
 vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 
 vector<int> postier_chinois(Matrice M){}
+* 
+*/
 Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 {
+	
+	
 	//on ne fait pas le premier cas, où la racine dois etre crée.
 	//Ici, on va créer l'arbre à partir de la matrice des regrets.
-    vector< vector<int> > tableau = reduite.getListe_Sommets;	
-    vector< vector<int> > regrets; // 
+    vector< vector<int> > tableau = reduite.getTab();	
+    vector<int> regrets; // on ajoutera des vecteur avec trois element, dans ce vecteur regrets
+    
+    //pour un vecteur donner, il y aura:
     //1er element -> regret
     //2eme element = coordonnées x
     //3eme element = coordonnées y
     
-    int regret; // on initie un entier regret, qui contiendra la valeur du regret pour une case donnée.
     
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    int regret = 0; // on initie un entier regret, qui contiendra la valeur du regret pour une case donnée.
     //ces deux entiers serviront à la recherche de l'entier minimal en x et en y.
     // car regret = min(x) et min(y).
-    int regretX = max_element(tableau.begin(), tableau.end()); 
-    int regretY = max_element(tableau.begin(), tableau.end());
+    int regretX = 0;
+    int regretY = 0;
     
     
-	for(int x = 0; x<reduite.gettV; x++)
-	{
-		for(int y = 0; y<reduite.gettV; y++)
-		{
-			if(tableau[x][y] == 0)
+    // il est important de leur associer une valeur élevé afin d'obtenu la plus petite valeur du tableau.
+    for(int i = 0; i < reduite.gettV(); i++)  
+    {
+		 for(int j = 0; j < reduite.gettV(); j++) 
+		 {
+			if(tableau[i][j]>regret)
 			{
-				for(int i = O; i<reduite.gettV; i++)
+				regretX = tableau[i][j];
+			}
+		 }
+    
+    }
+    regretY = regretX;
+    /////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+	for(int x = 0; x<reduite.gettV(); x++)
+	{
+		for(int y = 0; y<reduite.gettV(); y++)
+		{
+			if(tableau[x][y] == 0) 
+			// si une case vaut zéro, il faut calculer le regret asscocié,
+			// si on ne prendrait pas ce chemin
+			{
+				for(int i = 0; i<reduite.gettV(); i++)
 				{
 					if(regretX > tableau[i][y])
 					{
 						regretX = tableau[i][y];
 					}
 				}
-				for(int y = 0; y<reduite.gettV;y++)
+				for(int j = 0; y<reduite.gettV();y++)
 				{
-					if(regretY > tableau[Y][j])
+					if(regretY > tableau[y][j])
 					{
-						regretY = tableau[Y][j];
+						regretY = tableau[y][j];
 					}	
 				}
 				regret = regretX + regretY;
-				regrets.push_back(
+				vector< int> regret_actuel;
+				regret_actuel.push_back({});
+				//regrets.push_back(regret
 			}
+			 for(int i = 0; i < reduite.gettE(); i++)  
+			 {
+				for(int j = 0; j < reduite.gettE(); j++) 
+				{
+					if(tableau[i][j]>regret)
+					{
+						regret = tableau[i][j];
+					}
+				}
+    
+			 }
+			regretX = regret;
+			regretY = regret;
 		}
 	}
-	
+	return arbre;
 }
 Matrice reduction(Matrice M, int* SommeReduc)
 {
@@ -215,6 +258,8 @@ Matrice reduction(Matrice M, int* SommeReduc)
 
 vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 {
+	int SommeReduc;
+	int test;
 	if(M.getType()!=0)	//Test si c'est adj
 	{
 		return {-1};
@@ -226,33 +271,15 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	Graphe G = Graphe("Arbre binaire");
 	Sommet S = Sommet("etiq",Num);
 	//Arc A = Arc();
-	
-	int Regretcol, Regretlig;
-	int SommeReduc;
-	
-	
 
-	
-	
-	int i,j;	//itérateur de boucle
-	int x,y;	//second itérateur de boucle
-
-	int s = 0;	//itérateur pour les sommets du graphe
-	int max;	//stock le plus grand regret trouvé dans le tableau
-	int test = 0;	
-	
-	SommeReduc = 0;
-	G.ajout_Sommet(S.getID(),100,100);	//Noeud racine de l'arbre binaire
-	
-	
 	
 	
 	T = M.getTab();
 	
 	//Test si matrice d'entrée possède valeur négative
-	for(i=0; i<M.gettV(); i++)
+	for(int i=0; i<M.gettV(); i++)
 	{
-		for(j=0; j<M.gettV(); j++)
+		for(int j=0; j<M.gettV(); j++)
 		{
 			if(T[i][j]<0)
 			{
@@ -264,7 +291,7 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	
 	if(test == 0)	//Si pas de valeur négative dans le tableau
 	{
-		for(i=0; i<M.gettV(); i++)
+		for(int i=0; i<M.gettV(); i++)
 		{
 			T[i][i] = -1;	//Diagonal de la matrice prend la valeur -1 au lieu de zéro.
 		}
@@ -359,10 +386,12 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	
 	N.modifTab(y,x,-1);						//On ne considère l'arc en sens inverse de celui choisi
 	
-	while(/*Test si l'arbre binaire de recherche est égale au nombre de sommet en entrée*///);
+	while(Test si l'arbre binaire de recherche est égale au nombre de sommet en entrée);
 	
 	//parcours de l'arbre + plus court chemin
 	//Créer un arbre binaire complet, puis on recherche la feuille de poids minimum
 	//Son chemin sera le plus court chemin pour l'algo de Little
-	
-}
+	*/
+	vector<int> juste_pour_le_retour_de_fonction_mais_a_supprimer;
+	return juste_pour_le_retour_de_fonction_mais_a_supprimer;
+}	
