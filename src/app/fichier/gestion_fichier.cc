@@ -377,7 +377,6 @@ Graphe chargement (string path){
 
     for (int j = 0; j <  doc["listeS"][i]["vecArc"].Size(); j++){
       VecteurArc[j] = doc["listeS"][i]["vecArc"][j]["Tab"].GetInt();
-      // cout <<"VecArc : "<< VecteurArc[j] << endl;
     }
 
 
@@ -406,13 +405,6 @@ Graphe chargement (string path){
 
 
     LISTESOM[i].setCU(m1);
-
-
-
-    // cout << "Position X : "<< LISTESOM[i].getPosX() << endl;
-    // cout << "Position Y : "<< LISTESOM[i].getPosY() << endl;
-    // cout << "ID : "<< LISTESOM[i].getID() << endl;
-    // cout << "Etiquette : "<< LISTESOM[i].getEtiq() << endl << endl;
 
   }
 
@@ -448,12 +440,6 @@ Graphe chargement (string path){
 
 
     LISTEARC[i].setCU(m1);
-
-
-    // cout << "ID : " << LISTEARC[i].getID() << endl;
-    // cout << "Etiquette : " << LISTEARC[i].getEtiq() << endl;
-    // cout << "IDdepart : " << LISTEARC[i].getIDDepart() << endl;
-    // cout << "IDarrive : " << LISTEARC[i].getIDArrive() << endl << endl;
 
   }
 
@@ -497,25 +483,11 @@ bool verif_file (string path){
 
     rapidjson::SchemaDocument schema(sd);
 
-
-
     SchemaValidator validator(schema);
     if(!doc.Accept(validator)){
       cout<<"le fichier ne correspond pas au schéma"<<endl;
       return false;
     }
-
-/*
-    if (doc.HasParseError()){
-      cout << "Erreur de parsing du fichier .json" << endl;
-      return false;
-    }
-
-    SchemaDocument schDoc(doc);
-    SchemaValidator valid(schDoc);
-
-*/
-
 
   return true;
 }
