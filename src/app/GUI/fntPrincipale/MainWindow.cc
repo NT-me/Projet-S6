@@ -2,8 +2,8 @@
 
 MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindow), grapheCourant("courant"){
   ui->setupUi(this);
-  // ui->zoneDessin->afficher_Sommet(Sommet(50,50,"hey",0));
-  // ui->zoneDessin->show();
+  // ui->tabWidget->currentWidget()->zoneDessin->afficher_Sommet(Sommet(50,50,"hey",0));
+  // ui->tabWidget->currentWidget()->zoneDessin->show();
   // Graphe g("G");
 
   // g.ajout_Sommet(0,100, 100);
@@ -13,10 +13,10 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   // g.ajout_Sommet(4,322, 455);
   // g.ajout_Arc(0,1);
   // g.ajout_Arc(0,2);
-  // ui->zoneDessin->setGraphe_dessine(g);
+  // ui->tabWidget->currentWidget()->zoneDessin->setGraphe_dessine(g);
   //
 
-  QObject::connect(ui->actionNouveau_graphe,&QAction::activate,this, &MainWindow::nv_graphe_vide);
+  QObject::connect(ui->actionNouveau_graphe,&QAction::triggered,this, &MainWindow::nv_graphe_vide);
   // QObject::connect(ui->actionNouveau_graphe_al_atoire,SIGNAL(clicked()),this, SLOT (nv_graphe_aleatoire()));
 /*  QObject::connect(ui->actionEnrengistrer,SIGNAL(clicked()),this, SLOT (Enregistrer()));
   QObject::connect(ui->actionEnrengistrer_sous,SIGNAL(clicked()),this, SLOT (Enregistrer_sous()));
@@ -60,8 +60,27 @@ int MainWindow::ajouterOnglet(QString nomOnglet, Graphe G){}
 int MainWindow::supprimerOnglet(QString nomOnglet){}
 
 void MainWindow::nv_graphe_vide(){
-   qDebug()<<"HEY";
+  QWidget *tab = new QWidget();
+  tab->setObjectName(QStringLiteral("tab"));
+  QHBoxLayout *horizontalLayout = new QHBoxLayout(tab);
+  horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+  QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
+  horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+  horizontalLayout_2->setContentsMargins(-1, 0, -1, -1);
+  QZoneDeDessin* zoneDessin = new QZoneDeDessin(tab);
+  zoneDessin->setObjectName(QStringLiteral("zoneDessin"));
+  zoneDessin->setMinimumSize(QSize(575, 0));
+
+  horizontalLayout_2->addWidget(zoneDessin);
+
+
+  horizontalLayout->addLayout(horizontalLayout_2);
+
+  QString str = "Graphe "+QString::number(ui->tabWidget->count()+1);
+
+  ui->tabWidget->addTab(tab,str);
 }
+
 void MainWindow::nv_graphe_aleatoire(){
   qDebug()<<"HEY";
 
@@ -96,33 +115,32 @@ void MainWindow::arrangerSommets(){}
 void MainWindow::fermer_graphe(){}
 void MainWindow::DBEselection(bool checked){
   if (checked){
-    ui->zoneDessin->setProperty("DBE", 1);
+    ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setProperty("DBE", 1);
     qDebug()<<"selection";
   }
 }
 void MainWindow::DBEaddSommet(bool checked){
   if (checked){
-    ui->zoneDessin->setProperty("DBE", 2);
+    ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setProperty("DBE", 2);
     qDebug()<<"addS";
   }
 }
 void MainWindow::DBEaddArc(bool checked){
   if (checked){
-    ui->zoneDessin->setProperty("DBE", 3);
+    ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setProperty("DBE", 3);
     qDebug()<<"addA";
   }
 }
 void MainWindow::DBEdeleteSommet(bool checked){
   if (checked){
-    ui->zoneDessin->setProperty("DBE", 4);
+    ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setProperty("DBE", 4);
     qDebug()<<"delS";
   }
 }
 void MainWindow::DBEdeleteArc(bool checked){
   if (checked){
-    ui->zoneDessin->setProperty("DBE", 5);
+    ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setProperty("DBE", 5);
     qDebug()<<"delA";
 
   }
 }
-
