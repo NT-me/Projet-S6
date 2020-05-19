@@ -25,24 +25,45 @@
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
-
+/**
+ * \brief Classe Ui_Dialog
+ * Cette classe est cr&eacute;&eacute; automatiquement par Qt
+ * Cette classe est utilis&eacute;e dans PERT
+ * */
 class Ui_Dialog
 {
 public:
-    QTableWidget *tableWidget;
+    QTableWidget *tableWidget;	/// Tableau ou sont affich&eacute;es les informations sur les taches
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QLineEdit *DureelineEdit;
-    QLineEdit *TacheAnterieurlineEdit;
-    QLineEdit *IDlineEdit;
-    QLineEdit *nomDeLaTachelineEdit;
+    QLineEdit *DureelineEdit;	/// Zone de texte permettant de donner la dur&eacute;e d'une tache
+    QLineEdit *TacheAnterieurlineEdit;	/// Zone de texte permettant de donner les ID des taches anterieures
+    QLineEdit *IDlineEdit;	/// Zone de texte permettant de donner l'ID de la tache que l'on souhaite ajouter au PERT
+    QLineEdit *nomDeLaTachelineEdit;	/// Zone de textepermettant de donner le nom de la tache que l'on souhaite ajouter au PERT
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
+    
+    /**
+     * Ajout tache
+     * Lorsque l'utilisateur clique sur ce bouton l'ensemble des informations presentes dans les QLineEddit rejoignent le tableau
+     * Informations dans QLineEdit converties en pert_row puis envoy&eacute;es dans calc_post
+     * */
     QPushButton *ajoutTacheButton;
-    QPushButton *supprimeTacheButton;
+    QPushButton *supprimeTacheButton;	/// La tache selectionn&eacute;e par l'utilisateur est supprim&eacute;
     QFrame *line;
+    
+    /**
+     * \brief Boutons
+     * Clic sur l'un des deux boutons : OK et Annuler
+     * Annuler : La fenetre se ferme sans rien faire
+     * OK : Les informations presentes dans le tableau sont converties en pert_row, mises dans un vecteur et pass&eacute; en parametre de la fonction pert
+     * */
     QDialogButtonBox *buttonBox;
-
+	
+	/**
+	 * \brief SetupUi
+	 * Utilise les setters des attributs de MainWindow pour leur affecter les valeurs par defaut
+	 * */
     void setupUi(QDialog *Dialog)
     {
         if (Dialog->objectName().isEmpty())
@@ -126,7 +147,11 @@ public:
 
         QMetaObject::connectSlotsByName(Dialog);
     } // setupUi
-
+	
+	/**
+	 * \brief retranslateUi
+	 * Affecte les textes des &eacute;l&eacute;ments
+	 * */
     void retranslateUi(QDialog *Dialog)
     {
         Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", Q_NULLPTR));

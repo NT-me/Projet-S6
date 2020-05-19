@@ -42,7 +42,7 @@ bool verif_file(string path);
  * \brief Suppression
  * Supprime le fichier en parametre
  * @param path Fichier &agrave; supprimer
- * @return Code de réussite si le fichier est bien supprim&eacute;
- * @return Code d'erreur dans le cas contraire
+ * @return 0 si le fichier est bien supprim&eacute;
+ * @return -1 dans le cas contraire
  * */
 int suppression(string path);

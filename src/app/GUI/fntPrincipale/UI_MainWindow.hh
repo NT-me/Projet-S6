@@ -31,15 +31,23 @@
 #include "QZoneDeDessin.hh"
 
 QT_BEGIN_NAMESPACE
-
+/**
+ * \brief Classe Ui_MainWindow
+ * Classe Cr&eacute;&eacute; automatiquement par Qt
+ * */
 class Ui_MainWindow
 {
 public:
-    QAction *actionEnrengistrer;
-    QAction *actionCharger;
-    QAction *actionEnrengistrer_sous;
-    QAction *actionDupliquer_graphe;
-    QAction *actionSupprimer_graphe;
+    QAction *actionEnrengistrer;	/// Bouton pour sauvegarder un Graphe
+    QAction *actionCharger;			/// Bouton pour ouvrir un Graphe deja cr&eacute;&eacute;
+    QAction *actionEnrengistrer_sous;	/// Bouton pour enregistrer sous un Graphe
+    QAction *actionDupliquer_graphe;	/// Bouton pour cr&eacute;er un graphe
+    QAction *actionSupprimer_graphe;	/// Bouton pour supprimer un Graphe
+    
+    /**
+     * \brief QAction
+     * Les QAction suivantes sont les boutons permettant d'appeller les algorithmes &agrave; appliquer sur le Graphe courant
+     * */
     QAction *actionFord_Bellman;
     QAction *actionFloyd_Warshall;
     QAction *actionDegr_sortant;
@@ -58,20 +66,20 @@ public:
     QAction *actionTrouver_chaine_hamiltonienne;
     QAction *actionR_solution_du_probl_me_du_postier_chinois;
     QAction *actionR_solution_du_probl_me_de_voyageur_de_commerce;
-    QAction *actionDocumentation;
-    QAction *actionGithub;
-    QAction *actionNouveau_graphe;
-    QAction *actionNouveau_graphe_al_atoire;
-    QAction *actionFermer_graphe;
-    QAction *actionArranger_sommets;
-    QAction *actionExtraire_sous_graphe;
-    QWidget *centralwidget;
+    QAction *actionDocumentation;	/// Bouton qui renvoie vers la documentation du projet
+    QAction *actionGithub;			/// Bouton qui renvoie le lien GitHub du projet
+    QAction *actionNouveau_graphe;	/// Bouton qui cr&eacute;er un nouveau Graphe vide et ouvre un nouvel onglet
+    QAction *actionNouveau_graphe_al_atoire;	/// Bouton qui cr&eacute;er un nouveau Graphe avec un nombre de Sommets aleatoire et ouvre un nouvel onglet
+    QAction *actionFermer_graphe;		/// Bouton pour ferme l'onglet sans sauvegarder
+    QAction *actionArranger_sommets;	/// Bouton pour appliquer Force Atlas 2 sur le Graphe courant
+    QAction *actionExtraire_sous_graphe;	/// Extrait un sous-graphe du graphe courant grace aux Sommet selectionn&eacute;
+    QWidget *centralwidget;		/// Ce widget contient tout les onglets
     QVBoxLayout *verticalLayout_3;
-    QTabWidget *tabWidget;
-    QWidget *tab;
+    QTabWidget *tabWidget;	/// Ce widget contient tout les onglets
+    QWidget *tab;	/// Ce widget permet de manipuler un onglet
     QHBoxLayout *horizontalLayout;
     QHBoxLayout *horizontalLayout_2;
-    QZoneDeDessin *zoneDessin;
+    QZoneDeDessin *zoneDessin;	/// Zone de dessin de Graphe sur chaque onglet
     QWidget *verticalWidget;
     QVBoxLayout *verticalLayout;
     QLabel *label;
@@ -79,27 +87,40 @@ public:
     QWidget *pageSommet;
     QWidget *layoutWidget;
     QGridLayout *gridLayout;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
-    QRadioButton *radioButton_3;
+    QRadioButton *radioButton;	/// Bouton qui permet d'ajouter un Sommet au Graphe en cliquant dessus
+    QRadioButton *radioButton_2;	/// Bouton qui permet de supprimer les Sommets en cliquant sur ces derniers
+    QRadioButton *radioButton_3;	/// Boutton qui permet de selectionner des Sommet ou Arcs en cliquant dessus
     QWidget *pageArc;
     QWidget *layoutWidget1;
     QGridLayout *gridLayout_2;
-    QRadioButton *radioButton_4;
-    QRadioButton *radioButton_5;
+    QRadioButton *radioButton_4;	/// Bouton qui permet de cr&eacute;er un Arc entre deux sommets
+    QRadioButton *radioButton_5;	/// Bouton qui permet de supprimer les Arcs sur lesquels on clique
     QFrame *line;
-    QTextBrowser *caraSelection;
-    QTextBrowser *console;
-    QMenuBar *menubar;
+    QTextBrowser *caraSelection;	/// Caracteristiques de la selection
+    QTextBrowser *console;	/// Console affichant les resultats des differentes fonctionnalit&eacute;s
+    QMenuBar *menubar;		/// Cet objet englobe l'ensemble des menus deroulants 
+    
+    /**
+     * \brief Cet objet represente le menu qui concerne les fichiers
+     * Il permet de : 
+     * Cr&eacute;er un nouveau Graphe
+     * Ouvrir un nouveau Graphe
+     * Enregistrer un Graphe
+     * Enregistrer un Graphe dans un fichier pr&eacute;cis
+     * */
     QMenu *menuFichier;
-    QMenu *menuEidition;
-    QMenu *menuAlgorithmes;
-    QMenu *menuCalcul_du_plus_court_chemin;
-    QMenu *menuCalcul_des_degr_s_entrant_ou_sortant_d_un_sommet;
-    QMenu *menuTrouver_arborescence_anti_arborescence;
-    QMenu *menuAide;
-    QStatusBar *statusbar;
-
+    QMenu *menuEidition;	/// Menu d&eacute;roulant permettant l'edition d'un Graphe
+    QMenu *menuAlgorithmes;	/// Menu d&eacute;roulant proposant tous les algorithmes applicable au Graphe
+    QMenu *menuCalcul_du_plus_court_chemin;	/// Double menu d&eacute;roulant pour les differetns algorithmes de plus court chemin
+    QMenu *menuCalcul_des_degr_s_entrant_ou_sortant_d_un_sommet;	/// Double menu d&eacute;roulant pour proposer le calcul des Sommets entrants ou sortants
+    QMenu *menuTrouver_arborescence_anti_arborescence;	/// Double menu d&eacute;roulant pour selectionner l'arborescence ou anti-arborescence
+    QMenu *menuAide;	/// Menu d&eacute;roulant proposant la documentation du projet et le GitHub
+    QStatusBar *statusbar;	/// Barre de statut
+	
+	/**
+	 * \brief SetupUi
+	 * Utilise les setters des attributs de MainWindow pour leur affecter les valeurs par defaut
+	 * */
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
@@ -349,6 +370,10 @@ public:
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
+	/**
+	 * \brief retranslateUi
+	 * Affecte les textes des elements, la separation est rendue necessaire par les fonctionnalit&eacute;s de traduction Qt
+	 * */
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
