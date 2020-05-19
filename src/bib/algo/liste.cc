@@ -110,7 +110,7 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 vector<int> postier_chinois(Matrice M){}
 * 
 */
-Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
+Graphe prolonge_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 {
 	
 	
@@ -245,32 +245,50 @@ Graphe Creer_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 	vector<int> REGRET_FINAL {regret, regretX, regretY}; // ici regret final contient la case avec le plus haut regret ainsi que ses coordonnées X et Y.
 	regrets.clear(); // on supprimme tous les élèments du vecteur ca on n'en a plus besoin ici.kjhk
 	
+	
+	
+	
+	
+	
+	
 	////////////////////////////////////////////////////////////////////////////////////////
-	// PARTIE 4: ON AJOUTE A L ABRE LE CAS DE LAJOUT DU CHEMIN VERS CE SOMMET AVAEC LE PLUS GRAND REGRET
+	// PARTIE 4: ON AJOUTE A L ABRE LE CAS DE L AJOUT DU CHEMIN VERS CE SOMMET AVEC LE PLUS GRAND REGRET
 	// ET ENSUITE LE CAS OU ON NE PREND PAS CE MEME CHEMIN
 	////////////////////////////////////////////////////////////////////////////////////////
-	 // on cherche à recuperer la valeur du plus grand indice de sommet
+	
+	// on cherche à récupérer la valeur du plus grand indice de sommet
 	int unsigned taille = arbre.getListe_Sommets().size();
 	
-	Arc A1 = Arc(regret,taille, taille+1);
-	Arc A2 = Arc(regret, taille,taille+2);
 	
-	int ACALCULER = 0;
+	
+	
 	string name1_1 = to_string(regrets[i][1]);
 	string name1_2 = to_string(regrets[i][2]);
 	string name = name1_1 + name1_2;
+
+	map <string, VectVal> Avec_chemin;
+	map <string, VectVal> Sans_chemin;
+	string a = "value";
+	Avec_chemin[a]={somme_reduc + regret};
 	
- //   Sommet avec_sommet = Sommet(regretX, regretY, taille +1, name, ACALCULER);
-	//Sommet sans_sommet = Sommet(regretX, regretY, taille +2, name, ACALCULER);
+	//////////////////////////////////////////
+	// Ici il faudrait la valeur du nouveau somme réduc de la prochaine reudction de la matrice
+	Sans_chemin[a]={somme_reduc + regret};
+	///////////////////////////////////////////
+	
+    Sommet avec_chemin = Sommet(regretX, regretY, name, taille+1, Avec_chemin); 
+    Sommet sans_chemin = Sommet(regretX, regretY, name, taille+2, Sans_chemin); 
+	
+	vector<Sommet> liste = arbre.getListe_Sommets();
+	liste.push_back(avec_chemin);
+	liste.push_back(sans_chemin);
+	
+	arbre.setListe_Sommet(liste);
 	
 	
-	
-	
-	
-	//arbre.ajout_Sommet();
-	
-	
-	
+	arbre.ajout_Arc(taille, taille+2);
+	arbre.ajout_Arc(taille, taille+1);
+
 	return arbre;
 }
 Matrice reduction(Matrice M, int* SommeReduc)
@@ -335,24 +353,22 @@ Matrice reduction(Matrice M, int* SommeReduc)
 
 vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 {
+	
 	int SommeReduc;
+	
+	
+	
 	int test;
 	if(M.getType()!=0)	//Test si c'est adj
 	{
 		return {-1};
 	}
 	
+	
+	
 	vector<vector <int>> T, Reg;
-	int Num = 0;	//compteur pour l'id des sommets et des arcs
-	
-	Graphe G = Graphe("Arbre binaire");
-	Sommet S = Sommet("etiq",Num);
-	//Arc A = Arc();
-
-	
 	
 	T = M.getTab();
-	
 	//Test si matrice d'entrée possède valeur négative
 	for(int i=0; i<M.gettV(); i++)
 	{
@@ -364,8 +380,6 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 			}
 		}
 	}
-	
-	
 	if(test == 0)	//Si pas de valeur négative dans le tableau
 	{
 		for(int i=0; i<M.gettV(); i++)
@@ -378,97 +392,7 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	//Réduction de la matrice
 	Matrice N = reduction(M, &SommeReduc);
 	
-	/*
-	S.setID(Num);
-	S.setCU(<"etiq",SommeReduc>);	//Sommet ayant la valeur de la réduction de matrice
-	N.setTab(L);		//Initialisation de la copie de matrice M avec réduction 
 	
-	//Calcul du regret
-	for(i=0; i<M.gettV(); i++)
-	{
-		for(j=0; j<M.gettV(); j++)
-		{
-			Reg[i][j]=0;		//Initialisation du tableau des regrets à zéro
-		}
-	}
-	
-	
-	
-	for(i=0; i<M.gettV(); i++)
-	{
-		for(j=0; j<M.gettV; j++)
-		{
-			if(L[i][j]==0)				//Si l'arc est de valeur nul
-			{
-				Regretlig = L[i][0];
-				Regretcol = L[0][j];
-				for(x=0; x<M.gettV(); x++)
-				{
-					if(L[i][x]<Regretlig && x!=i)
-					{
-						if(L[i][x]>-1)				//On ne prend pas en compte les valeurs négatives et L[i][j]
-						{
-							Regretlig = L[i][x];
-						}
-					}
-				}
-				
-				for(y=0; y<M.gettV(); y++)
-				{
-					if(L[y][j]<Regretcol && y!=j)
-					{
-						if(L{y][j]>-1)
-						{
-							Regretcol = L[y][j];
-						}
-					}
-				}
-				
-				Reg[i][j] = Regretlig  + Regretcol;		//Calcul du regret de l'arc nul
-			}
-		}
-	}
-	
-	max = 0;
-	for(i=0; i<M.gettV(); i++)	//Recherche regret maximum du tableau
-	{
-		for(j=0; j<M.gettV; j++)
-		{
-			if(Reg[i][j]>max)
-			{
-				x = i;
-				y = j;
-				max = Reg[i][j];	//On garde la valeur max, ainsi que les sommets entant et sortant de l'arc
-			}
-		}
-	}
-	
-	//Itératif
-	
-	
-	
-	//Si on ne prend pas l'arc de regret max
-	Sommet I = new Sommet(Num+1);			//Sommet quand l'arc n'est pas choisi
-	I.setCU(<"etiq",S.getCU()+Reg[i][j]);	//Sommet I prend la valeur du regret plus la valeur du parent
-											//poour la map, on sélectionne la valeur regret du père
-	
-	G.ajout_Sommet(I.id(),100,100);	
-	G.ajout_Arc(Num,Num+1);
-	
-	//Si on prend l'arc de regret max
-	Sommet J = new Sommet(Num+2);
-	J.setCU(<"etiq",S.getCU());
-	N.supprLigne(x);						//Suppression de la ligne i et de la colonne j de la matrice
-	N.supprCol(y);							//Afin d'éviter une boucle dans la recherche de regret.
-	
-	N.modifTab(y,x,-1);						//On ne considère l'arc en sens inverse de celui choisi
-	
-	while(Test si l'arbre binaire de recherche est égale au nombre de sommet en entrée);
-	
-	//parcours de l'arbre + plus court chemin
-	//Créer un arbre binaire complet, puis on recherche la feuille de poids minimum
-	//Son chemin sera le plus court chemin pour l'algo de Little
-	*/
 	vector<int> juste_pour_le_retour_de_fonction_mais_a_supprimer;
 	return juste_pour_le_retour_de_fonction_mais_a_supprimer;
 }	
