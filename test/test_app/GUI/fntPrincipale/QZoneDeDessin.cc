@@ -1,6 +1,5 @@
 #include <QtTest/QtTest>
 #include "../../../../src/app/GUI/fntPrincipale/QZoneDeDessin.hh"
-
 #include "../../../../src/app/GUI/fntPrincipale/QZoneDeDessin.cc"
 #include "../../../../src/app/GUI/fntPrincipale/QArc.hh"
 #include "../../../../src/app/GUI/fntPrincipale/QArc.cc"
