@@ -192,6 +192,8 @@ void QZoneDeDessin::afficher_arc(Arc a){
   }
   if (dblFlag != 2){
     qDebug() <<"--> SOMMETS NON TROUVES ID QARC :" <<QA->getID();
+    qDebug() << "dbFlag : " <<dblFlag;
+    qDebug() << "QA :" <<QA;
   }
   else{
     this->sc->addItem(QA);
@@ -207,6 +209,7 @@ void QZoneDeDessin::afficher_arc(Arc a){
 }
 
 void QZoneDeDessin::afficher_Graphe(Graphe G){
+  this->sc->clear();
   vector<Arc> La = G.getListe_Arcs();
   vector<Sommet> Ls = G.getListe_Sommets();
 
