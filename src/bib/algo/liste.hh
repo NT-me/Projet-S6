@@ -82,14 +82,19 @@ pair<int, int> calcul_degres_entrant_sortant(Matrice M, Sommet S);
  * */
 vector<int> coloration_Graphe(Graphe G);
 
+
 /**
  * \brief Couleurs disponible pour la coloration de Graphe
  * Cette fonction est une sous fonction de coloration_Graphe.
  * Elle calcule les couleurs disponibles pour un Sommet en fonction de ses Sommets adjacents
- * @param S Sommet sur lequel on applique la fonction
+ * @param id Sommet sur lequel on applique la fonction
+ * @param v vecteur qui contient pour chaque sommet le numéro de couleur, si le sommet n'a pas &eacute;t&eacute; trait&eacute; c'est &agrave; 0
+ * @param M matrice d'adjacence du Graphe
  * @return Couleur &agrave; affecter au Sommet
  * */
-int couleur_adjacente(Sommet S);
+
+pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M);
+
 
 /**
  * \brief Stables du Graphe
