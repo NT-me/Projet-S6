@@ -48,6 +48,12 @@ QRectF QSommet::boundingRect() const{
   qreal penWidth = 1;
   return QRectF(-TAILLE_RAYON - penWidth / 2, -TAILLE_RAYON - penWidth / 2, TAILLE_RAYON*2 + penWidth, TAILLE_RAYON*2 + penWidth);
 }
+
+void QSommet::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
+  posx = x();
+  posy = y();
+}
+
 void QSommet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
   if(select == 0){
     QRectF rect = boundingRect();

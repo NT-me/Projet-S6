@@ -40,6 +40,7 @@ public:
     void setCoul(QColor color);
     void setSelect(bool select);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 };
