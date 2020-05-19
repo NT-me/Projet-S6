@@ -28,7 +28,7 @@
 #include <QtWidgets/QToolBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "qzonededessin.h"
+#include "QZoneDeDessin.hh"
 
 QT_BEGIN_NAMESPACE
 
