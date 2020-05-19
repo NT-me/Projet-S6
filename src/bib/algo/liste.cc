@@ -177,7 +177,7 @@ Matrice reduction(Matrice M, int* SommeReduc)
 	//~ }
 	return N;
 }
-void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_sommet_a_visiter, vector<int> sommet_visiter_plus_tard)
+void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, vector<int> sommet_visiter_plus_tard)
 {
 	
 	
@@ -206,7 +206,7 @@ void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_som
     //////////////////////////////////////////////////////////////////////////////////
     // PARTIE 1: ON INSTANCIE REGRET A UNE VALEUR ELEVE
     ////////////////////////////
-    // il est important de leur associer une valeur élevé afin d'obtenu la plus petite valeur du tableau.
+    // il est important de leur associer une valeur élevé afin d'obtenir la plus petite valeur du tableau.
     for(int i = 0; i < reduite.gettV(); i++)  
     {
 		 for(int j = 0; j < reduite.gettV(); j++) 
@@ -231,8 +231,7 @@ void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_som
 		{
 			if(tableau[x][y] == 0) 
 			{
-			// Si une case vaut zéro, il faut calculer le regret asscocié,
-			// si on ne prendrait pas ce chemin
+			// Si une case vaut zéro, il faut calculer le regret asscocié, si on ne prendrait pas ce chemin
 			
 				for(int i = 0; i<reduite.gettV(); i++)
 				{
@@ -245,9 +244,9 @@ void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_som
 				}
 				for(int j = 0; y<reduite.gettV();y++)
 				{
-					if(regretY > tableau[y][j] && (j != y) )
+					if(regretY > tableau[x][j] && (j != y) )
 					{
-						regretY = tableau[y][j];
+						regretY = tableau[x][j];
 					}	
 				}
 				regret = regretX + regretY;
@@ -261,9 +260,9 @@ void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_som
 			regretY = 0;
 			regret = 0;
 			
-			 for(int i = 0; i < reduite.gettE(); i++)  
+			 for(int i = 0; i < reduite.gettV(); i++)  
 			 {
-				for(int j = 0; j < reduite.gettE(); j++) 
+				for(int j = 0; j < reduite.gettV(); j++) 
 				{
 					if(tableau[i][j]>regret)
 					{
@@ -309,8 +308,8 @@ void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_som
 			regretY = regrets[a][2];
 		}
 	}
-	vector<int> REGRET_FINAL {regret, regretX, regretY}; // ici regret final contient la case avec le plus haut regret ainsi que ses coordonnées X et Y.
-	regrets.clear(); // on supprimme tous les élèments du vecteur ca on n'en a plus besoin ici.kjhk
+	vector<int> REGRET_FINAL{regret, regretX, regretY}; // ici regret final contient la case avec le plus haut regret ainsi que ses coordonnées X et Y.
+	
 	
 	
 	
@@ -339,13 +338,13 @@ void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_som
 	Avec_chemin[a]={somme_reduc + regret};
 	
 	//////////////////////////////////////////
-	// Ici il faudrait la valeur du nouveau somme réduc de la prochaine reudction de la matrice
+	// Ici il faudrait la valeur du nouveau somme réduc de la prochaine réduction de la matrice
 	reduite = reduction(reduite, somme_reduc);
 	Sans_chemin[a]={somme_reduc + regret};
 	///////////////////////////////////////////
 	
-    Sommet avec_chemin = Sommet(regretX, regretY, name, taille+1, Avec_chemin); 
-    Sommet sans_chemin = Sommet(regretX, regretY, name, taille+2, Sans_chemin); 
+    Sommet avec_chemin = Sommet(regretX, regretY, name, taille+2, Avec_chemin); 
+    Sommet sans_chemin = Sommet(regretX, regretY, name, taille+1, Sans_chemin); 
 	
 	vector<Sommet> liste = arbre.getListe_Sommets();
 	liste.push_back(avec_chemin);
@@ -360,7 +359,7 @@ void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_som
 	if(reduite.gettV() > 2)
 	{
 		
-		prolonge_arbre(somme_reduc, reduite, arbre, taille+1, sommet_visiter_plus_tard);
+		prolonge_arbre(somme_reduc, reduite, arbre, sommet_visiter_plus_tard);
 	}
 	/////////////////////////////////////////////////////
 	// PARTIE 5: IL FAUT VISITER LES AUTRES CHEMIN EXCLU
