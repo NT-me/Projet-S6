@@ -337,7 +337,7 @@ Matrice::Matrice(int tailleV, int tailleE, int t){ // Constructeur d'une matrice
   }
 }
 
-Matrice::Matrice(const Matrice &M){ // Construceur de copie d'une Matrice
+Matrice::Matrice(const Matrice &M){ // Constructeur de copie d'une Matrice
   this->taille_V = M.taille_V;
   this->taille_E = M.taille_E;
   this->type = M.type;
