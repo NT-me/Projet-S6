@@ -8,9 +8,11 @@
 #include <QDialog>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QFileDialog>
 #include <QRandomGenerator>
 #include "mainwindow_copy.hh"
 #include "../../../bib/bib.hh"
+#include "../../fichier/gestion_fichier.hh"
 
 //QT BEGIN NAMESPACE //chelou à voir si c'est vraiment utile
 namespace Ui {
