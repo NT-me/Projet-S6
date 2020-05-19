@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->actionEnrengistrer_sous,&QAction::triggered,this, &MainWindow::Enregistrer_sous);
   QObject::connect(ui->actionDupliquer_graphe,&QAction::triggered,this, &MainWindow::Dupliquer_graphe) ;
   QObject::connect(ui->actionSupprimer_graphe,&QAction::triggered,this, &MainWindow::Supprimer_graphe) ;
+  QObject::connect(ui->actionCharger,&QAction::triggered,this, &MainWindow::Charger) ;
   // QObject::connect(ui->actionFord_Bellman,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionFloyd_Warshall,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionDegr_sortant,&QAction::triggered,this, &MainWindow:: ;
@@ -126,14 +127,22 @@ void MainWindow::Enregistrer(){
     printConsole("Enregistrer", "Graphe sauvegardé "+chem.toStdString());
   }
 }
-void MainWindow::Charger(){}
+void MainWindow::Charger(){
+  QString chem;
+
+  chem = QFileDialog::getOpenFileName(this, tr("Enregsitrer"), tr(".json"));
+  Graphe g = chargement(chem.toStdString());
+  ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setGraphe_dessine(g);
+  ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), QString::fromStdString(g.getEtiq()));
+
+}
 void MainWindow::Enregistrer_sous(){
   QString chem;
 
   chem = QFileDialog::getSaveFileName(this, tr("Enregsitrer"), tr(".json"));
   qDebug()<<chem;
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
-  // g.setPath(chem.toStdString());
+  g.setPath(chem.toStdString());
   ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setGraphe_dessine(g);
   sauvegarde(ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine(), chem.toStdString());
   printConsole("Enregistrer sous", "Graphe sauvegardé "+chem.toStdString());
@@ -153,8 +162,11 @@ void MainWindow::Dupliquer_graphe(){
   horizontalLayout_2->addWidget(zoneDessin);
   horizontalLayout->addLayout(horizontalLayout_2);
   QString str = "Duplicata "+ui->tabWidget->tabText(ui->tabWidget->currentIndex());
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  g.setPath("\0");
 
-  zoneDessin->setGraphe_dessine(ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine());
+
+  zoneDessin->setGraphe_dessine(g);
   ui->tabWidget->addTab(tab,str);
   printConsole("Duplication", "Graphe dupliqué");
 
