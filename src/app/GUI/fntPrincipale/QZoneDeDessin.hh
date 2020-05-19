@@ -9,7 +9,7 @@
 #include "QSommet.hh"
 #include "QArc.hh"
 #include <stdlib.h>
-#include <time.h> 
+#include <time.h>
 
 class QZoneDeDessin : public QGraphicsView{
     Q_OBJECT
@@ -32,6 +32,7 @@ public :
     void setScene(QGraphicsScene * scene);
 
     void force_Atlas2();
+    int distanceForce(QSommet a, QSommet b);
     pair<int,int> distance(QSommet a, QSommet b);
     void addSelect_Sommet(int ID);
     void deleteSelect_Sommet(int ID);
