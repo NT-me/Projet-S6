@@ -4,6 +4,11 @@
 #include <QtWidgets/QMainWindow>
 #include <QString>
 #include <QDebug>
+#include <QPushButton>
+#include <QDialog>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QRandomGenerator>
 #include "mainwindow_copy.hh"
 #include "../../../bib/bib.hh"
 
