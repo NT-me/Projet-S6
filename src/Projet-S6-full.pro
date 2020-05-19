@@ -22,7 +22,8 @@ HEADERS = \
    $$PWD/bib/classes/GrapheMatrice.hh \
    $$PWD/bib/classes/Sommet.hh \
    $$PWD/bib/classes/struct.hh \
-   $$PWD/bib/bib.hh
+   $$PWD/bib/bib.hh \
+   app/GUI/fntPrincipale/mainwindow_copy.hh
 
 SOURCES = \
    $$PWD/app/fichier/gestion_fichier.cc \
@@ -41,4 +42,8 @@ SOURCES = \
 INCLUDEPATH =
 
 #DEFINES = 
+
+FORMS += \
+    app/GUI/fntPrincipale/mainwindow.ui \
+    app/GUI/fntPrincipale/mainwindow_copy.ui
 
