@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <queue>
 
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
@@ -454,7 +455,92 @@ void parcours_largeur(Graphe G, Sommet S)
 
 }
 
-int gestion_flots(Graphe G, int ID_source, int ID_puit){}
+int gestion_flots(Graphe G, int ID_source, int ID_puit){//fonction applicant l'algorithme d'Edmond Karp
+  //############ Les variables #############
+
+  vector<vector<int>> MG= Matrice(G,0).getTab();// Matrice d'adjacence du graphe
+  vector<vector<int>> GR = MG;                  // Graphe residuel init à 0 (= MG pour init la taille)
+  vector<vector<int>> Succ;                     // liste des successeurs init via MG
+  vector<int> ListeParent ;                     // liste des parents d'un parcours bfs
+  vector<int> CheminCourant;                    // chemin courant du bfs
+  int FlotMax = 0;                              // variable contenant le flot maximum
+  int flag=0;
+
+
+  //######## Boucles d'initialisations ##########
+  Succ.resize(MG.size()); //on init Succ au nombre de sommets du Graphe
+  CheminCourant.resize(MG.size());    //init de Chemin courant en taille
+  ListeParent.resize(MG.size());    //init de Liste parent en taille
+  //cout << Succ.size() << " " << CheminCourant.size() << " " << ListeParent.size() << endl;
+  for(int i=0;i<MG.size();i++){ // init des successeurs
+    for(int j=0;j<MG.size();j++){
+      if(MG[i][j]>0){   // Si il y a un arc de i a j
+        Succ[i].push_back(j); // on ajoute j aux successeurs de i
+        Succ[j].push_back(i);
+      }
+      GR[i][j]=0; // init du graphe résiduel à 0
+    }
+  }
+
+  while(true){
+    //########### Breadth first search (bfs) ##########
+    int flot =0;  //calcul  d'un flot entre source et puits
+
+    for(int i=0;i<ListeParent.size();i++){
+      ListeParent[i] = -1;            // init de la valeur de chaque parent
+    }
+    for(int i=0;i<CheminCourant.size();i++){
+      CheminCourant[i] = 0;            // init de la valeur du chemin courant
+    }
+
+    vector<int> file;
+    queue<int> q;
+    q.push(ID_source);
+    ListeParent[ID_source] = -1;
+    CheminCourant[ID_source] = INFINI;
+    while(!q.empty()){
+      flag = 0;
+      int SA = q.front();
+      q.pop();
+      for(int i=0;i<Succ[SA].size();i++){
+        int NEXT = Succ[SA][i];
+        if(ListeParent[NEXT] == -1){
+          if((MG[SA][NEXT] - GR[SA][NEXT]) > 0){
+            ListeParent[NEXT] = SA;
+            //calcul du min
+            int min = CheminCourant[SA];
+            if(min >(MG[SA][NEXT] - GR[SA][NEXT]))
+            min = MG[SA][NEXT] - GR[SA][NEXT];
+            //fin min
+            CheminCourant[NEXT] = min ;
+            if(NEXT == ID_puit){
+              flag = 1; // flag permetant de sortir
+              flot = CheminCourant[ID_puit];
+              break; //on sort du for
+            }
+            q.push(NEXT);
+          }
+        }
+      }//fin du for
+      if(flag)break;//sor du while
+    }
+    //####### Gestion post bfs #########
+    if(!flag){//Gestion de la sortie du bfs
+      break; //sort du while
+    }
+    FlotMax += flot;  //ajout du flot au flot total
+    int SA = ID_puit; //on part de la fin
+    while(SA != ID_source){ // tant qu'on est pas à la source
+      int PREV = ListeParent[SA]; // On prend l'ID du precedent du Sommet Actuel
+      GR[PREV][SA] += flot; // on ajoute la flot au graphe residuel
+      GR[SA][PREV] -= flot;
+      SA = PREV;  // Sommet Actuel devient son precedent
+
+    }
+  }
+  return FlotMax;
+
+}
 
 
 
@@ -797,7 +883,7 @@ Graphe arborescence(Graphe G){
     Graphe A("Arborescence");
     Graphe tmp("Arborescence");
     vector<int>in;
-    
+
     // Vérifie si il existe une arborescence
     for(int i=0;i<M.gettV();i++){
         for(int j=0;j<M.gettV();j++){
@@ -807,7 +893,7 @@ Graphe arborescence(Graphe G){
         if(!pred){      // Si pas de prédecesseurs
             deb = i;
             Pmax++;
-        } 
+        }
         if(Pmax >1 || !Pmax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
             std::cout << "NO ARBORESCENCE" << '\n';
             tmp.ajout_Sommet(-1, -1,-1);
@@ -821,7 +907,7 @@ Graphe arborescence(Graphe G){
     // ##############
     int min=INFINI;
     for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
-    
+
     int out = 0;
     for(int i=0; i<M.gettV() && !in[i];i++){
         if(i==deb)i++;
@@ -831,7 +917,7 @@ Graphe arborescence(Graphe G){
                 if(j == deb) out++;
             }
         }
-        
+
         for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
             int val = M.getTab()[j][i]-min;
             if(!val && !in[i]){
@@ -845,13 +931,13 @@ Graphe arborescence(Graphe G){
 
         if(i == deb) i = -1;
     }
-   
-    if(!out){   // Si pas d'arcs de poids min partant du sommet 
+
+    if(!out){   // Si pas d'arcs de poids min partant du sommet
         std::cout << "NO ARBORESCENCE" << '\n';
         tmp.ajout_Sommet(-1, -1,-1);
         return tmp;
     }
-    
+
   /*  Matrice aff = A.conversion_vers_Matrice_adj();
     for(int i=0;i<aff.gettV();i++){
         for(int j=0;j<aff.gettV();j++){
@@ -868,7 +954,7 @@ Graphe anti_arborescence(Graphe G){
     Graphe A("Anti-Arborescence");
     Graphe tmp("Anti-Arborescence");
     vector<int>in;
-    
+
     // Vérifie si il existe une anti-arborescence
     for(int i=0;i<M.gettV();i++){
         for(int j=0;j<M.gettV();j++){
@@ -877,7 +963,7 @@ Graphe anti_arborescence(Graphe G){
         if(!succ){      // Si pas de successeurs
             fin = i;
             Smax++;
-        } 
+        }
         if(Smax >1 || !Smax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
             std::cout << "NO ANTI-ARBORESCENCE" << '\n';
             tmp.ajout_Sommet(-1,-1,-1);
@@ -890,7 +976,7 @@ Graphe anti_arborescence(Graphe G){
     // ##############
     int min=INFINI;
     for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
-    
+
     int out = 0;
     for(int i=0; i<M.gettV() && !in[i];i++){
         if(i==fin)i++;
@@ -900,7 +986,7 @@ Graphe anti_arborescence(Graphe G){
                 if(j == fin) out++;
             }
         }
-        
+
         for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
             int val = M.getTab()[i][j]-min;
             if(!val && !in[i]){
@@ -913,8 +999,8 @@ Graphe anti_arborescence(Graphe G){
         min = INFINI;
         if(i == fin) i = -1;
     }
-   
-    if(!out){   // Si pas d'arcs de poids min partant du sommet 
+
+    if(!out){   // Si pas d'arcs de poids min partant du sommet
         std::cout << "NO ANTI-ARBORESCENCE" << '\n';
         tmp.ajout_Sommet(-1, -1,-1);
         return tmp;
@@ -989,11 +1075,11 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
             if(out[i]>0) deb = i;
         }
     }
-    
+
     // #########################
     int i = deb;
     while (out[i]){
-        for(int j=0;j<M.gettV();j++){         
+        for(int j=0;j<M.gettV();j++){
             if(M.getTab()[i][j] && !mark[i][j]){   // Si arc
                 --out[i];
                 mark[i][j] = 1;
@@ -1006,7 +1092,7 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
                 path.push_back(i);
                 res.push_back(path);
                 return res;
-            }       
+            }
         } // Fin for
     } // Fin while
   } // Fin else
@@ -1025,9 +1111,9 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
   else{
       int pred, succ, Pmax, Smax;
       int deb=-1,fin=-1;
-      
+
       // Vérifie si il existe un chemin Hamiltonien
-      for(int i=0;i<M.gettV();i++){   
+      for(int i=0;i<M.gettV();i++){
           for(int j=0;j<M.gettV();j++){
             if(M.getTab()[i][j]) succ++;      // Nb successeur pour i
             if(M.getTab()[j][i]) pred++;      // Nb predecesseur pour j
@@ -1037,11 +1123,11 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
           if(!succ){
             Smax++;
             fin = i;
-          } 
+          }
           if(!pred){
             Pmax++;
             deb = i;
-          } 
+          }
           succ = 0;
           pred = 0;
       }
@@ -1049,7 +1135,7 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
            std::cout << "NO HAMILTTONIAN PATH" << '\n';
             return res;
       }
-      
+
       // Sommet de départ
       if(deb == -1) deb = 0;
 
