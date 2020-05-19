@@ -1,22 +1,24 @@
 #include "MainWindow.hh"
-ui->setupUi(this);
-// ui->zoneDessin->afficher_Sommet(Sommet(50,50,"hey",0));
-// ui->zoneDessin->show();
-Graphe g("G");
-g.ajout_Sommet(0,100, 100);
-g.ajout_Sommet(1,300, 300);
-g.ajout_Sommet(2,350, 300);
-g.ajout_Sommet(3,200, 200);
-g.ajout_Arc(0,1);
-g.ajout_Arc(0,2);
 
-ui->zoneDessin->setGraphe_dessine(g);
-
-MainWindow::MainWindow(QWidget ∗parent = nullptr ) : QMainWindow(parent){
+MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindow), grapheCourant("courant"){
   ui->setupUi(this);
-  QObject::connect(ui->actionNouveau_graphe,SIGNAL(clicked()),this, SLOT (nv_graphe_vide()));
-  QObject::connect(ui->actionNouveau_graphe_al_atoire,SIGNAL(clicked()),this, SLOT (nv_graphe_aleatoire()));
-  QObject::connect(ui->actionEnrengistrer,SIGNAL(clicked()),this, SLOT (Enregistrer()));
+  // ui->zoneDessin->afficher_Sommet(Sommet(50,50,"hey",0));
+  // ui->zoneDessin->show();
+  // Graphe g("G");
+
+  // g.ajout_Sommet(0,100, 100);
+  // g.ajout_Sommet(1,300, 300);
+  // g.ajout_Sommet(2,100, 300);
+  // g.ajout_Sommet(3,300, 100);
+  // g.ajout_Sommet(4,322, 455);
+  // g.ajout_Arc(0,1);
+  // g.ajout_Arc(0,2);
+  // ui->zoneDessin->setGraphe_dessine(g);
+  //
+
+  QObject::connect(ui->actionNouveau_graphe,&QAction::activate,this, &MainWindow::nv_graphe_vide);
+  // QObject::connect(ui->actionNouveau_graphe_al_atoire,SIGNAL(clicked()),this, SLOT (nv_graphe_aleatoire()));
+/*  QObject::connect(ui->actionEnrengistrer,SIGNAL(clicked()),this, SLOT (Enregistrer()));
   QObject::connect(ui->actionEnrengistrer_sous,SIGNAL(clicked()),this, SLOT (Enregistrer_sous()));
   QObject::connect(ui->actionDupliquer_graphe,SIGNAL(clicked()),this, SLOT (Dupliquer_graphe()));
   QObject::connect(ui->actionSupprimer_graphe,SIGNAL(clicked()),this, SLOT (Supprimer_graphe()));
@@ -43,53 +45,83 @@ MainWindow::MainWindow(QWidget ∗parent = nullptr ) : QMainWindow(parent){
   QObject::connect(ui->actionExtraire_sous_graphe,SIGNAL(clicked()),this, SLOT (extraireSousGraphe()));
   QObject::connect(ui->actionArranger_sommets,SIGNAL(clicked()),this, SLOT (arrangerSommets()));
   QObject::connect(ui->actionFermer_graphe,SIGNAL(clicked()),this, SLOT (fermer_graphe()));
-  QObject::connect(ui->radioButton,SIGNAL(clicked()),this, SLOT (DBEaddSommet()));
-  QObject::connect(ui->radioButton_2,SIGNAL(clicked()),this, SLOT (DBEdeleteSommet()));
-  QObject::connect(ui->radioButton_3,SIGNAL(clicked()),this, SLOT (DBEselection()));
-  QObject::connect(ui->radioButton_4,SIGNAL(clicked()),this, SLOT (DBEaddArc()));
-  QObject::connect(ui->radioButton_5,SIGNAL(clicked()),this, SLOT (DBEdeleteArc()));
-
-
+  */
+  QObject::connect(ui->radioButton, &QRadioButton::toggled,this, &MainWindow::DBEaddSommet);
+  QObject::connect(ui->radioButton_2, &QRadioButton::toggled,this, &MainWindow::DBEdeleteSommet);
+  QObject::connect(ui->radioButton_3, &QRadioButton::toggled,this, &MainWindow::DBEselection);
+  QObject::connect(ui->radioButton_4, &QRadioButton::toggled,this, &MainWindow::DBEaddArc);
+  QObject::connect(ui->radioButton_5, &QRadioButton::toggled,this, &MainWindow::DBEdeleteArc);
 
 }
-MainWindow::~MainWindow();
-int MainWindow::printConsole(string nomMethode, string valRetFunc);
-int MainWindow::printCaraSelection();
-int MainWindow::ajouterOnglet(Qstring nomOnglet, Graphe G);
-int MainWindow::supprimerOnglet(Qstring nomOnglet);
+MainWindow::~MainWindow(){}
+int MainWindow::printConsole(string nomMethode, string valRetFunc){}
+int MainWindow::printCaraSelection(){}
+int MainWindow::ajouterOnglet(QString nomOnglet, Graphe G){}
+int MainWindow::supprimerOnglet(QString nomOnglet){}
 
-void MainWindow::nv_graphe_vide();
-void MainWindow::nv_graphe_aleatoire();
-void MainWindow::Enregistrer();
-void MainWindow::Charger();
-void MainWindow::Enregistrer_sous();
-void MainWindow::Dupliquer_graphe();
-void Supprimer_graphe();
-void Ford_Bellman();
-void Floyd_Warshall();
-void Degr_sortant();
-void Degr_entrant();
-void Degrs_entrant_et_sortant();
-void Coloration_de_graphe();
-void Determinaison_de_stables();
-void Determinaison_de_cliques();
-void Voisins_de_sommets();
-void Gestion_de_flots();
-void Creer_un_graphe_dordonnancement();
-void Arborescence();
-void AntiArborescence();
-void Recherche_de_la_connexite();
-void Trouver_chaine_eulerienne();
-void Trouver_chaine_hamiltonienne();
-void Postier_chinois();
-void Voyageur_de_commerce();
-void Documentation();
-void Github();
-void extraireSousGraphe();
-void arrangerSommets();
-void fermer_graphe();
-void DBEselection();
-void DBEaddSommet();
-void DBEaddArc();
-void DBEdeleteSommet();
-void DBEdeleteArc();
+void MainWindow::nv_graphe_vide(){
+   qDebug()<<"HEY";
+}
+void MainWindow::nv_graphe_aleatoire(){
+  qDebug()<<"HEY";
+
+}
+void MainWindow::Enregistrer(){}
+void MainWindow::Charger(){}
+void MainWindow::Enregistrer_sous(){}
+void MainWindow::Dupliquer_graphe(){}
+void MainWindow::Supprimer_graphe(){}
+void MainWindow::Ford_Bellman(){}
+void MainWindow::Floyd_Warshall(){}
+void MainWindow::Degr_sortant(){}
+void MainWindow::Degr_entrant(){}
+void MainWindow::Degrs_entrant_et_sortant(){}
+void MainWindow::Coloration_de_graphe(){}
+void MainWindow::Determinaison_de_stables(){}
+void MainWindow::Determinaison_de_cliques(){}
+void MainWindow::Voisins_de_sommets(){}
+void MainWindow::Gestion_de_flots(){}
+void MainWindow::Creer_un_graphe_dordonnancement(){}
+void MainWindow::Arborescence(){}
+void MainWindow::AntiArborescence(){}
+void MainWindow::Recherche_de_la_connexite(){}
+void MainWindow::Trouver_chaine_eulerienne(){}
+void MainWindow::Trouver_chaine_hamiltonienne(){}
+void MainWindow::Postier_chinois(){}
+void MainWindow::Voyageur_de_commerce(){}
+void MainWindow::Documentation(){}
+void MainWindow::Github(){}
+void MainWindow::extraireSousGraphe(){}
+void MainWindow::arrangerSommets(){}
+void MainWindow::fermer_graphe(){}
+void MainWindow::DBEselection(bool checked){
+  if (checked){
+    ui->zoneDessin->setProperty("DBE", 1);
+    qDebug()<<"selection";
+  }
+}
+void MainWindow::DBEaddSommet(bool checked){
+  if (checked){
+    ui->zoneDessin->setProperty("DBE", 2);
+    qDebug()<<"addS";
+  }
+}
+void MainWindow::DBEaddArc(bool checked){
+  if (checked){
+    ui->zoneDessin->setProperty("DBE", 3);
+    qDebug()<<"addA";
+  }
+}
+void MainWindow::DBEdeleteSommet(bool checked){
+  if (checked){
+    ui->zoneDessin->setProperty("DBE", 4);
+    qDebug()<<"delS";
+  }
+}
+void MainWindow::DBEdeleteArc(bool checked){
+  if (checked){
+    ui->zoneDessin->setProperty("DBE", 5);
+    qDebug()<<"delA";
+
+  }
+}

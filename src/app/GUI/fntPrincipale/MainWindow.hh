@@ -3,7 +3,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QString>
-#include "UI_MainWindow.hh"
+#include <QDebug>
+#include "mainwindow_copy.hh"
 #include "../../../bib/bib.hh"
 
 //QT BEGIN NAMESPACE //chelou à voir si c'est vraiment utile
@@ -58,11 +59,11 @@ public slots :
   void extraireSousGraphe();
   void arrangerSommets();
   void fermer_graphe();
-  void DBEselection();
-  void DBEaddSommet();
-  void DBEaddArc();
-  void DBEdeleteSommet();
-  void DBEdeleteArc();
+  void DBEselection(bool checked);
+  void DBEaddSommet(bool checked);
+  void DBEaddArc(bool checked);
+  void DBEdeleteSommet(bool checked);
+  void DBEdeleteArc(bool checked);
 };
 
 #endif
