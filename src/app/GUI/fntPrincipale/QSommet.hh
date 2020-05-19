@@ -4,6 +4,8 @@
 #include <QGraphicsItem>
 #include <map>
 #include <vector>
+#include <QPen>
+#include <QPainter>
 #include "../../../bib/bib.hh"
 
 //Taille du rayon des QSommets en pixel
@@ -38,6 +40,7 @@ public:
     void setCoul(QColor color);
     void setSelect(bool select);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 };

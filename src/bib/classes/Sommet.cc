@@ -138,6 +138,6 @@ void Sommet::afficher_Sommet(){
 	for(int i = 0; i<this->vecArc.size(); i++){
 		cout << vecArc[i] << "  ";
 	}
-	cout << "} \n" << endl; 
-	
+	cout << "} \n" << endl;
+
 }

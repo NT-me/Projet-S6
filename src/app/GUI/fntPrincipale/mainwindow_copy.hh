@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'MainWindow.ui'
+** Form generated from reading UI file 'mainwindow_copy.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.9.5
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_MAINWINDOW_H
-#define UI_MAINWINDOW_H
+#ifndef UI_MAINWINDOW_COPY_H
+#define UI_MAINWINDOW_COPY_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -66,7 +66,7 @@ public:
     QAction *actionArranger_sommets;
     QAction *actionExtraire_sous_graphe;
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_3;
     QTabWidget *tabWidget;
     QWidget *tab;
     QHBoxLayout *horizontalLayout;
@@ -74,6 +74,7 @@ public:
     QZoneDeDessin *zoneDessin;
     QWidget *verticalWidget;
     QVBoxLayout *verticalLayout;
+    QFrame *line;
     QLabel *label;
     QToolBox *toolBox;
     QWidget *pageSommet;
@@ -87,7 +88,6 @@ public:
     QGridLayout *gridLayout_2;
     QRadioButton *radioButton_4;
     QRadioButton *radioButton_5;
-    QFrame *line;
     QTextBrowser *caraSelection;
     QTextBrowser *console;
     QMenuBar *menubar;
@@ -167,11 +167,11 @@ public:
         actionExtraire_sous_graphe->setObjectName(QStringLiteral("actionExtraire_sous_graphe"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayout_3 = new QVBoxLayout(centralwidget);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        horizontalLayout_3 = new QHBoxLayout(centralwidget);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tab = new QWidget(MainWindow);
+        tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         horizontalLayout = new QHBoxLayout(tab);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -184,13 +184,27 @@ public:
 
         horizontalLayout_2->addWidget(zoneDessin);
 
-        verticalWidget = new QWidget(tab);
+
+        horizontalLayout->addLayout(horizontalLayout_2);
+
+        tabWidget->addTab(tab, QString());
+
+        horizontalLayout_3->addWidget(tabWidget);
+
+        verticalWidget = new QWidget(centralwidget);
         verticalWidget->setObjectName(QStringLiteral("verticalWidget"));
         verticalWidget->setMinimumSize(QSize(356, 0));
         verticalWidget->setMaximumSize(QSize(356, 16777215));
         verticalLayout = new QVBoxLayout(verticalWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        line = new QFrame(verticalWidget);
+        line->setObjectName(QStringLiteral("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout->addWidget(line);
+
         label = new QLabel(verticalWidget);
         label->setObjectName(QStringLiteral("label"));
 
@@ -200,10 +214,10 @@ public:
         toolBox->setObjectName(QStringLiteral("toolBox"));
         pageSommet = new QWidget();
         pageSommet->setObjectName(QStringLiteral("pageSommet"));
-        pageSommet->setGeometry(QRect(0, 0, 338, 69));
+        pageSommet->setGeometry(QRect(0, 0, 338, 68));
         layoutWidget = new QWidget(pageSommet);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(0, 0, 73, 65));
+        layoutWidget->setGeometry(QRect(0, 0, 90, 77));
         gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -225,10 +239,10 @@ public:
         toolBox->addItem(pageSommet, QStringLiteral("Sommet"));
         pageArc = new QWidget();
         pageArc->setObjectName(QStringLiteral("pageArc"));
-        pageArc->setGeometry(QRect(0, 0, 338, 69));
+        pageArc->setGeometry(QRect(0, 0, 338, 68));
         layoutWidget1 = new QWidget(pageArc);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 0, 83, 42));
+        layoutWidget1->setGeometry(QRect(10, 0, 101, 50));
         gridLayout_2 = new QGridLayout(layoutWidget1);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -246,13 +260,6 @@ public:
 
         verticalLayout->addWidget(toolBox);
 
-        line = new QFrame(verticalWidget);
-        line->setObjectName(QStringLiteral("line"));
-        line->setFrameShape(QFrame::HLine);
-        line->setFrameShadow(QFrame::Sunken);
-
-        verticalLayout->addWidget(line);
-
         caraSelection = new QTextBrowser(verticalWidget);
         caraSelection->setObjectName(QStringLiteral("caraSelection"));
 
@@ -264,19 +271,12 @@ public:
         verticalLayout->addWidget(console);
 
 
-        horizontalLayout_2->addWidget(verticalWidget);
-
-
-        horizontalLayout->addLayout(horizontalLayout_2);
-
-        tabWidget->addTab(tab, QString());
-
-        verticalLayout_3->addWidget(tabWidget);
+        horizontalLayout_3->addWidget(verticalWidget);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 981, 21));
+        menubar->setGeometry(QRect(0, 0, 981, 20));
         menuFichier = new QMenu(menubar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menuEidition = new QMenu(menubar);
@@ -382,6 +382,7 @@ public:
         actionFermer_graphe->setText(QApplication::translate("MainWindow", "Fermer graphe", Q_NULLPTR));
         actionArranger_sommets->setText(QApplication::translate("MainWindow", "Arranger sommets", Q_NULLPTR));
         actionExtraire_sous_graphe->setText(QApplication::translate("MainWindow", "Extraire sous graphe", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Graphe 1", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "Outils :", Q_NULLPTR));
         radioButton->setText(QApplication::translate("MainWindow", "Ajout", Q_NULLPTR));
         radioButton_2->setText(QApplication::translate("MainWindow", "Supprimer", Q_NULLPTR));
@@ -393,15 +394,14 @@ public:
         caraSelection->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Caract\303\251risitque de la s\303\251l\303\251ction</p></body></html>", Q_NULLPTR));
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt;\">Caract\303\251risitque de la s\303\251l\303\251ction</span></p></body></html>", Q_NULLPTR));
         console->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Console</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">(affichage des r\303\251sultats des algo qui ne dessinent rien)</p></body></html>", Q_NULLPTR));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Graphe 1", Q_NULLPTR));
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt;\">Console</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt;\">(affichage des r\303\251sultats des algo qui ne dessinent rien)</span></p></body></html>", Q_NULLPTR));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", Q_NULLPTR));
         menuEidition->setTitle(QApplication::translate("MainWindow", "Edition", Q_NULLPTR));
         menuAlgorithmes->setTitle(QApplication::translate("MainWindow", "Algorithmes", Q_NULLPTR));
@@ -419,4 +419,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_MAINWINDOW_H
+#endif // UI_MAINWINDOW_COPY_H

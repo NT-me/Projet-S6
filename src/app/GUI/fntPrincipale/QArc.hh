@@ -2,7 +2,10 @@
 #define H_QARC
 
 #include <QGraphicsItem>
+#include <QDebug>
 #include <QList>
+#include <QGraphicsLineItem>
+#include <QtMath>
 #include "QSommet.hh"
 #include "../../../bib/bib.hh"
 
@@ -32,6 +35,7 @@ public:
     void setPosXB(int x);
     void setPosYB(int y);
 
+    QPainterPath shape() const;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
