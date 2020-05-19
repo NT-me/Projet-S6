@@ -2,14 +2,13 @@
 
 QZoneDeDessin::QZoneDeDessin(QWidget *parent_) : QGraphicsView(parent_), graphe_dessine("EMPTY_GRAPH"){
 this->selected_list = {};
-// this->setSceneRect(50, 50, 350, 350);
+// this->setSceneRect(0, 0, 350, 350);
 this->sc = new QGraphicsScene;
 // this->sc->addItem(&itemParent);
 QGraphicsView::setScene(sc);
 
-
 // test
-setProperty("DBE", 4);
+
 
 qDebug()<<parent()->parent();
 }
@@ -199,6 +198,8 @@ void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
               if(QSb->getID() == selected_list[0]){
                 dessiner_arc(QSb->getPosX(), QSb->getPosY(), QS->getPosX(), QS->getPosY());
                 razSelected_list();
+                qDebug()<<QS;
+                qDebug()<<QSb;
                 QS->setSelect(0);
                 QSb->setSelect(0);
                 QS->update();
