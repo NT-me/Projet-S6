@@ -110,14 +110,81 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){}
 vector<int> postier_chinois(Matrice M){}
 * 
 */
-Graphe prolonge_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
+
+Matrice reduction(Matrice M, int* SommeReduc)
+{
+	int Reduc;
+	int i,j; 
+	vector<vector <int>> T, L;
+	Matrice N = Matrice(M);
+	
+	T = M.getTab();
+	L = M.getTab();
+	
+	printf("Réductionn ligne\n");
+	for(i=0; i<M.gettV(); i++)	//Calcul réduction sur les lignes
+	{
+		Reduc = 100000000;
+		for(j=0; j<M.gettV(); j++)
+		{
+			if(T[i][j]<Reduc && T[i][j]>-1)
+			{
+				Reduc = T[i][j];	//Calcul min de la ligne
+				printf("Reduc = %d\n",Reduc);
+			}
+		}
+		
+		SommeReduc = SommeReduc+Reduc;	//Calcul noeud racine
+
+		
+		for(j=0; j<M.gettV(); j++)
+		{
+			L[i][j] = T[i][j] - Reduc;		//Création de la matrice partiellement réduite
+			printf("L[%d][%d] = %d\n",i,j,L[i][j]);
+		}
+	}
+	
+	printf("Réduction colonne\n");
+	
+	for(j=0; j<M.gettV(); j++)	//Calcul réduction sur les colonnes
+	{
+		Reduc = L[0][j];
+		for(i=0; i<M.gettV(); i++)
+		{
+			if(L[i][j]<Reduc && T[i][j]>-1)
+			{
+				Reduc = L[i][j];	//min de la colonne
+				printf("Reduc = %d\n", Reduc);
+			}
+		}
+		
+		SommeReduc = SommeReduc + Reduc;	//Calcul du noeud racine
+		
+		for(i=0; i<M.gettV(); i++)
+		{
+			L[i][j] = L[i][j] - Reduc;		//Création de la matrice réduite
+			printf("L[%d][%d] = %d\n",i,j,L[i][j]);
+		}
+	}
+	N.setTab(L);
+	printf("done");
+	
+	//~ if(arbre.getListe_Sommets().size() == 0)
+	//~ {
+		//~ string etiquette = "racine";
+		//~ Sommet racine = Sommet(1, 1, etiquette,   
+		//~ // en gros il faut ajouter le sommet racine au graphe arbre avec abre.push_back(Sommet S); en gros
+	//~ }
+	return N;
+}
+void prolonge_arbre(int* somme_reduc, Matrice reduite, Graphe &arbre, int ID_sommet_a_visiter, vector<int> sommet_visiter_plus_tard)
 {
 	
 	
 	//on ne fait pas le premier cas, où la racine dois etre crée.
 	//Ici, on va créer l'arbre à partir de la matrice des regrets.
     vector< vector<int> > tableau = reduite.getTab();	
-    vector< vector<int>> regrets; // on ajoutera des vecteur avec trois element, dans ce vecteur regrets
+    vector< vector<int>> regrets; // on ajoutera des vecteur avec trois elements, dans ce vecteur regrets
     
     //pour un vecteur donner, il y aura:
     //1er element -> regret
@@ -273,6 +340,7 @@ Graphe prolonge_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 	
 	//////////////////////////////////////////
 	// Ici il faudrait la valeur du nouveau somme réduc de la prochaine reudction de la matrice
+	reduite = reduction(reduite, somme_reduc);
 	Sans_chemin[a]={somme_reduc + regret};
 	///////////////////////////////////////////
 	
@@ -288,75 +356,25 @@ Graphe prolonge_arbre(int somme_reduc, Matrice reduite, Graphe arbre)
 	
 	arbre.ajout_Arc(taille, taille+2);
 	arbre.ajout_Arc(taille, taille+1);
-
-	return arbre;
-}
-Matrice reduction(Matrice M, int* SommeReduc)
-{
-	int Reduc;
-	int i,j; 
-	vector<vector <int>> T, L;
-	Matrice N = Matrice(M);
 	
-	T = M.getTab();
-	L = M.getTab();
-	
-	printf("Réductionn ligne\n");
-	for(i=0; i<M.gettV(); i++)	//Calcul réduction sur les lignes
+	if(reduite.gettV() > 2)
 	{
-		Reduc = 100000000;
-		for(j=0; j<M.gettV(); j++)
-		{
-			if(T[i][j]<Reduc && T[i][j]>-1)
-			{
-				Reduc = T[i][j];	//Calcul min de la ligne
-				printf("Reduc = %d\n",Reduc);
-			}
-		}
 		
-		SommeReduc = SommeReduc+Reduc;	//Calcul noeud racine
+		prolonge_arbre(somme_reduc, reduite, arbre, taille+1, sommet_visiter_plus_tard);
+	}
+	/////////////////////////////////////////////////////
+	// PARTIE 5: IL FAUT VISITER LES AUTRES CHEMIN EXCLU
+	/////////////////////////////////////////////////////
+	
+	
 
-		
-		for(j=0; j<M.gettV(); j++)
-		{
-			L[i][j] = T[i][j] - Reduc;		//Création de la matrice partiellement réduite
-			printf("L[%d][%d] = %d\n",i,j,L[i][j]);
-		}
-	}
 	
-	printf("Réduction colonne\n");
-	
-	for(j=0; j<M.gettV(); j++)	//Calcul réduction sur les colonnes
-	{
-		Reduc = L[0][j];
-		for(i=0; i<M.gettV(); i++)
-		{
-			if(L[i][j]<Reduc && T[i][j]>-1)
-			{
-				Reduc = L[i][j];	//min de la colonne
-				printf("Reduc = %d\n", Reduc);
-			}
-		}
-		
-		SommeReduc = SommeReduc + Reduc;	//Calcul du noeud racine
-		
-		for(i=0; i<M.gettV(); i++)
-		{
-			L[i][j] = L[i][j] - Reduc;		//Création de la matrice réduite
-			printf("L[%d][%d] = %d\n",i,j,L[i][j]);
-		}
-	}
-	N.setTab(L);
-	printf("done");
-	return N;
 }
-
-vector<int> voyageur_de_commerce(vector<int>, Matrice M)
+vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 {
 	
-	int SommeReduc;
-	
-	
+	int* somme_reduc;
+	vector <int> sommet_visiter_plus_tard;
 	
 	int test;
 	if(M.getType()!=0)	//Test si c'est adj
@@ -389,10 +407,23 @@ vector<int> voyageur_de_commerce(vector<int>, Matrice M)
 	}
 	
 	
-	//Réduction de la matrice
-	Matrice N = reduction(M, &SommeReduc);
-	
+	reduction(M, somme_reduc);
 	
 	vector<int> juste_pour_le_retour_de_fonction_mais_a_supprimer;
 	return juste_pour_le_retour_de_fonction_mais_a_supprimer;
 }	
+int maint(){
+	  Matrice M(3);
+      vector <int> v1;
+      v1.push_back(1);
+  
+  
+	v1 = voyageur_de_commerce(v1,M );
+	
+	// test l'affichage du vecteur
+	for(int i = 0; i<10; i++)
+	{
+		printf("%d",v1[i]);
+	}
+	return 1;
+}
