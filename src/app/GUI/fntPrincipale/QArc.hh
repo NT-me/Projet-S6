@@ -35,6 +35,7 @@ public:
     void setPosXB(int x);
     void setPosYB(int y);
 
+    QPainterPath shape() const;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

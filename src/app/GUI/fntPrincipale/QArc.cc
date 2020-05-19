@@ -68,31 +68,65 @@ void QArc::setPosXB(int x){ prepareGeometryChange() ;this->posxB = x;}
 void QArc::setPosYB(int y){ prepareGeometryChange() ;this->posyB = y;}
 
 void QArc::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){}
+
 QRectF QArc::boundingRect() const{
   // QLineF l(posxA, posyA, posxB, posyB);
   // QGraphicsLineItem line(l);
   // return line.boundingRect();
+
+  return shape().boundingRect();
+  //return mapRectFromScene(QRectF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2), posxB-posxA-2*cos*radius+rx, posyB-posyA-2*sin*radius+ry).normalized());
+}
+
+QPainterPath QArc::shape() const{
+
   qreal sin =(posyB-posyA)/qSqrt( qPow(posxB-posxA,2) + qPow(posxB-posxA,2));
   qreal cos =(posxB-posxA)/qSqrt( qPow(posxB-posxA,2) + qPow(posxB-posxA,2));
-  qreal radius = TAILLE_RAYON;
-  qreal rx = 0;
-  qreal ry = 0;
+  qreal radius = TAILLE_RAYON+5;
 
-  if (qFabs(posyB-posyA) < 10 ) ry = 10;
   if (qFabs(posxB-posxA) < 10 ){
-    rx = 10;
     sin = (posyB-posyA)/qFabs(posyB-posyA);
     cos = 0;
   }
+  QPointF pA = mapFromScene(posxA+cos*radius,posyA+sin*radius);
+  QPointF pB = mapFromScene(posxB-cos*radius,posyB-sin*radius);
+  QPainterPath path;
+  QLineF line(pA.x(), pA.y(),pB.x(),pB.y());
+  qreal ep = 20;
+  // qreal hyp = qSqrt(line.length()/(line.length()*line.length()+ep*ep));
+  // qreal sinb = ep/hyp;
+  // qreal cosb = line.length()/hyp;
+  QPolygonF polygon;
+  QPointF pA1(pA.x()-sin*ep, pA.y()-cos*ep);
+  QPointF pA2(pA.x()+sin*ep, pA.y()+cos*ep);
+  QPointF pB1(pA.x()+cos*line.length()-sin*ep, pA.y()+sin*line.length()-cos*ep);
+  QPointF pB2(pA.x()+cos*line.length()+sin*ep, pA.y()+sin*line.length()+cos*ep);
+  // polygon <<pA2<<pA1<<pB1<<pB2;
+  // path.addPolygon(polygon);
+  path.moveTo(pA1);
+  path.lineTo(pA2);
+  path.lineTo(pB2);
+  path.lineTo(pB1);
+  path.lineTo(pA1);
+  return path;
+  // QPainterPath path(QPointF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2)));
+  // path.lineTo(QPointF(posyA+sin*radius-(ry/2)));
+  // path.lineTo(QPointF(posxB+cos*radius-(rx/2), posyB+sin*radius-(ry/2)));
+  //return mapRectFromScene(QRectF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2), posxB-posxA-2*cos*radius+rx, posyB-posyA-2*sin*radius+ry).normalized());
 
-  return mapRectFromScene(QRectF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2), posxB-posxA-2*cos*radius+rx, posyB-posyA-2*sin*radius+ry).normalized());
+  // return line.shape();
+  // return path;
 }
+
 void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
   // QRectF rect = boundingRect();
-  // QPen greenPen(Qt::green, 3 );
-  // painter->setPen(greenPen);
+  QPen greenPen(Qt::green, 6 );
+  painter->setPen(greenPen);
   // painter->drawRect(rect);
+  QPainterPath sha = shape();
+  painter->drawPath(sha);
 
+  prepareGeometryChange();
   QPen blackPen(Qt::black, 3 );
   painter->setPen(blackPen);
   QPoint firstp,secondp;
@@ -100,47 +134,55 @@ void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
   QPointF pB = mapFromScene(posxB,posyB);
   QBrush redBrush(Qt::red,Qt::SolidPattern);
 
-  // firstp.setX(pA.x()); firstp.setY(pA.y());
-  // secondp.setX(pB.x()); secondp.setY(pB.y());
-  // painter->drawLine(firstp,secondp);
+  firstp.setX(pA.x()); firstp.setY(pA.y());
+  secondp.setX(pB.x()); secondp.setY(pB.y());
+
   // QRectF tete(QPointF(secondp.x()-20,secondp.y()-20),QPointF(secondp.x()-10,secondp.y()-10));
   // painter->setBrush(redBrush);
   // painter->drawRect(tete);
   //
-  qreal a,b,d,e,f,x1,x2,y1,y2;
-  QPointF arrow,pI1,pI2;
+  double a,b,d,e,f,x1,x2,y1,y2;
+  QPointF arrow,pI1,pI2,pC;
   if(posxB-posxA != 0){
-    a = (posyB - posyA)/(posxB - posxA);
+    a = double(posyB - posyA)/double(posxB - posxA);
     b = posyA - a*posxA;
     d = 1+a*a;
     e = -2*posxB+2*a*b-2*a*posyB;
-    f = posxB*posxB+b*b+-2*b*posyB+posyB*posyB-(TAILLE_RAYON+5)*(TAILLE_RAYON+5);
+    f = posxB*posxB+b*b+-2*b*posyB+posyB*posyB-(TAILLE_RAYON+15)*(TAILLE_RAYON+15);
     x1 = (-e + qSqrt(e*e-4*d*f))/(2*d);
     x2 = (-e - qSqrt(e*e-4*d*f))/(2*d);
     y1 = a*x1+b;
     y2 = a*x2+b;
     pI1 = mapFromScene(x1,y1);
     pI2 = mapFromScene(x2,y2);
+    f = posxB*posxB+b*b+-2*b*posyB+posyB*posyB-(TAILLE_RAYON+15)*(TAILLE_RAYON+15);
     if(QLineF(pI1,pA).length()<QLineF(pI2,pA).length()) arrow = pI1;
     else arrow = pI2;
 
-    qDebug()<<a<<" "<<b<<" "<<d<<" "<<e<<" "<<f<<" "<<x1<<" "<<x2;
 
-  }else{
-    if (posyB-posyA > 0) arrow = mapFromScene(posxB,posyB + 5);
-    else  arrow = mapFromScene(posxB,posyB - 5);
+    // qDebug()<<a<<b<<d<<e<<f<<x1<<x2;
+    // qDebug()<<posxB<<posxA<<posyB<<posyA;
+
+  }
+  else{
+    if (posyB-posyA > 0)arrow = mapFromScene(posxB,posyB + 5);
+    else arrow = mapFromScene(posxB,posyB - 5);
   }
 
-  qDebug()<<"point intersection 1 "<<pI1;
-  qDebug()<<"point intersection 2 "<<pI2;
+  // qDebug()<<"point intersection 1 "<<pI1;
+  // qDebug()<<"point intersection 2 "<<pI2;
 
-  QBrush whiteBrush(Qt::white,Qt::SolidPattern);
-  QPen darkbluePen(Qt::darkBlue,3);
-  painter->setBrush(whiteBrush);
-  painter->drawEllipse(pA,TAILLE_RAYON,TAILLE_RAYON);
-  painter->drawEllipse(pB,TAILLE_RAYON,TAILLE_RAYON);
+  // QBrush whiteBrush(Qt::white,Qt::SolidPattern);
+  // QPen darkbluePen(Qt::darkBlue,3);
+  //
+  painter->drawLine(firstp,secondp);
+  // painter->setBrush(whiteBrush);
+  // painter->drawEllipse(pA,TAILLE_RAYON,TAILLE_RAYON);
+  // painter->drawEllipse(pB,TAILLE_RAYON,TAILLE_RAYON);
 
   painter->setBrush(redBrush);
   painter->drawEllipse(arrow,5,5);
+  QPainterPath path;
+  path.moveTo(arrow);
 
 }
