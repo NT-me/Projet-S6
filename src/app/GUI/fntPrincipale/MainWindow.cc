@@ -707,7 +707,7 @@ void MainWindow::Voyageur_de_commerce(){
 
 void MainWindow::Documentation(){
   QMessageBox msgBox;
-  msgBox.setText("<a href=''>Documentation</a>");
+  msgBox.setText("<a href='../../../../../doc/html/index.html'>Documentation</a>");
   msgBox.exec();
 }
 void MainWindow::Github(){
