@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   // QObject::connect(ui->actionVoisins_de_sommets,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionGEstion_de_flots,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionCr_er_un_graphe_d_ordonnancement,&QAction::triggered,this, &MainWindow:: ;
-  // QObject::connect(ui->actionArborescence,&QAction::triggered,this, &MainWindow:: ;
-  // QObject::connect(ui->actionAnti_Arborescence,&QAction::triggered,this, &MainWindow:: ;
+  QObject::connect(ui->actionArborescence,&QAction::triggered,this, &MainWindow::Arborescence) ;
+  QObject::connect(ui->actionAnti_Arborescence,&QAction::triggered,this, &MainWindow::AntiArborescence) ;
   // QObject::connect(ui->actionRecherche_de_la_connexit,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionTrouver_chaine_eul_rienne,&QAction::triggered,this, &MainWindow::;
   // QObject::connect(ui->actionTrouver_chaine_hamiltonienne,&QAction::triggered,this, &MainWindow::;
@@ -330,8 +330,78 @@ void MainWindow::Determinaison_de_cliques(){}
 void MainWindow::Voisins_de_sommets(){}
 void MainWindow::Gestion_de_flots(){}
 void MainWindow::Creer_un_graphe_dordonnancement(){}
-void MainWindow::Arborescence(){}
-void MainWindow::AntiArborescence(){}
+void MainWindow::Arborescence(){
+  QWidget *tab = new QWidget();
+  tab->setObjectName(QStringLiteral("tab"));
+  QHBoxLayout *horizontalLayout = new QHBoxLayout(tab);
+  horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+  QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
+  horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+  horizontalLayout_2->setContentsMargins(-1, 0, -1, -1);
+  QZoneDeDessin* zoneDessin = new QZoneDeDessin(tab);
+  zoneDessin->setObjectName(QStringLiteral("zoneDessin"));
+  zoneDessin->setMinimumSize(QSize(575, 0));
+  horizontalLayout_2->addWidget(zoneDessin);
+  horizontalLayout->addLayout(horizontalLayout_2);
+  QString str = "Arborescence "+ui->tabWidget->tabText(ui->tabWidget->currentIndex());
+
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  g = arborescence(g);
+  vector<Sommet> ls =  g.getListe_Sommets();
+  if(ls[0].getID()==-1){
+    printConsole("Arborescence", "Impossible de trouver une arborescence");
+
+  }
+  else{
+    for(int g=0;g<ls.size();++g){
+      QRandomGenerator qrg(g*1200);
+
+      ls[g].setPosX(100+qrg.bounded(-100,100)*g);
+      ls[g].setPosY(100+g*200);
+    }
+    g.setListe_Sommet(ls);
+    zoneDessin->setGraphe_dessine(g);
+    ui->tabWidget->addTab(tab,str);
+
+    printConsole("Arborescence", "Création de l'arborescence du graphe courant");
+  }
+}
+void MainWindow::AntiArborescence(){
+  QWidget *tab = new QWidget();
+  tab->setObjectName(QStringLiteral("tab"));
+  QHBoxLayout *horizontalLayout = new QHBoxLayout(tab);
+  horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+  QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
+  horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+  horizontalLayout_2->setContentsMargins(-1, 0, -1, -1);
+  QZoneDeDessin* zoneDessin = new QZoneDeDessin(tab);
+  zoneDessin->setObjectName(QStringLiteral("zoneDessin"));
+  zoneDessin->setMinimumSize(QSize(575, 0));
+  horizontalLayout_2->addWidget(zoneDessin);
+  horizontalLayout->addLayout(horizontalLayout_2);
+  QString str = "Anti_arborescence "+ui->tabWidget->tabText(ui->tabWidget->currentIndex());
+
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  g = anti_arborescence(g);
+  vector<Sommet> ls =  g.getListe_Sommets();
+  if(ls[0].getID()==-1){
+    printConsole("Anti_arborescence", "Impossible de trouver une anti arborescence");
+
+  }
+  else{
+    for(int g=0;g<ls.size();++g){
+      QRandomGenerator qrg(g*1200);
+
+      ls[g].setPosX(100+qrg.bounded(-100,100)*g);
+      ls[g].setPosY(100+g*200);
+    }
+    g.setListe_Sommet(ls);
+    zoneDessin->setGraphe_dessine(g);
+    ui->tabWidget->addTab(tab,str);
+
+    printConsole("Anti_arborescence", "Création de l'anti arborescence du graphe courant");
+  }
+}
 void MainWindow::Recherche_de_la_connexite(){}
 void MainWindow::Trouver_chaine_eulerienne(){}
 void MainWindow::Trouver_chaine_hamiltonienne(){}
