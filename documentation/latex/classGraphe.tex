@@ -1,0 +1,357 @@
+\hypertarget{classGraphe}{}\section{Graphe Class Reference}
+\label{classGraphe}\index{Graphe@{Graphe}}
+
+
+Classe \hyperlink{classGraphe}{Graphe} Cette classe rep\'{e}sente un \hyperlink{classGraphe}{Graphe} orient\'{e}.  
+
+
+
+
+{\ttfamily \#include $<$Graphe\+Matrice.\+hh$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGraphe_ad2f9489948e74e09a50206604e3094a6}{Graphe} (string nom, vector$<$ \hyperlink{classSommet}{Sommet} $>$ listeS, vector$<$ \hyperlink{classArc}{Arc} $>$ listeA, string path)
+\begin{DoxyCompactList}\small\item\em Chemin où enregister le graphe. \end{DoxyCompactList}\item 
+\hyperlink{classGraphe_a08c0cf19eaf01a97a976ab76d7e0df7b}{Graphe} (string nom)
+\begin{DoxyCompactList}\small\item\em Constructeur de \hyperlink{classGraphe}{Graphe} Constructeur de \hyperlink{classGraphe}{Graphe} vide. Les vecteurs liste\+\_\+\+Arcs et liste\+\_\+\+Sommets sont vides, et l\textquotesingle{}attribut path est mis \`{a} N\+U\+LL. \end{DoxyCompactList}\item 
+\hyperlink{classGraphe_a8d0d20eb7e5d2f4edb5a95d5dbfd1c87}{Graphe} (\hyperlink{classMatrice}{Matrice} \&M)
+\begin{DoxyCompactList}\small\item\em Constructeur de \hyperlink{classGraphe}{Graphe} Constructeur de graphe  partir d\textquotesingle{}une \hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence ou d\textquotesingle{}incidence. \end{DoxyCompactList}\item 
+\hyperlink{classGraphe_a997c9551ac4c6416d2ea587c1a4f1206}{Graphe} (const \hyperlink{classGraphe}{Graphe} \&G)
+\begin{DoxyCompactList}\small\item\em Constructeur de \hyperlink{classGraphe}{Graphe} Constructeur par copie \`{a} partir d\textquotesingle{}un graphe d\'{e}j\`{a} existant. \end{DoxyCompactList}\item 
+\hyperlink{classGraphe_afae3a2bc32d94c1a830bca8e0b8753b0}{Graphe} (vector$<$ vector$<$ int $>$$>$ liste\+\_\+voisin)
+\begin{DoxyCompactList}\small\item\em Constructeur de \hyperlink{classGraphe}{Graphe} Construit un \hyperlink{classGraphe}{Graphe} \`{a} partir d\textquotesingle{}une liste de voisin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_a673c897db564767e9ace7169a5357310}\label{classGraphe_a673c897db564767e9ace7169a5357310}} 
+\hyperlink{classGraphe_a673c897db564767e9ace7169a5357310}{$\sim$\+Graphe} ()
+\begin{DoxyCompactList}\small\item\em Destructeur d\textquotesingle{}objets Graphes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_ac0868c53dbe9a489986e1837e79c5b2f}\label{classGraphe_ac0868c53dbe9a489986e1837e79c5b2f}} 
+string {\bfseries get\+Etiq} () const
+\item 
+\mbox{\Hypertarget{classGraphe_a14e25421d8e7f61da768946f4ef05bc9}\label{classGraphe_a14e25421d8e7f61da768946f4ef05bc9}} 
+vector$<$ \hyperlink{classArc}{Arc} $>$ \hyperlink{classGraphe_a14e25421d8e7f61da768946f4ef05bc9}{get\+Liste\+\_\+\+Arcs} () const
+\begin{DoxyCompactList}\small\item\em Getter de l\textquotesingle{}identifiant du \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_ac8688830a2c733962216f851b23b5a9f}\label{classGraphe_ac8688830a2c733962216f851b23b5a9f}} 
+vector$<$ \hyperlink{classSommet}{Sommet} $>$ \hyperlink{classGraphe_ac8688830a2c733962216f851b23b5a9f}{get\+Liste\+\_\+\+Sommets} () const
+\begin{DoxyCompactList}\small\item\em Getter de la liste d\textquotesingle{}Arcs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_accd124066f3953df54c1f5fb73d39b54}\label{classGraphe_accd124066f3953df54c1f5fb73d39b54}} 
+string \hyperlink{classGraphe_accd124066f3953df54c1f5fb73d39b54}{get\+Path} () const
+\begin{DoxyCompactList}\small\item\em Getter de la liste de Sommets. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_a41ff50c1405de7a9c88d17a3ecb9095a}\label{classGraphe_a41ff50c1405de7a9c88d17a3ecb9095a}} 
+void \hyperlink{classGraphe_a41ff50c1405de7a9c88d17a3ecb9095a}{set\+Etiq} (string etiq)
+\begin{DoxyCompactList}\small\item\em Getter du path du \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_a7de3ad9104a0bd1e1ccae650314bc6da}\label{classGraphe_a7de3ad9104a0bd1e1ccae650314bc6da}} 
+void \hyperlink{classGraphe_a7de3ad9104a0bd1e1ccae650314bc6da}{set\+Liste\+\_\+\+Arc} (vector$<$ \hyperlink{classArc}{Arc} $>$ LA)
+\begin{DoxyCompactList}\small\item\em Setter de l\textquotesingle{}identifiant du \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_a8b8c15064f7dfe3956ee3970d75746b9}\label{classGraphe_a8b8c15064f7dfe3956ee3970d75746b9}} 
+void \hyperlink{classGraphe_a8b8c15064f7dfe3956ee3970d75746b9}{set\+Liste\+\_\+\+Sommet} (vector$<$ \hyperlink{classSommet}{Sommet} $>$ LS)
+\begin{DoxyCompactList}\small\item\em Setter de la liste d\textquotesingle{}Arcs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_a095394afec7d1309457a220569b8a650}\label{classGraphe_a095394afec7d1309457a220569b8a650}} 
+void \hyperlink{classGraphe_a095394afec7d1309457a220569b8a650}{set\+Path} (string p)
+\begin{DoxyCompactList}\small\item\em Setter de la liste de Sommets. \end{DoxyCompactList}\item 
+\hyperlink{classMatrice}{Matrice} \hyperlink{classGraphe_ae0ef7b4cd97f485e0b2fe5b207f9a74f}{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+adj} ()
+\begin{DoxyCompactList}\small\item\em Setter du path du \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+\hyperlink{classMatrice}{Matrice} \hyperlink{classGraphe_a34bc333a9a60b6f96725e2b5763a7006}{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+inc} ()
+\begin{DoxyCompactList}\small\item\em Convertit le \hyperlink{classGraphe}{Graphe} en \hyperlink{classMatrice}{Matrice} d\textquotesingle{}incidence. \end{DoxyCompactList}\item 
+vector$<$ vector$<$ int $>$ $>$ \hyperlink{classGraphe_a7ee55f56bc5cac67f4daa82ef915b5e5}{conversion\+\_\+vers\+\_\+liste\+De\+Voisins} ()
+\begin{DoxyCompactList}\small\item\em Convertit le \hyperlink{classGraphe}{Graphe} en liste de voisins. \end{DoxyCompactList}\item 
+int \hyperlink{classGraphe_ae501e7d5b132c91325a15aa6b8f18440}{ajout\+\_\+\+Sommet} (int id, int posx, int posy)
+\begin{DoxyCompactList}\small\item\em Ajout d\textquotesingle{}un \hyperlink{classSommet}{Sommet} Cette m\'{e}thode permet d\textquotesingle{}ajouter un Sommmet dans le \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+int \hyperlink{classGraphe_a8e0efe2e1804f5b9cc02ffc40bb34fcd}{supprimer\+\_\+\+Sommet} (int id)
+\begin{DoxyCompactList}\small\item\em Supprime un \hyperlink{classSommet}{Sommet} Cette m\'{e}thode permet de supprimer un \hyperlink{classSommet}{Sommet} du \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+int \hyperlink{classGraphe_a2e3c57c9d928066d81e880b1231a626c}{ajout\+\_\+\+Arc} (int id\+\_\+\+Sdepart, int id\+\_\+\+Sarrive)
+\begin{DoxyCompactList}\small\item\em Ajout d\textquotesingle{}\hyperlink{classArc}{Arc} Cette m\'{e}thode permet d\textquotesingle{}ajouter un \hyperlink{classArc}{Arc} dans le \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+int \hyperlink{classGraphe_ae547f8dcd9f8e4c23b314a26cc04de06}{supprimer\+\_\+\+Arc} (int id)
+\begin{DoxyCompactList}\small\item\em Suppression D\textquotesingle{}\hyperlink{classArc}{Arc} Cette m\'{e}thode permet de supprimer une \hyperlink{classArc}{Arc} dans le \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{classSommet}{Sommet} $>$ \hyperlink{classGraphe_adabde97f8f099447c50bfb050e215c01}{get\+Vecteur\+Sommet} (vector$<$ int $>$ id)
+\begin{DoxyCompactList}\small\item\em R\'{e}cupere un vecteur de sommets Cette méeacute;thode r\'{e}cupere un vecteur de sommets correspondant au vecteur d\textquotesingle{}id en parametre. \end{DoxyCompactList}\item 
+bool \hyperlink{classGraphe_af1333b4eb62b330dd004764342622e52}{operator==} (\hyperlink{classGraphe}{Graphe} const \&G1) const
+\begin{DoxyCompactList}\small\item\em Surcharge de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}\'{e}galit\'{e} Cette m\'{e}thode permet de v\'{e}fifier si deux objets Graphes sont bien identiques. \end{DoxyCompactList}\item 
+bool \hyperlink{classGraphe_ae75822e0de166927c13e63bd8e738491}{operator!=} (\hyperlink{classGraphe}{Graphe} const \&G1)
+\begin{DoxyCompactList}\small\item\em Surcharge de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}in\'{e}galit\'{e} Cette m\'{e}thode permet de v\'{e}rifier si deux objets Graphes sont diff\'{e}rents. \end{DoxyCompactList}\item 
+\hyperlink{classGraphe}{Graphe} \hyperlink{classGraphe_ae72a0836b560b51da3d82d3d4ff3a7c0}{operator=} (\hyperlink{classGraphe}{Graphe} const \&G1)
+\begin{DoxyCompactList}\small\item\em Surchage de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}affectation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGraphe_a6f7473b9ed89786ea71dfd2c6ee4b0c2}\label{classGraphe_a6f7473b9ed89786ea71dfd2c6ee4b0c2}} 
+void \hyperlink{classGraphe_a6f7473b9ed89786ea71dfd2c6ee4b0c2}{affiche\+\_\+graphe} ()
+\begin{DoxyCompactList}\small\item\em Affiche l\textquotesingle{}objet \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe \hyperlink{classGraphe}{Graphe} Cette classe rep\'{e}sente un \hyperlink{classGraphe}{Graphe} orient\'{e}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGraphe_ad2f9489948e74e09a50206604e3094a6}\label{classGraphe_ad2f9489948e74e09a50206604e3094a6}} 
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{Graphe()}{Graphe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily Graphe\+::\+Graphe (\begin{DoxyParamCaption}\item[{string}]{nom,  }\item[{vector$<$ \hyperlink{classSommet}{Sommet} $>$}]{listeS,  }\item[{vector$<$ \hyperlink{classArc}{Arc} $>$}]{listeA,  }\item[{string}]{path }\end{DoxyParamCaption})}
+
+
+
+Chemin où enregister le graphe. 
+
+Constructeur de \hyperlink{classGraphe}{Graphe} 
+\begin{DoxyParams}{Parameters}
+{\em nom} & Nom du \hyperlink{classGraphe}{Graphe} \\
+\hline
+{\em listeS} & Liste de sommets du \hyperlink{classGraphe}{Graphe} \\
+\hline
+{\em listeA} & Liste d\textquotesingle{}Arcs du \hyperlink{classGraphe}{Graphe} \\
+\hline
+{\em path} & Chemin du \hyperlink{classGraphe}{Graphe} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGraphe_a08c0cf19eaf01a97a976ab76d7e0df7b}\label{classGraphe_a08c0cf19eaf01a97a976ab76d7e0df7b}} 
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{Graphe()}{Graphe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily Graphe\+::\+Graphe (\begin{DoxyParamCaption}\item[{string}]{nom }\end{DoxyParamCaption})}
+
+
+
+Constructeur de \hyperlink{classGraphe}{Graphe} Constructeur de \hyperlink{classGraphe}{Graphe} vide. Les vecteurs liste\+\_\+\+Arcs et liste\+\_\+\+Sommets sont vides, et l\textquotesingle{}attribut path est mis \`{a} N\+U\+LL. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nom} & Nom du \hyperlink{classGraphe}{Graphe} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGraphe_a8d0d20eb7e5d2f4edb5a95d5dbfd1c87}\label{classGraphe_a8d0d20eb7e5d2f4edb5a95d5dbfd1c87}} 
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{Graphe()}{Graphe()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily Graphe\+::\+Graphe (\begin{DoxyParamCaption}\item[{\hyperlink{classMatrice}{Matrice} \&}]{M }\end{DoxyParamCaption})}
+
+
+
+Constructeur de \hyperlink{classGraphe}{Graphe} Constructeur de graphe  partir d\textquotesingle{}une \hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence ou d\textquotesingle{}incidence. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em M} & \hyperlink{classMatrice}{Matrice} du \hyperlink{classGraphe}{Graphe} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGraphe_a997c9551ac4c6416d2ea587c1a4f1206}\label{classGraphe_a997c9551ac4c6416d2ea587c1a4f1206}} 
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{Graphe()}{Graphe()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily Graphe\+::\+Graphe (\begin{DoxyParamCaption}\item[{const \hyperlink{classGraphe}{Graphe} \&}]{G }\end{DoxyParamCaption})}
+
+
+
+Constructeur de \hyperlink{classGraphe}{Graphe} Constructeur par copie \`{a} partir d\textquotesingle{}un graphe d\'{e}j\`{a} existant. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & \hyperlink{classGraphe}{Graphe}  copier \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGraphe_afae3a2bc32d94c1a830bca8e0b8753b0}\label{classGraphe_afae3a2bc32d94c1a830bca8e0b8753b0}} 
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\index{Graphe@{Graphe}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{Graphe()}{Graphe()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily Graphe\+::\+Graphe (\begin{DoxyParamCaption}\item[{vector$<$ vector$<$ int $>$$>$}]{liste\+\_\+voisin }\end{DoxyParamCaption})}
+
+
+
+Constructeur de \hyperlink{classGraphe}{Graphe} Construit un \hyperlink{classGraphe}{Graphe} \`{a} partir d\textquotesingle{}une liste de voisin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em liste\+\_\+voisin} & Liste de voisins du \hyperlink{classGraphe}{Graphe} \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classGraphe_a2e3c57c9d928066d81e880b1231a626c}\label{classGraphe_a2e3c57c9d928066d81e880b1231a626c}} 
+\index{Graphe@{Graphe}!ajout\+\_\+\+Arc@{ajout\+\_\+\+Arc}}
+\index{ajout\+\_\+\+Arc@{ajout\+\_\+\+Arc}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{ajout\+\_\+\+Arc()}{ajout\_Arc()}}
+{\footnotesize\ttfamily int Graphe\+::ajout\+\_\+\+Arc (\begin{DoxyParamCaption}\item[{int}]{id\+\_\+\+Sdepart,  }\item[{int}]{id\+\_\+\+Sarrive }\end{DoxyParamCaption})}
+
+
+
+Ajout d\textquotesingle{}\hyperlink{classArc}{Arc} Cette m\'{e}thode permet d\textquotesingle{}ajouter un \hyperlink{classArc}{Arc} dans le \hyperlink{classGraphe}{Graphe}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+\_\+\+Sdepart} & \hyperlink{classSommet}{Sommet} de d\'{e}part de l\textquotesingle{}\hyperlink{classArc}{Arc} \\
+\hline
+{\em id\+\_\+\+Sarrive} & \hyperlink{classSommet}{Sommet} d\textquotesingle{}arriv\'{e}e de l\textquotesingle{}\hyperlink{classArc}{Arc} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 Si l\textquotesingle{}\hyperlink{classArc}{Arc} est ajout\'{e} 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_ae501e7d5b132c91325a15aa6b8f18440}\label{classGraphe_ae501e7d5b132c91325a15aa6b8f18440}} 
+\index{Graphe@{Graphe}!ajout\+\_\+\+Sommet@{ajout\+\_\+\+Sommet}}
+\index{ajout\+\_\+\+Sommet@{ajout\+\_\+\+Sommet}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{ajout\+\_\+\+Sommet()}{ajout\_Sommet()}}
+{\footnotesize\ttfamily int Graphe\+::ajout\+\_\+\+Sommet (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{int}]{posx,  }\item[{int}]{posy }\end{DoxyParamCaption})}
+
+
+
+Ajout d\textquotesingle{}un \hyperlink{classSommet}{Sommet} Cette m\'{e}thode permet d\textquotesingle{}ajouter un Sommmet dans le \hyperlink{classGraphe}{Graphe}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Identifiant du \hyperlink{classSommet}{Sommet} \\
+\hline
+{\em posx} & Position du \hyperlink{classSommet}{Sommet} \\
+\hline
+{\em posy} & Position du \hyperlink{classSommet}{Sommet} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 Si l\textquotesingle{}ajout du \hyperlink{classSommet}{Sommet} est r\'{e}alis\'{e} 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_a7ee55f56bc5cac67f4daa82ef915b5e5}\label{classGraphe_a7ee55f56bc5cac67f4daa82ef915b5e5}} 
+\index{Graphe@{Graphe}!conversion\+\_\+vers\+\_\+liste\+De\+Voisins@{conversion\+\_\+vers\+\_\+liste\+De\+Voisins}}
+\index{conversion\+\_\+vers\+\_\+liste\+De\+Voisins@{conversion\+\_\+vers\+\_\+liste\+De\+Voisins}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{conversion\+\_\+vers\+\_\+liste\+De\+Voisins()}{conversion\_vers\_listeDeVoisins()}}
+{\footnotesize\ttfamily vector$<$ vector$<$ int $>$ $>$ Graphe\+::conversion\+\_\+vers\+\_\+liste\+De\+Voisins (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Convertit le \hyperlink{classGraphe}{Graphe} en liste de voisins. 
+
+\begin{DoxyReturn}{Returns}
+Liste de voisins 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_ae0ef7b4cd97f485e0b2fe5b207f9a74f}\label{classGraphe_ae0ef7b4cd97f485e0b2fe5b207f9a74f}} 
+\index{Graphe@{Graphe}!conversion\+\_\+vers\+\_\+\+Matrice\+\_\+adj@{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+adj}}
+\index{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+adj@{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+adj}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+adj()}{conversion\_vers\_Matrice\_adj()}}
+{\footnotesize\ttfamily \hyperlink{classMatrice}{Matrice} Graphe\+::conversion\+\_\+vers\+\_\+\+Matrice\+\_\+adj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Setter du path du \hyperlink{classGraphe}{Graphe}. 
+
+Convertit le \hyperlink{classGraphe}{Graphe} en \hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence \begin{DoxyReturn}{Returns}
+\hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence du \hyperlink{classGraphe}{Graphe} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_a34bc333a9a60b6f96725e2b5763a7006}\label{classGraphe_a34bc333a9a60b6f96725e2b5763a7006}} 
+\index{Graphe@{Graphe}!conversion\+\_\+vers\+\_\+\+Matrice\+\_\+inc@{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+inc}}
+\index{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+inc@{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+inc}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{conversion\+\_\+vers\+\_\+\+Matrice\+\_\+inc()}{conversion\_vers\_Matrice\_inc()}}
+{\footnotesize\ttfamily \hyperlink{classMatrice}{Matrice} Graphe\+::conversion\+\_\+vers\+\_\+\+Matrice\+\_\+inc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Convertit le \hyperlink{classGraphe}{Graphe} en \hyperlink{classMatrice}{Matrice} d\textquotesingle{}incidence. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classMatrice}{Matrice} d\textquotesingle{}incidence du \hyperlink{classGraphe}{Graphe} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_adabde97f8f099447c50bfb050e215c01}\label{classGraphe_adabde97f8f099447c50bfb050e215c01}} 
+\index{Graphe@{Graphe}!get\+Vecteur\+Sommet@{get\+Vecteur\+Sommet}}
+\index{get\+Vecteur\+Sommet@{get\+Vecteur\+Sommet}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{get\+Vecteur\+Sommet()}{getVecteurSommet()}}
+{\footnotesize\ttfamily vector$<$ \hyperlink{classSommet}{Sommet} $>$ Graphe\+::get\+Vecteur\+Sommet (\begin{DoxyParamCaption}\item[{vector$<$ int $>$}]{id }\end{DoxyParamCaption})}
+
+
+
+R\'{e}cupere un vecteur de sommets Cette méeacute;thode r\'{e}cupere un vecteur de sommets correspondant au vecteur d\textquotesingle{}id en parametre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Vecteur d\textquotesingle{}id \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGraphe_ae75822e0de166927c13e63bd8e738491}\label{classGraphe_ae75822e0de166927c13e63bd8e738491}} 
+\index{Graphe@{Graphe}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool Graphe\+::operator!= (\begin{DoxyParamCaption}\item[{\hyperlink{classGraphe}{Graphe} const \&}]{G1 }\end{DoxyParamCaption})}
+
+
+
+Surcharge de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}in\'{e}galit\'{e} Cette m\'{e}thode permet de v\'{e}rifier si deux objets Graphes sont diff\'{e}rents. 
+
+\begin{DoxyReturn}{Returns}
+1 Si les deux objets sont diff\'{e}rents 
+
+-\/1 Si les deux objets sont diff\'{e}rents 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_ae72a0836b560b51da3d82d3d4ff3a7c0}\label{classGraphe_ae72a0836b560b51da3d82d3d4ff3a7c0}} 
+\index{Graphe@{Graphe}!operator=@{operator=}}
+\index{operator=@{operator=}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \hyperlink{classGraphe}{Graphe} Graphe\+::operator= (\begin{DoxyParamCaption}\item[{\hyperlink{classGraphe}{Graphe} const \&}]{G1 }\end{DoxyParamCaption})}
+
+
+
+Surchage de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}affectation. 
+
+\begin{DoxyReturn}{Returns}
+1 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_af1333b4eb62b330dd004764342622e52}\label{classGraphe_af1333b4eb62b330dd004764342622e52}} 
+\index{Graphe@{Graphe}!operator==@{operator==}}
+\index{operator==@{operator==}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Graphe\+::operator== (\begin{DoxyParamCaption}\item[{\hyperlink{classGraphe}{Graphe} const \&}]{G1 }\end{DoxyParamCaption}) const}
+
+
+
+Surcharge de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}\'{e}galit\'{e} Cette m\'{e}thode permet de v\'{e}fifier si deux objets Graphes sont bien identiques. 
+
+\begin{DoxyReturn}{Returns}
+1 Si les deux objets sont identiques 
+
+-\/1 Si les deux objets ne sont pas identiques 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_ae547f8dcd9f8e4c23b314a26cc04de06}\label{classGraphe_ae547f8dcd9f8e4c23b314a26cc04de06}} 
+\index{Graphe@{Graphe}!supprimer\+\_\+\+Arc@{supprimer\+\_\+\+Arc}}
+\index{supprimer\+\_\+\+Arc@{supprimer\+\_\+\+Arc}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{supprimer\+\_\+\+Arc()}{supprimer\_Arc()}}
+{\footnotesize\ttfamily int Graphe\+::supprimer\+\_\+\+Arc (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+
+
+Suppression D\textquotesingle{}\hyperlink{classArc}{Arc} Cette m\'{e}thode permet de supprimer une \hyperlink{classArc}{Arc} dans le \hyperlink{classGraphe}{Graphe}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Identifiant de l\textquotesingle{}\hyperlink{classArc}{Arc} \`{a} supprimer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 Si l\textquotesingle{}\hyperlink{classArc}{Arc} est supprim\'{e} 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphe_a8e0efe2e1804f5b9cc02ffc40bb34fcd}\label{classGraphe_a8e0efe2e1804f5b9cc02ffc40bb34fcd}} 
+\index{Graphe@{Graphe}!supprimer\+\_\+\+Sommet@{supprimer\+\_\+\+Sommet}}
+\index{supprimer\+\_\+\+Sommet@{supprimer\+\_\+\+Sommet}!Graphe@{Graphe}}
+\subsubsection{\texorpdfstring{supprimer\+\_\+\+Sommet()}{supprimer\_Sommet()}}
+{\footnotesize\ttfamily int Graphe\+::supprimer\+\_\+\+Sommet (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+
+
+Supprime un \hyperlink{classSommet}{Sommet} Cette m\'{e}thode permet de supprimer un \hyperlink{classSommet}{Sommet} du \hyperlink{classGraphe}{Graphe}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Identifiant du \hyperlink{classSommet}{Sommet} \`{a} supprimer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 Si la suppression est faite 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/bib/classes/Graphe\+Matrice.\+hh\item 
+src/bib/classes/Graphe\+Matrice.\+cc\end{DoxyCompactItemize}

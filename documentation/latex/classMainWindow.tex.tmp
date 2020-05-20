@@ -1,0 +1,276 @@
+\hypertarget{classMainWindow}{}\section{Main\+Window Class Reference}
+\label{classMainWindow}\index{Main\+Window@{Main\+Window}}
+
+
+Permet de renommer la Classe \hyperlink{classMainWindow}{Main\+Window} faite dans U\+I\+\_\+\+Main\+Window.  
+
+
+
+
+{\ttfamily \#include $<$Main\+Window.\+hh$>$}
+
+
+
+Inheritance diagram for Main\+Window\+:
+% FIG 0
+
+
+Collaboration diagram for Main\+Window\+:
+% FIG 1
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMainWindow_afeac97ad7e2b6483311e581a5d8c50b1}\label{classMainWindow_afeac97ad7e2b6483311e581a5d8c50b1}} 
+int {\bfseries print\+Cara\+Selection} ()
+\item 
+void \hyperlink{classMainWindow_ab90e3b7759027fe81baecc39fd7a34a1}{nv\+\_\+graphe\+\_\+vide} ()
+\begin{DoxyCompactList}\small\item\em Nouvel Onglet Ouvre un nouvel onglet en respectant le placement L\textquotesingle{}attribut graphe\+\_\+courant prends la valeur de G L\textquotesingle{}attribut Dernier\+Bouton\+Enclenche prends la valeur de 0. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_a752ea3903e621dd7b2040ce1458cebe4}{nv\+\_\+graphe\+\_\+aleatoire} ()
+\begin{DoxyCompactList}\small\item\em Ouvre un nouvel onglet avec un \hyperlink{classGraphe}{Graphe} vide en parametre. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a8c07d91b87178ac0a1b88aabc45c6ddb}\label{classMainWindow_a8c07d91b87178ac0a1b88aabc45c6ddb}} 
+void \hyperlink{classMainWindow_a8c07d91b87178ac0a1b88aabc45c6ddb}{Enregistrer} ()
+\begin{DoxyCompactList}\small\item\em Enregistrer Appelle la fonction de sauvegarde sur le \hyperlink{classGraphe}{Graphe} courant Remplace le fichier si il est d\'{e}j\`{a} existant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a60eab39f08d20573a38ba2b4e2ee2e06}\label{classMainWindow_a60eab39f08d20573a38ba2b4e2ee2e06}} 
+void \hyperlink{classMainWindow_a60eab39f08d20573a38ba2b4e2ee2e06}{Charger} ()
+\begin{DoxyCompactList}\small\item\em Charger Ouvre le gestionnaire de fichier permettant de choisir quel fichier ouvrir Ouvre un nouvel onglet pour afficher le \hyperlink{classGraphe}{Graphe} courant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_aa0bbc54ce9c649c531422755c33f36d2}\label{classMainWindow_aa0bbc54ce9c649c531422755c33f36d2}} 
+void \hyperlink{classMainWindow_aa0bbc54ce9c649c531422755c33f36d2}{Enregistrer\+\_\+sous} ()
+\begin{DoxyCompactList}\small\item\em Enregistrer sous Change le chemin de sauvegarde du \hyperlink{classGraphe}{Graphe} Ouvre une fen\^{e}tre Q\+Input\+Dialog pour r\'{e}cup\'{e}rer le nom. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a1e95e4896d4ef73a4a91e99666f23b52}\label{classMainWindow_a1e95e4896d4ef73a4a91e99666f23b52}} 
+void \hyperlink{classMainWindow_a1e95e4896d4ef73a4a91e99666f23b52}{Dupliquer\+\_\+graphe} ()
+\begin{DoxyCompactList}\small\item\em Duppliquer Cr\'{e}er un nouvel onglet avec une copie du \hyperlink{classGraphe}{Graphe} courant Le nouvel onglet aura l\textquotesingle{}etiquette du \hyperlink{classGraphe}{Graphe} courant et le \hyperlink{classGraphe}{Graphe} en parametre. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a7e35e50d0f7ce46d56a4bd1807b0776d}\label{classMainWindow_a7e35e50d0f7ce46d56a4bd1807b0776d}} 
+void \hyperlink{classMainWindow_a7e35e50d0f7ce46d56a4bd1807b0776d}{Supprimer\+\_\+graphe} ()
+\begin{DoxyCompactList}\small\item\em Supprimer Supprime le \hyperlink{classGraphe}{Graphe} courant par Destructeur de \hyperlink{classGraphe}{Graphe} Ferme l\textquotesingle{}onglet et supprime le fichier. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a8855e611399274337f745d384ee14b72}\label{classMainWindow_a8855e611399274337f745d384ee14b72}} 
+void \hyperlink{classMainWindow_a8855e611399274337f745d384ee14b72}{Ford\+\_\+\+Bellman} ()
+\begin{DoxyCompactList}\small\item\em Algorithmes applicables sur les Graphes Appelle les fonctions du module Operation sur les Graphes Pour tout les algorithmes les r\'{e}sultats sont affich\'{e}s dans la console ou sur la Zone de Dessin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a2f97f60fff3ae8565bb63ce13b563e17}\label{classMainWindow_a2f97f60fff3ae8565bb63ce13b563e17}} 
+void \hyperlink{classMainWindow_a2f97f60fff3ae8565bb63ce13b563e17}{Floyd\+\_\+\+Warshall} ()
+\begin{DoxyCompactList}\small\item\em Appel de calc\+\_\+pcc\+\_\+\+Bellman en lui passant en parametre deux Sommets s\'{e}l\'{e}ctionn\'{e}s. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_abaaf25e7e5d78ab2c34c9bdce39be675}{Degr\+\_\+sortant} ()
+\begin{DoxyCompactList}\small\item\em Appel de calc\+\_\+pcc\+\_\+\+Floyd\+\_\+\+Warshall. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a750c91e0fcdd2cedccbd016a3b5942ac}\label{classMainWindow_a750c91e0fcdd2cedccbd016a3b5942ac}} 
+void \hyperlink{classMainWindow_a750c91e0fcdd2cedccbd016a3b5942ac}{Degr\+\_\+entrant} ()
+\begin{DoxyCompactList}\small\item\em Appel de calc\+\_\+deg\+\_\+entrant Passe en parametre le ou les Sommets correspondant aux ID selectionn\'{e}s dans \hyperlink{classQZoneDeDessin}{Q\+Zone\+De\+Dessin} Si la liste contient plusieurs ID, la fonction est appel\'{e}e successivement sur chacun des Sommets. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a9a26a9003c497a87622f5c5dd577e2c9}\label{classMainWindow_a9a26a9003c497a87622f5c5dd577e2c9}} 
+void {\bfseries Degrs\+\_\+entrant\+\_\+et\+\_\+sortant} ()
+\item 
+void \hyperlink{classMainWindow_a8ef7d6196ad5c51c02b81df51996be11}{Coloration\+\_\+de\+\_\+graphe} ()
+\begin{DoxyCompactList}\small\item\em Appel de calc\+\_\+deg\+\_\+ent\+\_\+sor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a69757019721c63f33ef810b631ad91f6}\label{classMainWindow_a69757019721c63f33ef810b631ad91f6}} 
+void \hyperlink{classMainWindow_a69757019721c63f33ef810b631ad91f6}{Determinaison\+\_\+de\+\_\+stables} ()
+\begin{DoxyCompactList}\small\item\em Appel de stables\+\_\+graphe Resultat affich\'{e} sur la console et le \hyperlink{classGraphe}{Graphe} courant par coloration des \hyperlink{classSommet}{Sommet} formant un stable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a0edf0c2a425c520c90cfe76a8898d464}\label{classMainWindow_a0edf0c2a425c520c90cfe76a8898d464}} 
+void \hyperlink{classMainWindow_a0edf0c2a425c520c90cfe76a8898d464}{Determinaison\+\_\+de\+\_\+cliques} ()
+\begin{DoxyCompactList}\small\item\em Appel de cliques\+\_\+graphe Resultat affich\'{e} sur la console et le \hyperlink{classGraphe}{Graphe} courant par coloration des \hyperlink{classSommet}{Sommet} formant une clique. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a8a786d5f849bec5fe4b1c88e22c59ea6}\label{classMainWindow_a8a786d5f849bec5fe4b1c88e22c59ea6}} 
+void {\bfseries Voisins\+\_\+de\+\_\+sommets} ()
+\item 
+\mbox{\Hypertarget{classMainWindow_ad1eabcea6c06e4efd0357146b510567e}\label{classMainWindow_ad1eabcea6c06e4efd0357146b510567e}} 
+void \hyperlink{classMainWindow_ad1eabcea6c06e4efd0357146b510567e}{Gestion\+\_\+de\+\_\+flots} ()
+\begin{DoxyCompactList}\small\item\em Appel de voisin\+\_\+sommet. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_addfb7c727674fee3cadd56f33d846716}{Creer\+\_\+un\+\_\+graphe\+\_\+dordonnancement} ()
+\begin{DoxyCompactList}\small\item\em Appel de Edmond\+\_\+\+Karp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a68da8d6c52b54eeed50b69446f47f18b}\label{classMainWindow_a68da8d6c52b54eeed50b69446f47f18b}} 
+void \hyperlink{classMainWindow_a68da8d6c52b54eeed50b69446f47f18b}{Arborescence} ()
+\begin{DoxyCompactList}\small\item\em Appel d\textquotesingle{}arborescence Ouvre un nouvel onglet avec comme \hyperlink{classGraphe}{Graphe} courant, l\textquotesingle{}arborescence du \hyperlink{classGraphe}{Graphe} en parametre. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a4444644119b71c8a7e421170749977c8}\label{classMainWindow_a4444644119b71c8a7e421170749977c8}} 
+void \hyperlink{classMainWindow_a4444644119b71c8a7e421170749977c8}{Anti\+Arborescence} ()
+\begin{DoxyCompactList}\small\item\em Appel d\textquotesingle{}anti\+\_\+arborescence Ouvre un nouvel onglet avec comme \hyperlink{classGraphe}{Graphe} courant, l\textquotesingle{}anti-\/arborescence du \hyperlink{classGraphe}{Graphe} en parametre. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a29bac03a17fce74bea8eb1792d40b3b2}\label{classMainWindow_a29bac03a17fce74bea8eb1792d40b3b2}} 
+void {\bfseries Recherche\+\_\+de\+\_\+la\+\_\+connexite} ()
+\item 
+\mbox{\Hypertarget{classMainWindow_aa744cc0bb781d79537b6f3969e946b01}\label{classMainWindow_aa744cc0bb781d79537b6f3969e946b01}} 
+void \hyperlink{classMainWindow_aa744cc0bb781d79537b6f3969e946b01}{Trouver\+\_\+chaine\+\_\+eulerienne} ()
+\begin{DoxyCompactList}\small\item\em Appel de connexite. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_aa05a02d06efd60877528b579d20be84a}\label{classMainWindow_aa05a02d06efd60877528b579d20be84a}} 
+void \hyperlink{classMainWindow_aa05a02d06efd60877528b579d20be84a}{Trouver\+\_\+chaine\+\_\+hamiltonienne} ()
+\begin{DoxyCompactList}\small\item\em Appel d\textquotesingle{}eulerien. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_af5de3963d52cb796340fbea161c2f776}\label{classMainWindow_af5de3963d52cb796340fbea161c2f776}} 
+void \hyperlink{classMainWindow_af5de3963d52cb796340fbea161c2f776}{Postier\+\_\+chinois} ()
+\begin{DoxyCompactList}\small\item\em Appel de la fonction hamiltonien. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a028dc2ccc2d7e9e53e2bccc72b637077}\label{classMainWindow_a028dc2ccc2d7e9e53e2bccc72b637077}} 
+void \hyperlink{classMainWindow_a028dc2ccc2d7e9e53e2bccc72b637077}{Voyageur\+\_\+de\+\_\+commerce} ()
+\begin{DoxyCompactList}\small\item\em Appel de postier\+\_\+chinois. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a624f454a21e9a21976ed6fedfb728d0d}\label{classMainWindow_a624f454a21e9a21976ed6fedfb728d0d}} 
+void \hyperlink{classMainWindow_a624f454a21e9a21976ed6fedfb728d0d}{Documentation} ()
+\begin{DoxyCompactList}\small\item\em Appel de Voyageur\+\_\+commerce. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a3521c357421c901f1140b9427458df1a}\label{classMainWindow_a3521c357421c901f1140b9427458df1a}} 
+void \hyperlink{classMainWindow_a3521c357421c901f1140b9427458df1a}{Github} ()
+\begin{DoxyCompactList}\small\item\em Affiche un lien renvoyant sur la documentation complete du projet. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_ab2a06877b90a2744bef7654f6561caf2}{extraire\+Sous\+Graphe} ()
+\begin{DoxyCompactList}\small\item\em Affiche un lien renvoyant sur la page Github du projet. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a6c79a0228beb1027eb6a554e2df640a1}\label{classMainWindow_a6c79a0228beb1027eb6a554e2df640a1}} 
+void {\bfseries arranger\+Sommets} ()
+\item 
+\mbox{\Hypertarget{classMainWindow_a85e9516221a7f0cd701e5ab8268c1ff8}\label{classMainWindow_a85e9516221a7f0cd701e5ab8268c1ff8}} 
+void \hyperlink{classMainWindow_a85e9516221a7f0cd701e5ab8268c1ff8}{fermer\+\_\+graphe} ()
+\begin{DoxyCompactList}\small\item\em Appel Force atlas 2 sur la zone de dessin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a6ca311e353c48658396b382cff76d27b}\label{classMainWindow_a6ca311e353c48658396b382cff76d27b}} 
+void \hyperlink{classMainWindow_a6ca311e353c48658396b382cff76d27b}{D\+B\+Eselection} (bool checked)
+\begin{DoxyCompactList}\small\item\em Ferme l\textquotesingle{}onglet courant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a68cf22b39cb2cc5e23dd89219cd731f8}\label{classMainWindow_a68cf22b39cb2cc5e23dd89219cd731f8}} 
+void \hyperlink{classMainWindow_a68cf22b39cb2cc5e23dd89219cd731f8}{D\+B\+Eadd\+Sommet} (bool checked)
+\begin{DoxyCompactList}\small\item\em Modifie dernier\+Bouton\+Enclenche et le met sur 1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a1b2bcef3554cf7bb3a967f8bea150758}\label{classMainWindow_a1b2bcef3554cf7bb3a967f8bea150758}} 
+void \hyperlink{classMainWindow_a1b2bcef3554cf7bb3a967f8bea150758}{D\+B\+Eadd\+Arc} (bool checked)
+\begin{DoxyCompactList}\small\item\em Modifie dernier\+Bouton\+Enclenche et le met sur 2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_aeb2f6cc2eb76b2c1d006f445b02cc9b7}\label{classMainWindow_aeb2f6cc2eb76b2c1d006f445b02cc9b7}} 
+void \hyperlink{classMainWindow_aeb2f6cc2eb76b2c1d006f445b02cc9b7}{D\+B\+Edelete\+Sommet} (bool checked)
+\begin{DoxyCompactList}\small\item\em Modifie dernier\+Bouton\+Enclenche et le met sur 3. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a382eb7558f5da191e6646070a6dbec80}\label{classMainWindow_a382eb7558f5da191e6646070a6dbec80}} 
+void \hyperlink{classMainWindow_a382eb7558f5da191e6646070a6dbec80}{D\+B\+Edelete\+Arc} (bool checked)
+\begin{DoxyCompactList}\small\item\em Modifie dernier\+Bouton\+Enclenche et le met sur 4. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMainWindow_a996c5a2b6f77944776856f08ec30858d}\label{classMainWindow_a996c5a2b6f77944776856f08ec30858d}} 
+{\bfseries Main\+Window} (Q\+Widget $\ast$parent=nullptr)
+\item 
+\mbox{\Hypertarget{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}\label{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}} 
+\hyperlink{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window} ()
+\begin{DoxyCompactList}\small\item\em Constructeur de \hyperlink{classMainWindow}{Main\+Window}. \end{DoxyCompactList}\item 
+int \hyperlink{classMainWindow_ae06acab7174861620afb938a738ea99c}{print\+Console} (string nom\+Methode, string val\+Ret\+Func)
+\begin{DoxyCompactList}\small\item\em Destructeur de l\textquotesingle{}objet \hyperlink{classMainWindow}{Main\+Window}. \end{DoxyCompactList}\item 
+int \hyperlink{classMainWindow_accbce0e380ea61f0fcbfcd6417b513bb}{ajouter\+Onglet} (Q\+String nom\+Onglet, \hyperlink{classGraphe}{Graphe} G)
+\item 
+int \hyperlink{classMainWindow_a0483d2523a330b8ea01fbc6b0fe19776}{supprimer\+Onglet} (Q\+String nom\+Onglet)
+\begin{DoxyCompactList}\small\item\em Suppression Onglet. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Permet de renommer la Classe \hyperlink{classMainWindow}{Main\+Window} faite dans U\+I\+\_\+\+Main\+Window. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMainWindow_accbce0e380ea61f0fcbfcd6417b513bb}\label{classMainWindow_accbce0e380ea61f0fcbfcd6417b513bb}} 
+\index{Main\+Window@{Main\+Window}!ajouter\+Onglet@{ajouter\+Onglet}}
+\index{ajouter\+Onglet@{ajouter\+Onglet}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{ajouter\+Onglet()}{ajouterOnglet()}}
+{\footnotesize\ttfamily int Main\+Window\+::ajouter\+Onglet (\begin{DoxyParamCaption}\item[{Q\+String}]{nom\+Onglet,  }\item[{\hyperlink{classGraphe}{Graphe}}]{G }\end{DoxyParamCaption})}
+
+Affichage des caract\'{e}ristique de la s\'{e}lection Cette m\'{e}thode est appel\'{e}e par les fonctions de selection des Sommets \begin{DoxyReturn}{Returns}
+0 en cas de r\'{e}ussite 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMainWindow_a8ef7d6196ad5c51c02b81df51996be11}\label{classMainWindow_a8ef7d6196ad5c51c02b81df51996be11}} 
+\index{Main\+Window@{Main\+Window}!Coloration\+\_\+de\+\_\+graphe@{Coloration\+\_\+de\+\_\+graphe}}
+\index{Coloration\+\_\+de\+\_\+graphe@{Coloration\+\_\+de\+\_\+graphe}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{Coloration\+\_\+de\+\_\+graphe}{Coloration\_de\_graphe}}
+{\footnotesize\ttfamily void Main\+Window\+::\+Coloration\+\_\+de\+\_\+graphe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Appel de calc\+\_\+deg\+\_\+ent\+\_\+sor. 
+
+Appel de color\+\_\+graphe Resultat affich\'{e} sur le \hyperlink{classGraphe}{Graphe} courant par coloration des Sommets \mbox{\Hypertarget{classMainWindow_addfb7c727674fee3cadd56f33d846716}\label{classMainWindow_addfb7c727674fee3cadd56f33d846716}} 
+\index{Main\+Window@{Main\+Window}!Creer\+\_\+un\+\_\+graphe\+\_\+dordonnancement@{Creer\+\_\+un\+\_\+graphe\+\_\+dordonnancement}}
+\index{Creer\+\_\+un\+\_\+graphe\+\_\+dordonnancement@{Creer\+\_\+un\+\_\+graphe\+\_\+dordonnancement}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{Creer\+\_\+un\+\_\+graphe\+\_\+dordonnancement}{Creer\_un\_graphe\_dordonnancement}}
+{\footnotesize\ttfamily void Main\+Window\+::\+Creer\+\_\+un\+\_\+graphe\+\_\+dordonnancement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Appel de Edmond\+\_\+\+Karp. 
+
+\hyperlink{classGraphe}{Graphe} d\textquotesingle{}ordonnancement Cette fonction ouvre une seconde fen\^{e}tre permettant d\textquotesingle{}ajouter les taches Un nouvel onglet est ensuite ouver avec comme \hyperlink{classGraphe}{Graphe} courant le \hyperlink{classGraphe}{Graphe} P\+E\+RT correspondant \mbox{\Hypertarget{classMainWindow_abaaf25e7e5d78ab2c34c9bdce39be675}\label{classMainWindow_abaaf25e7e5d78ab2c34c9bdce39be675}} 
+\index{Main\+Window@{Main\+Window}!Degr\+\_\+sortant@{Degr\+\_\+sortant}}
+\index{Degr\+\_\+sortant@{Degr\+\_\+sortant}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{Degr\+\_\+sortant}{Degr\_sortant}}
+{\footnotesize\ttfamily void Main\+Window\+::\+Degr\+\_\+sortant (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Appel de calc\+\_\+pcc\+\_\+\+Floyd\+\_\+\+Warshall. 
+
+Appel de calc\+\_\+deg\+\_\+sortant Passe en parametre le ou les Sommets correspondant aux ID selectionn\'{e}s dans \hyperlink{classQZoneDeDessin}{Q\+Zone\+De\+Dessin} Si la liste contient plusieurs ID, la fonction est appel\'{e}e successivement sur chacun des Sommets \mbox{\Hypertarget{classMainWindow_ab2a06877b90a2744bef7654f6561caf2}\label{classMainWindow_ab2a06877b90a2744bef7654f6561caf2}} 
+\index{Main\+Window@{Main\+Window}!extraire\+Sous\+Graphe@{extraire\+Sous\+Graphe}}
+\index{extraire\+Sous\+Graphe@{extraire\+Sous\+Graphe}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{extraire\+Sous\+Graphe}{extraireSousGraphe}}
+{\footnotesize\ttfamily void Main\+Window\+::extraire\+Sous\+Graphe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Affiche un lien renvoyant sur la page Github du projet. 
+
+Extraire Sous \hyperlink{classGraphe}{Graphe} Recupere le \hyperlink{classGraphe}{Graphe} courant et la liste de Sommets selecionn\'{e}s Ouvre un nouvel onglet avec le \hyperlink{classGraphe}{Graphe} issue de la s\'{e}lection \mbox{\Hypertarget{classMainWindow_a752ea3903e621dd7b2040ce1458cebe4}\label{classMainWindow_a752ea3903e621dd7b2040ce1458cebe4}} 
+\index{Main\+Window@{Main\+Window}!nv\+\_\+graphe\+\_\+aleatoire@{nv\+\_\+graphe\+\_\+aleatoire}}
+\index{nv\+\_\+graphe\+\_\+aleatoire@{nv\+\_\+graphe\+\_\+aleatoire}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{nv\+\_\+graphe\+\_\+aleatoire}{nv\_graphe\_aleatoire}}
+{\footnotesize\ttfamily void Main\+Window\+::nv\+\_\+graphe\+\_\+aleatoire (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Ouvre un nouvel onglet avec un \hyperlink{classGraphe}{Graphe} vide en parametre. 
+
+Ouvre un nouvel onglet avec un \hyperlink{classGraphe}{Graphe} al\'{e}atoire en parametre Ouvre une fen\^{e}tre Q\+Input\+Dialog permettant de r\'{e}cup\'{e}rer le nombre de Sommets \`{a} creer \hyperlink{classSommet}{Sommet} cr\'{e}er li\'{e}s al\'{e}atoirement Ouvre un nouvel Onglet avec le \hyperlink{classGraphe}{Graphe} al\'{e}atoire en parametre Appelle la m\'{e}thode force\+\_\+\+Atlas2 pour \'{e}loigner les Sommets les uns des autres \mbox{\Hypertarget{classMainWindow_ab90e3b7759027fe81baecc39fd7a34a1}\label{classMainWindow_ab90e3b7759027fe81baecc39fd7a34a1}} 
+\index{Main\+Window@{Main\+Window}!nv\+\_\+graphe\+\_\+vide@{nv\+\_\+graphe\+\_\+vide}}
+\index{nv\+\_\+graphe\+\_\+vide@{nv\+\_\+graphe\+\_\+vide}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{nv\+\_\+graphe\+\_\+vide}{nv\_graphe\_vide}}
+{\footnotesize\ttfamily void Main\+Window\+::nv\+\_\+graphe\+\_\+vide (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Nouvel Onglet Ouvre un nouvel onglet en respectant le placement L\textquotesingle{}attribut graphe\+\_\+courant prends la valeur de G L\textquotesingle{}attribut Dernier\+Bouton\+Enclenche prends la valeur de 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nom\+Onglet} & Nom du nouvel onglet \\
+\hline
+{\em G} & \hyperlink{classGraphe}{Graphe} d\'{e}ssin\'{e} dans la Zone de Dessin du nouvel onglet \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}index de l\textquotesingle{}onglet en cas de r\'{e}ussite 
+
+-\/1 en cas d\textquotesingle{}\'{e}chec 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMainWindow_ae06acab7174861620afb938a738ea99c}\label{classMainWindow_ae06acab7174861620afb938a738ea99c}} 
+\index{Main\+Window@{Main\+Window}!print\+Console@{print\+Console}}
+\index{print\+Console@{print\+Console}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{print\+Console()}{printConsole()}}
+{\footnotesize\ttfamily int Main\+Window\+::print\+Console (\begin{DoxyParamCaption}\item[{string}]{nom\+Methode,  }\item[{string}]{val\+Ret\+Func }\end{DoxyParamCaption})}
+
+
+
+Destructeur de l\textquotesingle{}objet \hyperlink{classMainWindow}{Main\+Window}. 
+
+Affiche le r\'{e}sultat d\textquotesingle{}une fonction dans la console 
+\begin{DoxyParams}{Parameters}
+{\em nom\+Methode} & Nom de la fonction appelante \\
+\hline
+{\em Val\+Ret\+Func} & R\'{e}sultat renvoy\'{e} par la fonction appelante \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 en cas de r\'{e}ussite 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMainWindow_a0483d2523a330b8ea01fbc6b0fe19776}\label{classMainWindow_a0483d2523a330b8ea01fbc6b0fe19776}} 
+\index{Main\+Window@{Main\+Window}!supprimer\+Onglet@{supprimer\+Onglet}}
+\index{supprimer\+Onglet@{supprimer\+Onglet}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{supprimer\+Onglet()}{supprimerOnglet()}}
+{\footnotesize\ttfamily int Main\+Window\+::supprimer\+Onglet (\begin{DoxyParamCaption}\item[{Q\+String}]{nom\+Onglet }\end{DoxyParamCaption})}
+
+
+
+Suppression Onglet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nom\+Onglet} & Onglet \`{a} fermer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}index de l\textquotesingle{}onglet ferm\'{e} en cas de r\'{e}ussite 
+
+-\/1 en cas d\textquotesingle{}\'{e}chec 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/app/\+G\+U\+I/fnt\+Principale/Main\+Window.\+hh\item 
+src/app/\+G\+U\+I/fnt\+Principale/Main\+Window.\+cc\end{DoxyCompactItemize}

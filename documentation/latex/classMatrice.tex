@@ -1,0 +1,299 @@
+\hypertarget{classMatrice}{}\section{Matrice Class Reference}
+\label{classMatrice}\index{Matrice@{Matrice}}
+
+
+Classe \hyperlink{classMatrice}{Matrice} Cette classe permet de repr\'{e}senter un \hyperlink{classGraphe}{Graphe} orienté sous forme de \hyperlink{classMatrice}{Matrice}.  
+
+
+
+
+{\ttfamily \#include $<$Graphe\+Matrice.\+hh$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMatrice_a08fcadca16c80a3b442a2960a7944732}{Matrice} (\hyperlink{classGraphe}{Graphe} G, int type)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\item 
+\hyperlink{classMatrice_a96e99274a8460529db8ee4076247c802}{Matrice} (int tailleV)
+\begin{DoxyCompactList}\small\item\em Constructeur de \hyperlink{classMatrice}{Matrice} Cr\'{e}e une \hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence vide. La \hyperlink{classMatrice}{Matrice} ne représente pas un \hyperlink{classGraphe}{Graphe}. \end{DoxyCompactList}\item 
+\hyperlink{classMatrice_a30e71086a1d43bc3604188aaa6a3ac1c}{Matrice} (int tailleV, int tailleE, int t)
+\begin{DoxyCompactList}\small\item\em Constructeur de \hyperlink{classMatrice}{Matrice} Cr\'{e}e une \hyperlink{classMatrice}{Matrice} vide de type Autre (diff\'{e}rent d\textquotesingle{}une \hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence) et de taille V$\ast$E. \end{DoxyCompactList}\item 
+\hyperlink{classMatrice_a39e4790e8f2a18263ba78c98fab4f0d2}{Matrice} (const \hyperlink{classMatrice}{Matrice} \&M)
+\begin{DoxyCompactList}\small\item\em Constructeur de \hyperlink{classMatrice}{Matrice} Constructeur de copie de la classe \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_adbedf4009a06892c5b0fc59218f5db00}\label{classMatrice_adbedf4009a06892c5b0fc59218f5db00}} 
+int \hyperlink{classMatrice_adbedf4009a06892c5b0fc59218f5db00}{gettV} () const
+\begin{DoxyCompactList}\small\item\em Destructeur d\textquotesingle{}un objet \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_a285e3e7a9162d035a3185e752a10b669}\label{classMatrice_a285e3e7a9162d035a3185e752a10b669}} 
+int \hyperlink{classMatrice_a285e3e7a9162d035a3185e752a10b669}{gettE} () const
+\begin{DoxyCompactList}\small\item\em Getter du nombre de sommets. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_a1b60e85fdbe9b9d8d47e4cb7e0bc5a14}\label{classMatrice_a1b60e85fdbe9b9d8d47e4cb7e0bc5a14}} 
+int \hyperlink{classMatrice_a1b60e85fdbe9b9d8d47e4cb7e0bc5a14}{get\+Type} () const
+\begin{DoxyCompactList}\small\item\em Getter du nombre d\textquotesingle{}arcs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_ad841aeb6a99b411c3e0ca4918086d03a}\label{classMatrice_ad841aeb6a99b411c3e0ca4918086d03a}} 
+vector$<$ vector$<$ int $>$ $>$ \hyperlink{classMatrice_ad841aeb6a99b411c3e0ca4918086d03a}{get\+Tab} () const
+\begin{DoxyCompactList}\small\item\em Getter du type de \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_a577cd337e049158683ba78911b4e0830}\label{classMatrice_a577cd337e049158683ba78911b4e0830}} 
+void \hyperlink{classMatrice_a577cd337e049158683ba78911b4e0830}{setV} (int v)
+\begin{DoxyCompactList}\small\item\em Getter de la \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_a1a10f8f936477ad43ea956fd257199a1}\label{classMatrice_a1a10f8f936477ad43ea956fd257199a1}} 
+void \hyperlink{classMatrice_a1a10f8f936477ad43ea956fd257199a1}{setE} (int e)
+\begin{DoxyCompactList}\small\item\em Setter du nombre de sommets. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_a7a1255693086a05c96b926e0bcdb7082}\label{classMatrice_a7a1255693086a05c96b926e0bcdb7082}} 
+void \hyperlink{classMatrice_a7a1255693086a05c96b926e0bcdb7082}{set\+Type} (int type)
+\begin{DoxyCompactList}\small\item\em Setter du nombre d\textquotesingle{}arcs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_a365b41a95907ad5d62a83ea101a53dce}\label{classMatrice_a365b41a95907ad5d62a83ea101a53dce}} 
+void \hyperlink{classMatrice_a365b41a95907ad5d62a83ea101a53dce}{set\+Tab} (vector$<$ vector$<$ int $>$$>$ tab)
+\begin{DoxyCompactList}\small\item\em Setter du type de \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\item 
+\hyperlink{classMatrice}{Matrice} \hyperlink{classMatrice_aee2d46b335d4b3346a5dc265c7cd2759}{conversion\+\_\+incidence} ()
+\begin{DoxyCompactList}\small\item\em Setter. \end{DoxyCompactList}\item 
+\hyperlink{classMatrice}{Matrice} \hyperlink{classMatrice_a5f25a7bf06c46b69c24e82d3af3c697f}{inversion\+\_\+\+Matrice} () const
+\begin{DoxyCompactList}\small\item\em Inversion de la \hyperlink{classMatrice}{Matrice} Cette fonction permet d\textquotesingle{}utiliser la \hyperlink{classMatrice}{Matrice} dans le module Op\'{e}ration sur les graphes. \end{DoxyCompactList}\item 
+\hyperlink{classGraphe}{Graphe} \hyperlink{classMatrice_a3b6cb901a40c673c9f78c11bfd12892d}{conversion\+Graphe} ()
+\begin{DoxyCompactList}\small\item\em Convertit la \hyperlink{classMatrice}{Matrice} en \hyperlink{classGraphe}{Graphe} Cette m\'{e}thode renvoie le graphe correspondant \`{a} la \hyperlink{classMatrice}{Matrice} Ne fonctionne que sur des \hyperlink{classMatrice}{Matrice} d\textquotesingle{}incidence ou d\textquotesingle{}adjacence. \end{DoxyCompactList}\item 
+int \hyperlink{classMatrice_a20adfc44d75d2292ae49649692cdd0b4}{Sommet\+\_\+non\+\_\+isole} ()
+\begin{DoxyCompactList}\small\item\em Recherche de \hyperlink{classSommet}{Sommet} isol\'{e} dans le \hyperlink{classGraphe}{Graphe} Cette m\'{e}thode recherche si un sommet n\textquotesingle{}est reli\'{e} \`{a} aucune autre. \end{DoxyCompactList}\item 
+int \hyperlink{classMatrice_a63322e840ec39739b5a0ee7da5c8e778}{modif\+Tab} (int x, int y, int n)
+\begin{DoxyCompactList}\small\item\em Modifie une case de la \hyperlink{classMatrice}{Matrice} Cette m\'{e}thode permet de modifier une case au positions prises en parametre. \end{DoxyCompactList}\item 
+void \hyperlink{classMatrice_ad6527495003ed48bc6f3276f07c8cf72}{suppr\+Ligne} (int x)
+\begin{DoxyCompactList}\small\item\em Supprime une ligne de la \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\item 
+void \hyperlink{classMatrice_aa4982a33761373959e32f10fc186abfc}{suppr\+Col} (int y)
+\begin{DoxyCompactList}\small\item\em Supprime une colonne de la \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\item 
+bool \hyperlink{classMatrice_a1aceba73ee5c333f0980499245e6b4d3}{operator==} (\hyperlink{classMatrice}{Matrice} const \&M1) const
+\begin{DoxyCompactList}\small\item\em Surcharge de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}\'{e}galit\'{e} Cette m\'{e}thode permet de v\'{e}rifier si deux obets Matrices sont identiques. \end{DoxyCompactList}\item 
+bool \hyperlink{classMatrice_ad72e443608f8db2936eaba1fcf72b230}{operator!=} (\hyperlink{classMatrice}{Matrice} \&M1)
+\begin{DoxyCompactList}\small\item\em Surcharge de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}in\'{e}galit\'{e} Cette m\'{e}thode permet de v\'{e}rifier si deux objets \hyperlink{classMatrice}{Matrice} sont diff\'{e}rents. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_a7cad6679749d80d4aa3771bd3864aeb8}\label{classMatrice_a7cad6679749d80d4aa3771bd3864aeb8}} 
+\hyperlink{classMatrice}{Matrice} \hyperlink{classMatrice_a7cad6679749d80d4aa3771bd3864aeb8}{operator=} (\hyperlink{classMatrice}{Matrice} const \&M1)
+\begin{DoxyCompactList}\small\item\em Surchage de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}affectation Test si l\textquotesingle{}objet \hyperlink{classMatrice}{Matrice} en argument est \'{e}gal \`{a} l\textquotesingle{}objet \hyperlink{classMatrice}{Matrice} renvoy\'{e}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrice_a8d927d4f8245a16985e3cec9a1b46d8d}\label{classMatrice_a8d927d4f8245a16985e3cec9a1b46d8d}} 
+void \hyperlink{classMatrice_a8d927d4f8245a16985e3cec9a1b46d8d}{affiche\+\_\+matrice} ()
+\begin{DoxyCompactList}\small\item\em Affiche la \hyperlink{classMatrice}{Matrice}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe \hyperlink{classMatrice}{Matrice} Cette classe permet de repr\'{e}senter un \hyperlink{classGraphe}{Graphe} orienté sous forme de \hyperlink{classMatrice}{Matrice}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMatrice_a08fcadca16c80a3b442a2960a7944732}\label{classMatrice_a08fcadca16c80a3b442a2960a7944732}} 
+\index{Matrice@{Matrice}!Matrice@{Matrice}}
+\index{Matrice@{Matrice}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{Matrice()}{Matrice()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Matrice\+::\+Matrice (\begin{DoxyParamCaption}\item[{\hyperlink{classGraphe}{Graphe}}]{G,  }\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classMatrice}{Matrice}. 
+
+Constructeur de \hyperlink{classMatrice}{Matrice} Cr\'{e}e une \hyperlink{classMatrice}{Matrice} issue d\textquotesingle{}un graphe existant 
+\begin{DoxyParams}{Parameters}
+{\em G} & \hyperlink{classGraphe}{Graphe} existant \\
+\hline
+{\em type} & Type de matrice \`{a} cr\'{e}er \+: adjacence, incidence, poids, parent ou quelconque \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMatrice_a96e99274a8460529db8ee4076247c802}\label{classMatrice_a96e99274a8460529db8ee4076247c802}} 
+\index{Matrice@{Matrice}!Matrice@{Matrice}}
+\index{Matrice@{Matrice}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{Matrice()}{Matrice()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Matrice\+::\+Matrice (\begin{DoxyParamCaption}\item[{int}]{tailleV }\end{DoxyParamCaption})}
+
+
+
+Constructeur de \hyperlink{classMatrice}{Matrice} Cr\'{e}e une \hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence vide. La \hyperlink{classMatrice}{Matrice} ne représente pas un \hyperlink{classGraphe}{Graphe}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tailleV} & Nombre de sommets de la \hyperlink{classMatrice}{Matrice} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMatrice_a30e71086a1d43bc3604188aaa6a3ac1c}\label{classMatrice_a30e71086a1d43bc3604188aaa6a3ac1c}} 
+\index{Matrice@{Matrice}!Matrice@{Matrice}}
+\index{Matrice@{Matrice}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{Matrice()}{Matrice()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Matrice\+::\+Matrice (\begin{DoxyParamCaption}\item[{int}]{tailleV,  }\item[{int}]{tailleE,  }\item[{int}]{t }\end{DoxyParamCaption})}
+
+
+
+Constructeur de \hyperlink{classMatrice}{Matrice} Cr\'{e}e une \hyperlink{classMatrice}{Matrice} vide de type Autre (diff\'{e}rent d\textquotesingle{}une \hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence) et de taille V$\ast$E. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tailleV} & Nombre de sommets de la \hyperlink{classMatrice}{Matrice} \\
+\hline
+{\em tailleE} & Nombre d\textquotesingle{}arcs de la \hyperlink{classMatrice}{Matrice} \\
+\hline
+{\em type} & de \hyperlink{classMatrice}{Matrice} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMatrice_a39e4790e8f2a18263ba78c98fab4f0d2}\label{classMatrice_a39e4790e8f2a18263ba78c98fab4f0d2}} 
+\index{Matrice@{Matrice}!Matrice@{Matrice}}
+\index{Matrice@{Matrice}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{Matrice()}{Matrice()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Matrice\+::\+Matrice (\begin{DoxyParamCaption}\item[{const \hyperlink{classMatrice}{Matrice} \&}]{M }\end{DoxyParamCaption})}
+
+
+
+Constructeur de \hyperlink{classMatrice}{Matrice} Constructeur de copie de la classe \hyperlink{classMatrice}{Matrice}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&M} & \hyperlink{classMatrice}{Matrice} dont on fait la copie \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMatrice_aee2d46b335d4b3346a5dc265c7cd2759}\label{classMatrice_aee2d46b335d4b3346a5dc265c7cd2759}} 
+\index{Matrice@{Matrice}!conversion\+\_\+incidence@{conversion\+\_\+incidence}}
+\index{conversion\+\_\+incidence@{conversion\+\_\+incidence}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{conversion\+\_\+incidence()}{conversion\_incidence()}}
+{\footnotesize\ttfamily \hyperlink{classMatrice}{Matrice} Matrice\+::conversion\+\_\+incidence (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Setter. 
+
+Convertit une \hyperlink{classMatrice}{Matrice} d\textquotesingle{}adjacence en \hyperlink{classMatrice}{Matrice} d\textquotesingle{}incidence \begin{DoxyReturn}{Returns}
+\hyperlink{classMatrice}{Matrice} d\textquotesingle{}incidence 
+
+\hyperlink{classMatrice}{Matrice} de taille 1 sur 1 avec pour valeur -\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMatrice_a3b6cb901a40c673c9f78c11bfd12892d}\label{classMatrice_a3b6cb901a40c673c9f78c11bfd12892d}} 
+\index{Matrice@{Matrice}!conversion\+Graphe@{conversion\+Graphe}}
+\index{conversion\+Graphe@{conversion\+Graphe}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{conversion\+Graphe()}{conversionGraphe()}}
+{\footnotesize\ttfamily \hyperlink{classGraphe}{Graphe} Matrice\+::conversion\+Graphe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Convertit la \hyperlink{classMatrice}{Matrice} en \hyperlink{classGraphe}{Graphe} Cette m\'{e}thode renvoie le graphe correspondant \`{a} la \hyperlink{classMatrice}{Matrice} Ne fonctionne que sur des \hyperlink{classMatrice}{Matrice} d\textquotesingle{}incidence ou d\textquotesingle{}adjacence. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classGraphe}{Graphe} correspondant 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMatrice_a5f25a7bf06c46b69c24e82d3af3c697f}\label{classMatrice_a5f25a7bf06c46b69c24e82d3af3c697f}} 
+\index{Matrice@{Matrice}!inversion\+\_\+\+Matrice@{inversion\+\_\+\+Matrice}}
+\index{inversion\+\_\+\+Matrice@{inversion\+\_\+\+Matrice}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{inversion\+\_\+\+Matrice()}{inversion\_Matrice()}}
+{\footnotesize\ttfamily \hyperlink{classMatrice}{Matrice} Matrice\+::inversion\+\_\+\+Matrice (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Inversion de la \hyperlink{classMatrice}{Matrice} Cette fonction permet d\textquotesingle{}utiliser la \hyperlink{classMatrice}{Matrice} dans le module Op\'{e}ration sur les graphes. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classMatrice}{Matrice} intervertit 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMatrice_a63322e840ec39739b5a0ee7da5c8e778}\label{classMatrice_a63322e840ec39739b5a0ee7da5c8e778}} 
+\index{Matrice@{Matrice}!modif\+Tab@{modif\+Tab}}
+\index{modif\+Tab@{modif\+Tab}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{modif\+Tab()}{modifTab()}}
+{\footnotesize\ttfamily int Matrice\+::modif\+Tab (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Modifie une case de la \hyperlink{classMatrice}{Matrice} Cette m\'{e}thode permet de modifier une case au positions prises en parametre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em n} & Valeur attribu\'{e}e \`{a} la nouvelle case \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+La case modifi\'{e}e 
+
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMatrice_ad72e443608f8db2936eaba1fcf72b230}\label{classMatrice_ad72e443608f8db2936eaba1fcf72b230}} 
+\index{Matrice@{Matrice}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool Matrice\+::operator!= (\begin{DoxyParamCaption}\item[{\hyperlink{classMatrice}{Matrice} \&}]{M1 }\end{DoxyParamCaption})}
+
+
+
+Surcharge de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}in\'{e}galit\'{e} Cette m\'{e}thode permet de v\'{e}rifier si deux objets \hyperlink{classMatrice}{Matrice} sont diff\'{e}rents. 
+
+\begin{DoxyReturn}{Returns}
+1 Si les deux Matrices sont diff\'{e}rentes 
+
+0 Si les deux Matrices sont identiques 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMatrice_a1aceba73ee5c333f0980499245e6b4d3}\label{classMatrice_a1aceba73ee5c333f0980499245e6b4d3}} 
+\index{Matrice@{Matrice}!operator==@{operator==}}
+\index{operator==@{operator==}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Matrice\+::operator== (\begin{DoxyParamCaption}\item[{\hyperlink{classMatrice}{Matrice} const \&}]{M1 }\end{DoxyParamCaption}) const}
+
+
+
+Surcharge de l\textquotesingle{}op\'{e}rateur d\textquotesingle{}\'{e}galit\'{e} Cette m\'{e}thode permet de v\'{e}rifier si deux obets Matrices sont identiques. 
+
+\begin{DoxyReturn}{Returns}
+1 Si les deux Matrices sont identiques 
+
+0 Si une diff\'{e}rence est pr\'{e}sente 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMatrice_a20adfc44d75d2292ae49649692cdd0b4}\label{classMatrice_a20adfc44d75d2292ae49649692cdd0b4}} 
+\index{Matrice@{Matrice}!Sommet\+\_\+non\+\_\+isole@{Sommet\+\_\+non\+\_\+isole}}
+\index{Sommet\+\_\+non\+\_\+isole@{Sommet\+\_\+non\+\_\+isole}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{Sommet\+\_\+non\+\_\+isole()}{Sommet\_non\_isole()}}
+{\footnotesize\ttfamily int Matrice\+::\+Sommet\+\_\+non\+\_\+isole (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Recherche de \hyperlink{classSommet}{Sommet} isol\'{e} dans le \hyperlink{classGraphe}{Graphe} Cette m\'{e}thode recherche si un sommet n\textquotesingle{}est reli\'{e} \`{a} aucune autre. 
+
+\begin{DoxyReturn}{Returns}
+0 Si il existe un sommet isol\'{e} 
+
+1 si il n\textquotesingle{}y a pas de sommet isol\'{e} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMatrice_aa4982a33761373959e32f10fc186abfc}\label{classMatrice_aa4982a33761373959e32f10fc186abfc}} 
+\index{Matrice@{Matrice}!suppr\+Col@{suppr\+Col}}
+\index{suppr\+Col@{suppr\+Col}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{suppr\+Col()}{supprCol()}}
+{\footnotesize\ttfamily void Matrice\+::suppr\+Col (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Supprime une colonne de la \hyperlink{classMatrice}{Matrice}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em y} & Colonne \`{a} supprimer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMatrice_ad6527495003ed48bc6f3276f07c8cf72}\label{classMatrice_ad6527495003ed48bc6f3276f07c8cf72}} 
+\index{Matrice@{Matrice}!suppr\+Ligne@{suppr\+Ligne}}
+\index{suppr\+Ligne@{suppr\+Ligne}!Matrice@{Matrice}}
+\subsubsection{\texorpdfstring{suppr\+Ligne()}{supprLigne()}}
+{\footnotesize\ttfamily void Matrice\+::suppr\+Ligne (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})}
+
+
+
+Supprime une ligne de la \hyperlink{classMatrice}{Matrice}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Ligne \`{a} supprimer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/bib/classes/Graphe\+Matrice.\+hh\item 
+src/bib/classes/Graphe\+Matrice.\+cc\end{DoxyCompactItemize}

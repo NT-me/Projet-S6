@@ -1,0 +1,227 @@
+\hypertarget{classQZoneDeDessin}{}\section{Q\+Zone\+De\+Dessin Class Reference}
+\label{classQZoneDeDessin}\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+
+
+Inheritance diagram for Q\+Zone\+De\+Dessin\+:
+% FIG 0
+
+
+Collaboration diagram for Q\+Zone\+De\+Dessin\+:
+% FIG 1
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classQZoneDeDessin_a9a01279140824f3d2fe79c0617224d18}{mouse\+Press\+Event} (Q\+Mouse\+Event $\ast$e)
+\begin{DoxyCompactList}\small\item\em Surcharge du Double Click Surchage de la fonction s\textquotesingle{}enclenchant lors d\textquotesingle{}un clique sur Qgraphic\+View Recupere informations pour dessiner un objet sur cette position. \end{DoxyCompactList}\item 
+void \hyperlink{classQZoneDeDessin_a662f14f1e9f05ad5ceb0d5aaceaabe8e}{dessiner\+\_\+sommet} (int x, int y)
+\item 
+void \hyperlink{classQZoneDeDessin_a6cb201a39b3c7a12dfb5cd39bc3e8063}{dessiner\+\_\+arc} (int xA, int yA, int xB, int yB)
+\begin{DoxyCompactList}\small\item\em Dessine \hyperlink{classArc}{Arc} Dessine un \hyperlink{classArc}{Arc} sur la G\+Graphic\+View Ajout un \hyperlink{classArc}{Arc} \`{a} la liste des Arcs du \hyperlink{classGraphe}{Graphe} courant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classQZoneDeDessin_a938bcf40eec37bc24a1a22bb34d3b7ad}\label{classQZoneDeDessin_a938bcf40eec37bc24a1a22bb34d3b7ad}} 
+{\bfseries Q\+Zone\+De\+Dessin} (Q\+Widget $\ast$parent=0)
+\item 
+\mbox{\Hypertarget{classQZoneDeDessin_a0538fb4956eefed2c07e3a777f22bb63}\label{classQZoneDeDessin_a0538fb4956eefed2c07e3a777f22bb63}} 
+vector$<$ int $>$ \hyperlink{classQZoneDeDessin_a0538fb4956eefed2c07e3a777f22bb63}{get\+Selected\+\_\+list} () const
+\begin{DoxyCompactList}\small\item\em Constructeur de la Zone de Dessin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQZoneDeDessin_af1ea3c58dbc91d15bcaa04b5e87435da}\label{classQZoneDeDessin_af1ea3c58dbc91d15bcaa04b5e87435da}} 
+\hyperlink{classGraphe}{Graphe} \hyperlink{classQZoneDeDessin_af1ea3c58dbc91d15bcaa04b5e87435da}{get\+Graphe\+\_\+dessine} () const
+\begin{DoxyCompactList}\small\item\em Getter de selected\+\_\+list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQZoneDeDessin_a0284a1180127de26560beb0c7d78e801}\label{classQZoneDeDessin_a0284a1180127de26560beb0c7d78e801}} 
+Q\+Graphics\+Scene $\ast$ \hyperlink{classQZoneDeDessin_a0284a1180127de26560beb0c7d78e801}{get\+Scene} () const
+\begin{DoxyCompactList}\small\item\em Getter de graphe\+\_\+dessine. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQZoneDeDessin_a4147423afa85ff16432fc7768d45d187}\label{classQZoneDeDessin_a4147423afa85ff16432fc7768d45d187}} 
+void \hyperlink{classQZoneDeDessin_a4147423afa85ff16432fc7768d45d187}{set\+Selected\+\_\+list} (vector$<$ int $>$ sl)
+\begin{DoxyCompactList}\small\item\em Getter de sc. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQZoneDeDessin_a3700227fbb8df7218f487a0b8e311c0e}\label{classQZoneDeDessin_a3700227fbb8df7218f487a0b8e311c0e}} 
+void \hyperlink{classQZoneDeDessin_a3700227fbb8df7218f487a0b8e311c0e}{set\+Graphe\+\_\+dessine} (\hyperlink{classGraphe}{Graphe} g)
+\begin{DoxyCompactList}\small\item\em Setter de selected\+\_\+list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQZoneDeDessin_a4a699941897941a4d627e50dfffe92d4}\label{classQZoneDeDessin_a4a699941897941a4d627e50dfffe92d4}} 
+void \hyperlink{classQZoneDeDessin_a4a699941897941a4d627e50dfffe92d4}{set\+Scene} (Q\+Graphics\+Scene $\ast$scene)
+\begin{DoxyCompactList}\small\item\em Setter de graphe\+\_\+dessine. \end{DoxyCompactList}\item 
+void \hyperlink{classQZoneDeDessin_a2fddc0b3c49fa5eb08cf57a325edad0e}{force\+\_\+\+Atlas2} ()
+\begin{DoxyCompactList}\small\item\em Setter de sc. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQZoneDeDessin_af9043c987805444d2490d8871c5d124c}\label{classQZoneDeDessin_af9043c987805444d2490d8871c5d124c}} 
+int {\bfseries distance\+Force} (\hyperlink{classQSommet}{Q\+Sommet} a, \hyperlink{classQSommet}{Q\+Sommet} b)
+\item 
+pair$<$ int, int $>$ \hyperlink{classQZoneDeDessin_a49a3ae3e70f178cb511b1759e0f27778}{distance} (\hyperlink{classQSommet}{Q\+Sommet} a, \hyperlink{classQSommet}{Q\+Sommet} b)
+\begin{DoxyCompactList}\small\item\em Distance entre Sommets Renvoie la distance entre pixel entre deux Sommets Premier int \+: difference en x Deuxieme int \+: difference en y. \end{DoxyCompactList}\item 
+void \hyperlink{classQZoneDeDessin_a92f0d082808add86596dbab5955cc8f4}{add\+Select\+\_\+\+Sommet} (int ID)
+\begin{DoxyCompactList}\small\item\em Ajoute l\textquotesingle{}ID d\textquotesingle{}un sommet \`{a} selected\+\_\+list. \end{DoxyCompactList}\item 
+void \hyperlink{classQZoneDeDessin_ac611d0d33fd0f84494c0e57a4a476da1}{delete\+Select\+\_\+\+Sommet} (int ID)
+\begin{DoxyCompactList}\small\item\em Supprime de la selected\+\_\+list l\textquotesingle{}ID du \hyperlink{classSommet}{Sommet} en parametre. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQZoneDeDessin_a181f55b49970b999f689314b394eef3d}\label{classQZoneDeDessin_a181f55b49970b999f689314b394eef3d}} 
+void {\bfseries raz\+Selected\+\_\+list} ()
+\item 
+void \hyperlink{classQZoneDeDessin_a71e84d55e8787ab3bc6f214714eb6cbd}{afficher\+\_\+\+Graphe} (\hyperlink{classGraphe}{Graphe} G)
+\begin{DoxyCompactList}\small\item\em Remet \`{a} la selected\+\_\+liste. \end{DoxyCompactList}\item 
+void \hyperlink{classQZoneDeDessin_a12f10a0404159fbd4447a136461f1086}{afficher\+\_\+\+Sommet} (\hyperlink{classSommet}{Sommet} s)
+\begin{DoxyCompactList}\small\item\em Dessine \hyperlink{classSommet}{Sommet}. \end{DoxyCompactList}\item 
+void \hyperlink{classQZoneDeDessin_aa500ad8e2c45c43d8d729b3cf64271e2}{afficher\+\_\+arc} (\hyperlink{classArc}{Arc} a)
+\begin{DoxyCompactList}\small\item\em Dessine \hyperlink{classArc}{Arc}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classQZoneDeDessin_a92f0d082808add86596dbab5955cc8f4}\label{classQZoneDeDessin_a92f0d082808add86596dbab5955cc8f4}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!add\+Select\+\_\+\+Sommet@{add\+Select\+\_\+\+Sommet}}
+\index{add\+Select\+\_\+\+Sommet@{add\+Select\+\_\+\+Sommet}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{add\+Select\+\_\+\+Sommet()}{addSelect\_Sommet()}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::add\+Select\+\_\+\+Sommet (\begin{DoxyParamCaption}\item[{int}]{ID }\end{DoxyParamCaption})}
+
+
+
+Ajoute l\textquotesingle{}ID d\textquotesingle{}un sommet \`{a} selected\+\_\+list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ID} & \hyperlink{classSommet}{Sommet} \`{a} ajouter \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQZoneDeDessin_aa500ad8e2c45c43d8d729b3cf64271e2}\label{classQZoneDeDessin_aa500ad8e2c45c43d8d729b3cf64271e2}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!afficher\+\_\+arc@{afficher\+\_\+arc}}
+\index{afficher\+\_\+arc@{afficher\+\_\+arc}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{afficher\+\_\+arc()}{afficher\_arc()}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::afficher\+\_\+arc (\begin{DoxyParamCaption}\item[{\hyperlink{classArc}{Arc}}]{a }\end{DoxyParamCaption})}
+
+
+
+Dessine \hyperlink{classArc}{Arc}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \hyperlink{classArc}{Arc} \`{a} afficher \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQZoneDeDessin_a71e84d55e8787ab3bc6f214714eb6cbd}\label{classQZoneDeDessin_a71e84d55e8787ab3bc6f214714eb6cbd}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!afficher\+\_\+\+Graphe@{afficher\+\_\+\+Graphe}}
+\index{afficher\+\_\+\+Graphe@{afficher\+\_\+\+Graphe}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{afficher\+\_\+\+Graphe()}{afficher\_Graphe()}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::afficher\+\_\+\+Graphe (\begin{DoxyParamCaption}\item[{\hyperlink{classGraphe}{Graphe}}]{G }\end{DoxyParamCaption})}
+
+
+
+Remet \`{a} la selected\+\_\+liste. 
+
+Affiche \hyperlink{classGraphe}{Graphe} Genere le \hyperlink{classGraphe}{Graphe} C sur la \hyperlink{classQZoneDeDessin}{Q\+Zone\+De\+Dessin} Appel de afficher\+\_\+sommet et afficher\+\_\+arc 
+\begin{DoxyParams}{Parameters}
+{\em G} & \hyperlink{classGraphe}{Graphe} \`{a} afficher \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQZoneDeDessin_a12f10a0404159fbd4447a136461f1086}\label{classQZoneDeDessin_a12f10a0404159fbd4447a136461f1086}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!afficher\+\_\+\+Sommet@{afficher\+\_\+\+Sommet}}
+\index{afficher\+\_\+\+Sommet@{afficher\+\_\+\+Sommet}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{afficher\+\_\+\+Sommet()}{afficher\_Sommet()}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::afficher\+\_\+\+Sommet (\begin{DoxyParamCaption}\item[{\hyperlink{classSommet}{Sommet}}]{s }\end{DoxyParamCaption})}
+
+
+
+Dessine \hyperlink{classSommet}{Sommet}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \hyperlink{classSommet}{Sommet} \`{a} afficher \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQZoneDeDessin_ac611d0d33fd0f84494c0e57a4a476da1}\label{classQZoneDeDessin_ac611d0d33fd0f84494c0e57a4a476da1}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!delete\+Select\+\_\+\+Sommet@{delete\+Select\+\_\+\+Sommet}}
+\index{delete\+Select\+\_\+\+Sommet@{delete\+Select\+\_\+\+Sommet}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{delete\+Select\+\_\+\+Sommet()}{deleteSelect\_Sommet()}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::delete\+Select\+\_\+\+Sommet (\begin{DoxyParamCaption}\item[{int}]{ID }\end{DoxyParamCaption})}
+
+
+
+Supprime de la selected\+\_\+list l\textquotesingle{}ID du \hyperlink{classSommet}{Sommet} en parametre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ID} & \hyperlink{classSommet}{Sommet} \`{a} enlever de la liste \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQZoneDeDessin_a6cb201a39b3c7a12dfb5cd39bc3e8063}\label{classQZoneDeDessin_a6cb201a39b3c7a12dfb5cd39bc3e8063}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!dessiner\+\_\+arc@{dessiner\+\_\+arc}}
+\index{dessiner\+\_\+arc@{dessiner\+\_\+arc}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{dessiner\+\_\+arc}{dessiner\_arc}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::dessiner\+\_\+arc (\begin{DoxyParamCaption}\item[{int}]{xA,  }\item[{int}]{yA,  }\item[{int}]{xB,  }\item[{int}]{yB }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Dessine \hyperlink{classArc}{Arc} Dessine un \hyperlink{classArc}{Arc} sur la G\+Graphic\+View Ajout un \hyperlink{classArc}{Arc} \`{a} la liste des Arcs du \hyperlink{classGraphe}{Graphe} courant. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xa} & Position en x du \hyperlink{classSommet}{Sommet} sortant \\
+\hline
+{\em ya} & Position en y du \hyperlink{classSommet}{Sommet} sortant \\
+\hline
+{\em xb} & Position en x du \hyperlink{classSommet}{Sommet} entrant \\
+\hline
+{\em yb} & Position en y du \hyperlink{classSommet}{Sommet} entrant \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQZoneDeDessin_a662f14f1e9f05ad5ceb0d5aaceaabe8e}\label{classQZoneDeDessin_a662f14f1e9f05ad5ceb0d5aaceaabe8e}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!dessiner\+\_\+sommet@{dessiner\+\_\+sommet}}
+\index{dessiner\+\_\+sommet@{dessiner\+\_\+sommet}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{dessiner\+\_\+sommet}{dessiner\_sommet}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::dessiner\+\_\+sommet (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Dessine \hyperlink{classSommet}{Sommet} Dessine un \hyperlink{classSommet}{Sommet} sur la Q\+Graphic\+View en precisant les positions x et y Ajoute un \hyperlink{classSommet}{Sommet} \`{a} la liste des Sommets du \hyperlink{classGraphe}{Graphe} couratn 
+\begin{DoxyParams}{Parameters}
+{\em x} & Position en x du \hyperlink{classSommet}{Sommet} \\
+\hline
+{\em y} & Position en y du \hyperlink{classSommet}{Sommet} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQZoneDeDessin_a49a3ae3e70f178cb511b1759e0f27778}\label{classQZoneDeDessin_a49a3ae3e70f178cb511b1759e0f27778}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!distance@{distance}}
+\index{distance@{distance}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{distance()}{distance()}}
+{\footnotesize\ttfamily pair$<$ int, int $>$ Q\+Zone\+De\+Dessin\+::distance (\begin{DoxyParamCaption}\item[{\hyperlink{classQSommet}{Q\+Sommet}}]{a,  }\item[{\hyperlink{classQSommet}{Q\+Sommet}}]{b }\end{DoxyParamCaption})}
+
+
+
+Distance entre Sommets Renvoie la distance entre pixel entre deux Sommets Premier int \+: difference en x Deuxieme int \+: difference en y. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Premier \hyperlink{classSommet}{Sommet} \\
+\hline
+{\em b} & Deuxieme \hyperlink{classSommet}{Sommet} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classQZoneDeDessin_a2fddc0b3c49fa5eb08cf57a325edad0e}\label{classQZoneDeDessin_a2fddc0b3c49fa5eb08cf57a325edad0e}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!force\+\_\+\+Atlas2@{force\+\_\+\+Atlas2}}
+\index{force\+\_\+\+Atlas2@{force\+\_\+\+Atlas2}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{force\+\_\+\+Atlas2()}{force\_Atlas2()}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::force\+\_\+\+Atlas2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Setter de sc. 
+
+Force Atlas 2 Algorithme de force appel\'{e} par arranger\+\_\+bouton Distance les points sur le \hyperlink{classGraphe}{Graphe} courant \mbox{\Hypertarget{classQZoneDeDessin_a9a01279140824f3d2fe79c0617224d18}\label{classQZoneDeDessin_a9a01279140824f3d2fe79c0617224d18}} 
+\index{Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}!mouse\+Press\+Event@{mouse\+Press\+Event}}
+\index{mouse\+Press\+Event@{mouse\+Press\+Event}!Q\+Zone\+De\+Dessin@{Q\+Zone\+De\+Dessin}}
+\subsubsection{\texorpdfstring{mouse\+Press\+Event}{mousePressEvent}}
+{\footnotesize\ttfamily void Q\+Zone\+De\+Dessin\+::mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{Q\+Mouse\+Event $\ast$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Surcharge du Double Click Surchage de la fonction s\textquotesingle{}enclenchant lors d\textquotesingle{}un clique sur Qgraphic\+View Recupere informations pour dessiner un objet sur cette position. 
+
+Si l\textquotesingle{}un des boutons suivant a \'{e}t\'{e} selecionn\'{e} \+: add\+Sommet\+Button \+: Dessine \hyperlink{classSommet}{Sommet} sur la position du curseur add\+Arc\+Button \+: Dessin un \hyperlink{classArc}{Arc} en le precedent \hyperlink{classSommet}{Sommet} et celui qui vient d\textquotesingle{}\^{e}tre cliqu\'{e} select\+Button \+: Si select sur false, ID du sommet cliqu\'{e} ajout\'{e} \`{a} la liste des I\+D\+\_\+selected et ce dernier change de couleur select\+Button \+: Si select sur true, ID du \hyperlink{classSommet}{Sommet} cliqu\'{e} supprim\'{e} de la selected\+\_\+liste et reprends sa couleur originale delete\+Sommet \+: Si clic sur un \hyperlink{classSommet}{Sommet}, \hyperlink{classSommet}{Sommet} supprim\'{e} du \hyperlink{classGraphe}{Graphe} avec tout ses arcs sortants delete\+Arc \+: Si clic sur un \hyperlink{classArc}{Arc}, \hyperlink{classArc}{Arc} supprim\'{e} du graphe
+
+L\textquotesingle{}affichage est mis \`{a} jour
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & Clic r\'{e}alis\'{e} \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/app/\+G\+U\+I/fnt\+Principale/Q\+Zone\+De\+Dessin.\+hh\item 
+src/app/\+G\+U\+I/fnt\+Principale/Q\+Zone\+De\+Dessin.\+cc\end{DoxyCompactItemize}
