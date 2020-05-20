@@ -6,7 +6,7 @@
 #include <utility>
 #include <vector>
 #include <queue>
-
+#include <algorithm>
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
   vector<int> dist;
