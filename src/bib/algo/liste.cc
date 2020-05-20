@@ -1,36 +1,968 @@
 #include "liste.hh"
-/*
-pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){}
+#include <cstdio>
+#include <map>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+#include <queue>
+#include <algorithm>
 
-pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){}
+pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
+  vector<int> dist;
+  vector<int> file;
+  vector<int> pred;
+  vector<vector<int>> liste_res;
+  pair <vector<vector<int>>,vector<int>> res;
 
-vector<int> liste_floyd(Matrice Parent, int deb, int fin){}
+  if(M.getType()!=0){
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return res;
+  }
+  else{
+    for(int i=0;i<M.gettV();i++){
+        dist.push_back(INFINI);
+        pred.push_back({-1});
+     }
+     dist[S.getID()] = 0;
 
-int calcul_degres_entrant(Matrice M, int id){}
+    int cmpA = 0,cmpW = 0;
+    for(int i=0;i<M.gettV();i++){     // Nb Arcs
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j])
+        cmpA++;//renvoie le nombre d'arcs
+      }
+    }
+    file.push_back(S.getID());
+    while(file[0]!=-1 && cmpW<cmpA){ // Bellman (poids des chemins)
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[file[0]][j]!=0){
+          if(dist[j] > (dist[file[0]] + M.getTab()[file[0]][j])){
+            dist[j] = dist[file[0]] + M.getTab()[file[0]][j];
+            file.push_back(j);
+            pred[j] = file[0];
+          }
+        }
+      }
+      if(file.size()==1){
+        file[0]=-1;
+      }
+      else {
+        file.erase(file.begin());
+      }
+      cmpW++;
+    }
+    // Cycles négatifs
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]!=0){
+          if(dist[j] > (dist[i] + M.getTab()[i][j])){
+            std::cout << "NEGATIVE CYCLE" << '\n';
+            return res;
+          }
+        }
+      }
+    }
+    // Liste prédécesseurs
+    for(int i=0;i<pred.size();i++){
+      if(pred[i] == -1){
+        liste_res.push_back({S.getID()});
+      }
+      else if(pred[i]==S.getID()){
+        liste_res.push_back({S.getID(),i});
 
-int calcul_degres_sortant(Sommet S){}
 
-pair<int, int> calcul_degres_entrant_sortant(Matrice M, Sommet S){}
+      }
+      else{
+        int j = i;
+        vector<int> tmp;
+        vector<int> tmp2;
+        while(j!=S.getID()){
+          tmp.push_back(j);
+          j = pred[j];
+        }
+        tmp.push_back(S.getID());
+        tmp2.resize(tmp.size());
+        for(int a=0;a<tmp.size();a++){  // Remet à l'endroit
+          tmp2[a] = tmp[tmp.size()-a-1];
+        }
+        liste_res.push_back(tmp2);
+      }
+    }
 
-vector<int> coloration_Graphe(Graphe G){}
+    res.first = liste_res;
+    res.second = dist;
+    return res;
+  }
+}
 
-int couleur_adjacente(Sommet S){}
+//################# FLOYD Warshall  ######################
+pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){
+  //parcourt de la matrice d'adjacence
+  if(M.getType()!=0){
+    Matrice MP(M.gettV(),M.gettV(),2),MT(M.gettV(),M.gettV(),3);
+    pair<Matrice,Matrice> res{MP,MT};
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return res; //retour de pair<Matrice,Matrice> vide
+  }
+  else{
+    //initialisation de MatriceParent
+    Matrice MP(M.gettV(),M.gettV(),3);
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]!=0){
+          MP.modifTab(i,j,j);
+        }
+        else
+        MP.modifTab(i,j,-1);// il n'y a pas de parent direct
 
-vector<vector<int>> stables_Graphe(Matrice M){}
+      }
+    }
 
-vector<vector<int>> cliques_Graphe(Matrice M){}
+    //init de Matrice de poids
+    Matrice MT(M.gettV(),M.gettV(),2);
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(i==j){
+          MT.modifTab(i,j,0);
+        }
+        else if(M.getTab()[i][j]!=0){
+          MT.modifTab(i,j,M.getTab()[i][j]);
+        }
+        else{
+          MT.modifTab(i,j,INFINI);// il n'y a pas de chemin
 
-vector<int> voisin_sommet(Matrice M, int ID){}
+        }
 
-int gestion_flots(Graphe G, int ID_source, int ID_puit){}
+      }
+    }
+    for (int k = 0; k < M.gettV();k++) {
+      for (int i = 0; i < M.gettV(); i++) {
+        for (int j = 0; j < M.gettV(); j++) {
 
-vector<pert_row> calcul_posterite(vector<pert_row>){}
+            if(MT.getTab()[i][j]> (MT.getTab()[i][k]+MT.getTab()[k][j])){
+              MT.modifTab(i,j,MT.getTab()[i][k]+MT.getTab()[k][j]);
+              MP.modifTab(i,j,MP.getTab()[i][k]);
+            }
+        }
+      }
+    }
+    //création de la pair<Matrice,Matrice> res
+    pair<Matrice,Matrice> res{MT,MP};
+    return res;
 
-Graphe pert(vector<pert_row>){}
+  }
+}
 
-Graphe arborescence(Graphe G){}
+vector<int> liste_floyd(Matrice Parent, int deb, int fin){
+  if(Parent.getType()!=3){
+    std::cout << "ERROR WRONG TYPE" << '\n';
+    vector<int> res{-1};
+    return res;
+  }
+  else{
+    vector<int> res{deb};
+    while(Parent.getTab()[deb][fin]!=fin){
+      if(Parent.getTab()[deb][fin]!=-1){
+        deb = Parent.getTab()[deb][fin];
+        res.push_back(deb);
 
-Graphe anti_arborescence(Graphe G){}
+      }
+      else{
+        std::cout << "PAS DE CHEMIN" << '\n';
+        vector<int> res{-2};
+        return res;
+      }
+    }
+    res.push_back(fin);
+    return res;
+  }
+}
+
+int calcul_degres_entrant(Matrice M, int id){
+
+     /* déclare variable int vide  */
+        int nb_entrant = 0;
+
+    /* ittération sur le nombre de sommet de la matrice en paramètre */
+        for (int i=0; i < M.gettV() ; i++){
+            if (M.getTab()[i][id]) nb_entrant++;
+         }
+    return nb_entrant;
+}
+
+int calcul_degres_sortant(Sommet S){
+
+      /* déclare variable int vide  */
+        int nb_sortant = 0;
+
+    /* ittération sur la taille du vecteur de sommet S, contenant les arcs sortants */
+        for (int i=0;  i < S.getVecArc().size();  i++){
+             nb_sortant ++;
+         }
+    return nb_sortant;
+}
+
+pair<int, int> calcul_degres_entrant_sortant(Matrice M, Sommet S){
+    pair<int,int> result( calcul_degres_entrant(M, S.getID()) , calcul_degres_sortant(S) );
+
+     return result;
+}
+
+vector<int> coloration_Graphe(Graphe G){
+    vector<int> res(G.getListe_Sommets().size());//vecteur qui contiendra l'ensemble des couleurs
+    vector<Sommet> listeS= G.getListe_Sommets();
+    vector<pair<int, Sommet>> L;//vecteur qui contient les Sommets non colorés ainsi que le nb de voisins
+    Matrice M(G, 0);
+    map<string, VectVal> map;
+    pair<int, vector<int>> voisin;
+    int s;
+    VectVal v;
+    v.type = 0;
+
+    //On ajoute le premier sommet
+    pair<int, int> tmp = calcul_degres_entrant_sortant(M, G.getListe_Sommets()[0]);
+    pair<int, Sommet> t(tmp.first+tmp.second, G.getListe_Sommets()[0]);
+    L.push_back(t);
+
+    //on classe les sommets par ordre décroissant de degré
+    for(int i=1; i<G.getListe_Sommets().size(); i++){
+        tmp = calcul_degres_entrant_sortant(M, G.getListe_Sommets()[i]);
+        t.first = tmp.first+tmp.second;
+        t.second = G.getListe_Sommets()[i];
+        for(int j=0; j<L.size(); j++){
+            if(t.first > L[j].first){
+                L.insert(L.begin()+j, t);
+                break;
+            }
+            if(j == L.size()-1){
+                L.push_back(t);
+                break;
+            }
+        }
+    }
+
+    // AJOUTER DANS LE GRAPHE LA COULEUR
+
+    res[L[0].second.getID()] = 1;
+    L.erase(L.begin());
+    map = G.getListe_Sommets()[0].getCU();
+    map.insert(pair<string, VectVal>("couleur", v));
+    G.getListe_Sommets()[0].setCU(map);
+
+    while (!L.empty()) {
+
+        //choix du sommet a colorer
+        s=0;
+        voisin = couleur_adjacente(L[s].second.getID(), res, M);
+
+        for(int i=1; i<L.size(); i++){
+            if(voisin.first < couleur_adjacente(L[i].second.getID(), res, M).first){
+                s=i;
+                voisin = couleur_adjacente(L[i].second.getID(), res, M);
+            }
+            else{
+                if(voisin.first == couleur_adjacente(L[i].second.getID(), res, M).first){
+                    if(L[s].first < L[i].first){
+                        s=i;
+                        voisin = couleur_adjacente(L[i].second.getID(), res, M);
+                    }
+                }
+            }
+        }
+        //coloration du sommet
+        v.valeur_entiere = 1;
+        while (res[L[s].second.getID()] == 0) {
+            if(voisin.first == 0){
+                res[L[s].second.getID()] = v.valeur_entiere;
+                map = G.getListe_Sommets()[s].getCU();
+                map.insert(pair<string, VectVal>("couleur", v));
+                G.getListe_Sommets()[s].setCU(map);
+            }
+            else{
+                for(int i=0; i<voisin.second.size(); i++){
+                    if(v.valeur_entiere<voisin.second[i]){
+                        res[L[s].second.getID()] = v.valeur_entiere;
+                        map = G.getListe_Sommets()[s].getCU();
+                        map.insert(pair<string, VectVal>("couleur", v));
+                        G.getListe_Sommets()[s].setCU(map);
+                        break;
+                    }else{
+                        if(i == voisin.second.size()-1){
+                            v.valeur_entiere += 1;
+                            res[L[s].second.getID()] = v.valeur_entiere;
+                            map = G.getListe_Sommets()[s].getCU();
+                            map.insert(pair<string, VectVal>("couleur", v));
+                            G.getListe_Sommets()[s].setCU(map);
+                        }
+                    }
+                    v.valeur_entiere++;
+
+                }
+
+            }
+
+        }
+        //suppression du sommet de la liste des sommets non colorés
+        L.erase(L.begin()+s);
+    }
+
+    return res;
+}
+
+pair<int, vector<int>> couleur_adjacente(int id, vector<int> v, Matrice M){
+    vector<int> res;
+    int r = 0;
+    for (int i=0; i<M.gettV(); i++) {
+        if(i!=id){
+            if(M.getTab()[id][i]==1 && v[i]!=0){
+                if(res.empty()){
+                    res.push_back(v[i]);
+                    r++;
+                }
+                else{
+                    for(int j=0; j<res.size(); j++){
+                        if(res[j]>v[i]){
+                            res.insert(res.begin()+j, v[i]);
+                            r++;
+                            break;
+                        }
+                        if(res[j]==v[i]){
+                            r++;
+                            break;
+                        }
+                        if(j==res.size()-1){
+                            res.push_back(v[i]);
+                            r++;
+                            break;
+                        }
+                }
+                }
+            }
+            else{
+                if(v[i]!=0 && M.getTab()[i][id]==1 ){
+                    if(res.empty()){
+                        res.push_back(v[i]);
+                        r++;
+                    }
+                    else{
+                        for(int j=0; j<res.size(); j++){
+                            if(res[j]>v[i]){
+                                res.insert(res.begin()+j, v[i]);
+                                r++;
+                                break;
+                            }
+                            if(res[j]==v[i]){
+                                r++;
+                                break;
+                            }
+                            if(j==res.size()-1){
+                                res.push_back(v[i]);
+                                r++;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    return pair<int, vector<int>>(r, res);
+}
+
+vector<vector<int>> stables_Graphe(Matrice M){
+    Graphe G(M);
+    vector<int> colo = coloration_Graphe(G);
+
+    vector<vector<int>> res;
+    for(int i=0; i<colo.size(); i++){
+        if(colo[i]<=res.size()){
+            res[colo[i]-1].push_back(i);
+        }
+        else{
+            vector<int>tmp;
+            tmp.push_back(i);
+            res.push_back(tmp);
+        }
+    }
+    return res;
+}
+
+vector<vector<int>> cliques_Graphe(Matrice M){
+    //inversion de la matrice (au sens d'un graphe non orienté)
+    for(int i=0; i<M.gettV(); i++){
+        for(int j=i+1; j<M.gettV(); j++){
+            if(M.getTab()[i][j] == 0 && M.getTab()[j][i] == 0){
+                M.modifTab(i, j, 1);
+            }
+            else{
+                M.modifTab(i, j, 0);
+                M.modifTab(j, i, 0);
+            }
+        }
+    }
+    return stables_Graphe(M);
+}
+
+vector<int> voisin_sommet(Matrice M, int ID){
+     /* déclare variable vector vide  */
+    vector<int> voisins;
+
+     /* ittération sur le nombre de sommet de la matrice M  */
+        for (int i=0; i < M.gettV() ; i++){
+            if ( M.getTab()[ID][i] )  {
+                voisins.insert(voisins.end(),i);
+            }
+        }
+    return voisins;
+}
+
+int gestion_flots(Graphe G, int ID_source, int ID_puit){//fonction applicant l'algorithme d'Edmond Karp
+  //############ Les variables #############
+
+  vector<vector<int>> MG= Matrice(G,0).getTab();// Matrice d'adjacence du graphe
+  vector<vector<int>> GR = MG;                  // Graphe residuel init à 0 (= MG pour init la taille)
+  vector<vector<int>> Succ;                     // liste des successeurs init via MG
+  vector<int> ListeParent ;                     // liste des parents d'un parcours bfs
+  vector<int> CheminCourant;                    // chemin courant du bfs
+  int FlotMax = 0;                              // variable contenant le flot maximum
+  int flag=0;
+
+
+  //######## Boucles d'initialisations ##########
+  Succ.resize(MG.size()); //on init Succ au nombre de sommets du Graphe
+  CheminCourant.resize(MG.size());    //init de Chemin courant en taille
+  ListeParent.resize(MG.size());    //init de Liste parent en taille
+  //cout << Succ.size() << " " << CheminCourant.size() << " " << ListeParent.size() << endl;
+  for(int i=0;i<MG.size();i++){ // init des successeurs
+    for(int j=0;j<MG.size();j++){
+      if(MG[i][j]>0){   // Si il y a un arc de i a j
+        Succ[i].push_back(j); // on ajoute j aux successeurs de i
+        Succ[j].push_back(i);
+      }
+      GR[i][j]=0; // init du graphe résiduel à 0
+    }
+  }
+
+  while(true){
+    //########### Breadth first search (bfs) ##########
+    int flot =0;  //calcul  d'un flot entre source et puits
+
+    for(int i=0;i<ListeParent.size();i++){
+      ListeParent[i] = -1;            // init de la valeur de chaque parent
+    }
+    for(int i=0;i<CheminCourant.size();i++){
+      CheminCourant[i] = 0;            // init de la valeur du chemin courant
+    }
+
+    vector<int> file;
+    queue<int> q;
+    q.push(ID_source);
+    ListeParent[ID_source] = -1;
+    CheminCourant[ID_source] = INFINI;
+    while(!q.empty()){
+      flag = 0;
+      int SA = q.front();
+      q.pop();
+      for(int i=0;i<Succ[SA].size();i++){
+        int NEXT = Succ[SA][i];
+        if(ListeParent[NEXT] == -1){
+          if((MG[SA][NEXT] - GR[SA][NEXT]) > 0){
+            ListeParent[NEXT] = SA;
+            //calcul du min
+            int min = CheminCourant[SA];
+            if(min >(MG[SA][NEXT] - GR[SA][NEXT]))
+            min = MG[SA][NEXT] - GR[SA][NEXT];
+            //fin min
+            CheminCourant[NEXT] = min ;
+            if(NEXT == ID_puit){
+              flag = 1; // flag permetant de sortir
+              flot = CheminCourant[ID_puit];
+              break; //on sort du for
+            }
+            q.push(NEXT);
+          }
+        }
+      }//fin du for
+      if(flag)break;//sor du while
+    }
+    //####### Gestion post bfs #########
+    if(!flag){//Gestion de la sortie du bfs
+      break; //sort du while
+    }
+    FlotMax += flot;  //ajout du flot au flot total
+    int SA = ID_puit; //on part de la fin
+    while(SA != ID_source){ // tant qu'on est pas à la source
+      int PREV = ListeParent[SA]; // On prend l'ID du precedent du Sommet Actuel
+      GR[PREV][SA] += flot; // on ajoute la flot au graphe residuel
+      GR[SA][PREV] -= flot;
+      SA = PREV;  // Sommet Actuel devient son precedent
+
+    }
+  }
+  return FlotMax;
+
+}
+
+
+
+vector<pert_row> calcul_posterite(vector<pert_row> p){
+  vector<pert_row> tmp = p;
+  int ex;
+  for(int i = 0; i<tmp.size(); i++){
+    ex = tmp[i].taches_anterieures.size();
+    for(int j = 0; j<tmp[i].taches_anterieures.size(); j++){
+      for(int k = 0; k<tmp.size(); k++){
+        if(tmp[i].taches_anterieures[j] == tmp[k].tache){
+          tmp[k].taches_posterieures.push_back(tmp[i].tache);
+          ex --;
+        }
+      }
+    }
+    if(ex != 0){
+      cout<<"/* ERROR NON-EXISTENT TASK */"<<endl;
+      return p;
+    }
+  }
+
+  for(int i = 0; i<tmp.size(); i++){
+    if(tmp[i].taches_anterieures.size() == 0){
+      vector<int> v={tmp[i].tache};
+      vector<int> suiv = tmp[i].taches_posterieures;
+      while(!suiv.empty()){
+        for(int j = 0; j<v.size(); j++){
+            if(suiv[0] == v[j]){
+                cout<<"/* ERROR SELF-PERPETUATING TASK *//*"<<endl;
+                return p;
+            }
+        }
+        for(int j = 0; j<tmp.size(); j++){
+
+          if (tmp[j].tache == suiv[0]){
+            for(int k = 0; k<tmp[j].taches_posterieures.size(); k++){
+              int cmp = 0;
+              for(int l=0; l<suiv.size(); l++){
+                if(suiv[l] == tmp[j].taches_posterieures[k]){
+                  cmp++;
+                }
+              }
+              if(cmp==0){
+                suiv.push_back(tmp[j].taches_posterieures[k]);
+              }
+
+            }
+          }
+        }
+
+        v.push_back(suiv[0]);
+        suiv.erase(suiv.begin());
+      }
+
+    }
+  }
+
+  return tmp;
+}
+
+
+
+Graphe pert(vector<pert_row> p){
+    std::vector<pert_row> pe = p;
+    vector<Sommet> ListeS;
+    vector<Arc> ListeA;
+    VectVal val;
+    map<string, VectVal> mapS;
+    map<string, VectVal> mapA;
+    map<string, VectVal> mapT;
+    VectVal fin;
+
+    fin.type = 0;
+    fin.valeur_entiere = 0;
+
+    val.type = 0;
+    val.valeur_entiere = 0;
+
+    //création d'un sommet départ
+    mapA.insert(pair<string, VectVal>("duree", val));
+    mapS.insert(pair<string, VectVal> ("date au plus tot", val));
+    ListeS.push_back(Sommet(100, 100, "Départ", 0, mapS));
+
+    //création du sommet fin
+    ListeS.push_back(Sommet(100, 100, "Fin", 1));
+
+    //création des sommets n'ayant aucunes contraîntes d'antériorités et les arcs correspondants
+    for(int i=0; i<p.size(); i++){
+        if(p[i].taches_anterieures.empty()){
+            val.valeur_entiere = p[i].duree;
+            mapS["date au plus tot"] = val;
+            ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
+            mapA["duree"]=val;
+            ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), 0, ListeS.back().getID(), mapA));
+            if(p[i].taches_posterieures.empty()){
+                if(val.valeur_entiere>fin.valeur_entiere){
+                    fin.valeur_entiere = val.valeur_entiere;
+                }
+                //ajouter arc
+                val.valeur_entiere = 0;
+                mapA["duree"]=val;
+                ListeA.push_back(Arc("fictif", ListeA.size(), ListeS.back().getID(), 1, mapA));
+            }
+            p.erase(p.begin()+i);
+            i=i-1;
+        }
+    }
+
+    while (!p.empty()) {
+        //on vérifie pour une unique contraînte
+        for(int i=0; i<p.size(); i++){
+            if(p[i].taches_anterieures.size() == 1){
+                int tmp = 0;
+                int id;
+                for(Sommet s : ListeS){
+                    if("fin " + to_string(p[i].taches_anterieures[0]) == s.getEtiq()){
+                        tmp++;
+                        id = s.getID();
+                    }
+                }
+                if(tmp == 1){
+                    val.valeur_entiere = p[i].duree + ListeS[id].getCU()["date au plus tot"].valeur_entiere;
+                    mapS["date au plus tot"] = val;
+                    ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
+                    val.valeur_entiere = p[i].duree;
+                    mapA["duree"]=val;
+                    ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), id, ListeS.back().getID(), mapA));
+                    if(p[i].taches_posterieures.empty()){
+                      val.valeur_entiere = p[i].duree + ListeS[id].getCU()["date au plus tot"].valeur_entiere;
+                        if(val.valeur_entiere>fin.valeur_entiere){
+                            fin.valeur_entiere = val.valeur_entiere;
+                        }
+                        //ajouter arc
+                        val.valeur_entiere = 0;
+                        mapA["duree"]=val;
+                        ListeA.push_back(Arc("fictif", ListeA.size(), ListeS.back().getID(), 1, mapA));
+                    }
+                    p.erase(p.begin()+i);
+                    i=i-1;
+                }
+
+            }
+        }
+
+
+        //test pour plusieurs contraîntes d'antériorités
+        for(int i=0; i<p.size(); i++){
+            //on vérifie que les taches antérieures sont déjà traitées
+            int tmp = 0;
+            for(Sommet s : ListeS){
+                for(int j=0; j<p[i].taches_anterieures.size(); j++)
+                if("fin " + to_string(p[i].taches_anterieures[j]) == s.getEtiq()){
+                    tmp++;
+                }
+            }
+            if(tmp == p[i].taches_anterieures.size()){
+                //recherche de l'antécédent avec la date au plus tôt la plus élevée
+                int x = 0; // id de la tâche
+                int id = 0; // id du sommet dans la liste
+                for(int k=0; k<ListeS.size(); k++){
+                    for(int j=0; j<p[i].taches_anterieures.size(); j++)
+                        if("fin " + to_string(p[i].taches_anterieures[j]) == ListeS[k].getEtiq()){
+                            if (ListeS[id].getCU()["date au plus tot"].valeur_entiere
+                                <= ListeS[k].getCU()["date au plus tot"].valeur_entiere){
+                                    id = k;
+                                    x = j;
+                                }
+                        }
+                }
+                //si l'antécédent avec la date au plus tôt la plus élevée a au plus un sommet postérieur
+                if(pe[x].taches_posterieures.size() <= 1){
+                    val.valeur_entiere = p[i].duree + ListeS[id].getCU().at("date au plus tot").valeur_entiere;
+                    mapS["date au plus tot"] = val;
+                    ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
+                    val.valeur_entiere = p[i].duree;
+                    mapA["duree"]=val;
+                    ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), ListeS[id].getID(), ListeS.back().getID(), mapA));
+                    if(p[i].taches_posterieures.empty()){
+                      val.valeur_entiere = val.valeur_entiere = p[i].duree + ListeS[id].getCU().at("date au plus tot").valeur_entiere;
+                        if(val.valeur_entiere>fin.valeur_entiere){
+                            fin.valeur_entiere = val.valeur_entiere;
+                        }
+                        //ajouter arc
+                        val.valeur_entiere = 0;
+                        mapA["duree"]=val;
+                        ListeA.push_back(Arc("fictif", ListeA.size(), ListeS.back().getID(), 1, mapA));
+                    }
+                    //ajouter les arcs fictifs entre tous les sommets antérieurs et le sommet xi
+                    val.valeur_entiere = 0;
+                    mapA["duree"]=val;
+                    for(int j=0; j<p[i].taches_anterieures.size(); j++){
+                        for(int k = 0; k<ListeS.size(); k++){
+                            if("fin " + to_string(p[i].taches_anterieures[j]) == ListeS[k].getEtiq() && ListeS[k].getID()!= id){
+                                ListeA.push_back(Arc("fictif", ListeA.size(), ListeS[k].getID(), id, mapA));
+                             }
+                        }
+                    }
+                    p.erase(p.begin()+i);
+                    i=i-1;
+                }
+                 //si il a plusieurs sommets postérieurs
+                else{
+                    //créer un sommet fin de toutes les tâches antérieurs
+                    val.valeur_entiere = ListeS[id].getCU().at("date au plus tot").valeur_entiere;
+                    mapS["date au plus tot"] = val;
+                    string etiq = " fin ";
+                    for(int j=0; j<p[i].taches_anterieures.size(); j++){
+                        etiq += ", " + to_string(p[i].taches_anterieures[j]);
+                    }
+                    ListeS.push_back(Sommet(100, 100, etiq, ListeS.size(), mapS));
+                    val.valeur_entiere = 0;
+                    mapA["duree"]=val;
+                    for(int j=0; j<p[i].taches_anterieures.size(); j++){
+                        for(Sommet s : ListeS){
+                            if("fin " + to_string(p[i].taches_anterieures[j]) == s.getEtiq()){
+                                ListeA.push_back(Arc("fictif", ListeA.size(), s.getID(), ListeS.back().getID(), mapA));
+                             }
+                        }
+                    }
+                    val.valeur_entiere = p[i].duree + ListeS.back().getCU().at("date au plus tot").valeur_entiere;
+                    mapS["date au plus tot"] = val;
+                    ListeS.push_back(Sommet(100, 100, "fin " + to_string(p[i].tache), ListeS.size(), mapS));
+                    val.valeur_entiere = p[i].duree;
+                    mapA["duree"] = val;
+                    ListeA.push_back(Arc(to_string(p[i].tache) + p[i].nom_tache, ListeA.size(), ListeS[ListeS.size()-2].getID(),ListeS.back().getID(), mapA));
+                    if(p[i].taches_posterieures.empty()){
+                      val.valeur_entiere =  p[i].duree + ListeS.back().getCU().at("date au plus tot").valeur_entiere;
+                        if(val.valeur_entiere>fin.valeur_entiere){
+                            fin.valeur_entiere = val.valeur_entiere;
+                        }
+                        //ajouter arc
+                        val.valeur_entiere = 0;
+                        mapA["duree"]=val;
+                        ListeA.push_back(Arc("fictif", ListeA.size(), ListeS.back().getID(), 1, mapA));
+                    }
+                    p.erase(p.begin()+i);
+                    i=i-1;
+                }
+            }
+        }
+
+    }
+
+
+
+    mapS["date au plus tot"] = fin;
+    mapS.insert(pair<string, VectVal> ("date au plus tard", fin));
+    ListeS[1].setCU(mapS);
+
+
+
+
+
+    //calcul de toutes les dates au plus tard
+
+    vector<Arc> li = ListeA; //liste de tous les Arcs non traités
+    vector<int> f(ListeS.size()); //liste des sommets traités
+    f[1] = 1;
+
+
+    while(!li.empty()){
+      for (int i = ListeS.size()-1; i>= 0; i--){
+        int r = 0;
+        map<string, VectVal> m = ListeS[i].getCU();
+
+        for(int j = li.size()-1; j>=0; j--){
+          vector<int> sortant = ListeS[i].getVecArc();
+          if(li[j].getIDDepart() == ListeS[i].getID()){
+            if(f[li[j].getIDArrive()] == 1){
+              int tmp = ListeS[li[j].getIDArrive()].getCU()["date au plus tard"].valeur_entiere - li[j].getCU()["duree"].valeur_entiere;
+              if(ListeS[i].getCU().count("date au plus tard") == 1){
+                fin.valeur_entiere = ListeS[i].getCU()["date au plus tard"].valeur_entiere;
+                if(tmp < fin.valeur_entiere){
+                  fin.valeur_entiere = tmp;
+                  m["date au plus tard"] = fin;
+                }
+              }
+              else{
+                fin.valeur_entiere = INFINI;
+                if(tmp < fin.valeur_entiere){
+                  fin.valeur_entiere = tmp;
+                  m.insert(pair<string, VectVal> ("date au plus tard", fin));
+                }
+
+              }
+
+              if(sortant.empty()){
+                sortant.push_back(li[j].getID());
+              }
+              else{
+                for (int t = 0; t < sortant.size(); t++) {
+                  if(li[j].getID() < sortant[t]){
+                    sortant.insert(sortant.begin() + t, li[j].getID());
+                    break;
+                  }
+                  else{
+                    if(t == sortant.size()-1){
+                      sortant.push_back(li[j].getID());
+                      break;
+                    }
+                  }
+                }
+              }
+
+              ListeS[i].setVecArc(sortant);
+              ListeS[i].setCU(m);
+              li.erase(li.begin() + j);
+
+            }
+            else{r++;}
+
+          }
+        }
+        if(r == 0){
+          f[i] = 1;
+        }
+      }
+    }
+
+    for (int i = ListeS.size()-1; i>= 0; i--){
+      if(ListeS[i].getCU()["date au plus tot"].valeur_entiere == ListeS[i].getCU()["date au plus tard"].valeur_entiere){
+        fin.valeur_entiere = 1;
+      }
+      else{fin.valeur_entiere = 0;}
+      mapT = ListeS[i].getCU();
+      mapT.insert(pair<string, VectVal> ("critique", fin));
+      ListeS[i].setCU(mapT);
+    }
+
+    //création du Graphe
+    return Graphe("PERT", ListeS, ListeA, "\0");
+
+}
+
+Graphe arborescence(Graphe G){
+    int succ=0,pred=0,Smax=0,Pmax=0;
+    int deb=-1;
+    Matrice M = G.conversion_vers_Matrice_adj();
+    Graphe A("Arborescence");
+    Graphe tmp("Arborescence");
+    vector<int>in;
+
+    // Vérifie si il existe une arborescence
+    for(int i=0;i<M.gettV();i++){
+        for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j]) succ++;   // Successeurs
+            if(M.getTab()[j][i]) pred++;   // Prédecesseurs
+        }
+        if(!pred){      // Si pas de prédecesseurs
+            deb = i;
+            Pmax++;
+        }
+        if(Pmax >1 || !Pmax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+            std::cout << "NO ARBORESCENCE" << '\n';
+            tmp.ajout_Sommet(-1, -1,-1);
+            return tmp;
+        }
+        succ = 0;
+        pred = 0;
+        in.push_back(0);
+    }
+
+    // ##############
+    int min=INFINI;
+    for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
+
+    int out = 0;
+    for(int i=0; i<M.gettV() && !in[i];i++){
+        if(i==deb)i++;
+        for(int j=0;j<M.gettV();j++){   // Calcul Arc de poids min
+            if(M.getTab()[j][i] && M.getTab()[j][i]<min){
+                min = M.getTab()[j][i];     // Arc entrant de poids min
+                if(j == deb) out++;
+            }
+        }
+
+        for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
+            int val = M.getTab()[j][i]-min;
+            if(!val && !in[i]){
+                in[i] = 1;
+                A.ajout_Arc(j,i);
+                break;
+            }
+        }
+
+        min = INFINI;
+
+        if(i == deb) i = -1;
+    }
+
+    if(!out){   // Si pas d'arcs de poids min partant du sommet
+        std::cout << "NO ARBORESCENCE" << '\n';
+        tmp.ajout_Sommet(-1, -1,-1);
+        return tmp;
+    }
+    return A;
+}
+
+Graphe anti_arborescence(Graphe G){
+  int succ=0,Smax=0;
+    int fin=-1;
+    Matrice M = G.conversion_vers_Matrice_adj();
+    Graphe A("Anti-Arborescence");
+    Graphe tmp("Anti-Arborescence");
+    vector<int>in;
+
+    // Vérifie si il existe une anti-arborescence
+    for(int i=0;i<M.gettV();i++){
+        for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j]) succ++;   // Successeurs
+        }
+        if(!succ){      // Si pas de successeurs
+            fin = i;
+            Smax++;
+        }
+        if(Smax >1 || !Smax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+            std::cout << "NO ANTI-ARBORESCENCE" << '\n';
+            tmp.ajout_Sommet(-1,-1,-1);
+            return tmp;
+        }
+        succ = 0;
+        in.push_back(0);
+    }
+
+    // ##############
+    int min=INFINI;
+    for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
+
+    int out = 0;
+    for(int i=0; i<M.gettV() && !in[i];i++){
+        if(i==fin)i++;
+        for(int j=0;j<M.gettV();j++){   // Calcul Arc de poids min
+            if(M.getTab()[i][j] && M.getTab()[i][j]<min){
+                min = M.getTab()[i][j];     // Arc entrant de poids min
+                if(j == fin) out++;
+            }
+        }
+
+        for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
+            int val = M.getTab()[i][j]-min;
+            if(!val && !in[i]){
+                in[i] = 1;
+                A.ajout_Arc(i,j);
+                break;
+            }
+        }
+
+        min = INFINI;
+        if(i == fin) i = -1;
+    }
+
+    if(!out){   // Si pas d'arcs de poids min partant du sommet
+        std::cout << "NO ANTI-ARBORESCENCE" << '\n';
+        tmp.ajout_Sommet(-1, -1,-1);
+        return tmp;
+    }
+    return A;
+}
 
 int connexite(Matrice M)
 {
@@ -39,28 +971,27 @@ int connexite(Matrice M)
 		return -1;
 	}
 	vector<vector <int>> T = M.getTab(), ListeVoisin;
-	
+
 	vector<int> Marque, ListeSommet;	// 1 si marqué, 0 sinon ?
-	
-	
-	
-	
+
+
+
+
 	for(int y = 0; y<M.gettV(); y++)
 	{
 		Marque.push_back(0);
 		ListeVoisin.push_back({});
 		ListeSommet.push_back(y);	//initialisation à vide
 	}
-	
 
-	
+
 	int i,j;
-	
+
 	for(i=0; i<M.gettV(); i++)	//boucle sommet départ
 	{
 		for(j=0; j<M.gettV(); j++)	//On teste tous les sommets de la matrice
 		{
-			
+
 			if(T[i][j]==1)	//Si il existe un arc entre i et j
 			{
 				if(Marque[i]!=1)	//Si j n'est pas encore marqué par le programme
@@ -68,11 +999,11 @@ int connexite(Matrice M)
 					Marque[i] = 1;
 					ListeVoisin[i].push_back(j);	//On l'ajoute à la liste des successeurs
 				}
-				
+
 			}
 		}
 	}
-	
+
 	for(i=0; i<ListeVoisin.size(); i++)
 	{
 		for(j=0; j<ListeVoisin[i].size(); j++)
@@ -81,35 +1012,323 @@ int connexite(Matrice M)
 			ListeSommet[i] = -1;
 		}
 	}
-	
+
 	int flag = 0;
-	
-	
+
+
 	for(i=0; i<ListeSommet.size(); i++)
 	{
 		if(ListeSommet[i]!=-1)
 		{
-			
+
 			flag = 1;
 		}
 	}
-	
+
 	if(flag == 0)
 	{
 		return 1; //graphe connexe
 	}
-	
+
 	return 0; 	//graphe non connexe
-	
+
 }
 
-vector<vector<int>> chaine_eulerienne(Matrice M){}
 
-vector<vector<int>> chaine_hamiltonienne(Matrice M){}
+vector<vector<int>> chaine_eulerienne(Matrice M){
+  vector<int> path;
+  vector<vector<int>> res;
 
-vector<int> postier_chinois(Matrice M){}
-* 
-*/
+  if(M.getType() != 0){
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return res;
+  }
+  else{
+    int pred=0,succ=0,Dmax=0,Fmax=0;
+    int deb=0,fin=-1;
+    vector<int> out;
+
+    int mark[M.gettV()][M.gettV()];
+
+    // Vérifie si il existe un chemin Eulérien
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]) succ++;
+        if(M.getTab()[j][i]) pred++;
+        mark[i][j] = 0;
+      }
+      out.push_back(succ);    // Stocke le nombre de successeurs
+
+      if(succ-pred>1 || pred-succ>1){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      else{
+        if(pred-succ==1){
+          fin = i;          // Sommet d'arrivée
+          Fmax++;
+        }
+        else if(succ-pred==1){
+          deb = i;         // Sommet de départ
+          Dmax++;
+        }
+      }
+
+      if(!connexite(M) && !succ && !pred){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      if(Dmax>1 || Fmax>1){
+        std::cout << "NO EULERIAN PATH" << '\n';
+        return res;
+      }
+      succ = 0;
+      pred = 0;
+    }
+
+    // Nombre d'arcs
+    int nbA = 0;
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]) nbA++;
+      }
+    }
+
+    // Sommet de départ
+    if(deb==0 && !out[deb]){
+        for(int i=0;i<M.gettV();i++){
+            if(out[i]>0) deb = i;
+        }
+    }
+
+    // #########################
+    int i = deb;
+    while (out[i]){
+        for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j] && !mark[i][j]){   // Si arc
+                --out[i];
+                mark[i][j] = 1;
+                path.push_back(i);
+                i = j;
+                j = 0;
+            }
+
+            if(!out[i] && path.size() == nbA){
+                path.push_back(i);
+                res.push_back(path);
+                return res;
+            }
+        } // Fin for
+    } // Fin while
+  } // Fin else
+  return res;
+}
+
+vector<vector<int>> chaine_hamiltonienne(Matrice M){
+  vector<int> mark;
+  vector<int> path;
+  vector<vector<int>> res;
+
+  if(M.getType() != 0){
+    std::cout << "ERROR WRONG MATRICE TYPE" << '\n';
+    return res;
+  }
+  else{
+      int pred, succ, Pmax, Smax;
+      int deb=-1,fin=-1;
+
+      // Vérifie si il existe un chemin Hamiltonien
+      for(int i=0;i<M.gettV();i++){
+          for(int j=0;j<M.gettV();j++){
+            if(M.getTab()[i][j]) succ++;      // Nb successeur pour i
+            if(M.getTab()[j][i]) pred++;      // Nb predecesseur pour j
+
+            mark.push_back(0);
+          }
+          if(!succ){
+            Smax++;
+            fin = i;
+          }
+          if(!pred){
+            Pmax++;
+            deb = i;
+          }
+          succ = 0;
+          pred = 0;
+      }
+      if(Smax > 1 || Pmax > 1){                 // Plusieurs sommets sans successeurs ou prédecesseurs
+           std::cout << "NO HAMILTTONIAN PATH" << '\n';
+            return res;
+      }
+
+      // Sommet de départ
+      if(deb == -1) deb = 0;
+
+      int i = deb;
+      while(!mark[i]){
+        if(path.size() == M.gettV()-1){
+            path.push_back(i);
+            res.push_back(path);
+            return res;
+        }
+        for(int j=0;j<M.gettV();j++){
+          if(M.getTab()[i][j] && !mark[j]){
+            mark[i] = 1;
+            path.push_back(i);
+            i = j;
+            j = 0;
+            }
+        } // Fin for
+      } // Fin while
+    } // Fin else
+  return res;
+}
+
+vector<int> postier_chinois(Matrice M){
+
+        vector<int> sommetsImpair;
+        vector<int> vecteurResult;
+        int nb_sortant, nb_entrant;
+        pair<Matrice, Matrice> FloydMa = calcul_Floyd_Warshall(M);
+        int deb, fin;
+        int EstPair = 1;
+
+
+        /*On vérifie la connexité*/
+        if (connexite(M)){
+
+            /*On boucle sur les sommets, pour vérifier s'ils sont tous pairs */
+             for(int i=0; i<M.getTab().size(); i++){
+                nb_sortant =0;
+
+                /*nb degré entrant */
+                nb_entrant = calcul_degres_entrant(M, i);
+
+                /*nb degré sortant */
+                for (int j=0; j < M.gettV() ; j++){
+                    if (M.getTab()[i][j]) nb_sortant++;
+                }
+
+                /* si l'un des sommets a un degré impair on sort de la boucle */
+                if (nb_sortant!= nb_entrant){
+                     sommetsImpair.push_back(i);
+                     EstPair = 0;
+                }
+            }
+            /* on produit le cycle eulérien pour résoudre le postier chinois*/
+            if (EstPair) {
+                    /* permet de récupérer le premier vecteur des chaines eulériennes.*/
+                    vector<vector<int>> tmp = chaine_eulerienne(M);
+                    vecteurResult = tmp[0];
+
+                return vecteurResult;
+            }
+            else{
+                int tmp;
+                int total_poid_couplage=0;
+                int total;
+                int noChemin;
+                int nb_combinaisons;
+                vector<int> vect_tmp;
+                vector<int> couplageParfait;
+                vector<vector<int>> combinaisons;
+
+
+                /*factoriel pour récupérer le nombre de combinaisons possibles*/
+                for(int fact=1; fact<(sommetsImpair.size()+1); fact++){
+                    nb_combinaisons*=fact;
+                }
+
+                /* récupérer toutes les combinaisons de couplages possibles */
+                 do{
+                   for( int i = 0; i < sommetsImpair.size(); i += 1 ){
+                       vect_tmp.push_back(sommetsImpair[i]);
+                    }
+                    combinaisons.push_back(vect_tmp);
+                    vect_tmp.clear();
+                }while( std::next_permutation( sommetsImpair.begin(), sommetsImpair.end() ) );
+
+
+                /*UNIQUEMENT POUR STOCKER LA PREMIERE COMBINAISON POSSIBLE */
+                int min=0;
+                for(auto deb=combinaisons.begin(); deb!=combinaisons.end(); deb++){
+
+                    /* effacer le vecteur pour pouvoir le réutiliser*/
+                    couplageParfait.clear();
+                    total_poid_couplage = 0;
+                    noChemin = 0;
+                    for(auto fin=deb->begin(); fin!=deb->end(); fin=fin+2){
+                        tmp = 0;
+                        tmp = FloydMa.first.getTab()[*fin ][*(fin+1)];
+                        /* s'il n'y a pas de chemin du sommet *fin au sommet *(fin +1),on sort de la boucle interne pour tester la deb+1 combinaisons */
+                        if (tmp == 0) {
+                            min = 0;
+                            break;
+                        }
+                        if (!noChemin){
+                            total_poid_couplage += tmp;
+                            /*sauvegarder les sommets dans le vecteur temporaire au cas où ils seraient des couplages parfaits */
+                            couplageParfait.push_back(*fin);
+                            couplageParfait.push_back(*(fin+1));
+                            /*on a récupérer la premiere valeur*/
+                            min = 1;
+                        }
+                    }
+                    if (min) break;
+                }
+
+                /* ON RECUPERE LE MINIMUM parmis toutes les combinaisons possibles du vecteur couplageParfait*/
+                for(auto deb=combinaisons.begin(); deb!=combinaisons.end(); deb++){
+
+                    /* effacer le vecteur pour pouvoir le réutiliser*/
+                    vect_tmp.clear();
+                    total = 0;
+                    noChemin = 0;
+                    for(auto fin=deb->begin(); fin!=deb->end(); fin=fin+2){
+                        tmp = 0;
+                        tmp = FloydMa.first.getTab()[*fin ][*(fin+1)];
+                        /* s'il n'y a pas de chemin entre 2 sommets : break*/
+                        if (tmp == 0) {
+                            noChemin=1;
+                            break;
+                        }
+                        if (!noChemin){
+                             total += tmp;
+                            /*sauvegarder les sommets dans le vecteur temporaire au cas où ils seraient des couplages parfaits */
+                            vect_tmp.push_back(*fin);
+                            vect_tmp.push_back(*(fin+1));
+                        }
+                    }
+
+
+                        if ( (!noChemin) & (total < total_poid_couplage) ){
+                             total_poid_couplage = total;
+                            couplageParfait = vect_tmp;
+                        }
+
+                }
+
+                /*Création d'un Matrice bis pour stocker les nouveaux arcs */
+                Matrice Mbis(M);
+                for(auto deb = couplageParfait.begin(); deb != couplageParfait.end(); deb=deb+2 ){
+                    Mbis.modifTab(*deb, *(deb+1), 1);
+                 }
+
+                /* permet de récupérer le premier vecteur des chaines eulériennes.*/
+                vector<vector<int>> stock = chaine_eulerienne(Mbis);
+                vecteurResult = stock[0];
+                return vecteurResult;
+
+            }
+
+        }
+
+        else {
+            std::cout << "ERREUR CONNEXITE MATRICE (Postier Chinois)" << '\n';
+            /* retourne un vecteur vide */
+            return vecteurResult;
+            }
+}
 
 vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 {
@@ -588,4 +1807,4 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	
 	vector<int> juste_pour_le_retour_de_fonction_mais_a_supprimer;
 	return juste_pour_le_retour_de_fonction_mais_a_supprimer;
-}	
+}

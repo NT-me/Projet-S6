@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+# bordel des IDE
+*.cflags
+*.config
+*.creator
+*.user
+*.cxxflags
+*.files
+*.includes
+
+test/test_app/GUI/fntPrincipale/Makefile
+build-Projet-S6-full-Desktop_Qt_5_14_2_GCC_64bit-Debug/*
