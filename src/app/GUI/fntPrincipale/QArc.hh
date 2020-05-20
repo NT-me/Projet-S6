@@ -2,7 +2,10 @@
 #define H_QARC
 
 #include <QGraphicsItem>
+#include <QDebug>
 #include <QList>
+#include <QGraphicsLineItem>
+#include <QtMath>
 #include "QSommet.hh"
 #include "../../../bib/bib.hh"
 

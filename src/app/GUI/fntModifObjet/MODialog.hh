@@ -1,3 +1,8 @@
+#include "UI_modifObjet.hh"
+#include <utility>
+#include <string>
+
+/*
 class Ui_Dialog {
 public:
 
@@ -15,7 +20,8 @@ public:
     QDialogButtonBox *buttonBox;
 
 };
-
+*/
+/*
 namespace Ui {
 class modifObjet;
 }
@@ -36,7 +42,8 @@ public:
     ~modifObjet();	/// Destructeur de la fenetre
 
 private:
-ui::modifObjet *ui; /// Fen&ecirc;tre de la boite de dialogue
+Ui::modifObjet *ui;
+
 pair<string, map<string,vectVal>> res;
 
 
@@ -45,3 +52,5 @@ public slots:
     void addCU();		/// Ajoute une charge utile respectant les informations entr&eacute;es dans les lineEdit
 
 };
+*/
+

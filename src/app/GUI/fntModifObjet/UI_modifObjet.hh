@@ -35,29 +35,20 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QFormLayout *formLayout_2;
-    QLineEdit *lineEditEtiquette;	/// Permet de modifier l'etiquette qui s'affiche en placeholder
+    QLineEdit *lineEditEtiquette;
     QLabel *label_2;
     QFrame *line;
     QLabel *label_3;
     QFormLayout *formLayout;
-    QTableWidget *tableWidget;	/// Afficher l'ensemble des charges utiles (stock&eacute;e sous forme de map)
-    QPushButton *supprimeButton;	/// Permet de supprimer la charge utile selectionn&eacute;e par l'utilisateur
+    QTableWidget *tableWidget;
+    QPushButton *supprimeButton;
     QHBoxLayout *horizontalLayout;
-    QLineEdit *NomlineEdit;	/// Permet d'entrer le nom d'une future charge utile
-    QLineEdit *ValeurlineEdit;	/// Permet d'entrer la valeur d'une nouvelle charge utile
-    QPushButton *addTacheButton;	/// Permet d'afficher le tableau des valeurs entr&eacute;es dans les lineEdit
+    QLineEdit *NomlineEdit;
+    QLineEdit *ValeurlineEdit;
+    QPushButton *addTacheButton;
     QFrame *line_2;
-    
-    /**
-     * \brief Valide ou Annule les modifications
-     * Si valide&eacute;, les informations du tableau et de la zone d'edition remplacerons celles deja presentes dans res
-     * */
     QDialogButtonBox *buttonBox;
-	
-	/**
-	 * \brief SetupUi
-	 * Utilie les setters des attributs de MainWindow pour affecter les valeurs par defaut
-	 * */
+
     void setupUi(QDialog *Dialog)
     {
         if (Dialog->objectName().isEmpty())
@@ -171,12 +162,7 @@ public:
 
         QMetaObject::connectSlotsByName(Dialog);
     } // setupUi
-	
-	
-	/**
-	 * \brief retranslateUi
-	 * Affecte les textes des elements
-	 * */
+
     void retranslateUi(QDialog *Dialog)
     {
         Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", Q_NULLPTR));

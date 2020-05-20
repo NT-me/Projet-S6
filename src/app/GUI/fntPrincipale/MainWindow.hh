@@ -3,8 +3,18 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QString>
-#include "UI_MainWindow.hh"
+#include <QDebug>
+#include <QPushButton>
+#include <QDialog>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QRandomGenerator>
+#include <QTimer>
+#include <utility>
+#include "mainwindow_copy.hh"
 #include "../../../bib/bib.hh"
+#include "../../fichier/gestion_fichier.hh"
 
 /**
  * \brief Fen&ecirc;tre Principale de l'Interface Graphique
@@ -50,6 +60,18 @@ public :
    * @return 0 en cas de r&eacute;ussite
    * @return -1 en cas d'erreur
    * */
+
+  int ajouterOnglet(QString nomOnglet, Graphe G);
+  
+  /**
+   * \brief Suppression Onglet
+   * @param nomOnglet Onglet &agrave; fermer
+   * @return L'index de l'onglet ferm&eacute; en cas de r&eacute;ussite
+   * @return -1 en cas d'&eacute;chec
+   * */
+  int supprimerOnglet(QString nomOnglet);
+
+public slots :
   int printCaraSelection();
   
   /**
@@ -62,17 +84,6 @@ public :
    * @return L'index de l'onglet en cas de r&eacute;ussite
    * @return -1 en cas d'&eacute;chec
    * */
-  int ajouterOnglet(QString nomOnglet, Graphe G);
-  
-  /**
-   * \brief Suppression Onglet
-   * @param nomOnglet Onglet &agrave; fermer
-   * @return L'index de l'onglet ferm&eacute; en cas de r&eacute;ussite
-   * @return -1 en cas d'&eacute;chec
-   * */
-  int supprimerOnglet(QString nomOnglet);
-
-public slots :
   void nv_graphe_vide();		/// Ouvre un nouvel onglet avec un Graphe vide en parametre
   
   /**
@@ -82,7 +93,8 @@ public slots :
    * Ouvre un nouvel Onglet avec le Graphe al&eacute;atoire en parametre
    * Appelle la m&eacute;thode force_Atlas2 pour &eacute;loigner les Sommets les uns des autres
    * */
-  void nv_graphe_aleatoire();
+
+void nv_graphe_aleatoire();
   
   /**
    * \brief Enregistrer
@@ -202,6 +214,7 @@ public slots :
   void DBEaddArc();				/// Modifie dernierBoutonEnclenche et le met sur 3
   void DBEdeleteSommet();		/// Modifie dernierBoutonEnclenche et le met sur 4
   void DBEdeleteArc();			/// Modifie dernierBoutonEnclenche et le met sur 5
+
 };
 
 #endif

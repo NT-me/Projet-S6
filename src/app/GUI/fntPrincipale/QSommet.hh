@@ -4,6 +4,8 @@
 #include <QGraphicsItem>
 #include <map>
 #include <vector>
+#include <QPen>
+#include <QPainter>
 #include "../../../bib/bib.hh"
 
 //Taille du rayon des QSommets en pixel
@@ -63,6 +65,7 @@ public:
      * \brief D&eacute;limitation
      * Cette m&eacute;thode permet de d&eacute;terminer les liites exterieures de la forme qui permettront d'interagie avec elle
      * */
+
     QRectF boundingRect() const;
     
     /**

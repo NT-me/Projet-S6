@@ -351,8 +351,6 @@ Graphe chargement (string path){
 
   doc.ParseStream<0>(fic);
   verif_file (path);
-
-
   string chemin = doc["path"].GetString(); // Recupere le path du graphe
   string etiq = doc ["etiquette"].GetString(); // Recupere le nom du Graphe
 

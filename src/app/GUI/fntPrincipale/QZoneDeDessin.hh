@@ -4,10 +4,16 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QWidget>
+#include <QMouseEvent>
 #include <math.h>
 #include <QDebug>
+#include <QVariant>
 #include "QSommet.hh"
 #include "QArc.hh"
+#include <stdlib.h>
+#include <time.h>
+#include <QObject>
+#include <QMainWindow>
 
 class QZoneDeDessin : public QGraphicsView{
     Q_OBJECT
@@ -42,6 +48,9 @@ public :
 	 * Distance les points sur le Graphe courant
 	 * */
     void force_Atlas2();
+
+    int distanceForce(QSommet a, QSommet b);
+
     
     /**
      * \brief Distance entre Sommets
