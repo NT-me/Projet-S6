@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->actionSupprimer_graphe,&QAction::triggered,this, &MainWindow::Supprimer_graphe) ;
   QObject::connect(ui->actionCharger,&QAction::triggered,this, &MainWindow::Charger) ;
   QObject::connect(ui->actionFord_Bellman,&QAction::triggered,this, &MainWindow::Ford_Bellman) ;
-  // QObject::connect(ui->actionFloyd_Warshall,&QAction::triggered,this, &MainWindow:: ;
+  QObject::connect(ui->actionFloyd_Warshall,&QAction::triggered,this, &MainWindow::Floyd_Warshall) ;
   // QObject::connect(ui->actionDegr_sortant,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionDegr_entrant,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionDegr_s_entrant_et_sortant,&QAction::triggered,this, &MainWindow:: ;
@@ -259,7 +259,38 @@ void MainWindow::Ford_Bellman(){
   }
 
 }
-void MainWindow::Floyd_Warshall(){}
+void MainWindow::Floyd_Warshall(){
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  pair<Matrice, Matrice> res = calcul_Floyd_Warshall(g.conversion_vers_Matrice_adj());
+  string str = "Matrice de poids :<br>";
+  Matrice pP = res.first;
+  for(int i = 0; i < pP.gettV(); i++){
+    for(int j = 0; j < pP.gettE(); j++){
+      if(pP.getTab()[i][j] != 999999999){
+        str = str + to_string(pP.getTab()[i][j]) + " ";
+      }
+      else{
+        str = str + "I" + " ";
+      }
+    }
+    str = str + "<br>" ;
+  }
+  str = str + "Matrice parent :<br>";
+  pP = res.second;
+  for(int i = 0; i < pP.gettV(); i++){
+    for(int j = 0; j < pP.gettE(); j++){
+      if(pP.getTab()[i][j] != 999999999){
+        str = str + to_string(pP.getTab()[i][j]) + " ";
+      }
+      else{
+        str = str + "I" + " ";
+      }
+    }
+    str = str + "<br>" ;
+  }
+  printConsole("Floyd_Warshall", str);
+
+}
 void MainWindow::Degr_sortant(){}
 void MainWindow::Degr_entrant(){}
 void MainWindow::Degrs_entrant_et_sortant(){}
