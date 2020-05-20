@@ -564,6 +564,10 @@ void MainWindow::AntiArborescence(){
   }
 }
 void MainWindow::Recherche_de_la_connexite(){
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  int res = connexite(g.conversion_vers_Matrice_adj());
+  if (res) printConsole("Connexite", "Graphe connexe");
+  else printConsole("Connexite", "Graphe non-connexe");
 
 }
 void MainWindow::Trouver_chaine_eulerienne(){
