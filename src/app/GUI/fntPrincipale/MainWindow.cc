@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   // QObject::connect(ui->actionColoration_de_graphe,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionD_termination_de_stables,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionD_termination_de_cliques,&QAction::triggered,this, &MainWindow:: ;
-  // QObject::connect(ui->actionVoisins_de_sommets,&QAction::triggered,this, &MainWindow:: ;
+  QObject::connect(ui->actionVoisins_de_sommets,&QAction::triggered,this, &MainWindow::Voisins_de_sommets);
   // QObject::connect(ui->actionGEstion_de_flots,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionCr_er_un_graphe_d_ordonnancement,&QAction::triggered,this, &MainWindow:: ;
   QObject::connect(ui->actionArborescence,&QAction::triggered,this, &MainWindow::Arborescence) ;
@@ -327,7 +327,20 @@ void MainWindow::Degrs_entrant_et_sortant(){
 void MainWindow::Coloration_de_graphe(){}
 void MainWindow::Determinaison_de_stables(){}
 void MainWindow::Determinaison_de_cliques(){}
-void MainWindow::Voisins_de_sommets(){}
+void MainWindow::Voisins_de_sommets(){
+  vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<int> voisins;
+  for(int i = 0; i<listeSommet.size();++i){
+    voisins = voisin_sommet(g.conversion_vers_Matrice_adj(), listeSommet[i]);
+    string str = "Le sommet "+to_string(listeSommet[i])+" a comme voisin(s) ";
+
+    for(int j=0;j<voisins.size();++j){
+      str = str + to_string(voisins[j]) + " ";
+    }
+    printConsole("Voinsins de sommet", str);
+  }
+}
 void MainWindow::Gestion_de_flots(){}
 void MainWindow::Creer_un_graphe_dordonnancement(){}
 void MainWindow::Arborescence(){
