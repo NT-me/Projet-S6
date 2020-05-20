@@ -15,9 +15,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->actionCharger,&QAction::triggered,this, &MainWindow::Charger) ;
   QObject::connect(ui->actionFord_Bellman,&QAction::triggered,this, &MainWindow::Ford_Bellman) ;
   QObject::connect(ui->actionFloyd_Warshall,&QAction::triggered,this, &MainWindow::Floyd_Warshall) ;
-  // QObject::connect(ui->actionDegr_sortant,&QAction::triggered,this, &MainWindow:: ;
-  // QObject::connect(ui->actionDegr_entrant,&QAction::triggered,this, &MainWindow:: ;
-  // QObject::connect(ui->actionDegr_s_entrant_et_sortant,&QAction::triggered,this, &MainWindow:: ;
+  QObject::connect(ui->actionDegr_sortant,&QAction::triggered,this, &MainWindow::Degr_sortant) ;
+  QObject::connect(ui->actionDegr_entrant,&QAction::triggered,this, &MainWindow::Degr_entrant) ;
+  QObject::connect(ui->actionDegr_s_entrant_et_sortant,&QAction::triggered,this, &MainWindow::Degrs_entrant_et_sortant) ;
   // QObject::connect(ui->actionColoration_de_graphe,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionD_termination_de_stables,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionD_termination_de_cliques,&QAction::triggered,this, &MainWindow:: ;
@@ -291,9 +291,39 @@ void MainWindow::Floyd_Warshall(){
   printConsole("Floyd_Warshall", str);
 
 }
-void MainWindow::Degr_sortant(){}
-void MainWindow::Degr_entrant(){}
-void MainWindow::Degrs_entrant_et_sortant(){}
+void MainWindow::Degr_sortant(){
+  vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<Sommet> vs = g.getVecteurSommet(listeSommet);
+  for(int i=0; i<vs.size();++i){
+    int res = calcul_degres_sortant(vs[i]);
+    string str = "Le sommet "+to_string(vs[i].getID())+" a un degrès sortant de "+to_string(res);
+    printConsole("Degres sortant", str);
+
+  }
+}
+void MainWindow::Degr_entrant(){
+  vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+
+  for(int i=0; i<listeSommet.size();++i){
+    int res = calcul_degres_entrant(g.conversion_vers_Matrice_adj(), listeSommet[i]);
+    string str = "Le sommet "+to_string(listeSommet[i])+" a un degrès entrant de "+to_string(res);
+    printConsole("Degres entrant", str);
+
+  }
+}
+void MainWindow::Degrs_entrant_et_sortant(){
+  vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<Sommet> vs = g.getVecteurSommet(listeSommet);
+  for(int i=0; i<vs.size();++i){
+    pair<int, int> res = calcul_degres_entrant_sortant(g.conversion_vers_Matrice_adj(),vs[i]);
+    string str = "Le sommet "+to_string(vs[i].getID())+" a un degrès entrant de "+to_string(res.first)+" et un degrès sortant de "+to_string(res.second);
+    printConsole("Degres entrant et sortant", str);
+
+  }
+}
 void MainWindow::Coloration_de_graphe(){}
 void MainWindow::Determinaison_de_stables(){}
 void MainWindow::Determinaison_de_cliques(){}

@@ -118,10 +118,9 @@ QPainterPath QArc::shape() const{
 void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
   // QRectF rect = boundingRect();
   QPen greenPen(Qt::green, 3 );
-  painter->setPen(greenPen);
-  // painter->drawRect(rect);
-  QPainterPath sha = shape();
-  painter->drawPath(sha);
+  // painter->setPen(greenPen);
+  // QPainterPath sha = shape();
+  // painter->drawPath(sha);
 
   QPen blackPen(Qt::black, 3 );
   painter->setPen(blackPen);
