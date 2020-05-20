@@ -34,9 +34,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->actionDocumentation,&QAction::triggered,this, &MainWindow::Documentation);
   QObject::connect(ui->actionGithub,&QAction::triggered,this, &MainWindow::Github);
   QObject::connect(ui->actionExtraire_sous_graphe,&QAction::triggered,this, &MainWindow::extraireSousGraphe) ;
-  QObject::connect(ui->actionArranger_sommets,&QAction::triggered,this, &MainWindow::arrangerSommets);
+  QObject::connect(ui->actionArranger_sommets,SIGNAL(triggered()),this, SLOT (arrangerSommets()));
   QObject::connect(ui->actionFermer_graphe,&QAction::triggered,this, &MainWindow::fermer_graphe);
-
   QObject::connect(ui->radioButton, &QRadioButton::toggled,this, &MainWindow::DBEaddSommet);
   QObject::connect(ui->radioButton_2, &QRadioButton::toggled,this, &MainWindow::DBEdeleteSommet);
   QObject::connect(ui->radioButton_3, &QRadioButton::toggled,this, &MainWindow::DBEselection);
@@ -44,7 +43,10 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->radioButton_5, &QRadioButton::toggled,this, &MainWindow::DBEdeleteArc);
 
 }
-MainWindow::~MainWindow(){}
+
+MainWindow::~MainWindow()MainWindow::~MainWindow(){
+  delete this->ui;
+}
 int MainWindow::printConsole(string nomMethode, string valRetFunc){
   QString res = "["+QString(ui->tabWidget->tabText(ui->tabWidget->currentIndex()))+"] ["+QString::fromStdString(nomMethode)+"] : "+QString::fromStdString(valRetFunc);
   ui->console->append(res);
@@ -752,14 +754,15 @@ void MainWindow::extraireSousGraphe(){
     printConsole("Extraction", "Graphe extrait");
   }
 }
-void MainWindow::arrangerSommets(){}
+void MainWindow::arrangerSommets(){
+  ui->zoneDessin->placementSommets();
+}
 
 void MainWindow::fermer_graphe(){
   ui->tabWidget->removeTab(ui->tabWidget->currentIndex());
   printConsole("Fermer graphe", "Onglet fermé");
 
 }
-
 void MainWindow::DBEselection(bool checked){
   if (checked){
     ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setProperty("DBE", 1);

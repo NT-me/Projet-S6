@@ -211,7 +211,6 @@ pair<int, int> calcul_degres_entrant_sortant(Matrice M, Sommet S){
      return result;
 }
 
-
 vector<int> coloration_Graphe(Graphe G){
     vector<int> res(G.getListe_Sommets().size());//vecteur qui contiendra l'ensemble des couleurs
     vector<Sommet> listeS= G.getListe_Sommets();

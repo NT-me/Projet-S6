@@ -10,6 +10,7 @@
 #include <QVariant>
 #include "QSommet.hh"
 #include "QArc.hh"
+#include "../../../bib/algo/liste.hh"
 #include <stdlib.h>
 #include <time.h>
 #include <QObject>
@@ -49,7 +50,7 @@ public :
 	 * Algorithme de force appel&eacute; par arranger_bouton
 	 * Distance les points sur le Graphe courant
 	 * */
-    void force_Atlas2();
+    void placementSommets();
 
     int distanceForce(QSommet a, QSommet b);
 
