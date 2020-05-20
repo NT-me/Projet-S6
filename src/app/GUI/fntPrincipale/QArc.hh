@@ -12,32 +12,58 @@
 class QArc : public QGraphicsItem{
 
 private:
-    int id;
-    int posxA;
-    int posyA;
-    int posxB;
-    int posyB;
+    int id;		/// ID de l'Arc &agrave; partie duquel il et construit
+    int posxA;	/// Position x du Sommet duquel sort l'Arc
+    int posyA;	/// Position y du Sommet duquel sort l'Arc
+    int posxB;	/// Position x du Sommet duquel rentre l'Arc
+    int posyB;	/// Position y du Sommet duquel rentre l'Arc
 
 public:
+	
+	/**
+	 * \brief Constructeur de QArc
+	 * @param A Arc &agrave; partir duquel le QArc est construit
+	 * */
     QArc (Arc A);
+    
+    /**
+     * \brief Constructeur par copie de QArc
+     * @param A Arc &agrave; copier
+     * */
     QArc (QArc const &A);
-    ~QArc();
+    ~QArc();	/// Destructeur d'objet QArc
 
-    int getID() const;
-    int getPosXA() const;
-    int getPosYA() const;
-    int getPosXB() const;
-    int getPosYB() const;
+    int getID() const;		/// Getter de ID
+    int getPosXA() const;	/// Getter de posxA
+    int getPosYA() const;	/// Getter de posyA
+    int getPosXB() const;	/// Getter de posxB
+    int getPosYB() const;	/// Getter de posyB
 
-    void setID(int id);
-    void setPosXA(int x);
-    void setPosYA(int y);
-    void setPosXB(int x);
-    void setPosYB(int y);
+    void setID(int id);		/// Setter de ID
+    void setPosXA(int x);	/// Setter de posxA
+    void setPosYA(int y);	/// Setter de posyA
+    void setPosXB(int x);	/// Setter de posxB
+    void setPosYB(int y);	/// Setter de posyB
 
-    QPainterPath shape() const;
+	/**
+     * \brief Double Click
+     * Cette m&eacute;thode ouvre une fen&ecirc;tre permettant de modifier l'etiquette ou la charge utile d'un Arc
+     * R&eacute;cupere la paure renvoy&eacute;e par la fen&ecirc;tre de dialogue
+     * */
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    
+    /**
+     * \brief D&eacute;limitation
+     * Cette m&eacute;thode permet de d&eacute;terminer les liites exterieures de la forme qui permettront d'interagie avec elle
+     * */
     QRectF boundingRect() const;
+    
+    /**
+     * \brief Dessin d'Arc
+     * Cette m&eacute;thode permet de dessiner l'Arc sur ZoneDeDessin
+     * Arc de sa couleur coul ou de la couleur s&eacute;l&eacute;ctionn&eacute;e
+     * Arc avec son etiquette
+     * */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 };
 

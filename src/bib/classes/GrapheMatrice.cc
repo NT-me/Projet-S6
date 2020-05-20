@@ -42,7 +42,7 @@ Graphe::Graphe(Matrice& M){ // Création d'un Graphe via une matrice d'adjacence
   //res.push_back(liste_Sommets[id[i]]); //c'est quoi ça ?
     for(int i=0; i<M.gettV(); i++){   // ID Sommet depart
       for(int j=0; j<M.gettV(); j++){ // ID Sommet arrivée
-        if(M.getTab()[i][j] == 1){         // Si il existe un arc
+        if(M.getTab()[i][j]){         // Si il existe un arc
           this->liste_Arcs.push_back(Arc(id, i, j)); // Création d'un Arc entre i et j avec son id
           vector <int> arc_sor;
 		  arc_sor = liste_Sommets[i].getVecArc();
@@ -341,7 +341,7 @@ Matrice::Matrice(int tailleV, int tailleE, int t){ // Constructeur d'une matrice
   }
 }
 
-Matrice::Matrice(const Matrice &M){ // Construceur de copie d'une Matrice
+Matrice::Matrice(const Matrice &M){ // Constructeur de copie d'une Matrice
   this->taille_V = M.taille_V;
   this->taille_E = M.taille_E;
   this->type = M.type;
