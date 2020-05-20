@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buttonbox_571',['buttonBox',['../class_ui___dialog.html#a5991d63e5d8f30a9a29671aeb370439a',1,'Ui_Dialog::buttonBox()'],['../_m_o_dialog_8hh.html#a4d76db11c020d3d895f14dcecf268a95',1,'buttonBox():&#160;MODialog.hh']]]
+  ['buttonbox_576',['buttonBox',['../class_ui___modif_objet.html#a2a62db659463d09719242f07b2765223',1,'Ui_ModifObjet::buttonBox()'],['../class_ui___dialog.html#a271a59402f80983c2722bb455db37365',1,'Ui_Dialog::buttonBox()']]]
 ];
