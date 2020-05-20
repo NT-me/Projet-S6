@@ -216,7 +216,31 @@ void QZoneDeDessin::afficher_Graphe(Graphe G){
 
   for(int i =0; i<La.size(); ++i) afficher_arc(La[i]);
 }
+void QZoneDeDessin::mouseDoubleClickEvent(QMouseEvent *e){
+if (itemAt(e->pos())->data(0) == "Sommet"){
+  QSommet* QS = qgraphicsitem_cast<QSommet*>(itemAt(e->pos()));
+  Sommet som = graphe_dessine.getVecteurSommet(vector<int>{QS->getID()})[0];
 
+  modifObjet* mdo = new modifObjet();
+  mdo->setEtq(QString::fromStdString(som.getEtiq()));
+  mdo->setListCU(som.getCU());
+  if(mdo->exec()){
+    
+  }
+  else{
+
+  }
+}
+else if (itemAt(e->pos())->data(0) == "Arc"){
+  QArc* QA = qgraphicsitem_cast<QArc*>(itemAt(e->pos()));
+  // Sommet som = graphe_dessine.getVecteurSommet(vector<int>{QS->getID()})[0];
+  //
+  // modifObjet* mdo = new modifObjet();
+  // mdo->setEtq(QString::fromStdString(som.getEtiq()));
+  // mdo->setListCU(som.getCU());
+  // mdo->show();
+}
+}
 void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
   int dbe = property("DBE").toInt();
 
