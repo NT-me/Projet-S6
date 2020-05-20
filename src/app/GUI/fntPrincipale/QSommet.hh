@@ -27,7 +27,7 @@ public:
 	 * @param Sommet &agrave; partir duquel le QSommet est construit
 	 * */
     QSommet(Sommet S);
-    
+
     /**
      * \brief Constructeur par copie de QSommet
      * @param &S Sommet copi&eacute;
@@ -47,19 +47,15 @@ public:
     void setPosY(int y);	/// Setter de posy
     void setRayon(int r);	/// Setter de rayon
     void setCoul(QColor color);		/// Setter de coul
-    
+
     /**
      * \brief Setter de select
      * Modifie l'attribut select du Sommet et sa couleur si s&eacute;l&eacute;ctionn&eacute;e
      * */
     void setSelect(bool select);
-    
-    /**
-     * \brief Double Click
-     * Cette m&eacute;thode ouvre une fen&ecirc;tre permettant de modifier l'etiquette ou la charge utile d'un Sommet
-     * R&eacute;cupere la paure renvoy&eacute;e par la fen&ecirc;tre de dialogue
-     * */
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+
+
+    //void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     /**
      * \brief D&eacute;limitation
@@ -67,7 +63,7 @@ public:
      * */
 
     QRectF boundingRect() const;
-    
+
     /**
      * \brief Dessin de Sommet
      * Cette m&eacute;thode permet de dessiner le Sommet sur ZoneDeDessin
