@@ -82,11 +82,3 @@ Arc Arc::operator=(Arc const&A1){
 
   return *this;
 }
-
-void Arc::afficher_Arc(){
-	std::cout << "Arc " << this->ID << " :" << endl;
-	std::cout << "ID = " << this->ID << endl;
-	std::cout << "etiquette = " << this->etiquette << endl;
-	std::cout << "IDdepart = " << this->IDdepart << endl;
-	std::cout << "IDarrive = " << this->IDarrive << "\n" << endl;
-}

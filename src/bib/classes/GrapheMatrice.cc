@@ -231,7 +231,6 @@ Graphe Graphe::operator=(Graphe const& G1){
    return *this;
 }
 
-}
 
 enum typeM{
   ADJACENCE = 0,

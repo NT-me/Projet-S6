@@ -26,7 +26,7 @@ void QZoneDeDessin::setScene(QGraphicsScene * scene){
   this->sc = scene;
   QGraphicsView::setScene(scene);
 }
-
+void QZoneDeDessin::placementSommets(){
   Graphe G = Graphe(this->getGraphe_dessine());
   vector<Sommet> liste_Sommets = this->getGraphe_dessine().getListe_Sommets();
   int stable = 0;

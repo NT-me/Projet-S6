@@ -36,7 +36,7 @@ private:
 
 public :
     explicit QZoneDeDessin(QWidget *parent = 0);	/// Constructeur de la Zone de Dessin
-
+    ~QZoneDeDessin();
     vector<int> getSelected_list()const;	/// Getter de selected_list
     Graphe getGraphe_dessine()const;		/// Getter de graphe_dessine
     QGraphicsScene* getScene()const;		/// Getter de sc

@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
 }
 
-MainWindow::~MainWindow()MainWindow::~MainWindow(){
+MainWindow::~MainWindow(){
   delete this->ui;
 }
 int MainWindow::printConsole(string nomMethode, string valRetFunc){
