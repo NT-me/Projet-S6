@@ -53,7 +53,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->radioButton_5, &QRadioButton::toggled,this, &MainWindow::DBEdeleteArc);
 
 }
-MainWindow::~MainWindow(){}
+MainWindow::~MainWindow(){
+  delete this->ui;
+}
 int MainWindow::printConsole(string nomMethode, string valRetFunc){}
 int MainWindow::printCaraSelection(){}
 int MainWindow::ajouterOnglet(QString nomOnglet, Graphe G){}

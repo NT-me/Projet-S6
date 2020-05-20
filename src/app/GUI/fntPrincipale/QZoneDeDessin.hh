@@ -26,6 +26,7 @@ private:
 public :
     explicit QZoneDeDessin(QWidget *parent = 0);
 
+    ~QZoneDeDessin(); 
     vector<int> getSelected_list()const;
     Graphe getGraphe_dessine()const;
     QGraphicsScene* getScene()const;

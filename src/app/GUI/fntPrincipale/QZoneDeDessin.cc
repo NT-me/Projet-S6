@@ -8,9 +8,11 @@ this->sc = new QGraphicsScene;
 QGraphicsView::setScene(sc);
 
 // test
-
-
 qDebug()<<parent()->parent();
+}
+
+QZoneDeDessin::~QZoneDeDessin(){
+  delete this->sc;
 }
 
 vector<int> QZoneDeDessin::getSelected_list() const{return this->selected_list;}
@@ -122,7 +124,7 @@ void QZoneDeDessin::force_Atlas2(){
           liste_Sommets[QS[i]->getID()].setPosX(test3);
           liste_Sommets[QS[i]->getID()].setPosY(test4);
 
-          if(sqrt(pow((liste_Sommets[QS[i]->getID()].getPosX()-liste_Sommets[QS[j]->getID()].getPosX()) + (liste_Sommets[QS[i]->getID()].getPosY()-liste_Sommets[QS[j]->getID()].getPosY()),2)) < (QS[i]->getRayon()*2)){}
+          if(sqrt(pow((liste_Sommets[QS[i]->getID()].getPosX()-liste_Sommets[QS[j]->getID()].getPosX()) + (liste_Sommets[QS[i]->getID()].getPosY()-liste_Sommets[QS[j]->getID()].getPosY()),2)) < (QS[i]->getRayon()*2)){
             stable = 0;
           }
           else{
