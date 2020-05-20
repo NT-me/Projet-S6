@@ -19,22 +19,22 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->actionDegr_entrant,&QAction::triggered,this, &MainWindow::Degr_entrant) ;
   QObject::connect(ui->actionDegr_s_entrant_et_sortant,&QAction::triggered,this, &MainWindow::Degrs_entrant_et_sortant) ;
   QObject::connect(ui->actionColoration_de_graphe,&QAction::triggered,this, &MainWindow::Coloration_de_graphe) ;
-  // QObject::connect(ui->actionD_termination_de_stables,&QAction::triggered,this, &MainWindow:: ;
-  // QObject::connect(ui->actionD_termination_de_cliques,&QAction::triggered,this, &MainWindow:: ;
+  QObject::connect(ui->actionD_termination_de_stables,&QAction::triggered,this, &MainWindow::Determinaison_de_stables) ;
+  QObject::connect(ui->actionD_termination_de_cliques,&QAction::triggered,this, &MainWindow::Determinaison_de_cliques) ;
   QObject::connect(ui->actionVoisins_de_sommets,&QAction::triggered,this, &MainWindow::Voisins_de_sommets);
-  // QObject::connect(ui->actionGEstion_de_flots,&QAction::triggered,this, &MainWindow:: ;
-  // QObject::connect(ui->actionCr_er_un_graphe_d_ordonnancement,&QAction::triggered,this, &MainWindow:: ;
+  QObject::connect(ui->actionGEstion_de_flots,&QAction::triggered,this, &MainWindow::Gestion_de_flots) ;
+  QObject::connect(ui->actionCr_er_un_graphe_d_ordonnancement,&QAction::triggered,this, &MainWindow::Creer_un_graphe_dordonnancement) ;
   QObject::connect(ui->actionArborescence,&QAction::triggered,this, &MainWindow::Arborescence) ;
   QObject::connect(ui->actionAnti_Arborescence,&QAction::triggered,this, &MainWindow::AntiArborescence) ;
   QObject::connect(ui->actionRecherche_de_la_connexit,&QAction::triggered,this, &MainWindow::Recherche_de_la_connexite) ;
-  // QObject::connect(ui->actionTrouver_chaine_eul_rienne,&QAction::triggered,this, &MainWindow::;
-  // QObject::connect(ui->actionTrouver_chaine_hamiltonienne,&QAction::triggered,this, &MainWindow::;
-  // QObject::connect(ui->actionR_solution_du_probl_me_du_postier_chinois,&QAction::triggered,this, &MainWindow::;
-  // QObject::connect(ui->actionR_solution_du_probl_me_de_voyageur_de_commerce,&QAction::triggered,this, &MainWindow::;
+  QObject::connect(ui->actionTrouver_chaine_eul_rienne,&QAction::triggered,this, &MainWindow::Trouver_chaine_eulerienne);
+  QObject::connect(ui->actionTrouver_chaine_hamiltonienne,&QAction::triggered,this, &MainWindow::Trouver_chaine_hamiltonienne);
+  QObject::connect(ui->actionR_solution_du_probl_me_du_postier_chinois,&QAction::triggered,this, &MainWindow::Postier_chinois);
+  QObject::connect(ui->actionR_solution_du_probl_me_de_voyageur_de_commerce,&QAction::triggered,this, &MainWindow::Voyageur_de_commerce);
   QObject::connect(ui->actionDocumentation,&QAction::triggered,this, &MainWindow::Documentation);
   QObject::connect(ui->actionGithub,&QAction::triggered,this, &MainWindow::Github);
   QObject::connect(ui->actionExtraire_sous_graphe,&QAction::triggered,this, &MainWindow::extraireSousGraphe) ;
-  // QObject::connect(ui->actionArranger_sommets,&QAction::triggered,this, &MainWindow::;
+  QObject::connect(ui->actionArranger_sommets,&QAction::triggered,this, &MainWindow::arrangerSommets);
   QObject::connect(ui->actionFermer_graphe,&QAction::triggered,this, &MainWindow::fermer_graphe);
 
   QObject::connect(ui->radioButton, &QRadioButton::toggled,this, &MainWindow::DBEaddSommet);
@@ -354,8 +354,75 @@ void MainWindow::Coloration_de_graphe(){
   printConsole("Coloration de graphe", "Graphe coloré");
 
 }
-void MainWindow::Determinaison_de_stables(){}
-void MainWindow::Determinaison_de_cliques(){}
+void MainWindow::Determinaison_de_stables(){
+  QGraphicsScene* sceneAcolor = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getScene();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<vector<int>> res = stables_Graphe(g.conversion_vers_Matrice_adj());
+  QList<QGraphicsItem*> listS = sceneAcolor->items();
+
+  vector<QColor> couleurs;
+  for(int i=0;i<res.size();++i){
+    couleurs.push_back(QColor(0,0,0));
+  }
+
+  for(int i=0;i<res.size();++i){
+    if(couleurs[i] == QColor(0,0,0)){
+      QRandomGenerator qrg(34526*i);
+      couleurs[i] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
+    }
+  }
+  for(int n=0;n<res.size();++n){
+    for(int j=0;j<res[n].size();++j){
+      for(int k=0;k<listS.size();++k){
+        if(listS[k]->data(0) == "Sommet"){
+          QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[k]);
+          if(res[n][j] == QS_->getID()){
+            QS_->setCoul(couleurs[n]);
+            QS_->update();
+          }
+        }
+      }
+    }
+  }
+  ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
+  printConsole("Détermination des stables", "Stables colorés");
+
+
+
+}
+void MainWindow::Determinaison_de_cliques(){
+  QGraphicsScene* sceneAcolor = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getScene();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<vector<int>> res = cliques_Graphe(g.conversion_vers_Matrice_adj());
+  QList<QGraphicsItem*> listS = sceneAcolor->items();
+
+  vector<QColor> couleurs;
+  for(int i=0;i<res.size();++i){
+    couleurs.push_back(QColor(0,0,0));
+  }
+
+  for(int i=0;i<res.size();++i){
+    if(couleurs[i] == QColor(0,0,0)){
+      QRandomGenerator qrg(34526*i);
+      couleurs[i] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
+    }
+  }
+  for(int n=0;n<res.size();++n){
+    for(int j=0;j<res[n].size();++j){
+      for(int k=0;k<listS.size();++k){
+        if(listS[k]->data(0) == "Sommet"){
+          QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[k]);
+          if(res[n][j] == QS_->getID()){
+            QS_->setCoul(couleurs[n]);
+            QS_->update();
+          }
+        }
+      }
+    }
+  }
+  ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
+  printConsole("Détermination des cliques", "Cliques colorés");
+}
 void MainWindow::Voisins_de_sommets(){
   vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
@@ -370,7 +437,19 @@ void MainWindow::Voisins_de_sommets(){
     printConsole("Voinsins de sommet", str);
   }
 }
-void MainWindow::Gestion_de_flots(){}
+void MainWindow::Gestion_de_flots(){
+  vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  if(listeSommet.size()==2){
+    int source = listeSommet[0];
+    int puit = listeSommet[1];
+    int res = gestion_flots(g, source, puit);
+    printConsole("Gestion de flot", "Le flot maximum pour aller de "+to_string(source) +" à "+to_string(puit) +" est de "+to_string(res));
+  }
+  else{
+    printConsole("Gestion de flot", "Vous avez selectionné trop ou pas assez de sommets");
+  }
+}
 void MainWindow::Creer_un_graphe_dordonnancement(){}
 void MainWindow::Arborescence(){
   QWidget *tab = new QWidget();
