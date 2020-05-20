@@ -5,38 +5,7 @@ QArc::QArc (Arc A){
   this->id = A.getID();
   setData(0,"Arc");
 
-// Pour trouver les positions des sommets il faudrait qu'on puisse accéder à la scene
-// chose impossible car le QArc est créée AVANT d'être ajouté à la scene
-// Ce qui signifie que le constructeur est lancé AVANT d'être lié à une scene.
-// Trois façons de régler le soucis :
-// - On laisse ainsi on peut utiliser les setters et je pense que c'est jouable
-// - On change la signature du constructeur et on lui ajoute la scene en paramètre
-// - On change le constructeur et on lui donne direct les positions.
-// Je préfère la première comme ça on change pas nos signature.
-/*
-  if(scene() != nullptr){
-    QList<QGraphicsItem*> listS = scene()->items();
-    for(int i=0; i< listS.size(); ++i){
-      QSommet* QS = qgraphicsitem_cast<QSommet*>(listS[i]);
-      if(QS->data(0) == "Sommet"){
-        if(A.getIDDepart() == QS->getID()){
-          this->posxA = QS->getPosX();
-          this->posyA = QS->getPosY();
-        }
-        else if(A.getIDArrive() == QS->getID()){
-          this->posxB = QS->getPosX();
-          this->posyB = QS->getPosY();
-        }
-      }
-    }
-  }
-  else{
-    this->posxA = 0;
-    this->posyA = 0;
-    this->posxB = 0;
-    this->posyB = 0;
-  }
-  */
+
   this->posxA = 0;
   this->posyA = 0;
   this->posxB = 0;
@@ -90,37 +59,16 @@ QPainterPath QArc::shape() const{
   }
   QPointF pA = mapFromScene(posxA+cos*radius,posyA+sin*radius);
   QPointF pB = mapFromScene(posxB-cos*radius,posyB-sin*radius);
-  // QPainterPath path;
-  // // QLineF line(pA.x(), pA.y(),pB.x(),pB.y());
-  // qreal ep = 20;
-  // qreal theta = qFabs(qRadiansToDegrees(qAsin(sin)));
-  // qreal rx = 0, ry = 0;
-  // qDebug()<<"angle "<<theta;
-  // if()
-  // QPointF pA1(pA.x() -rx, pA.y()-ry);
-  // QPointF pA2(pA.x() +rx, pA.y()+ry);
-  // QPointF pB1(pB.x() -rx, pB.y()-ry);
-  // QPointF pB2(pB.x() +rx, pB.y()+ry);
-  // QPolygonF polygon;
-  // polygon <<pA1<<pB1<<pB2<<pA2;
-  // path.addPolygon(polygon);
+
   QGraphicsLineItem line (pA.x(),pA.y(),pB.x(),pB.y());
   return line.shape();
-  // QPainterPath path(QPointF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2)));
-  // path.lineTo(QPointF(posyA+sin*radius-(ry/2)));
-  // path.lineTo(QPointF(posxB+cos*radius-(rx/2), posyB+sin*radius-(ry/2)));
-  //return mapRectFromScene(QRectF(posxA+cos*radius-(rx/2), posyA+sin*radius-(ry/2), posxB-posxA-2*cos*radius+rx, posyB-posyA-2*sin*radius+ry).normalized());
 
-  // return line.shape();
-  // return path;
 }
 
 void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-  // QRectF rect = boundingRect();
+
   QPen greenPen(Qt::green, 3 );
-  // painter->setPen(greenPen);
-  // QPainterPath sha = shape();
-  // painter->drawPath(sha);
+
 
   QPen blackPen(Qt::black, 3 );
   painter->setPen(blackPen);
@@ -134,10 +82,6 @@ void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
   firstp.setX(pA.x()); firstp.setY(pA.y());
   secondp.setX(pB.x()); secondp.setY(pB.y());
 
-  // QRectF tete(QPointF(secondp.x()-20,secondp.y()-20),QPointF(secondp.x()-10,secondp.y()-10));
-  // painter->setBrush(redBrush);
-  // painter->drawRect(tete);
-  //
   double a,b,d,e,f,x1,x2,y1,y2;
   QPointF arrow,pI1,pI2,pC;
   if(posxB-posxA != 0){
@@ -155,18 +99,11 @@ void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     if(QLineF(pI1,pA).length()<QLineF(pI2,pA).length()) arrow = pI1;
     else arrow = pI2;
 
-
-    // qDebug()<<a<<b<<d<<e<<f<<x1<<x2;
-    // qDebug()<<posxB<<posxA<<posyB<<posyA;
-
   }
   else{
     if (posyB-posyA > 0)arrow = mapFromScene(posxB,posyB + 5);
     else arrow = mapFromScene(posxB,posyB - 5);
   }
-
-  // qDebug()<<"point intersection 1 "<<pI1;
-  // qDebug()<<"point intersection 2 "<<pI2;
 
 
   QBrush whiteBrush(Qt::white,Qt::SolidPattern);
@@ -174,8 +111,6 @@ void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
   //
   painter->drawLine(firstp,secondp);
   painter->setBrush(whiteBrush);
-  // painter->drawEllipse(pA,TAILLE_RAYON,TAILLE_RAYON);
-  // painter->drawEllipse(pB,TAILLE_RAYON,TAILLE_RAYON);
   painter->setBrush(redBrush);
   painter->drawEllipse(arrow,5,5);
 

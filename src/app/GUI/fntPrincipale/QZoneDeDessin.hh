@@ -21,16 +21,16 @@ class QZoneDeDessin : public QGraphicsView{
 private:
      QGraphicsScene *sc;	/// Fournis une surface permettant de gerer un grand nombre d'objets 2D
      // QGraphicsItem itemParent;
-     vector<int> selected_list;	/// Stock les Sommets selectionn&eacute;s
-     
+     vector<int> selected_list;	/// Stock les Sommets selectionnés
+
      /**
-      * \brief Graphe dessin&eacute;
-      * Stock le Graphe dessin&eacute; dans sa forme objet
-      * Permet de savoir ce qui est dessin&eacute; sur chaque Zone de Dessin
-      * 
+      * \brief Graphe dessiné
+      * Stock le Graphe dessiné dans sa forme objet
+      * Permet de savoir ce qui est dessiné sur chaque Zone de Dessin
+      *
       * */
-     Graphe graphe_dessine;	
-     
+     Graphe graphe_dessine;
+
 public :
     explicit QZoneDeDessin(QWidget *parent = 0);	/// Constructeur de la Zone de Dessin
 
@@ -41,17 +41,17 @@ public :
     void setSelected_list(vector<int> sl);	/// Setter de selected_list
     void setGraphe_dessine(Graphe g);		/// Setter de graphe_dessine
     void setScene(QGraphicsScene * scene);	/// Setter de sc
-	
+
 	/**
 	 * \brief Force Atlas 2
-	 * Algorithme de force appel&eacute; par arranger_bouton
+	 * Algorithme de force appelé par arranger_bouton
 	 * Distance les points sur le Graphe courant
 	 * */
     void force_Atlas2();
 
     int distanceForce(QSommet a, QSommet b);
 
-    
+
     /**
      * \brief Distance entre Sommets
      * Renvoie la distance entre pixel entre deux Sommets
@@ -61,38 +61,38 @@ public :
      * @param b Deuxieme Sommet
      * */
     pair<int,int> distance(QSommet a, QSommet b);
-    
+
     /**
-     * \brief Ajoute l'ID d'un sommet &agrave; selected_list
-     * @param ID Sommet &agrave; ajouter
+     * \brief Ajoute l'ID d'un sommet à selected_list
+     * @param ID Sommet à ajouter
      * */
     void addSelect_Sommet(int ID);
-    
+
     /**
      * \brief Supprime de la selected_list l'ID du Sommet en parametre
-     * @param ID Sommet &agrave; enlever de la liste
+     * @param ID Sommet à enlever de la liste
      * */
     void deleteSelect_Sommet(int ID);
-    
-    void razSelected_list();	/// Remet &agrave;  la selected_liste
-    
+
+    void razSelected_list();	/// Remet à  la selected_liste
+
     /**
      * \brief Affiche Graphe
      * Genere le Graphe C sur la QZoneDeDessin
      * Appel de afficher_sommet et afficher_arc
-     * @param G Graphe &agrave; afficher
+     * @param G Graphe à afficher
      * */
     void afficher_Graphe(Graphe G);
-    
+
     /**
      * \brief Dessine Sommet
-     * @param s Sommet &agrave; afficher
+     * @param s Sommet à afficher
      * */
     void afficher_Sommet(Sommet s);
-    
+
     /**
      * \brief Dessine Arc
-     * @param a Arc &agrave; afficher
+     * @param a Arc à afficher
      * */
     void afficher_arc(Arc a);
 
@@ -102,34 +102,34 @@ public slots :
 	 * \brief Surcharge du Double Click
 	 * Surchage de la fonction s'enclenchant lors d'un clique sur QgraphicView
 	 * Recupere informations pour dessiner un objet sur cette position
-	 * 
-	 * Si l'un des boutons suivant a &eacute;t&eacute; selecionn&eacute; : 
+	 *
+	 * Si l'un des boutons suivant a été selecionné :
 	 * addSommetButton : Dessine Sommet sur la position du curseur
-	 * addArcButton : Dessin un Arc en le precedent Sommet et celui qui vient d'&ecirc;tre cliqu&eacute;
-	 * selectButton : Si select sur false, ID du sommet cliqu&eacute; ajout&eacute; &agrave; la liste des ID_selected et ce dernier change de couleur
-	 * selectButton : Si select sur true, ID du Sommet cliqu&eacute; supprim&eacute; de la selected_liste et reprends sa couleur originale
-	 * deleteSommet : Si clic sur un Sommet, Sommet supprim&eacute; du Graphe avec tout ses arcs sortants
-	 * deleteArc : Si clic sur un Arc, Arc supprim&eacute; du graphe
-	 * 
-	 * L'affichage est mis &agrave; jour
-	 * 
-	 * @param e Clic r&eacute;alis&eacute;
+	 * addArcButton : Dessin un Arc en le precedent Sommet et celui qui vient d'ètre cliqué
+	 * selectButton : Si select sur false, ID du sommet cliqué ajouté à la liste des ID_selected et ce dernier change de couleur
+	 * selectButton : Si select sur true, ID du Sommet cliqué supprimé de la selected_liste et reprends sa couleur originale
+	 * deleteSommet : Si clic sur un Sommet, Sommet supprimé du Graphe avec tout ses arcs sortants
+	 * deleteArc : Si clic sur un Arc, Arc supprimé du graphe
+	 *
+	 * L'affichage est mis à jour
+	 *
+	 * @param e Clic réalisé
 	 * */
     void mousePressEvent(QMouseEvent * e);
-    
+
     /**
      * Dessine Sommet
-     * Dessine un Sommet sur la QGraphicView en precisant les positions x et y 
-     * Ajoute un Sommet &agrave; la liste des Sommets du Graphe couratn
+     * Dessine un Sommet sur la QGraphicView en precisant les positions x et y
+     * Ajoute un Sommet à la liste des Sommets du Graphe couratn
      * @param x Position en x du Sommet
      * @param y Position en y du Sommet
      * */
     void dessiner_sommet(int x, int y);
-    
+
     /**
      * \brief Dessine Arc
-     * Dessine un Arc sur la GGraphicView 
-     * Ajout un Arc &agrave; la liste des Arcs du Graphe courant
+     * Dessine un Arc sur la GGraphicView
+     * Ajout un Arc à la liste des Arcs du Graphe courant
      * @param xa Position en x du Sommet sortant
      * @param ya Position en y du Sommet sortant
      * @param xb Position en x du Sommet entrant

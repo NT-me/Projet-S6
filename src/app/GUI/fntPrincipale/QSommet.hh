@@ -14,23 +14,23 @@
 class QSommet : public QGraphicsItem{
 
 private:
-    int id;			/// ID du Sommet &agrave; partie duquel il est construit
+    int id;			/// ID du Sommet à partie duquel il est construit
     int posx;		/// Position x du Sommet sur la graphicView
     int posy;		/// Position y du Sommet sur la graphicViex
     int rayon;		/// Rayon du Sommet en pixel
     QColor coul;	/// Couleur du Sommet
-    bool select;	/// Permet de savoir si le Sommet est s&eacute;l&eacute;ctionn&eacute;
+    bool select;	/// Permet de savoir si le Sommet est séléctionné
 
 public:
 	/**
 	 * \brief Constructeur de QSommet
-	 * @param Sommet &agrave; partir duquel le QSommet est construit
+	 * @param Sommet à partir duquel le QSommet est construit
 	 * */
     QSommet(Sommet S);
-    
+
     /**
      * \brief Constructeur par copie de QSommet
-     * @param &S Sommet copi&eacute;
+     * @param &S Sommet copié
      * */
     QSommet(QSommet const &S);
     ~QSommet();		/// Destructeur d'objet QSommet
@@ -47,31 +47,31 @@ public:
     void setPosY(int y);	/// Setter de posy
     void setRayon(int r);	/// Setter de rayon
     void setCoul(QColor color);		/// Setter de coul
-    
+
     /**
      * \brief Setter de select
-     * Modifie l'attribut select du Sommet et sa couleur si s&eacute;l&eacute;ctionn&eacute;e
+     * Modifie l'attribut select du Sommet et sa couleur si séléctionnée
      * */
     void setSelect(bool select);
-    
+
     /**
      * \brief Double Click
-     * Cette m&eacute;thode ouvre une fen&ecirc;tre permettant de modifier l'etiquette ou la charge utile d'un Sommet
-     * R&eacute;cupere la paure renvoy&eacute;e par la fen&ecirc;tre de dialogue
+     * Cette méthode ouvre une fenètre permettant de modifier l'etiquette ou la charge utile d'un Sommet
+     * Récupere la paure renvoyée par la fenètre de dialogue
      * */
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     /**
-     * \brief D&eacute;limitation
-     * Cette m&eacute;thode permet de d&eacute;terminer les liites exterieures de la forme qui permettront d'interagie avec elle
+     * \brief Délimitation
+     * Cette méthode permet de déterminer les liites exterieures de la forme qui permettront d'interagie avec elle
      * */
 
     QRectF boundingRect() const;
-    
+
     /**
      * \brief Dessin de Sommet
-     * Cette m&eacute;thode permet de dessiner le Sommet sur ZoneDeDessin
-     * Sommet de sa couleur coul ou de la couleur s&eacute;l&eacute;ctionn&eacute;e
+     * Cette méthode permet de dessiner le Sommet sur ZoneDeDessin
+     * Sommet de sa couleur coul ou de la couleur séléctionnée
      * Sommet avec son etiquette
      * */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

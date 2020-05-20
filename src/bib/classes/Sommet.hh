@@ -16,7 +16,7 @@ class Sommet {
     private:
     int x; 					/// Coordonnées sur l'axe des abscisses
     int y; 					/// Coordonnées sur l'axe des ordonn&eacute;es
-    
+
     /**
      * \brief Identifiant du Sommet
      * Les valeurs vont de  &agrave; V-1, V repr&eacute;sentant le nombre de sommets du Graphe
@@ -27,7 +27,7 @@ class Sommet {
     map <string, VectVal> SCharge_utile;	/// Informations sur le Sommet utilis&eacute;es dans le module Op&eacute;ration sur les Graphes
 
     public:
-    
+
     /**
      * \brief Constructeur de Sommet
      * @param posx Position du Sommet
@@ -37,7 +37,7 @@ class Sommet {
      * @param map Map du Sommet
      * */
     Sommet(int posx, int posy, string etiq, int id, map <string, VectVal> v);
-    
+
     /**
      * \brief Constructeur de Sommet
      * @param posx Position du Sommet
@@ -46,28 +46,28 @@ class Sommet {
      * @param id ID du Sommet
      * */
     Sommet(int posx, int posy, string etiq, int id);
-    
+
     /**
      * \brief Constructeur de Sommet
      * @param etiq Etiquette du Sommet
      * @param id ID du Sommet
      * */
     Sommet(string etiq, int id);
-    
+
     /**
      * \brief Constructeur de Sommet
      * L'etiquette du Sommet prends ici la valeur ID du Sommet
      * @param id ID du sommet
      * */
     Sommet(int id);
-    
+
     /**
      * \brief Constructeur de Sommet
      * Constructeur par copie du Sommet
      * @param &S Objet &agrave; copier
      * */
     Sommet(Sommet const &S);
-    
+
     /**
      * \brief Destructeur de l'objet Sommet
      * */
@@ -86,7 +86,7 @@ class Sommet {
     void setEtiq(string etiq);		/// Setter de l'etiquette du Sommet
     void setVecArc(vector<int> v);	/// Setter des Arcs sortant du Sommet
     void setCU(map <string, VectVal> S_CU);	/// Setter de la map du Sommet
-	
+
 	 /**
 	   * \brief Surchage de l'op&eacute;rateur d'&eacute;galit&eacute;
 	   * Cette m&eacute;thode permet de v&eacute;rifier si deux obets Sommet sont identiques
@@ -94,7 +94,7 @@ class Sommet {
 	   * @return 0 Si une diff&eacute;rence est pr&eacute;sente
 	   * */
     bool operator==(Sommet const& S1)const;
-    
+
     /**
 	   * \brief Surcharge de l'op&eacute;rateur d'in&eacute;galit&eacute;
 	   * Cette m&eacute;thode permet de v&eacute;rifier si deux objets Sommet sont diff&eacute;rents
@@ -102,16 +102,11 @@ class Sommet {
 	   * @return 0 Si les deux Sommets sont identiques
 	   * */
     bool operator!=(Sommet const& S1);
-    
+
     /**
 	 * \brief Surchage de l'op&eacute;rateur d'affectation
    	 * */
     Sommet operator=(Sommet const& S1);
-    
-    /**
-       * \brief Affichage de l'objet Sommet
-       * */
-	void afficher_Sommet();
 };
 
 #endif

@@ -19,13 +19,13 @@ private:
     int posyB;	/// Position y du Sommet duquel rentre l'Arc
 
 public:
-	
+
 	/**
 	 * \brief Constructeur de QArc
 	 * @param A Arc &agrave; partir duquel le QArc est construit
 	 * */
     QArc (Arc A);
-    
+
     /**
      * \brief Constructeur par copie de QArc
      * @param A Arc &agrave; copier
@@ -47,21 +47,21 @@ public:
 
 	/**
      * \brief Double Click
-     * Cette m&eacute;thode ouvre une fen&ecirc;tre permettant de modifier l'etiquette ou la charge utile d'un Arc
-     * R&eacute;cupere la paure renvoy&eacute;e par la fen&ecirc;tre de dialogue
+     * Cette méthode ouvre une fenètre permettant de modifier l'etiquette ou la charge utile d'un Arc
+     * Récupere la paure renvoyée par la fen&ecirc;tre de dialogue
      * */
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-    
+
     /**
-     * \brief D&eacute;limitation
-     * Cette m&eacute;thode permet de d&eacute;terminer les liites exterieures de la forme qui permettront d'interagie avec elle
+     * \brief Délimitation
+     * Cette méthode permet de déterminer les liites exterieures de la forme qui permettront d'interagie avec elle
      * */
     QRectF boundingRect() const;
     QPainterPath shape() const;
     /**
      * \brief Dessin d'Arc
-     * Cette m&eacute;thode permet de dessiner l'Arc sur ZoneDeDessin
-     * Arc de sa couleur coul ou de la couleur s&eacute;l&eacute;ctionn&eacute;e
+     * Cette méthode permet de dessiner l'Arc sur ZoneDeDessin
+     * Arc de sa couleur coul ou de la couleur séléctionnée
      * Arc avec son etiquette
      * */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
