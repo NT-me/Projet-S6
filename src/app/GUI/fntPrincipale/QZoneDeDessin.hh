@@ -12,6 +12,8 @@
 #include "QArc.hh"
 #include <stdlib.h>
 #include <time.h>
+#include <QObject>
+#include <QMainWindow>
 
 class QZoneDeDessin : public QGraphicsView{
     Q_OBJECT

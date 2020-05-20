@@ -1,7 +1,8 @@
 #include "QZoneDeDessin.hh"
 
 QZoneDeDessin::QZoneDeDessin(QWidget *parent_) : QGraphicsView(parent_), graphe_dessine("EMPTY_GRAPH"){
-this->selected_list = {};
+vector<int> a{};
+this->selected_list = a;
 // this->setSceneRect(0, 0, 350, 350);
 this->sc = new QGraphicsScene;
 // this->sc->addItem(&itemParent);
@@ -9,8 +10,6 @@ QGraphicsView::setScene(sc);
 
 // test
 
-
-qDebug()<<parent()->parent();
 }
 
 vector<int> QZoneDeDessin::getSelected_list() const{return this->selected_list;}
@@ -190,7 +189,7 @@ void QZoneDeDessin::afficher_arc(Arc a){
       }
     }
   }
-  if (dblFlag != 2){
+  if (dblFlag < 2){
     qDebug() <<"--> SOMMETS NON TROUVES ID QARC :" <<QA->getID();
     qDebug() << "dbFlag : " <<dblFlag;
     qDebug() << "QA :" <<QA;
