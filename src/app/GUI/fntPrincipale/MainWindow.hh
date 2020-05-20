@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include <QRandomGenerator>
 #include <QTimer>
+#include <utility>
 #include "mainwindow_copy.hh"
 #include "../../../bib/bib.hh"
 #include "../../fichier/gestion_fichier.hh"
