@@ -450,7 +450,41 @@ void MainWindow::Gestion_de_flots(){
     printConsole("Gestion de flot", "Vous avez selectionné trop ou pas assez de sommets");
   }
 }
-void MainWindow::Creer_un_graphe_dordonnancement(){}
+void MainWindow::Creer_un_graphe_dordonnancement(){
+  QWidget *tab = new QWidget();
+  tab->setObjectName(QStringLiteral("tab"));
+  QHBoxLayout *horizontalLayout = new QHBoxLayout(tab);
+  horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+  QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
+  horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+  horizontalLayout_2->setContentsMargins(-1, 0, -1, -1);
+  QZoneDeDessin* zoneDessin = new QZoneDeDessin(tab);
+  zoneDessin->setObjectName(QStringLiteral("zoneDessin"));
+  zoneDessin->setMinimumSize(QSize(575, 0));
+  horizontalLayout_2->addWidget(zoneDessin);
+  horizontalLayout->addLayout(horizontalLayout_2);
+  QString str = "Ordonnancement";
+
+  ordoCreate*mMyNewWindow = new ordoCreate(); // Be sure to destroy your window somewhere
+  mMyNewWindow->show();
+  vector<pert_row> donnee = mMyNewWindow->getRes();
+
+  Graphe p = pert(donnee);
+  vector<Sommet> ls =  p.getListe_Sommets();
+  for(int g=0;g<ls.size();++g){
+    QRandomGenerator qrg(g*1200);
+
+    ls[g].setPosX(100+qrg.bounded(-100,100)*g);
+    ls[g].setPosY(100+g*200);
+  }
+  p.setListe_Sommet(ls);
+
+  zoneDessin->setGraphe_dessine(p);
+  ui->tabWidget->addTab(tab,str);
+
+  printConsole("Ordonnancement", "Création de l'arborescence du graphe courant");
+}
+
 void MainWindow::Arborescence(){
   QWidget *tab = new QWidget();
   tab->setObjectName(QStringLiteral("tab"));
