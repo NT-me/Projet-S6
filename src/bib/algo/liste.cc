@@ -1455,7 +1455,6 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	while(M.gettV() > 2) // tant que on a pas une matrice de taille 2x2
 	{
 		printf("\n\n nouvelle reduction de la matrice: \n\n\n");
-		M.affiche_matrice();
 		
 	
 	
@@ -1778,7 +1777,6 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	
 	}
     printf("\n\n nouvelle reduction de la matrice: \n\n\n");
-	M.affiche_matrice();
 	// ICI ON DOIT AVOIR UNE MATRICE DE TAILLE 2x2.
 	
 	if(M.gettV() == 2) // Si on a une matrice de taille 2x2
@@ -1802,7 +1800,6 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	////////////////////
 	// A PARTIR DE L ARBRE IL FAUT RENVOYER LE CYCLE 
 	/////////////////::
-	arbre.affiche_graphe();
 	
 	
 	vector<int> juste_pour_le_retour_de_fonction_mais_a_supprimer;

@@ -680,7 +680,29 @@ void MainWindow::Postier_chinois(){
   ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
   printConsole("Coloration de graphe", "Graphe coloré");
 }
-void MainWindow::Voyageur_de_commerce(){}
+void MainWindow::Voyageur_de_commerce(){
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<Sommet> ls = g.getListe_Sommets();
+  vector<int> vils, res;
+  string str;
+  for(int i=0;i<ls.size();++i){
+    vils.push_back(ls[i].getID());
+  }
+  res = voyageur_de_commerce(vils, g.conversion_vers_Matrice_adj());
+  if(!res.empty()){
+
+    str = "Chemin du cycle du plus court chemin :<br>";
+    for(int i=0;i<res.size();++i){
+      str = str + to_string(res[i]) + " ";
+    }
+    printConsole("Voyageur_de_commerce", str);
+
+  }
+  else{
+    printConsole("Voyageur_de_commerce", "Exécution du voyageur de commerce échouée");
+
+  }
+}
 
 void MainWindow::Documentation(){
   QMessageBox msgBox;
