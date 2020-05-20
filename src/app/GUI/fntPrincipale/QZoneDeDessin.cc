@@ -264,7 +264,7 @@ else if (itemAt(e->pos())->data(0) == "Arc"){
 }
 void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
   int dbe = property("DBE").toInt();
-
+  QGraphicsView::mousePressEvent(e);
   if(dbe == 1){
     //select
     if (itemAt(e->pos())->data(0) == "Sommet"){
