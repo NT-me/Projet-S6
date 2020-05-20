@@ -57,7 +57,7 @@ public:
      * Cette m&eacute;thode permet de d&eacute;terminer les liites exterieures de la forme qui permettront d'interagie avec elle
      * */
     QRectF boundingRect() const;
-    
+    QPainterPath shape() const;
     /**
      * \brief Dessin d'Arc
      * Cette m&eacute;thode permet de dessiner l'Arc sur ZoneDeDessin

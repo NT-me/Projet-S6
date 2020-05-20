@@ -209,11 +209,11 @@ void nv_graphe_aleatoire();
   void extraireSousGraphe();
   void arrangerSommets();		/// Appel Force atlas 2 sur la zone de dessin 
   void fermer_graphe();			/// Ferme l'onglet courant
-  void DBEselection();			/// Modifie dernierBoutonEnclenche et le met sur 1
-  void DBEaddSommet();			/// Modifie dernierBoutonEnclenche et le met sur 2
-  void DBEaddArc();				/// Modifie dernierBoutonEnclenche et le met sur 3
-  void DBEdeleteSommet();		/// Modifie dernierBoutonEnclenche et le met sur 4
-  void DBEdeleteArc();			/// Modifie dernierBoutonEnclenche et le met sur 5
+  void DBEselection(bool checked);			/// Modifie dernierBoutonEnclenche et le met sur 1
+  void DBEaddSommet(bool checked);			/// Modifie dernierBoutonEnclenche et le met sur 2
+  void DBEaddArc(bool checked);				/// Modifie dernierBoutonEnclenche et le met sur 3
+  void DBEdeleteSommet(bool checked);		/// Modifie dernierBoutonEnclenche et le met sur 4
+  void DBEdeleteArc(bool checked);			/// Modifie dernierBoutonEnclenche et le met sur 5
 
 };
 

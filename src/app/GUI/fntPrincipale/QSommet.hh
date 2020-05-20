@@ -60,7 +60,7 @@ public:
      * R&eacute;cupere la paure renvoy&eacute;e par la fen&ecirc;tre de dialogue
      * */
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-    
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     /**
      * \brief D&eacute;limitation
      * Cette m&eacute;thode permet de d&eacute;terminer les liites exterieures de la forme qui permettront d'interagie avec elle
