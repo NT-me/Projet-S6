@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QRandomGenerator>
+#include <QTimer>
 #include "mainwindow_copy.hh"
 #include "../../../bib/bib.hh"
 #include "../../fichier/gestion_fichier.hh"
@@ -31,11 +32,11 @@ public :
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
   int printConsole(string nomMethode, string valRetFunc);
-  int printCaraSelection();
   int ajouterOnglet(QString nomOnglet, Graphe G);
   int supprimerOnglet(QString nomOnglet);
 
 public slots :
+  int printCaraSelection();
   void nv_graphe_vide();
   void nv_graphe_aleatoire();
   void Enregistrer();

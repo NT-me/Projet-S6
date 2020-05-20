@@ -4,6 +4,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   ui->setupUi(this);
   ui->console->clear();
 
+  QTimer::singleShot(1000,this,SLOT(printCaraSelection()));
+
   QObject::connect(ui->actionNouveau_graphe,&QAction::triggered,this, &MainWindow::nv_graphe_vide);
   QObject::connect(ui->actionNouveau_graphe_al_atoire,&QAction::triggered,this, &MainWindow::nv_graphe_aleatoire);
   QObject::connect(ui->actionEnrengistrer,&QAction::triggered,this, &MainWindow::Enregistrer);
@@ -31,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   // QObject::connect(ui->actionR_solution_du_probl_me_de_voyageur_de_commerce,&QAction::triggered,this, &MainWindow::;
   QObject::connect(ui->actionDocumentation,&QAction::triggered,this, &MainWindow::Documentation);
   QObject::connect(ui->actionGithub,&QAction::triggered,this, &MainWindow::Github);
-  // QObject::connect(ui->actionExtraire_sous_graphe,&QAction::triggered,this, &MainWindow::;
+  QObject::connect(ui->actionExtraire_sous_graphe,&QAction::triggered,this, &MainWindow::extraireSousGraphe) ;
   // QObject::connect(ui->actionArranger_sommets,&QAction::triggered,this, &MainWindow::;
   QObject::connect(ui->actionFermer_graphe,&QAction::triggered,this, &MainWindow::fermer_graphe);
 
@@ -48,11 +50,37 @@ int MainWindow::printConsole(string nomMethode, string valRetFunc){
   ui->console->append(res);
 return 1;
 }
-int MainWindow::printCaraSelection(){}
+
+int MainWindow::printCaraSelection(){
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
+  ui->caraSelection->clear();
+
+  if(!listeSommet.empty()){
+    vector<Sommet> vs = g.getVecteurSommet(listeSommet);
+    for(int i=0; i<vs.size();++i){
+      ui->caraSelection->append("<b>Sommet "+QString::number(vs[i].getID())+" :</b>");
+      ui->caraSelection->append("x :"+QString::number(vs[i].getPosX()));
+      ui->caraSelection->append("y :"+QString::number(vs[i].getPosY()));
+      ui->caraSelection->append("Liste ID arcs sortant:");
+      vector<int> listeIDarc = vs[i].getVecArc();
+      for(int j=0;j<listeIDarc.size();++j){
+        ui->caraSelection->append(QString::number(listeIDarc[j]));
+      }
+      ui->caraSelection->append("<br>");
+
+    }
+  }
+
+  QTimer::singleShot(1000,this,SLOT(printCaraSelection()));
+}
+
 int MainWindow::ajouterOnglet(QString nomOnglet, Graphe G){}
 int MainWindow::supprimerOnglet(QString nomOnglet){}
 
 void MainWindow::nv_graphe_vide(){
+  QString text = QInputDialog::getText(this, tr("Nouveau graphe"),
+                                       tr("Nom du graphe :"), QLineEdit::Normal);
   QWidget *tab = new QWidget();
   tab->setObjectName(QStringLiteral("tab"));
   QHBoxLayout *horizontalLayout = new QHBoxLayout(tab);
@@ -65,11 +93,21 @@ void MainWindow::nv_graphe_vide(){
   zoneDessin->setMinimumSize(QSize(575, 0));
 
   horizontalLayout_2->addWidget(zoneDessin);
-
-
   horizontalLayout->addLayout(horizontalLayout_2);
+  QString nom = "Graphe ";
+  QString str;
+  if(text != ""){
+    Graphe g = zoneDessin->getGraphe_dessine();
+    g.setEtiq(text.toStdString());
+    zoneDessin->setGraphe_dessine(g);
+    nom = text;
+    str = nom;
 
-  QString str = "Graphe "+QString::number(ui->tabWidget->count()+1);
+  }
+  else{
+    str = nom+" "+QString::number(ui->tabWidget->count()+1);
+  }
+
 
   ui->tabWidget->addTab(tab,str);
 }
@@ -117,6 +155,7 @@ void MainWindow::nv_graphe_aleatoire(){
   }
 
 }
+
 void MainWindow::Enregistrer(){
   QString chem = QString::fromStdString(ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine().getPath());
   if(chem == "\0"){
@@ -134,6 +173,8 @@ void MainWindow::Charger(){
   Graphe g = chargement(chem.toStdString());
   ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setGraphe_dessine(g);
   ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), QString::fromStdString(g.getEtiq()));
+  printConsole("Charger", "Graphe chargé depuis "+chem.toStdString());
+
 
 }
 void MainWindow::Enregistrer_sous(){
@@ -143,6 +184,7 @@ void MainWindow::Enregistrer_sous(){
   qDebug()<<chem;
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
   g.setPath(chem.toStdString());
+
   ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setGraphe_dessine(g);
   sauvegarde(ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine(), chem.toStdString());
   printConsole("Enregistrer sous", "Graphe sauvegardé "+chem.toStdString());
@@ -186,7 +228,9 @@ void MainWindow::Supprimer_graphe(){
   }
   ui->tabWidget->removeTab(ui->tabWidget->currentIndex());
 }
-void MainWindow::Ford_Bellman(){}
+void MainWindow::Ford_Bellman(){
+  
+}
 void MainWindow::Floyd_Warshall(){}
 void MainWindow::Degr_sortant(){}
 void MainWindow::Degr_entrant(){}
@@ -215,7 +259,68 @@ void MainWindow::Github(){
   msgBox.setText("<a href='https://github.com/gnouf1/Projet-S6'>Depôt github</a>");
   msgBox.exec();
 }
-void MainWindow::extraireSousGraphe(){}
+
+void MainWindow::extraireSousGraphe(){
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<int> listeSelect = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list(),
+  listeIDArc_nec;
+  if(!listeSelect.empty()){
+    QString text = QInputDialog::getText(this, tr("Nouveau graphe"),
+    tr("Nom du graphe :"), QLineEdit::Normal);
+    string etiq = "Graphe extrait";
+    if (text != "") etiq = text.toStdString();
+    Graphe g_extract(etiq);
+    vector<Arc> listeArc = g.getListe_Arcs();
+    vector<Sommet> vgs = g.getVecteurSommet(listeSelect);
+
+
+    for(int i=0;i<listeArc.size();++i){
+      int flag_dep = 0, flag_arr = 0;
+      for(int j = 0; j<listeSelect.size();++j){ // id départ
+        if(listeSelect[j] == listeArc[i].getIDDepart()){
+          flag_dep = 1;
+        }
+      }
+      for(int j = 0; j<listeSelect.size();++j){ // id arrive
+        if(listeSelect[j] == listeArc[i].getIDArrive()){
+          flag_arr = 1;
+        }
+      }
+      if(flag_arr && flag_dep){
+        listeIDArc_nec.push_back(listeArc[i].getID());
+      }
+    }
+    qDebug()<<"listeIDArc_nec"<<listeIDArc_nec;
+    for(int i = 0; i<vgs.size();++i){ // Ajoute les sommets
+      g_extract.ajout_Sommet(vgs[i].getID(), vgs[i].getPosX(), vgs[i].getPosY());
+    }
+
+    for(int i=0;i<listeArc.size();++i){
+      for(int j=0;j<listeIDArc_nec.size();++j){
+        if(listeArc[i].getID() == listeArc[j].getID()){
+          g_extract.ajout_Arc(listeArc[j].getIDDepart(), listeArc[j].getIDArrive());
+        }
+      }
+    }
+
+    QWidget *tab = new QWidget();
+    tab->setObjectName(QStringLiteral("tab"));
+    QHBoxLayout *horizontalLayout = new QHBoxLayout(tab);
+    horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+    QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
+    horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+    horizontalLayout_2->setContentsMargins(-1, 0, -1, -1);
+    QZoneDeDessin* zoneDessin = new QZoneDeDessin(tab);
+    zoneDessin->setObjectName(QStringLiteral("zoneDessin"));
+    zoneDessin->setMinimumSize(QSize(575, 0));
+    horizontalLayout_2->addWidget(zoneDessin);
+    horizontalLayout->addLayout(horizontalLayout_2);
+
+    zoneDessin->setGraphe_dessine(g_extract);
+    ui->tabWidget->addTab(tab,QString::fromStdString(etiq));
+    printConsole("Extraction", "Graphe extrait");
+  }
+}
 void MainWindow::arrangerSommets(){}
 
 void MainWindow::fermer_graphe(){
