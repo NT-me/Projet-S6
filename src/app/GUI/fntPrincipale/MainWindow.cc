@@ -62,6 +62,7 @@ int MainWindow::printCaraSelection(){
     vector<Sommet> vs = g.getVecteurSommet(listeSommet);
     for(int i=0; i<vs.size();++i){
       ui->caraSelection->append("<b>Sommet "+QString::number(vs[i].getID())+" :</b>");
+      ui->caraSelection->append("Etiquette : "+QString::fromStdString(vs[i].getEtiq()));
       ui->caraSelection->append("x :"+QString::number(vs[i].getPosX()));
       ui->caraSelection->append("y :"+QString::number(vs[i].getPosY()));
       ui->caraSelection->append("Liste ID arcs sortant:");
