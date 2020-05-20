@@ -28,7 +28,6 @@ void ordoCreate::ajoutTache(){
   }
 
   nouvelle.taches_anterieures = tmp;
-  // nouvellevec.push_back(nouvelle);
   res.push_back(nouvelle);
 
 ui->tableWidget->setRowCount(0);

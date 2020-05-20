@@ -47,7 +47,7 @@ public :
 
 	/**
 	 * \brief Force Atlas 2
-	 * Algorithme de force appel&eacute; par arranger_bouton
+	 * Algorithme de force appelé par arranger_bouton
 	 * Distance les points sur le Graphe courant
 	 * */
     void placementSommets();
@@ -66,36 +66,35 @@ public :
     pair<int,int> distance(QSommet a, QSommet b);
 
     /**
-     * \brief Ajoute l'ID d'un sommet &agrave; selected_list
-     * @param ID Sommet &agrave; ajouter
+     * \brief Ajoute l'ID d'un sommet à selected_list
+     * @param ID Sommet à ajouter
      * */
     void addSelect_Sommet(int ID);
 
     /**
      * \brief Supprime de la selected_list l'ID du Sommet en parametre
-     * @param ID Sommet &agrave; enlever de la liste
+     * @param ID Sommet à enlever de la liste
      * */
     void deleteSelect_Sommet(int ID);
-
     void razSelected_list();	/// Remet &agrave;  la selected_liste
 
     /**
      * \brief Affiche Graphe
      * Genere le Graphe C sur la QZoneDeDessin
      * Appel de afficher_sommet et afficher_arc
-     * @param G Graphe &agrave; afficher
+     * @param G Graphe à afficher
      * */
     void afficher_Graphe(Graphe G);
 
     /**
      * \brief Dessine Sommet
-     * @param s Sommet &agrave; afficher
+     * @param s Sommet à afficher
      * */
     void afficher_Sommet(Sommet s);
 
     /**
      * \brief Dessine Arc
-     * @param a Arc &agrave; afficher
+     * @param a Arc à afficher
      * */
     void afficher_arc(Arc a);
 

@@ -39,7 +39,6 @@ Graphe::Graphe(Matrice& M){ // Création d'un Graphe via une matrice d'adjacence
     for(int i=0; i<M.gettV(); i++){
         this->liste_Sommets.push_back(Sommet(i)); // Création du Sommet avec son numéro
     }
-  //res.push_back(liste_Sommets[id[i]]); //c'est quoi ça ?
     for(int i=0; i<M.gettV(); i++){   // ID Sommet depart
       for(int j=0; j<M.gettV(); j++){ // ID Sommet arrivée
         if(M.getTab()[i][j]){         // Si il existe un arc
@@ -191,7 +190,6 @@ int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
 }
 
 int Graphe::supprimer_Arc(int id){
-  // this->liste_Sommets.erase(id);
   if(id>this->liste_Arcs.size()|| id<0){
     std::cout << "/* ERROR OUT OF BOUNDS */" << '\n';
     return -1;
@@ -218,23 +216,6 @@ vector<Sommet> Graphe::getVecteurSommet(vector<int> id){
 
 // Opérateurs
 bool Graphe::operator==(Graphe const & G1) const{
-  // bool res;
-  // if(this->etiquette == G1.etiquette
-  // && this->path == G1.path){
-  //   if(this->liste_Arcs.size()==G1.liste_Arcs.size()
-  //   &&this->liste_Sommets.size()==G1.liste_Sommets.size()){
-  //     for(int i =0;i<this->liste_Arcs.size();i++){
-  //       res = this->liste_Arcs[i]==G1.liste_Arcs[i];
-  //       if(res==0)return 0;
-  //     }
-  //     for(int i =0;i<this->liste_Sommets.size();i++){
-  //       res = this->liste_Sommets[i]==G1.liste_Sommets[i];
-  //       if(res==0)return 0;
-  //     }
-  //     return 1;
-  //   }
-  //  }
-  //  return 0;
   return ((this->etiquette == G1.etiquette) && (this->liste_Arcs == G1.liste_Arcs) && (this->liste_Sommets == G1.liste_Sommets) && (this->path == G1.path));
 }
 
@@ -249,19 +230,6 @@ Graphe Graphe::operator=(Graphe const& G1){
    this->path = G1.path;
    return *this;
 }
-
-void Graphe::affiche_graphe(){
-	cout << "etiquette = " << this->etiquette << endl;
-	cout << "path = " << this->path << endl;
-
-	for(int i = 0; i < this->liste_Sommets.size(); i++){
-		this->liste_Sommets[i].afficher_Sommet();
-	}
-	for(int i = 0; i < this->liste_Arcs.size(); i++){
-		this->liste_Arcs[i].afficher_Arc();
-	}
-
-
 
 }
 
@@ -516,17 +484,3 @@ bool Matrice::operator!=(Matrice & M1){
 
   return *this;
   }
-
-void Matrice::affiche_matrice(){
-
-	for(int i = 0; i < this->taille_V; i++){
-		for(int j = 0; j < this->taille_E; j++){
-			cout << this->tab[i][j] << " ";
-		}
-		cout << "\n" ;
-	}
-	cout << "taille_V = "  << this->taille_V  << "\n";
-	cout << "taille_E = "  << this->taille_E  << "\n";
-	cout << "type = "  << this->type  << "\n" << endl;
-
-}

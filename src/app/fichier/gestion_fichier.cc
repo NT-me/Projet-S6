@@ -1,7 +1,5 @@
 #include "gestion_fichier.hh"
-// #include "../../../libExt/rapidjson/stringbuffer.h"
 #include "../../../libExt/rapidjson/writer.h"
-// #include "../../../libExt/rapidjson/filewritestream.h"
 #include "../../../libExt/rapidjson/prettywriter.h"
 #include "../../../libExt/rapidjson/istreamwrapper.h"
 #include "../../../libExt/rapidjson/schema.h"
@@ -51,7 +49,6 @@ if (path == ""){
 
        writer.Key ("vecArc");
        writer.StartArray();
-       //writer.StartObject();
        //Boucle pour savoir a quels arcs le sommet et relié
         for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++){
           writer.StartObject();
@@ -215,7 +212,6 @@ if (path == ""){
 
       writer.Key ("vecArc");
       writer.StartArray();
-      //writer.StartObject();
       //Boucle pour savoir a quels arcs le sommet et relié
        for (int j = 0; j < G.getListe_Sommets()[i].getVecArc().size() ;j++){
          writer.StartObject();

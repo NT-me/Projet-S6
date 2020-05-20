@@ -3,12 +3,9 @@
 QZoneDeDessin::QZoneDeDessin(QWidget *parent_) : QGraphicsView(parent_), graphe_dessine("EMPTY_GRAPH"){
 vector<int> a{};
 this->selected_list = a;
-// this->setSceneRect(0, 0, 350, 350);
 this->sc = new QGraphicsScene;
-// this->sc->addItem(&itemParent);
 QGraphicsView::setScene(sc);
 
-// test
 }
 
 QZoneDeDessin::~QZoneDeDessin(){

@@ -20,11 +20,11 @@ struct VectVal {
 	 * 0 Si entier
 	 * 1 si réel
 	 * */
-  bool type; 
+  bool type;
   int valeur_entiere;	/// Valeur de type entiere
   float valeur_reel;	/// Valeur de type r&eacute;elle
-  
-  
+
+
   /**
    * \brief Surcharge de l'op&eacute;rateur d'affectation
    * */
@@ -59,9 +59,9 @@ inline bool operator== (VectVal v1, VectVal v2){
 typedef struct ROW{
   int tache;				/// Identifiant de la tache
   string nom_tache;			/// Etiquette de la tache
-  int duree;				/// Dur&eacute;e de la tache
-  vector <int> taches_anterieures;	/// Identifiants des taches ant&eacute;rieures
-  vector <int> taches_posterieures; /// Identifiants des taches post&eacute;rieures
+  int duree;				/// Durée de la tache
+  vector <int> taches_anterieures;	/// Identifiants des taches antérieures
+  vector <int> taches_posterieures; /// Identifiants des taches postérieures
 } pert_row;
 
 inline bool operator== (pert_row v1, pert_row v2){

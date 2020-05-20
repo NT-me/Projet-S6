@@ -139,13 +139,11 @@ pair<Matrice, Matrice> calcul_Floyd_Warshall(Matrice M){
     for (int k = 0; k < M.gettV();k++) {
       for (int i = 0; i < M.gettV(); i++) {
         for (int j = 0; j < M.gettV(); j++) {
-        //  if(k!=j&&i!=j&&k!=i){
+
             if(MT.getTab()[i][j]> (MT.getTab()[i][k]+MT.getTab()[k][j])){
               MT.modifTab(i,j,MT.getTab()[i][k]+MT.getTab()[k][j]);
               MP.modifTab(i,j,MP.getTab()[i][k]);
             }
-
-        //  }
         }
       }
     }
@@ -228,7 +226,6 @@ vector<int> coloration_Graphe(Graphe G){
     L.push_back(t);
 
     //on classe les sommets par ordre décroissant de degré
-    //peut être optimisée il me semble
     for(int i=1; i<G.getListe_Sommets().size(); i++){
         tmp = calcul_degres_entrant_sortant(M, G.getListe_Sommets()[i]);
         t.first = tmp.first+tmp.second;
@@ -393,7 +390,7 @@ vector<vector<int>> stables_Graphe(Matrice M){
 }
 
 vector<vector<int>> cliques_Graphe(Matrice M){
-    //invesion de la matrice (au sens d'un graphe non orienté)
+    //inversion de la matrice (au sens d'un graphe non orienté)
     for(int i=0; i<M.gettV(); i++){
         for(int j=i+1; j<M.gettV(); j++){
             if(M.getTab()[i][j] == 0 && M.getTab()[j][i] == 0){
@@ -419,39 +416,6 @@ vector<int> voisin_sommet(Matrice M, int ID){
             }
         }
     return voisins;
-}
-
-
-void parcours_largeur(Graphe G, Sommet S)
-{
-	   vector<Sommet> marquage;
-	   marquage.push_back(S);
-
-       vector<Sommet> liste_sommet = G.getListe_Sommets();
-       while(!liste_sommet.empty())
-       {
-		   for(int i =0; i<marquage.size(); i++)
-		   {
-			   if(marquage[i] == S)
-			   {
-				   liste_sommet.pop_back();
-			   }
-		   }
-		   S = liste_sommet.back();
-
-		   S.afficher_Sommet();
-		   liste_sommet.pop_back();
-
-
-	   }
-
-
-                //~ pour tout voisin t de s dans G
-                         //~ si t non marqué
-                                 //~ f.enfiler(t);
-                                 //~ marquer(t);
-
-
 }
 
 int gestion_flots(Graphe G, int ID_source, int ID_puit){//fonction applicant l'algorithme d'Edmond Karp
@@ -936,13 +900,6 @@ Graphe arborescence(Graphe G){
         tmp.ajout_Sommet(-1, -1,-1);
         return tmp;
     }
-
-  /*  Matrice aff = A.conversion_vers_Matrice_adj();
-    for(int i=0;i<aff.gettV();i++){
-        for(int j=0;j<aff.gettV();j++){
-            std::cout << "["<<i<<"]["<<j<<"] = "<<aff.getTab()[i][j]<<endl;
-        }
-    }*/
     return A;
 }
 

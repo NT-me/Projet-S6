@@ -31,9 +31,11 @@ class MainWindow : public QMainWindow
 Q_OBJECT
 private :
   Ui::MainWindow *ui;			/// Fen&ecirc;tre de l'interface
-  Graphe grapheCourant;			/// Graphe courant affich&eacute; &agrave; l'&eacute;cran
+  Graphe grapheCourant;			/// Graphe courant affiché &agrave; l'écran
   /**
+
    * \brief Dernier bouton enclench&eacute; par l'utilisateur
+
    * 0 : Aucune valeur
    * 1 : Selection
    * 2 : Ajout de Sommet
@@ -47,18 +49,18 @@ public :
   ~MainWindow();							/// Destructeur de l'objet MainWindow
 
   /**
-   * \brief Affiche le r&eacute;sultat d'une fonction dans la console
+   * \brief Affiche le résultat d'une fonction dans la console
    * @param nomMethode Nom de la fonction appelante
-   * @param ValRetFunc R&eacute;sultat renvoy&eacute; par la fonction appelante
-   * @return 0 en cas de r&eacute;ussite
+   * @param ValRetFunc Résultat renvoyé par la fonction appelante
+   * @return 0 en cas de réussite
    * @return -1 en cas d'erreur
    * */
   int printConsole(string nomMethode, string valRetFunc);
 
   /**
-   * Affichage des caract&eacute;ristique de la s&eacute;lection
-   * Cette m&eacute;thode est appel&eacute;e par les fonctions de selection des Sommets
-   * @return 0 en cas de r&eacute;ussite
+   * Affichage des caractéristique de la sélection
+   * Cette méthode est appelée par les fonctions de selection des Sommets
+   * @return 0 en cas de réussite
    * @return -1 en cas d'erreur
    * */
 
@@ -67,8 +69,8 @@ public :
   /**
    * \brief Suppression Onglet
    * @param nomOnglet Onglet &agrave; fermer
-   * @return L'index de l'onglet ferm&eacute; en cas de r&eacute;ussite
-   * @return -1 en cas d'&eacute;chec
+   * @return L'index de l'onglet fermé en cas de réussite
+   * @return -1 en cas d'échec
    * */
   int supprimerOnglet(QString nomOnglet);
 
@@ -81,18 +83,18 @@ public slots :
    * L'attribut graphe_courant prends la valeur de G
    * L'attribut DernierBoutonEnclenche prends la valeur de 0
    * @param nomOnglet Nom du nouvel onglet
-   * @param G Graphe d&eacute;ssin&eacute; dans la Zone de Dessin du nouvel onglet
-   * @return L'index de l'onglet en cas de r&eacute;ussite
-   * @return -1 en cas d'&eacute;chec
+   * @param G Graphe déssiné dans la Zone de Dessin du nouvel onglet
+   * @return L'index de l'onglet en cas de réussite
+   * @return -1 en cas d'échec
    * */
   void nv_graphe_vide();		/// Ouvre un nouvel onglet avec un Graphe vide en parametre
 
   /**
-   * \brief Ouvre un nouvel onglet avec un Graphe al&eacute;atoire en parametre
-   * Ouvre une fen&ecirc;tre QInputDialog permettant de r&eacute;cup&eacute;rer le nombre de Sommets &agrave; creer
-   * Sommet cr&eacute;er li&eacute;s al&eacute;atoirement
-   * Ouvre un nouvel Onglet avec le Graphe al&eacute;atoire en parametre
-   * Appelle la m&eacute;thode force_Atlas2 pour &eacute;loigner les Sommets les uns des autres
+   * \brief Ouvre un nouvel onglet avec un Graphe aléatoire en parametre
+   * Ouvre une fen&ecirc;tre QInputDialog permettant de récupérer le nombre de Sommets &agrave; creer
+   * Sommet créer liés aléatoirement
+   * Ouvre un nouvel Onglet avec le Graphe aléatoire en parametre
+   * Appelle la méthode force_Atlas2 pour éloigner les Sommets les uns des autres
    * */
 
 void nv_graphe_aleatoire();
@@ -100,7 +102,7 @@ void nv_graphe_aleatoire();
   /**
    * \brief Enregistrer
    * Appelle la fonction de sauvegarde sur le Graphe courant
-   * Remplace le fichier si il est d&eacute;j&agrave; existant
+   * Remplace le fichier si il est déj&agrave; existant
    * */
   void Enregistrer();
 
@@ -120,6 +122,7 @@ void nv_graphe_aleatoire();
   /**
    * \brief Duppliquer
    * Cr&eacute;er un nouvel onglet avec une copie du Graphe courant
+
    * Le nouvel onglet aura l'etiquette du Graphe courant et le Graphe en parametre
    * */
   void Dupliquer_graphe();
@@ -134,6 +137,9 @@ void nv_graphe_aleatoire();
   /**
    * \brief Algorithmes applicables sur les Graphes
    * Appelle les fonctions du module Operation sur les Graphes
+   * Pour tout les algorithmes les résultats sont affichés dans la console ou sur la Zone de Dessin
+   *
+   * 
    * Pour tout les algorithmes les r&eacute;sultats sont affich&eacute;s dans la console ou sur la Zone de Dessin
    *
    * */
@@ -143,8 +149,8 @@ void nv_graphe_aleatoire();
 
   /**
    * \brief Appel de calc_deg_sortant
-   * Passe en parametre le ou les Sommets correspondant aux ID selectionn&eacute;s dans QZoneDeDessin
-   * Si la liste contient plusieurs ID, la fonction est appel&eacute;e successivement sur chacun des Sommets
+   * Passe en parametre le ou les Sommets correspondant aux ID selectionnés dans QZoneDeDessin
+   * Si la liste contient plusieurs ID, la fonction est appelée successivement sur chacun des Sommets
    * */
   void Degr_sortant();
 
@@ -158,19 +164,19 @@ void nv_graphe_aleatoire();
 
   /**
    * \brief Appel de color_graphe
-   * Resultat affich&eacute; sur le Graphe courant par coloration des Sommets
+   * Resultat affiché sur le Graphe courant par coloration des Sommets
    * */
   void Coloration_de_graphe();
 
   /**
    * \brief Appel de stables_graphe
-   * Resultat affich&eacute; sur la console et le Graphe courant par coloration des Sommet formant un stable
+   * Resultat affiché sur la console et le Graphe courant par coloration des Sommet formant un stable
    * */
   void Determinaison_de_stables();
 
   /**
    * \brief Appel de cliques_graphe
-   * Resultat affich&eacute; sur la console et le Graphe courant par coloration des Sommet formant une clique
+   * Resultat affiché sur la console et le Graphe courant par coloration des Sommet formant une clique
    * */
   void Determinaison_de_cliques();
   void Voisins_de_sommets();	/// Appel de voisin_sommet
