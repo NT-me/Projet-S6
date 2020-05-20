@@ -1159,6 +1159,150 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
   return res;
 }
 
-vector<int> postier_chinois(Matrice M){}
+vector<int> postier_chinois(Matrice M){
+
+        vector<int> sommetsImpair;
+        vector<int> vecteurResult;
+        int nb_sortant, nb_entrant;
+        pair<Matrice, Matrice> FloydMa = calcul_Floyd_Warshall(M);
+        int deb, fin;
+        int EstPair = 1;
+
+
+        /*On vérifie la connexité*/
+        if (connexite(M)){
+
+            /*On boucle sur les sommets, pour vérifier s'ils sont tous pairs */
+             for(int i=0; i<M.getTab().size(); i++){
+                nb_sortant =0;
+
+                /*nb degré entrant */
+                nb_entrant = calcul_degres_entrant(M, i);
+
+                /*nb degré sortant */
+                for (int j=0; j < M.gettV() ; j++){
+                    if (M.getTab()[i][j]) nb_sortant++;
+                }
+
+                /* si l'un des sommets a un degré impair on sort de la boucle */
+                if (nb_sortant!= nb_entrant){
+                     sommetsImpair.push_back(i);
+                     EstPair = 0;
+                }
+            }
+            /* on produit le cycle eulérien pour résoudre le postier chinois*/
+            if (EstPair) {
+                    /* permet de récupérer le premier vecteur des chaines eulériennes.*/
+                    vector<vector<int>> tmp = chaine_eulerienne(M);
+                    vecteurResult = tmp[0];
+
+                return vecteurResult;
+            }
+            else{
+                int tmp;
+                int total_poid_couplage=0;
+                int total;
+                int noChemin;
+                int nb_combinaisons;
+                vector<int> vect_tmp;
+                vector<int> couplageParfait;
+                vector<vector<int>> combinaisons;
+
+
+                /*factoriel pour récupérer le nombre de combinaisons possibles*/
+                for(int fact=1; fact<(sommetsImpair.size()+1); fact++){
+                    nb_combinaisons*=fact;
+                }
+
+                /* récupérer toutes les combinaisons de couplages possibles */
+                 do{
+                   for( int i = 0; i < sommetsImpair.size(); i += 1 ){
+                       vect_tmp.push_back(sommetsImpair[i]);
+                    }
+                    combinaisons.push_back(vect_tmp);
+                    vect_tmp.clear();
+                }while( std::next_permutation( sommetsImpair.begin(), sommetsImpair.end() ) );
+
+
+                /*UNIQUEMENT POUR STOCKER LA PREMIERE COMBINAISON POSSIBLE */
+                int min=0;
+                for(auto deb=combinaisons.begin(); deb!=combinaisons.end(); deb++){
+
+                    /* effacer le vecteur pour pouvoir le réutiliser*/
+                    couplageParfait.clear();
+                    total_poid_couplage = 0;
+                    noChemin = 0;
+                    for(auto fin=deb->begin(); fin!=deb->end(); fin=fin+2){
+                        tmp = 0;
+                        tmp = FloydMa.first.getTab()[*fin ][*(fin+1)];
+                        /* s'il n'y a pas de chemin du sommet *fin au sommet *(fin +1),on sort de la boucle interne pour tester la deb+1 combinaisons */
+                        if (tmp == 0) {
+                            min = 0;
+                            break;
+                        }
+                        if (!noChemin){
+                            total_poid_couplage += tmp;
+                            /*sauvegarder les sommets dans le vecteur temporaire au cas où ils seraient des couplages parfaits */
+                            couplageParfait.push_back(*fin);
+                            couplageParfait.push_back(*(fin+1));
+                            /*on a récupérer la premiere valeur*/
+                            min = 1;
+                        }
+                    }
+                    if (min) break;
+                }
+
+                /* ON RECUPERE LE MINIMUM parmis toutes les combinaisons possibles du vecteur couplageParfait*/
+                for(auto deb=combinaisons.begin(); deb!=combinaisons.end(); deb++){
+
+                    /* effacer le vecteur pour pouvoir le réutiliser*/
+                    vect_tmp.clear();
+                    total = 0;
+                    noChemin = 0;
+                    for(auto fin=deb->begin(); fin!=deb->end(); fin=fin+2){
+                        tmp = 0;
+                        tmp = FloydMa.first.getTab()[*fin ][*(fin+1)];
+                        /* s'il n'y a pas de chemin entre 2 sommets : break*/
+                        if (tmp == 0) {
+                            noChemin=1;
+                            break;
+                        }
+                        if (!noChemin){
+                             total += tmp;
+                            /*sauvegarder les sommets dans le vecteur temporaire au cas où ils seraient des couplages parfaits */
+                            vect_tmp.push_back(*fin);
+                            vect_tmp.push_back(*(fin+1));
+                        }
+                    }
+
+
+                        if ( (!noChemin) & (total < total_poid_couplage) ){
+                             total_poid_couplage = total;
+                            couplageParfait = vect_tmp;
+                        }
+
+                }
+
+                /*Création d'un Matrice bis pour stocker les nouveaux arcs */
+                Matrice Mbis(M);
+                for(auto deb = couplageParfait.begin(); deb != couplageParfait.end(); deb=deb+2 ){
+                    Mbis.modifTab(*deb, *(deb+1), 1);
+                 }
+
+                /* permet de récupérer le premier vecteur des chaines eulériennes.*/
+                vector<vector<int>> stock = chaine_eulerienne(Mbis);
+                vecteurResult = stock[0];
+                return vecteurResult;
+
+            }
+
+        }
+
+        else {
+            std::cout << "ERREUR CONNEXITE MATRICE (Postier Chinois)" << '\n';
+            /* retourne un vecteur vide */
+            return vecteurResult;
+            }
+}
 
 vector<int> voyageur_de_commerce(vector<int>, Matrice M){}

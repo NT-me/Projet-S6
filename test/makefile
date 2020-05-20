@@ -67,7 +67,7 @@ test_bib_algo_calcul_degres_sortant: clean
 	g++ ../src/bib/algo/liste.cc -c
 	# Partie test
 	g++ GrapheMatrice.o Arc.o Sommet.o liste.o test_bib/algo/liste.cc -o OUTliste.o
-	./OUTliste.o "calcul degres entrant"
+	./OUTliste.o "calcul degres sortant"
 
 test_bib_algo_calcul_degres_entrant_sortant: clean
 	# Partie code
