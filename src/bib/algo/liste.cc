@@ -34,7 +34,7 @@ pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
       }
     }
     file.push_back(S.getID());
-    while(file[0]!=-1 && cmpW<cmpA-1){ // Bellman (poids des chemins)
+    while(file[0]!=-1 && cmpW<cmpA){ // Bellman (poids des chemins)
       for(int j=0;j<M.gettV();j++){
         if(M.getTab()[file[0]][j]!=0){
           if(dist[j] > (dist[file[0]] + M.getTab()[file[0]][j])){
