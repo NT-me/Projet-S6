@@ -605,7 +605,35 @@ void MainWindow::Trouver_chaine_hamiltonienne(){
     printConsole("Chaine hamiltonienne", "Pas de chaines trouvable");
   }
 }
-void MainWindow::Postier_chinois(){}
+void MainWindow::Postier_chinois(){
+  QGraphicsScene* sceneAcolor = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getScene();
+  vector<int> color = postier_chinois(ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine().conversion_vers_Matrice_adj());
+  QList<QGraphicsItem*> listS = sceneAcolor->items();
+  vector<QColor> couleurs;
+  QRandomGenerator qrg(1200);
+
+  int tmpC;
+  for(int k=0;k<listS.size();++k){
+    couleurs.push_back(QColor(0,0,0));
+  }
+  for(int i=0;i<listS.size();++i){
+    if(listS[i]->data(0) == "Sommet"){
+      QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[i]);
+      tmpC = color[QS_->getID()];
+      if(couleurs[tmpC] == QColor(0,0,0)){
+        couleurs[tmpC] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
+        QS_->setCoul(couleurs[tmpC]);
+        QS_->update();
+      }
+      else{
+        QS_->setCoul(couleurs[tmpC]);
+        QS_->update();
+      }
+    }
+  }
+  ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
+  printConsole("Coloration de graphe", "Graphe coloré");
+}
 void MainWindow::Voyageur_de_commerce(){}
 
 void MainWindow::Documentation(){
