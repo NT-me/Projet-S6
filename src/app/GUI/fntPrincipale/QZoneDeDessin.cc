@@ -225,20 +225,41 @@ if (itemAt(e->pos())->data(0) == "Sommet"){
   mdo->setEtq(QString::fromStdString(som.getEtiq()));
   mdo->setListCU(som.getCU());
   if(mdo->exec()){
-    
-  }
-  else{
-
+    som.setCU(mdo->getCU());
+    som.setEtiq(mdo->getetq().toStdString());
+    vector<Sommet> ls = graphe_dessine.getListe_Sommets();
+    for(int i=0;i<ls.size();++i){
+      if(ls[i].getID() == som.getID()){
+        ls[i] = som;
+      }
+    }
+    graphe_dessine.setListe_Sommet(ls);
   }
 }
 else if (itemAt(e->pos())->data(0) == "Arc"){
   QArc* QA = qgraphicsitem_cast<QArc*>(itemAt(e->pos()));
-  // Sommet som = graphe_dessine.getVecteurSommet(vector<int>{QS->getID()})[0];
-  //
-  // modifObjet* mdo = new modifObjet();
-  // mdo->setEtq(QString::fromStdString(som.getEtiq()));
-  // mdo->setListCU(som.getCU());
-  // mdo->show();
+  vector<Arc> la = graphe_dessine.getListe_Arcs();
+  Arc a(0,0,0);
+  for(int i=0;i<la.size();++i){
+    if(la[i].getID() == QA->getID()){
+      a = la[i];
+    }
+  }
+  modifObjet* mdo = new modifObjet();
+  mdo->setEtq(QString::fromStdString(a.getEtiq()));
+  mdo->setListCU(a.getCU());
+  if(mdo->exec()){
+    a.setCU(mdo->getCU());
+    a.setEtiq(mdo->getetq().toStdString());
+
+    for(int i=0;i<la.size();++i){
+      if(la[i].getID() == a.getID()){
+        la[i] = a;
+      }
+    }
+    graphe_dessine.setListe_Arc(la);
+  }
+
 }
 }
 void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
