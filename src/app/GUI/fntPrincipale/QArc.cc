@@ -174,8 +174,8 @@ void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
   //
   painter->drawLine(firstp,secondp);
   painter->setBrush(whiteBrush);
-  painter->drawEllipse(pA,TAILLE_RAYON,TAILLE_RAYON);
-  painter->drawEllipse(pB,TAILLE_RAYON,TAILLE_RAYON);
+  // painter->drawEllipse(pA,TAILLE_RAYON,TAILLE_RAYON);
+  // painter->drawEllipse(pB,TAILLE_RAYON,TAILLE_RAYON);
   painter->setBrush(redBrush);
   painter->drawEllipse(arrow,5,5);
 

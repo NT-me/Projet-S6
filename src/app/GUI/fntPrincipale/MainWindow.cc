@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->actionDegr_sortant,&QAction::triggered,this, &MainWindow::Degr_sortant) ;
   QObject::connect(ui->actionDegr_entrant,&QAction::triggered,this, &MainWindow::Degr_entrant) ;
   QObject::connect(ui->actionDegr_s_entrant_et_sortant,&QAction::triggered,this, &MainWindow::Degrs_entrant_et_sortant) ;
-  // QObject::connect(ui->actionColoration_de_graphe,&QAction::triggered,this, &MainWindow:: ;
+  QObject::connect(ui->actionColoration_de_graphe,&QAction::triggered,this, &MainWindow::Coloration_de_graphe) ;
   // QObject::connect(ui->actionD_termination_de_stables,&QAction::triggered,this, &MainWindow:: ;
   // QObject::connect(ui->actionD_termination_de_cliques,&QAction::triggered,this, &MainWindow:: ;
   QObject::connect(ui->actionVoisins_de_sommets,&QAction::triggered,this, &MainWindow::Voisins_de_sommets);
@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   // QObject::connect(ui->actionCr_er_un_graphe_d_ordonnancement,&QAction::triggered,this, &MainWindow:: ;
   QObject::connect(ui->actionArborescence,&QAction::triggered,this, &MainWindow::Arborescence) ;
   QObject::connect(ui->actionAnti_Arborescence,&QAction::triggered,this, &MainWindow::AntiArborescence) ;
-  // QObject::connect(ui->actionRecherche_de_la_connexit,&QAction::triggered,this, &MainWindow:: ;
+  QObject::connect(ui->actionRecherche_de_la_connexit,&QAction::triggered,this, &MainWindow::Recherche_de_la_connexite) ;
   // QObject::connect(ui->actionTrouver_chaine_eul_rienne,&QAction::triggered,this, &MainWindow::;
   // QObject::connect(ui->actionTrouver_chaine_hamiltonienne,&QAction::triggered,this, &MainWindow::;
   // QObject::connect(ui->actionR_solution_du_probl_me_du_postier_chinois,&QAction::triggered,this, &MainWindow::;
@@ -324,7 +324,36 @@ void MainWindow::Degrs_entrant_et_sortant(){
 
   }
 }
-void MainWindow::Coloration_de_graphe(){}
+void MainWindow::Coloration_de_graphe(){
+  QGraphicsScene* sceneAcolor = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getScene();
+  vector<int> color = coloration_Graphe(ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine());
+  QList<QGraphicsItem*> listS = sceneAcolor->items();
+  vector<QColor> couleurs;
+  QRandomGenerator qrg(1200);
+
+  int tmpC;
+  for(int k=0;k<listS.size();++k){
+    couleurs.push_back(QColor(0,0,0));
+  }
+  for(int i=0;i<listS.size();++i){
+    if(listS[i]->data(0) == "Sommet"){
+      QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[i]);
+      tmpC = color[QS_->getID()];
+      if(couleurs[tmpC] == QColor(0,0,0)){
+        couleurs[tmpC] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
+        QS_->setCoul(couleurs[tmpC]);
+        QS_->update();
+      }
+      else{
+        QS_->setCoul(couleurs[tmpC]);
+        QS_->update();
+      }
+    }
+  }
+  ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
+  printConsole("Coloration de graphe", "Graphe coloré");
+
+}
 void MainWindow::Determinaison_de_stables(){}
 void MainWindow::Determinaison_de_cliques(){}
 void MainWindow::Voisins_de_sommets(){
@@ -415,7 +444,9 @@ void MainWindow::AntiArborescence(){
     printConsole("Anti_arborescence", "Création de l'anti arborescence du graphe courant");
   }
 }
-void MainWindow::Recherche_de_la_connexite(){}
+void MainWindow::Recherche_de_la_connexite(){
+
+}
 void MainWindow::Trouver_chaine_eulerienne(){}
 void MainWindow::Trouver_chaine_hamiltonienne(){}
 void MainWindow::Postier_chinois(){}
