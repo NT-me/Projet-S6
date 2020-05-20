@@ -234,28 +234,34 @@ void MainWindow::Ford_Bellman(){
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
   vector<Sommet> vs = g.getVecteurSommet(listeSommet);
 
-  for(int i=0; i<vs.size();++i){
-    pair<vector<vector<int>>, vector<int>> res = calcul_Bellman(g.conversion_vers_Matrice_adj(), vs[i]);
+  if(!listeSommet.empty()){
+    for(int i=0; i<vs.size();++i){
+      pair<vector<vector<int>>, vector<int>> res = calcul_Bellman(g.conversion_vers_Matrice_adj(), vs[i]);
 
-    string str = "Appliqué sur sommet :"+to_string(vs[i].getID())+"<br>";
-    vector<int> dP = res.second;
-    str = str+"Distance de "+to_string(vs[i].getID())+" à i : <br>";
-    for(int j=0;j<dP.size();++j){
-      if(dP[j] != 999999999){
-        str = str+to_string(dP[j])+", ";
+      string str = "Appliqué sur sommet :"+to_string(vs[i].getID())+"<br>";
+      vector<int> dP = res.second;
+      str = str+"Distance de "+to_string(vs[i].getID())+" à i : <br>";
+      for(int j=0;j<dP.size();++j){
+        if(dP[j] != 999999999){
+          str = str+to_string(dP[j])+", ";
+        }
+        else{
+          str =str + "infini, ";
+        }
       }
-      else{
-        str =str + "infini, ";
+      vector<vector<int>> pP = res.first;
+      for(int k=0; k<pP.size();++k){
+        str = str + "<br> Le chemin pour aller de "+to_string(vs[i].getID())+" à "+ to_string(k)+"<br>";
+        for(int l=0;l<pP[k].size();++l){
+          str = str+to_string(dP[l])+", ";
+        }
       }
+      printConsole("Ford_Bellman", str);
     }
-    vector<vector<int>> pP = res.first;
-    for(int k=0; k<pP.size();++k){
-      str = str + "<br> Le chemin pour aller de "+to_string(vs[i].getID())+" à "+ to_string(k)+"<br>";
-      for(int l=0;l<pP[k].size();++l){
-        str = str+to_string(dP[l])+", ";
-      }
-    }
-    printConsole("Ford_Bellman", str);
+  }
+  else{
+    printConsole("Ford_Bellman", "Pas de sommets selectionnés");
+
   }
 
 }
