@@ -53,13 +53,6 @@ public:
      * Modifie l'attribut select du Sommet et sa couleur si séléctionnée
      * */
     void setSelect(bool select);
-
-    /**
-     * \brief Double Click
-     * Cette méthode ouvre une fenètre permettant de modifier l'etiquette ou la charge utile d'un Sommet
-     * Récupere la paure renvoyée par la fenètre de dialogue
-     * */
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     /**
      * \brief Délimitation

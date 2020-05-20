@@ -14,6 +14,7 @@
 #include <utility>
 #include "mainwindow_copy.hh"
 #include "../../../bib/bib.hh"
+#include "../fntOrdoCreate/OCDialog.hh"
 #include "../../fichier/gestion_fichier.hh"
 
 /**
@@ -32,7 +33,9 @@ private :
   Ui::MainWindow *ui;			/// Fen&ecirc;tre de l'interface
   Graphe grapheCourant;			/// Graphe courant affiché &agrave; l'écran
   /**
-   * \brief Dernier bouton enclenché par l'utilisateur
+
+   * \brief Dernier bouton enclench&eacute; par l'utilisateur
+
    * 0 : Aucune valeur
    * 1 : Selection
    * 2 : Ajout de Sommet
@@ -112,13 +115,14 @@ void nv_graphe_aleatoire();
   /**
    * \brief Enregistrer sous
    * Change le chemin de sauvegarde du Graphe
-   * Ouvre une fen&ecirc;tre QInputDialog pour récupérer le nom
+   * Ouvre une fen&ecirc;tre QInputDialog pour r&eacute;cup&eacute;rer le nom
    * */
   void Enregistrer_sous();
 
   /**
    * \brief Duppliquer
-   * Créer un nouvel onglet avec une copie du Graphe courant
+   * Cr&eacute;er un nouvel onglet avec une copie du Graphe courant
+
    * Le nouvel onglet aura l'etiquette du Graphe courant et le Graphe en parametre
    * */
   void Dupliquer_graphe();
@@ -135,9 +139,12 @@ void nv_graphe_aleatoire();
    * Appelle les fonctions du module Operation sur les Graphes
    * Pour tout les algorithmes les résultats sont affichés dans la console ou sur la Zone de Dessin
    *
+   * 
+   * Pour tout les algorithmes les r&eacute;sultats sont affich&eacute;s dans la console ou sur la Zone de Dessin
+   *
    * */
 
-  void Ford_Bellman();			/// Appel de calc_pcc_Bellman en lui passant en parametre deux Sommets séléctionnés
+  void Ford_Bellman();			/// Appel de calc_pcc_Bellman en lui passant en parametre deux Sommets s&eacute;l&eacute;ctionn&eacute;s
   void Floyd_Warshall();		/// Appel de calc_pcc_Floyd_Warshall
 
   /**
@@ -149,8 +156,8 @@ void nv_graphe_aleatoire();
 
   /**
    * \brief Appel de calc_deg_entrant
-   * Passe en parametre le ou les Sommets correspondant aux ID selectionnés dans QZoneDeDessin
-   * Si la liste contient plusieurs ID, la fonction est appelée successivement sur chacun des Sommets
+   * Passe en parametre le ou les Sommets correspondant aux ID selectionn&eacute;s dans QZoneDeDessin
+   * Si la liste contient plusieurs ID, la fonction est appel&eacute;e successivement sur chacun des Sommets
    * */
   void Degr_entrant();
   void Degrs_entrant_et_sortant();	/// Appel de calc_deg_ent_sor
@@ -203,8 +210,8 @@ void nv_graphe_aleatoire();
 
   /**
    * \brief Extraire Sous Graphe
-   * Recupere le Graphe courant et la liste de Sommets selecionnés
-   * Ouvre un nouvel onglet avec le Graphe issue de la sélection
+   * Recupere le Graphe courant et la liste de Sommets selecionn&eacute;s
+   * Ouvre un nouvel onglet avec le Graphe issue de la s&eacute;lection
    * */
   void extraireSousGraphe();
   void arrangerSommets();		/// Appel Force atlas 2 sur la zone de dessin

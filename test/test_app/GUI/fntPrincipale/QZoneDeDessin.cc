@@ -41,8 +41,14 @@ private slots:
 
   }
 
-  void Testforce_Atlas2(){
-    //
+  void TestplacementSommets(){
+    QZoneDeDessin qzdd;
+    Sommet S0(0,0,"S0",0), S1(1,1,"S1",1);
+    QSommet QS0(S0), QS1(S1);
+    qzdd.placementSommets();
+    QVERIFY(QS0.getPosX() != QS1.getPosX());
+    QVERIFY(QS0.getPosY() != QS1.getPosY());
+
   }
   void Testdistance(){
     QZoneDeDessin qzdd;

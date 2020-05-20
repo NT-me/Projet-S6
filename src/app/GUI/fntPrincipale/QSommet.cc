@@ -41,9 +41,6 @@ void QSommet::setRayon(int r){this->rayon = r;}
 void QSommet::setCoul(QColor color){this->coul = color;}
 void QSommet::setSelect(bool select){this->select = select;}
 
-void QSommet::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
-  qDebug()<<"HE STOP";
-}
 QRectF QSommet::boundingRect() const{
   qreal penWidth = 1;
   return QRectF(-TAILLE_RAYON - penWidth / 2, -TAILLE_RAYON - penWidth / 2, TAILLE_RAYON*2 + penWidth, TAILLE_RAYON*2 + penWidth);

@@ -10,10 +10,13 @@
 #include <QVariant>
 #include "QSommet.hh"
 #include "QArc.hh"
+#include "../../../bib/algo/liste.hh"
 #include <stdlib.h>
 #include <time.h>
 #include <QObject>
 #include <QMainWindow>
+#include "../fntModifObjet/MODialog.hh"
+
 
 class QZoneDeDessin : public QGraphicsView{
     Q_OBJECT
@@ -21,12 +24,12 @@ class QZoneDeDessin : public QGraphicsView{
 private:
      QGraphicsScene *sc;	/// Fournis une surface permettant de gerer un grand nombre d'objets 2D
      // QGraphicsItem itemParent;
-     vector<int> selected_list;	/// Stock les Sommets selectionnés
+     vector<int> selected_list;	/// Stock les Sommets selectionn&eacute;s
 
      /**
-      * \brief Graphe dessiné
-      * Stock le Graphe dessiné dans sa forme objet
-      * Permet de savoir ce qui est dessiné sur chaque Zone de Dessin
+      * \brief Graphe dessin&eacute;
+      * Stock le Graphe dessin&eacute; dans sa forme objet
+      * Permet de savoir ce qui est dessin&eacute; sur chaque Zone de Dessin
       *
       * */
      Graphe graphe_dessine;
@@ -47,7 +50,7 @@ public :
 	 * Algorithme de force appelé par arranger_bouton
 	 * Distance les points sur le Graphe courant
 	 * */
-    void force_Atlas2();
+    void placementSommets();
 
     int distanceForce(QSommet a, QSommet b);
 
@@ -73,8 +76,7 @@ public :
      * @param ID Sommet à enlever de la liste
      * */
     void deleteSelect_Sommet(int ID);
-
-    void razSelected_list();	/// Remet à  la selected_liste
+    void razSelected_list();	/// Remet &agrave;  la selected_liste
 
     /**
      * \brief Affiche Graphe
@@ -103,24 +105,30 @@ public slots :
 	 * Surchage de la fonction s'enclenchant lors d'un clique sur QgraphicView
 	 * Recupere informations pour dessiner un objet sur cette position
 	 *
-	 * Si l'un des boutons suivant a été selecionné :
+	 * Si l'un des boutons suivant a &eacute;t&eacute; selecionn&eacute; :
 	 * addSommetButton : Dessine Sommet sur la position du curseur
-	 * addArcButton : Dessin un Arc en le precedent Sommet et celui qui vient d'ètre cliqué
-	 * selectButton : Si select sur false, ID du sommet cliqué ajouté à la liste des ID_selected et ce dernier change de couleur
-	 * selectButton : Si select sur true, ID du Sommet cliqué supprimé de la selected_liste et reprends sa couleur originale
-	 * deleteSommet : Si clic sur un Sommet, Sommet supprimé du Graphe avec tout ses arcs sortants
-	 * deleteArc : Si clic sur un Arc, Arc supprimé du graphe
+	 * addArcButton : Dessin un Arc en le precedent Sommet et celui qui vient d'&ecirc;tre cliqu&eacute;
+	 * selectButton : Si select sur false, ID du sommet cliqu&eacute; ajout&eacute; &agrave; la liste des ID_selected et ce dernier change de couleur
+	 * selectButton : Si select sur true, ID du Sommet cliqu&eacute; supprim&eacute; de la selected_liste et reprends sa couleur originale
+	 * deleteSommet : Si clic sur un Sommet, Sommet supprim&eacute; du Graphe avec tout ses arcs sortants
+	 * deleteArc : Si clic sur un Arc, Arc supprim&eacute; du graphe
 	 *
-	 * L'affichage est mis à jour
+	 * L'affichage est mis &agrave; jour
 	 *
-	 * @param e Clic réalisé
+	 * @param e Clic r&eacute;alis&eacute;
 	 * */
     void mousePressEvent(QMouseEvent * e);
+    /**
+     * \brief Double Click
+     * Cette m&eacute;thode ouvre une fen&ecirc;tre permettant de modifier l'etiquette ou la charge utile d'un Sommet
+     * R&eacute;cupere la paure renvoy&eacute;e par la fen&ecirc;tre de dialogue
+     * */
+    void mouseDoubleClickEvent(QMouseEvent *e);
 
     /**
      * Dessine Sommet
      * Dessine un Sommet sur la QGraphicView en precisant les positions x et y
-     * Ajoute un Sommet à la liste des Sommets du Graphe couratn
+     * Ajoute un Sommet &agrave; la liste des Sommets du Graphe couratn
      * @param x Position en x du Sommet
      * @param y Position en y du Sommet
      * */
@@ -129,7 +137,7 @@ public slots :
     /**
      * \brief Dessine Arc
      * Dessine un Arc sur la GGraphicView
-     * Ajout un Arc à la liste des Arcs du Graphe courant
+     * Ajout un Arc &agrave; la liste des Arcs du Graphe courant
      * @param xa Position en x du Sommet sortant
      * @param ya Position en y du Sommet sortant
      * @param xb Position en x du Sommet entrant

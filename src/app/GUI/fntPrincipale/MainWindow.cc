@@ -34,9 +34,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->actionDocumentation,&QAction::triggered,this, &MainWindow::Documentation);
   QObject::connect(ui->actionGithub,&QAction::triggered,this, &MainWindow::Github);
   QObject::connect(ui->actionExtraire_sous_graphe,&QAction::triggered,this, &MainWindow::extraireSousGraphe) ;
-  QObject::connect(ui->actionArranger_sommets,&QAction::triggered,this, &MainWindow::arrangerSommets);
+  QObject::connect(ui->actionArranger_sommets,SIGNAL(triggered()),this, SLOT (arrangerSommets()));
   QObject::connect(ui->actionFermer_graphe,&QAction::triggered,this, &MainWindow::fermer_graphe);
-
   QObject::connect(ui->radioButton, &QRadioButton::toggled,this, &MainWindow::DBEaddSommet);
   QObject::connect(ui->radioButton_2, &QRadioButton::toggled,this, &MainWindow::DBEdeleteSommet);
   QObject::connect(ui->radioButton_3, &QRadioButton::toggled,this, &MainWindow::DBEselection);
@@ -44,7 +43,10 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->radioButton_5, &QRadioButton::toggled,this, &MainWindow::DBEdeleteArc);
 
 }
-MainWindow::~MainWindow(){}
+
+MainWindow::~MainWindow()MainWindow::~MainWindow(){
+  delete this->ui;
+}
 int MainWindow::printConsole(string nomMethode, string valRetFunc){
   QString res = "["+QString(ui->tabWidget->tabText(ui->tabWidget->currentIndex()))+"] ["+QString::fromStdString(nomMethode)+"] : "+QString::fromStdString(valRetFunc);
   ui->console->append(res);
@@ -234,28 +236,34 @@ void MainWindow::Ford_Bellman(){
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
   vector<Sommet> vs = g.getVecteurSommet(listeSommet);
 
-  for(int i=0; i<vs.size();++i){
-    pair<vector<vector<int>>, vector<int>> res = calcul_Bellman(g.conversion_vers_Matrice_adj(), vs[i]);
+  if(!listeSommet.empty()){
+    for(int i=0; i<vs.size();++i){
+      pair<vector<vector<int>>, vector<int>> res = calcul_Bellman(g.conversion_vers_Matrice_adj(), vs[i]);
 
-    string str = "Appliqué sur sommet :"+to_string(vs[i].getID())+"<br>";
-    vector<int> dP = res.second;
-    str = str+"Distance de "+to_string(vs[i].getID())+" à i : <br>";
-    for(int j=0;j<dP.size();++j){
-      if(dP[j] != 999999999){
-        str = str+to_string(dP[j])+", ";
+      string str = "Appliqué sur sommet :"+to_string(vs[i].getID())+"<br>";
+      vector<int> dP = res.second;
+      str = str+"Distance de "+to_string(vs[i].getID())+" à i : <br>";
+      for(int j=0;j<dP.size();++j){
+        if(dP[j] != 999999999){
+          str = str+to_string(dP[j])+", ";
+        }
+        else{
+          str =str + "infini, ";
+        }
       }
-      else{
-        str =str + "infini, ";
+      vector<vector<int>> pP = res.first;
+      for(int k=0; k<pP.size();++k){
+        str = str + "<br> Le chemin pour aller de "+to_string(vs[i].getID())+" à "+ to_string(k)+"<br>";
+        for(int l=0;l<pP[k].size();++l){
+          str = str+to_string(dP[l])+", ";
+        }
       }
+      printConsole("Ford_Bellman", str);
     }
-    vector<vector<int>> pP = res.first;
-    for(int k=0; k<pP.size();++k){
-      str = str + "<br> Le chemin pour aller de "+to_string(vs[i].getID())+" à "+ to_string(k)+"<br>";
-      for(int l=0;l<pP[k].size();++l){
-        str = str+to_string(dP[l])+", ";
-      }
-    }
-    printConsole("Ford_Bellman", str);
+  }
+  else{
+    printConsole("Ford_Bellman", "Pas de sommets selectionnés");
+
   }
 
 }
@@ -450,7 +458,41 @@ void MainWindow::Gestion_de_flots(){
     printConsole("Gestion de flot", "Vous avez selectionné trop ou pas assez de sommets");
   }
 }
-void MainWindow::Creer_un_graphe_dordonnancement(){}
+void MainWindow::Creer_un_graphe_dordonnancement(){
+  QWidget *tab = new QWidget();
+  tab->setObjectName(QStringLiteral("tab"));
+  QHBoxLayout *horizontalLayout = new QHBoxLayout(tab);
+  horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+  QHBoxLayout *horizontalLayout_2 = new QHBoxLayout();
+  horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+  horizontalLayout_2->setContentsMargins(-1, 0, -1, -1);
+  QZoneDeDessin* zoneDessin = new QZoneDeDessin(tab);
+  zoneDessin->setObjectName(QStringLiteral("zoneDessin"));
+  zoneDessin->setMinimumSize(QSize(575, 0));
+  horizontalLayout_2->addWidget(zoneDessin);
+  horizontalLayout->addLayout(horizontalLayout_2);
+  QString str = "Ordonnancement";
+
+  ordoCreate*mMyNewWindow = new ordoCreate(); // Be sure to destroy your window somewhere
+  mMyNewWindow->show();
+  vector<pert_row> donnee = mMyNewWindow->getRes();
+
+  Graphe p = pert(donnee);
+  vector<Sommet> ls =  p.getListe_Sommets();
+  for(int g=0;g<ls.size();++g){
+    QRandomGenerator qrg(g*1200);
+
+    ls[g].setPosX(100+qrg.bounded(-100,100)*g);
+    ls[g].setPosY(100+g*200);
+  }
+  p.setListe_Sommet(ls);
+
+  zoneDessin->setGraphe_dessine(p);
+  ui->tabWidget->addTab(tab,str);
+
+  printConsole("Ordonnancement", "Création de l'arborescence du graphe courant");
+}
+
 void MainWindow::Arborescence(){
   QWidget *tab = new QWidget();
   tab->setObjectName(QStringLiteral("tab"));
@@ -524,6 +566,10 @@ void MainWindow::AntiArborescence(){
   }
 }
 void MainWindow::Recherche_de_la_connexite(){
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  int res = connexite(g.conversion_vers_Matrice_adj());
+  if (res) printConsole("Connexite", "Graphe connexe");
+  else printConsole("Connexite", "Graphe non-connexe");
 
 }
 void MainWindow::Trouver_chaine_eulerienne(){
@@ -708,14 +754,15 @@ void MainWindow::extraireSousGraphe(){
     printConsole("Extraction", "Graphe extrait");
   }
 }
-void MainWindow::arrangerSommets(){}
+void MainWindow::arrangerSommets(){
+  ui->zoneDessin->placementSommets();
+}
 
 void MainWindow::fermer_graphe(){
   ui->tabWidget->removeTab(ui->tabWidget->currentIndex());
   printConsole("Fermer graphe", "Onglet fermé");
 
 }
-
 void MainWindow::DBEselection(bool checked){
   if (checked){
     ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setProperty("DBE", 1);
