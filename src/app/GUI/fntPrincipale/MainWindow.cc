@@ -526,8 +526,85 @@ void MainWindow::AntiArborescence(){
 void MainWindow::Recherche_de_la_connexite(){
 
 }
-void MainWindow::Trouver_chaine_eulerienne(){}
-void MainWindow::Trouver_chaine_hamiltonienne(){}
+void MainWindow::Trouver_chaine_eulerienne(){
+  QGraphicsScene* sceneAcolor = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getScene();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<vector<int>> res = chaine_eulerienne(g.conversion_vers_Matrice_adj());
+  QList<QGraphicsItem*> listS = sceneAcolor->items();
+
+  if(!res.empty()){
+    vector<QColor> couleurs;
+    for(int i=0;i<res.size();++i){
+      couleurs.push_back(QColor(0,0,0));
+    }
+
+    for(int i=0;i<res.size();++i){
+      if(couleurs[i] == QColor(0,0,0)){
+        QRandomGenerator qrg(34526*i);
+        couleurs[i] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
+      }
+    }
+    for(int n=0;n<res.size();++n){
+      for(int j=0;j<res[n].size();++j){
+        for(int k=0;k<listS.size();++k){
+          if(listS[k]->data(0) == "Sommet"){
+            QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[k]);
+            if(res[n][j] == QS_->getID()){
+              QS_->setCoul(couleurs[n]);
+              QS_->update();
+            }
+          }
+        }
+      }
+    }
+    ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
+    printConsole("Chaine eulérienne", "Chaines colorées");
+  }
+  else{
+    printConsole("Chaine eulérienne", "Pas de chaines trouvable");
+  }
+
+}
+void MainWindow::Trouver_chaine_hamiltonienne(){
+  QGraphicsScene* sceneAcolor = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getScene();
+  Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
+  vector<vector<int>> res = chaine_hamiltonienne(g.conversion_vers_Matrice_adj());
+  QList<QGraphicsItem*> listS = sceneAcolor->items();
+
+  qDebug()<<res;
+
+  if(!res.empty()){
+    vector<QColor> couleurs;
+    for(int i=0;i<res.size();++i){
+      couleurs.push_back(QColor(0,0,0));
+    }
+
+    for(int i=0;i<res.size();++i){
+      if(couleurs[i] == QColor(0,0,0)){
+        QRandomGenerator qrg(34526*i);
+        couleurs[i] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
+      }
+    }
+    for(int n=0;n<res.size();++n){
+      for(int j=0;j<res[n].size();++j){
+        for(int k=0;k<listS.size();++k){
+          if(listS[k]->data(0) == "Sommet"){
+            QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[k]);
+            if(res[n][j] == QS_->getID()){
+              QS_->setCoul(couleurs[n]);
+              QS_->update();
+            }
+          }
+        }
+      }
+    }
+    ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
+    printConsole("Chaine hamiltonienne", "Chaines colorées");
+  }
+  else{
+    printConsole("Chaine hamiltonienne", "Pas de chaines trouvable");
+  }
+}
 void MainWindow::Postier_chinois(){}
 void MainWindow::Voyageur_de_commerce(){}
 
