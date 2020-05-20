@@ -95,7 +95,7 @@ void MainWindow::Documentation(){}
 void MainWindow::Github(){}
 void MainWindow::extraireSousGraphe(){}
 void MainWindow::arrangerSommets(){
-  ui->zoneDessin->force_Atlas2();
+  ui->zoneDessin->placementSommets();
 }
 void MainWindow::fermer_graphe(){}
 void MainWindow::DBEselection(bool checked){

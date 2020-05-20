@@ -26,7 +26,7 @@ private:
 public :
     explicit QZoneDeDessin(QWidget *parent = 0);
 
-    ~QZoneDeDessin(); 
+    ~QZoneDeDessin();
     vector<int> getSelected_list()const;
     Graphe getGraphe_dessine()const;
     QGraphicsScene* getScene()const;
@@ -35,7 +35,7 @@ public :
     void setGraphe_dessine(Graphe g);
     void setScene(QGraphicsScene * scene);
 
-    void force_Atlas2();
+    void placementSommets();
     int distanceForce(QSommet a, QSommet b);
     pair<int,int> distance(QSommet a, QSommet b);
     void addSelect_Sommet(int ID);

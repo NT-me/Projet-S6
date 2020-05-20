@@ -30,7 +30,7 @@ void QZoneDeDessin::setScene(QGraphicsScene * scene){
   QGraphicsView::setScene(scene);
 }
 
-void QZoneDeDessin::force_Atlas2(){
+void QZoneDeDessin::placementSommets(){
   Graphe G = Graphe(this->getGraphe_dessine());
   vector<Sommet> liste_Sommets = this->getGraphe_dessine().getListe_Sommets();
   int stable = 0;
