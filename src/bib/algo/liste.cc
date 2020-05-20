@@ -173,11 +173,35 @@ vector<int> liste_floyd(Matrice Parent, int deb, int fin){
   }
 }
 
-int calcul_degres_entrant(Matrice M, int id){}
+int calcul_degres_entrant(Matrice M, int id){
 
-int calcul_degres_sortant(Sommet S){}
+     /* déclare variable int vide  */
+        int nb_entrant = 0;
 
-pair<int, int> calcul_degres_entrant_sortant(Matrice M, Sommet S){}
+    /* ittération sur le nombre de sommet de la matrice en paramètre */
+        for (int i=0; i < M.gettV() ; i++){
+            if (M.getTab()[i][id]) nb_entrant++;
+         }
+    return nb_entrant;
+}
+
+int calcul_degres_sortant(Sommet S){
+
+      /* déclare variable int vide  */
+        int nb_sortant = 0;
+
+    /* ittération sur la taille du vecteur de sommet S, contenant les arcs sortants */
+        for (int i=0;  i < S.getVecArc().size();  i++){
+             nb_sortant ++;
+         }
+    return nb_sortant;
+}
+
+pair<int, int> calcul_degres_entrant_sortant(Matrice M, Sommet S){
+    pair<int,int> result( calcul_degres_entrant(M, S.getID()) , calcul_degres_sortant(S) );
+
+     return result;
+}
 
 vector<int> coloration_Graphe(Graphe G){}
 

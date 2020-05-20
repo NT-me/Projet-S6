@@ -10,6 +10,7 @@
 #include <QVariant>
 #include "QSommet.hh"
 #include "QArc.hh"
+#include "../../../bib/algo/liste.hh"
 #include <stdlib.h>
 #include <time.h>
 

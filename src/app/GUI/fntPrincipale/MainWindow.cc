@@ -18,8 +18,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
   QObject::connect(ui->actionNouveau_graphe,&QAction::activate,this, &MainWindow::nv_graphe_vide);
   // QObject::connect(ui->actionNouveau_graphe_al_atoire,SIGNAL(clicked()),this, SLOT (nv_graphe_aleatoire()));
-/*  QObject::connect(ui->actionEnrengistrer,SIGNAL(clicked()),this, SLOT (Enregistrer()));
-  QObject::connect(ui->actionEnrengistrer_sous,SIGNAL(clicked()),this, SLOT (Enregistrer_sous()));
+/*  QObject::connect(ui->actionEnrengistrer_sous,SIGNAL(clicked()),this, SLOT (Enregistrer_sous()));
   QObject::connect(ui->actionDupliquer_graphe,SIGNAL(clicked()),this, SLOT (Dupliquer_graphe()));
   QObject::connect(ui->actionSupprimer_graphe,SIGNAL(clicked()),this, SLOT (Supprimer_graphe()));
   QObject::connect(ui->actionFord_Bellman,SIGNAL(clicked()),this, SLOT (Ford_Bellman()));
@@ -42,8 +41,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->actionR_solution_du_probl_me_de_voyageur_de_commerce,SIGNAL(clicked()),this, SLOT (Voyageur_de_commerce()));
   QObject::connect(ui->actionDocumentation,SIGNAL(clicked()),this, SLOT (documentation()));
   QObject::connect(ui->actionGithub,SIGNAL(clicked()),this, SLOT (Github()));
-  QObject::connect(ui->actionExtraire_sous_graphe,SIGNAL(clicked()),this, SLOT (extraireSousGraphe()));
-  QObject::connect(ui->actionArranger_sommets,SIGNAL(clicked()),this, SLOT (arrangerSommets()));
+  QObject::connect(ui->actionExtraire_sous_graphe,SIGNAL(clicked()),this, SLOT (extraireSousGraphe()));*/
+  QObject::connect(ui->actionArranger_sommets,SIGNAL(triggered()),this, SLOT (arrangerSommets()));
+  /*   QObject::connect(ui->actionArranger_sommets,SIGNAL(clicked()),this, SLOT (arrangerSommets()));
   QObject::connect(ui->actionFermer_graphe,SIGNAL(clicked()),this, SLOT (fermer_graphe()));
   */
   QObject::connect(ui->radioButton, &QRadioButton::toggled,this, &MainWindow::DBEaddSommet);
@@ -92,7 +92,9 @@ void MainWindow::Voyageur_de_commerce(){}
 void MainWindow::Documentation(){}
 void MainWindow::Github(){}
 void MainWindow::extraireSousGraphe(){}
-void MainWindow::arrangerSommets(){}
+void MainWindow::arrangerSommets(){
+  ui->zoneDessin->force_Atlas2();
+}
 void MainWindow::fermer_graphe(){}
 void MainWindow::DBEselection(bool checked){
   if (checked){
@@ -125,4 +127,3 @@ void MainWindow::DBEdeleteArc(bool checked){
 
   }
 }
-
