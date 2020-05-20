@@ -1,7 +1,0 @@
-digraph "Graphical Class Hierarchy"
-{
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  rankdir="LR";
-  Node0 [label="Arc",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArc.html",tooltip="Classe Arc Cette classe représente un Arc dans un graphe orienté Un Arc n&#39;est empruntable que dans un..."];
-}

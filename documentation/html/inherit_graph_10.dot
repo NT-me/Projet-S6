@@ -1,7 +1,0 @@
-digraph "Graphical Class Hierarchy"
-{
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  rankdir="LR";
-  Node0 [label="VectVal",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structVectVal.html",tooltip="Structure VectVal Cette structure permet de stocker des donnes sur sur les Sommets et Arcs..."];
-}
