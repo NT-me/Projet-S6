@@ -1,14 +1,14 @@
 #include "QZoneDeDessin.hh"
 
 QZoneDeDessin::QZoneDeDessin(QWidget *parent_) : QGraphicsView(parent_), graphe_dessine("EMPTY_GRAPH"){
-this->selected_list = {};
+vector<int> a{};
+this->selected_list = a;
 // this->setSceneRect(0, 0, 350, 350);
 this->sc = new QGraphicsScene;
 // this->sc->addItem(&itemParent);
 QGraphicsView::setScene(sc);
 
 // test
-qDebug()<<parent()->parent();
 }
 
 QZoneDeDessin::~QZoneDeDessin(){
@@ -30,7 +30,6 @@ void QZoneDeDessin::setScene(QGraphicsScene * scene){
   QGraphicsView::setScene(scene);
 }
 
-void QZoneDeDessin::placementSommets(){
   Graphe G = Graphe(this->getGraphe_dessine());
   vector<Sommet> liste_Sommets = this->getGraphe_dessine().getListe_Sommets();
   int stable = 0;
@@ -60,7 +59,6 @@ void QZoneDeDessin::placementSommets(){
       i = inc;
       float ft = 0.0; // ensemble des force a appliquer au vecteur de direction
       // on ajoute les sommet connecter au sommet i dans SommetCo
-
       for(long unsigned int k = 0; k < liste_Sommets[QS[i]->getID()].getVecArc().size(); k++){
         //acc = k;
         int arr = G.getListe_Arcs()[liste_Sommets[QS[i]->getID()].getVecArc()[k]].getIDArrive();
@@ -103,6 +101,7 @@ void QZoneDeDessin::placementSommets(){
             else if(distanceForce(*QS[i], *QS[j]) < 0){ //force de repulsion forte si ils sont superposés
                ft = 0-10.0*((degi.first + degi.second + 1.0)*(degj.first + degj.second + 1.0));
 
+
             }
             else ft = 1; // cote a cote et ne bouge pas
           }
@@ -130,7 +129,6 @@ void QZoneDeDessin::placementSommets(){
           else{
             stable = 1;
           }
-
         }
 
       }
@@ -226,8 +224,10 @@ void QZoneDeDessin::afficher_arc(Arc a){
       }
     }
   }
-  if (dblFlag != 2){
+  if (dblFlag < 2){
     qDebug() <<"--> SOMMETS NON TROUVES ID QARC :" <<QA->getID();
+    qDebug() << "dbFlag : " <<dblFlag;
+    qDebug() << "QA :" <<QA;
   }
   else{
     this->sc->addItem(QA);
@@ -243,6 +243,7 @@ void QZoneDeDessin::afficher_arc(Arc a){
 }
 
 void QZoneDeDessin::afficher_Graphe(Graphe G){
+  this->sc->clear();
   vector<Arc> La = G.getListe_Arcs();
   vector<Sommet> Ls = G.getListe_Sommets();
 
@@ -250,10 +251,55 @@ void QZoneDeDessin::afficher_Graphe(Graphe G){
 
   for(int i =0; i<La.size(); ++i) afficher_arc(La[i]);
 }
+void QZoneDeDessin::mouseDoubleClickEvent(QMouseEvent *e){
+if (itemAt(e->pos())->data(0) == "Sommet"){
+  QSommet* QS = qgraphicsitem_cast<QSommet*>(itemAt(e->pos()));
+  Sommet som = graphe_dessine.getVecteurSommet(vector<int>{QS->getID()})[0];
 
+  modifObjet* mdo = new modifObjet();
+  mdo->setEtq(QString::fromStdString(som.getEtiq()));
+  mdo->setListCU(som.getCU());
+  if(mdo->exec()){
+    som.setCU(mdo->getCU());
+    som.setEtiq(mdo->getetq().toStdString());
+    vector<Sommet> ls = graphe_dessine.getListe_Sommets();
+    for(int i=0;i<ls.size();++i){
+      if(ls[i].getID() == som.getID()){
+        ls[i] = som;
+      }
+    }
+    graphe_dessine.setListe_Sommet(ls);
+  }
+}
+else if (itemAt(e->pos())->data(0) == "Arc"){
+  QArc* QA = qgraphicsitem_cast<QArc*>(itemAt(e->pos()));
+  vector<Arc> la = graphe_dessine.getListe_Arcs();
+  Arc a(0,0,0);
+  for(int i=0;i<la.size();++i){
+    if(la[i].getID() == QA->getID()){
+      a = la[i];
+    }
+  }
+  modifObjet* mdo = new modifObjet();
+  mdo->setEtq(QString::fromStdString(a.getEtiq()));
+  mdo->setListCU(a.getCU());
+  if(mdo->exec()){
+    a.setCU(mdo->getCU());
+    a.setEtiq(mdo->getetq().toStdString());
+
+    for(int i=0;i<la.size();++i){
+      if(la[i].getID() == a.getID()){
+        la[i] = a;
+      }
+    }
+    graphe_dessine.setListe_Arc(la);
+  }
+
+}
+}
 void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
   int dbe = property("DBE").toInt();
-
+  QGraphicsView::mousePressEvent(e);
   if(dbe == 1){
     //select
     if (itemAt(e->pos())->data(0) == "Sommet"){
@@ -398,7 +444,7 @@ void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
     }
   }
 
-
+sc->update();
 }
 void QZoneDeDessin::dessiner_sommet(int x, int y){
   Graphe Gtmp = graphe_dessine;

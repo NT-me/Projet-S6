@@ -27,7 +27,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Dialog
+class Ui_ModifObjet
 {
 public:
     QVBoxLayout *verticalLayout_3;
@@ -182,7 +182,7 @@ public:
 };
 
 namespace Ui {
-    class Dialog: public Ui_Dialog {};
+    class ModifObjet: public Ui_ModifObjet {};
 } // namespace Ui
 
 QT_END_NAMESPACE

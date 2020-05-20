@@ -52,6 +52,15 @@ TEST_CASE ("Test de la sauvegarde", "[]"){
     Graphe G0 ("graphe0", listeS, listeA, "../fichierJSON/G0.json");
     REQUIRE (sauvegarde(G0,"../fichierJSON/G0modif.json") == 0);
   }
+
+
+  vector <Sommet> S;
+  vector <Arc> A;
+
+  Graphe G3 ("graphetest", S,A,"../fichierJSON/gtest.json");
+  sauvegarde (G3,"");
+
+
 }
 
 
@@ -91,7 +100,6 @@ TEST_CASE ("Test du chargement", "[]"){
   listeA.push_back(Arc(4,listeS[0].getID(),listeS[2].getID()));
 
   Graphe G0 ("graphe0", listeS, listeA, "../fichierJSON/G1.json");
-  //Graphe G0 ("../fichierJSON/G0.json");
   sauvegarde (G0,"");
 
   Graphe G2 ("0");
@@ -99,8 +107,9 @@ TEST_CASE ("Test du chargement", "[]"){
 
   REQUIRE (G0.getEtiq() == G2.getEtiq());
   REQUIRE (G0.getListe_Arcs() == G2.getListe_Arcs());
-  //REQUIRE (G0.getListe_Sommets() == G2.getListe_Sommets()); // Je vois pas pourquoi ca marches pas
   REQUIRE (G0.getPath() == G2.getPath());
+
+
 
 }
 
@@ -108,11 +117,9 @@ TEST_CASE ("Test du chargement", "[]"){
 
 TEST_CASE ("Test de la verification de fichier", "[]"){
 
-  // string fic "/fichierJSON/G0.json";
-  // D = fic parser ????
-
-  // rapidjson::Document D;
-  // REQUIRE (verif_file (D) == 0);
+   REQUIRE (verif_file ("../fichierJSON/Gtest.json") == true);
+   REQUIRE (verif_file ("../fichierJSON/G1.json") == true);
+   REQUIRE (verif_file ("../fichierJSON/G0.json") == true);
 
 }
 

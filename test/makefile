@@ -67,7 +67,7 @@ test_bib_algo_calcul_degres_sortant: clean
 	g++ ../src/bib/algo/liste.cc -c
 	# Partie test
 	g++ GrapheMatrice.o Arc.o Sommet.o liste.o test_bib/algo/liste.cc -o OUTliste.o
-	./OUTliste.o "calcul degres entrant"
+	./OUTliste.o "calcul degres sortant"
 
 test_bib_algo_calcul_degres_entrant_sortant: clean
 	# Partie code
@@ -97,7 +97,7 @@ test_bib_algo_couleur_adjacente: clean
 	g++ ../src/bib/algo/liste.cc -c
 	# Partie test
 	g++ GrapheMatrice.o Arc.o Sommet.o liste.o test_bib/algo/liste.cc -o OUTliste.o
-	./OUTliste.o "couleur adjacente"
+	./OUTliste.o "couleur adjacence"
 
 test_bib_algo_stables_Graphe: clean
 	# Partie code
@@ -273,6 +273,7 @@ test_app_fichier: clean
 	g++ ../src/app/fichier/gestion_fichier.cc -c
 	#Partie test
 	g++ GrapheMatrice.o Arc.o Sommet.o gestion_fichier.o test_app/fichier/gestion_fichier.cc -o OUTFichier.o
+	./OUTFichier.o
 
 test_app_GUI: clean
 

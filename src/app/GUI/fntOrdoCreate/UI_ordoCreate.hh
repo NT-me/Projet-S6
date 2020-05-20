@@ -138,8 +138,6 @@ public:
         ___qtablewidgetitem2->setText(QApplication::translate("Dialog", "Dur\303\251e", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
         ___qtablewidgetitem3->setText(QApplication::translate("Dialog", "T\303\242ches ant\303\251rieurs (ID s\303\251par\303\251s par des virugles)", Q_NULLPTR));
-        QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("Dialog", "T\303\242ches post\303\251rieurs (ID s\303\251par\303\251s par des virugles)", Q_NULLPTR));
         DureelineEdit->setPlaceholderText(QApplication::translate("Dialog", "Dur\303\251e", Q_NULLPTR));
         TacheAnterieurlineEdit->setPlaceholderText(QApplication::translate("Dialog", "T\303\242ches ant\303\251rieures", Q_NULLPTR));
         IDlineEdit->setPlaceholderText(QApplication::translate("Dialog", "ID", Q_NULLPTR));

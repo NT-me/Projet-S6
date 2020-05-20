@@ -41,9 +41,6 @@ void QSommet::setRayon(int r){this->rayon = r;}
 void QSommet::setCoul(QColor color){this->coul = color;}
 void QSommet::setSelect(bool select){this->select = select;}
 
-void QSommet::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
-  qDebug()<<"HE STOP";
-}
 QRectF QSommet::boundingRect() const{
   qreal penWidth = 1;
   return QRectF(-TAILLE_RAYON - penWidth / 2, -TAILLE_RAYON - penWidth / 2, TAILLE_RAYON*2 + penWidth, TAILLE_RAYON*2 + penWidth);
@@ -57,14 +54,17 @@ void QSommet::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
 void QSommet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
   if(select == 0){
     QRectF rect = boundingRect();
-    QPen pen(Qt::black, 3 );
-    painter->setPen(pen);
+    QPen pen(coul, 3);
+    QBrush myBrush(coul,Qt::SolidPattern);
+    painter->setBrush(myBrush);
     painter->drawEllipse(rect);
   }
   else{
     QRectF rect = boundingRect();
-    QPen pen(Qt::red, 3 );
-    painter->setPen(pen);
+    // QPen pen(Qt::red, 3 );
+    // painter->setPen(pen);
+    QBrush myBrush(Qt::red,Qt::SolidPattern);
+    painter->setBrush(myBrush);
     painter->drawEllipse(rect);
   }
 }
