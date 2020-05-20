@@ -3,6 +3,7 @@
 ordoCreate::ordoCreate(QWidget *parent):QDialog(parent), ui(new Ui::Dialog), res(vector<pert_row>{}){
   this->ui->setupUi(this);
   QObject::connect(ui->ajoutTacheButton, &QPushButton::clicked,this, &ordoCreate::ajoutTache);
+  QObject::connect(ui->supprimeTacheButton, &QPushButton::clicked,this, &ordoCreate::supprimerTache);
 
 }
 ordoCreate::~ordoCreate(){}
@@ -14,13 +15,13 @@ vector<pert_row> ordoCreate::getRes(){
 void ordoCreate::ajoutTache(){
   qDebug()<<ui->DureelineEdit->text();
   pert_row nouvelle;
-  vector<pert_row> nouvellevec;
   vector<int> tmp;
   nouvelle.tache = ui->IDlineEdit->text().toInt();
   nouvelle.nom_tache = ui->nomDeLaTachelineEdit->text().toStdString();
   nouvelle.duree = ui->DureelineEdit->text().toInt();
 
   QString tacheA = ui->TacheAnterieurlineEdit->text();
+
   QStringList list1 = tacheA.split(",");
   for(int i=0;i<list1.size();++i){
     tmp.push_back(list1[i].toInt());
@@ -61,5 +62,15 @@ for(int c=0;c<res.size();++c){
 
 }
 void ordoCreate::supprimerTache(){
+  int current = ui->tableWidget->currentRow();
+  int id = ui->tableWidget->item(current, 0)->text().toInt();
+  vector<pert_row> nouvellevec;
+  for(int i=0;i<res.size();++i){
+    if(res[i].tache != id){
+      nouvellevec.push_back(res[i]);
+    }
+  }
+  this->res=nouvellevec;
+  ui->tableWidget->removeRow(ui->tableWidget->currentRow());
 
 }
