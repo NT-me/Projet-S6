@@ -346,7 +346,11 @@ Graphe chargement (string path){
   rapidjson::Document doc;
 
   doc.ParseStream<0>(fic);
-  verif_file (path);
+  if (verif_file (path) == false ){
+    Graphe G1 ("erreur");
+    return G1;
+  }
+
   string chemin = doc["path"].GetString(); // Recupere le path du graphe
   string etiq = doc ["etiquette"].GetString(); // Recupere le nom du Graphe
 
