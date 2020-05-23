@@ -41,7 +41,6 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
   QObject::connect(ui->radioButton_3, &QRadioButton::toggled,this, &MainWindow::DBEselection);
   QObject::connect(ui->radioButton_4, &QRadioButton::toggled,this, &MainWindow::DBEaddArc);
   QObject::connect(ui->radioButton_5, &QRadioButton::toggled,this, &MainWindow::DBEdeleteArc);
-
 }
 
 MainWindow::~MainWindow(){
@@ -473,25 +472,37 @@ void MainWindow::Creer_un_graphe_dordonnancement(){
   horizontalLayout_2->addWidget(zoneDessin);
   horizontalLayout->addLayout(horizontalLayout_2);
   QString str = "Ordonnancement";
+  int f;
 
   ordoCreate*mMyNewWindow = new ordoCreate(); // Be sure to destroy your window somewhere
-  mMyNewWindow->show();
-  vector<pert_row> donnee = mMyNewWindow->getRes();
+  f = mMyNewWindow->exec();
+  if(f){
+    vector<pert_row> donnee = mMyNewWindow->getRes();
 
-  Graphe p = pert(donnee);
-  vector<Sommet> ls =  p.getListe_Sommets();
-  for(int g=0;g<ls.size();++g){
-    QRandomGenerator qrg(g*1200);
+    donnee = calcul_posterite(donnee);
 
-    ls[g].setPosX(100+qrg.bounded(-100,100)*g);
-    ls[g].setPosY(100+g*200);
+    Graphe p = pert(donnee);
+    qDebug()<<"hey";
+    vector<Sommet> ls =  p.getListe_Sommets();
+    for(int g=0;g<ls.size();++g){
+      QRandomGenerator qrg(g*1200);
+
+      ls[g].setPosX(100+qrg.bounded(-100,100)*g);
+      ls[g].setPosY(100+g*200);
+    }
+    p.setListe_Sommet(ls);
+
+    zoneDessin->setGraphe_dessine(p);
+    ui->tabWidget->addTab(tab,str);
+
+    printConsole("Ordonnancement", "Création du graphe d'ordonnancement");
   }
-  p.setListe_Sommet(ls);
+  else{
+    printConsole("Ordonnancement", "Une erreur a été detectée lors de la création du graphe d'ordonnancement");
 
-  zoneDessin->setGraphe_dessine(p);
-  ui->tabWidget->addTab(tab,str);
+  }
+  delete mMyNewWindow;
 
-  printConsole("Ordonnancement", "Création de l'arborescence du graphe courant");
 }
 
 void MainWindow::Arborescence(){
@@ -658,28 +669,30 @@ void MainWindow::Postier_chinois(){
   QList<QGraphicsItem*> listS = sceneAcolor->items();
   vector<QColor> couleurs;
   QRandomGenerator qrg(1200);
+  if(!color.empty()){
+      int tmpC;
+      for(int k=0;k<listS.size();++k){
+        couleurs.push_back(QColor(0,0,0));
+      }
+      for(int i=0;i<listS.size();++i){
+        if(listS[i]->data(0) == "Sommet"){
+          QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[i]);
+          tmpC = color[QS_->getID()];
+          if(couleurs[tmpC] == QColor(0,0,0)){
+            couleurs[tmpC] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
+            QS_->setCoul(couleurs[tmpC]);
+            QS_->update();
+          }
+          else{
+            QS_->setCoul(couleurs[tmpC]);
+            QS_->update();
+          }
+        }
+      }
+      ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
+      printConsole("Coloration de graphe", "Graphe coloré");
+  }
 
-  int tmpC;
-  for(int k=0;k<listS.size();++k){
-    couleurs.push_back(QColor(0,0,0));
-  }
-  for(int i=0;i<listS.size();++i){
-    if(listS[i]->data(0) == "Sommet"){
-      QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[i]);
-      tmpC = color[QS_->getID()];
-      if(couleurs[tmpC] == QColor(0,0,0)){
-        couleurs[tmpC] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
-        QS_->setCoul(couleurs[tmpC]);
-        QS_->update();
-      }
-      else{
-        QS_->setCoul(couleurs[tmpC]);
-        QS_->update();
-      }
-    }
-  }
-  ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
-  printConsole("Coloration de graphe", "Graphe coloré");
 }
 void MainWindow::Voyageur_de_commerce(){
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
