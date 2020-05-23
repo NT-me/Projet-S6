@@ -60,12 +60,13 @@ void modifObjet::supprimeCU(){
 void modifObjet::addCU(){
   VectVal vv;
 
-  if (ui->ValeurlineEdit->text().toFloat() - ui->ValeurlineEdit->text().toFloat() == 0){
+  if (ui->ValeurlineEdit->text().toInt() - ui->ValeurlineEdit->text().toFloat() != 0){
     //Alors c'est un réel
       vv.type = 1;
       vv.valeur_reel = ui->ValeurlineEdit->text().toFloat();
   }
   else{
+    qDebug()<<"Entier";
     vv.type = 0;
     vv.valeur_reel = ui->ValeurlineEdit->text().toInt();
   }
