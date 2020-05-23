@@ -21,10 +21,12 @@ void ordoCreate::ajoutTache(){
   nouvelle.duree = ui->DureelineEdit->text().toInt();
 
   QString tacheA = ui->TacheAnterieurlineEdit->text();
-
-  QStringList list1 = tacheA.split(",");
-  for(int i=0;i<list1.size();++i){
-    tmp.push_back(list1[i].toInt());
+  qDebug()<<"tacheA "<<tacheA;
+  if(tacheA != ""){
+    QStringList list1 = tacheA.split(",");
+    for(int i=0;i<list1.size();++i){
+      tmp.push_back(list1[i].toInt());
+    }
   }
 
   nouvelle.taches_anterieures = tmp;
@@ -49,7 +51,7 @@ for(int c=0;c<res.size();++c){
     else if(i==3){//tâche antérieur
       for(int a=0;a<res[c].taches_anterieures.size();++a){
         string = string + QString::number(res[c].taches_anterieures[a]) + " ";
-        qDebug()<<res[c].taches_anterieures[a];
+        qDebug()<<"TA OCD :"<<res[c].taches_anterieures[a];
       }
 
     }
