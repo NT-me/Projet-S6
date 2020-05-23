@@ -240,6 +240,7 @@ void MainWindow::Ford_Bellman(){
     for(int i=0; i<vs.size();++i){
       pair<vector<vector<int>>, vector<int>> res = calcul_Bellman(g.conversion_vers_Matrice_adj(), vs[i]);
 
+
       string str = "Appliqué sur sommet :"+to_string(vs[i].getID())+"<br>";
       vector<int> dP = res.second;
       str = str+"Distance de "+to_string(vs[i].getID())+" à i : <br>";
@@ -255,7 +256,7 @@ void MainWindow::Ford_Bellman(){
       for(int k=0; k<pP.size();++k){
         str = str + "<br> Le chemin pour aller de "+to_string(vs[i].getID())+" à "+ to_string(k)+"<br>";
         for(int l=0;l<pP[k].size();++l){
-          str = str+to_string(dP[l])+", ";
+          str = str+to_string(pP[k][l])+", ";
         }
       }
       printConsole("Ford_Bellman", str);
@@ -486,8 +487,12 @@ void MainWindow::Creer_un_graphe_dordonnancement(){
     vector<Sommet> ls =  p.getListe_Sommets();
     for(int g=0;g<ls.size();++g){
       QRandomGenerator qrg(g*1200);
-
-      ls[g].setPosX(100+qrg.bounded(-100,100)*g);
+      int si = ls.size();
+      if(g == 1){
+        ls[g].setPosX(100+qrg.bounded((si-1)*100,si*100)*si);
+        ls[g].setPosY(100+g*200);
+      }
+      ls[g].setPosX(100+qrg.bounded((g-1)*100,g*100)*g);
       ls[g].setPosY(100+g*200);
     }
     p.setListe_Sommet(ls);
