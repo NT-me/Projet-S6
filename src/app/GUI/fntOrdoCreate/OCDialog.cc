@@ -32,6 +32,11 @@ void ordoCreate::ajoutTache(){
   nouvelle.taches_anterieures = tmp;
   res.push_back(nouvelle);
 
+  ui->IDlineEdit->clear();
+  ui->nomDeLaTachelineEdit->clear();
+  ui->DureelineEdit->clear();
+  ui->TacheAnterieurlineEdit->clear();
+
 ui->tableWidget->setRowCount(0);
 for(int c=0;c<res.size();++c){
   ui->tableWidget->insertRow (ui->tableWidget->rowCount());
