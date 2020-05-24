@@ -425,11 +425,11 @@ Graphe chargement (string path){
 
       v.type = doc["listeA"][i]["AChargeUtile"][j]["type"].GetInt();
         if (v.type == 0){
-          v.valeur_entiere = doc["listeA"][i]["AChargeUtile"][j]["valeur_entiere"].GetInt();
+          v.valeur_entiere = doc["listeA"][i]["AChargeUtile"][j]["Valeur_entiere"].GetInt();
           v.valeur_reel = 0;
         }
         if (v.type == 1){
-          v.valeur_reel = doc["listeA"][i]["AChargeUtile"][j]["valeur_reel"].GetDouble();
+          v.valeur_reel = doc["listeA"][i]["AChargeUtile"][j]["Valeur_reel"].GetDouble();
           v.valeur_entiere = 0;
         }
 
