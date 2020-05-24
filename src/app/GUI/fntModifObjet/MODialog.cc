@@ -66,9 +66,9 @@ void modifObjet::addCU(){
       vv.valeur_reel = ui->ValeurlineEdit->text().toFloat();
   }
   else{
-    qDebug()<<"Entier";
     vv.type = 0;
-    vv.valeur_reel = ui->ValeurlineEdit->text().toInt();
+    vv.valeur_entiere = ui->ValeurlineEdit->text().toInt();
+    qDebug()<<vv.valeur_entiere;
   }
 
   res.second.insert(pair<string, VectVal>(ui->NomlineEdit->text().toStdString(), vv));
@@ -93,9 +93,7 @@ void modifObjet::addCU(){
             string = QString::number(it->second.valeur_entiere);
         }
       }
-      ui->tableWidget->setItem   ( ui->tableWidget->rowCount()-1,
-      i,
-      new QTableWidgetItem(string));
+      ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, i, new QTableWidgetItem(string));
     }
   }
 }		/// Ajoute une charge utile respectant les informations entr&eacute{}es dans les lineEdit
