@@ -769,17 +769,17 @@ TEST_CASE("anti-arbo","[Algorithmes]"){
 }
 
 TEST_CASE("connexite","[Algorithmes]"){
-  Matrice M0(3); // Matrice connexe
-  M0.setTab({{0,0,0},
-             {1,0,0},
-             {1,0,0}});
+  Matrice M0bis(3); // Matrice connexe
+  M0bis.setTab({{0,1,0},
+                {1,0,1},
+                {1,0,0}});
 
 Matrice M1(3); // Matrice pas connexe
 M1.setTab({{0,0,0},
            {1,0,0},
            {0,0,0}});
 
-  REQUIRE(connexite(M0) == 1);
+  REQUIRE(connexite(M0bis) == 1);
   REQUIRE(connexite(M1) == 0);
 }
 

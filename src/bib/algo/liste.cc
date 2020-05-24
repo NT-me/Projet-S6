@@ -964,73 +964,28 @@ Graphe anti_arborescence(Graphe G){
     return A;
 }
 
-int connexite(Matrice M)
-{
-	if(M.getType()!=0)
-	{
-		return -1;
-	}
-	vector<vector <int>> T = M.getTab(), ListeVoisin;
+int connexite(Matrice M){
+/* Variable temporaire pour stocker degre entrant et sortants d'un sommet S*/
+int degreE, degreS; 
 
-	vector<int> Marque, ListeSommet;	// 1 si marqué, 0 sinon ?
+    /*On parcours chacun des sommets S*/
+    for(int id = 0; id< M.gettV(); id++){
+    
+    /*On efface le contenu des varibles*/
+    degreE = 0;
+    degreS = 0;
 
+       /* nombre de degrès entrants*/
+       degreE =  calcul_degres_entrant(M, id);
 
+       /* nombre de degrès sortants */
+       for(int i=0; i<M.getTab().size(); i++) {  if (M.getTab()[id][i]) degreS++; }
 
+       /* On test si un des sommets ne nous permet pas d'en resortir ou d'en entrer  */ 
+       if ( degreE == 0 || degreS == 0 ) return 0; 
 
-	for(int y = 0; y<M.gettV(); y++)
-	{
-		Marque.push_back(0);
-		ListeVoisin.push_back({});
-		ListeSommet.push_back(y);	//initialisation à vide
-	}
-
-
-	int i,j;
-
-	for(i=0; i<M.gettV(); i++)	//boucle sommet départ
-	{
-		for(j=0; j<M.gettV(); j++)	//On teste tous les sommets de la matrice
-		{
-
-			if(T[i][j]==1)	//Si il existe un arc entre i et j
-			{
-				if(Marque[i]!=1)	//Si j n'est pas encore marqué par le programme
-				{
-					Marque[i] = 1;
-					ListeVoisin[i].push_back(j);	//On l'ajoute à la liste des successeurs
-				}
-
-			}
-		}
-	}
-
-	for(i=0; i<ListeVoisin.size(); i++)
-	{
-		for(j=0; j<ListeVoisin[i].size(); j++)
-		{
-			ListeSommet[ListeVoisin[i][j]] = -1;
-			ListeSommet[i] = -1;
-		}
-	}
-
-	int flag = 0;
-
-
-	for(i=0; i<ListeSommet.size(); i++)
-	{
-		if(ListeSommet[i]!=-1)
-		{
-
-			flag = 1;
-		}
-	}
-
-	if(flag == 0)
-	{
-		return 1; //graphe connexe
-	}
-
-	return 0; 	//graphe non connexe
+    }
+   return 1;
 
 }
 
@@ -1241,8 +1196,8 @@ vector<int> postier_chinois(Matrice M){
 
                 /* récupérer toutes les combinaisons de couplages possibles */
                  do{
-                   for( int i = 0; i < sommetsImpair.size(); i += 1 ){
-                       vect_tmp.push_back(sommetsImpair[i]);
+                   for( auto i = sommetsImpair.begin(); i < sommetsImpair.end(); i += 1 ){
+                       vect_tmp.push_back(*i);
                     }
                     combinaisons.push_back(vect_tmp);
                     vect_tmp.clear();
