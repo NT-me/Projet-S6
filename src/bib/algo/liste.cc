@@ -7,6 +7,8 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <QDebug>
+
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
   vector<int> dist;
@@ -966,11 +968,11 @@ Graphe anti_arborescence(Graphe G){
 
 int connexite(Matrice M){
 /* Variable temporaire pour stocker degre entrant et sortants d'un sommet S*/
-int degreE, degreS; 
+int degreE, degreS;
 
     /*On parcours chacun des sommets S*/
     for(int id = 0; id< M.gettV(); id++){
-    
+
     /*On efface le contenu des varibles*/
     degreE = 0;
     degreS = 0;
@@ -981,8 +983,8 @@ int degreE, degreS;
        /* nombre de degrès sortants */
        for(int i=0; i<M.getTab().size(); i++) {  if (M.getTab()[id][i]) degreS++; }
 
-       /* On test si un des sommets ne nous permet pas d'en resortir ou d'en entrer  */ 
-       if ( degreE == 0 || degreS == 0 ) return 0; 
+       /* On test si un des sommets ne nous permet pas d'en resortir ou d'en entrer  */
+       if ( degreE == 0 || degreS == 0 ) return 0;
 
     }
    return 1;
@@ -1089,7 +1091,7 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
     return res;
   }
   else{
-      int pred, succ, Pmax, Smax;
+      int pred, succ, Pmax = 0, Smax = 0;
       int deb=-1,fin=-1;
 
       // Vérifie si il existe un chemin Hamiltonien
@@ -1111,6 +1113,7 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
           succ = 0;
           pred = 0;
       }
+
       if(Smax > 1 || Pmax > 1){                 // Plusieurs sommets sans successeurs ou prédecesseurs
            std::cout << "NO HAMILTTONIAN PATH" << '\n';
             return res;
@@ -1120,20 +1123,29 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
       if(deb == -1) deb = 0;
 
       int i = deb;
+      int last = i;
       while(!mark[i]){
+        qDebug()<< "i dans la boucle" <<i;
+
         if(path.size() == M.gettV()-1){
             path.push_back(i);
             res.push_back(path);
             return res;
         }
         for(int j=0;j<M.gettV();j++){
-          if(M.getTab()[i][j] && !mark[j]){
+          if(M.getTab()[i][j] && !mark[j] && j!=last){
             mark[i] = 1;
             path.push_back(i);
             i = j;
             j = 0;
-            }
+          }
         } // Fin for
+
+        if(last == i){
+          path.pop_back();
+          i = path[path.size()-1];
+        }
+        last = i;
       } // Fin while
     } // Fin else
   return res;
@@ -1174,8 +1186,7 @@ vector<int> postier_chinois(Matrice M){
             if (EstPair) {
                     /* permet de récupérer le premier vecteur des chaines eulériennes.*/
                     vector<vector<int>> tmp = chaine_eulerienne(M);
-                    vecteurResult = tmp[0];
-
+                    if(!tmp.empty()) vecteurResult = tmp[0];
                 return vecteurResult;
             }
             else{
@@ -1271,7 +1282,8 @@ vector<int> postier_chinois(Matrice M){
 
                 /* permet de récupérer le premier vecteur des chaines eulériennes.*/
                 vector<vector<int>> stock = chaine_eulerienne(Mbis);
-                vecteurResult = stock[0];
+                if(!stock.empty()) vecteurResult = stock[0];
+                else vecteurResult= {};
                 return vecteurResult;
 
             }
@@ -1291,14 +1303,14 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	Graphe arbre = Graphe("arbre");
 
 	//////////////////////////////////////////
-	
+
 	// PREMIERE REDUCTION DE LA MATRICE
 	//////////////////////////////////////////
-	
+
 	int reduc_colonne = 10000000;
 	int reduc_total = 10000000;
-	
-	
+
+
 	vector < vector <int>> tab = M.getTab();
  	for(int i = 0; i<M.gettV(); i++)
 	{
@@ -1310,10 +1322,10 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 			}
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	//~ //Ici, réduction ligne
 	for(int i = 0; i<M.gettV(); i++)
 	{
@@ -1325,23 +1337,23 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 			{
 				reduc_ligne = tab[i][j];
 			}
-			
+
 		}
 		// pour la ligne en question, on soustrait tout les valeurs de cette valeur minimale trouvée.
-		
+
 		somme_reduc = somme_reduc + reduc_ligne;
-		
-		
+
+
 		for(int j = 0; j<M.gettV(); j++)
 		{
 				if(tab[i][j] != -2)
 				{
 				tab[i][j] = tab[i][j] - reduc_ligne;
 				}
-			
+
 		}
 	}
-	
+
 	//~ //Ici, réduction colonne
 	for(int j = 0; j<M.gettV(); j++)
 	{
@@ -1353,10 +1365,10 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 			{
 				reduc_colonne= tab[i][j];
 			}
-			
+
 		}
 		// pour la ligne en question, on soustrait tout les valeurs de cette valeur minimale trouvée.
-		
+
 		somme_reduc = somme_reduc + reduc_colonne;
 		for(int i = 0; i<M.gettV(); i++)
 		{
@@ -1364,112 +1376,112 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 				{
 				tab[i][j] = tab[i][j] - reduc_colonne;
 				}
-			
+
 		}
 	}
-	
-	
+
+
 	M.setTab(tab);
-	
-	
-	
-	
-	
+
+
+
+
+
 	////////////////////////////////
 	//fin de la première réduction
 	//////////////////////////////
-	
-	
-	
-	
-	
+
+
+
+
+
 	// si l'arbre est vide, on initialise le sommet racine à la valeur de la réduction de la matrice pour
 	// pour la première réduction
-	
+
 	if(arbre.getListe_Sommets().size() == 0)
 	{
 		string etiquette = "racine";
 		map <string, VectVal> A;
 		string a = "value";
-		
+
 		VectVal regret;
 		regret.type = 0;
 		regret.valeur_entiere = somme_reduc;
 		regret.valeur_reel = 0;
-		
+
 		A[a]=regret;
 		Sommet racine = Sommet(1, 1, etiquette , 0, A);
-		
+
 		vector<Sommet> liste = arbre.getListe_Sommets();
 		liste.push_back(racine);
 		arbre.setListe_Sommet(liste);
 	}
-	
-	
-	
+
+
+
 	while(M.gettV() > 2) // tant que on a pas une matrice de taille 2x2
 	{
 		printf("\n\n nouvelle reduction de la matrice: \n\n\n");
-		
-	
-	
-    vector< vector<int> > tableau = M.getTab();	
+
+
+
+    vector< vector<int> > tableau = M.getTab();
     vector< vector<int>> regrets; // on ajoutera des vecteur avec trois elements, dans ce vecteur regrets
-    
+
     //pour un vecteur donner, il y aura:
     //1er element -> regret
     //2eme element = coordonnées x
     //3eme element = coordonnées y
-    
-    
-    
-    
+
+
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     int regret = 0; // on initie un entier regret, qui contiendra la valeur du regret pour une case donnée.
     //ces deux entiers serviront à la recherche de l'entier minimal en x et en y.
     // car regret = minimum en x + minimum en y.
     int regretX = 0;
     int regretY = 0;
-    
-    
-    
+
+
+
     //////////////////////////////////////////////////////////////////////////////////
     // PARTIE 1: ON INSTANCIE REGRET A UNE VALEUR ELEVE
     ////////////////////////////
     // il est important de leur associer une valeur élevé afin d'obtenir la plus petite valeur du tableau après.
-    for(int i = 0; i < M.gettV(); i++)  
+    for(int i = 0; i < M.gettV(); i++)
     {
-		 for(int j = 0; j < M.gettV(); j++) 
+		 for(int j = 0; j < M.gettV(); j++)
 		 {
 			if(tableau[i][j]>regret)
 			{
 				regret = tableau[i][j];
 			}
 		 }
-    
+
     }
     regretX = regret;
     regretY = regret;
-    
+
 
     /////////////////////////////////////////////////////////////////////////////////
-    
+
     // PARTIE 2: ON RECHERCHE LES CASES DE LA MATRICE REDUITE DONT LA VALEUR EST ZERO
     // ET ON CALCULE LES REGRETS ASSOCIES, ON STOCKERA DANS UN VECTEUR TOUTS LES REGRETS
-    
+
 	for(int x = 0; x<M.gettV(); x++)
 	{
 		for(int y = 0; y<M.gettV(); y++)
 		{
-			if(tableau[x][y] == 0) 
+			if(tableau[x][y] == 0)
 			{
 			// Si une case vaut zéro, il faut calculer le regret asscocié, si on ne prendrait pas ce chemin
-			
+
 				for(int i = 0; i<M.gettV(); i++)
 				{
 					// on fera attention en cherchant la valeur minimale comme regret de pas prendre 0
 					// ca c'est va valeur de la case étudiée justement.
-					if(regretY > tableau[i][y] && (i != x) && tableau[i][y] != -2 ) 
+					if(regretY > tableau[i][y] && (i != x) && tableau[i][y] != -2 )
 					{
 						regretY = tableau[i][y];
 					}
@@ -1479,52 +1491,52 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 					if(regretX> tableau[x][j] && (j != y) && tableau[x][j] != -2)
 					{
 						regretX= tableau[x][j];
-					}	
+					}
 				}
 				regret = regretX + regretY;
 				vector<int> regret_actuel {regret, y, x};
 				regrets.push_back(regret_actuel);
 			}
-			
+
 			///////////////////////////////////////
 			// on remet à zero les valeur de regretX et regretY puis on leur donne la valeur max possible.
 			regretX = 0;
 			regretY = 0;
 			regret = 0;
-			
-			 for(int i = 0; i < M.gettV(); i++)  
+
+			 for(int i = 0; i < M.gettV(); i++)
 			 {
-				for(int j = 0; j < M.gettV(); j++) 
+				for(int j = 0; j < M.gettV(); j++)
 				{
 					if(tableau[i][j]>regret)
 					{
 						regret = tableau[i][j];
 					}
 				}
-    
+
 			 }
 			regretX = regret;
 			regretY = regret;
 			///////////////////////////////////////////////
-			
+
 		}
 	}
 		//~ for(int unsigned i= 0; i<regrets.size(); i++)
 	 //~ // usigned car le nombre d'elements renvoyé par le size() est un entier non signé.
-	
+
 	//~ // on va stocker les coordonnées X et Y du plus grand regret, afin de le recuperer après.
 	//~ {
-		
+
 			//~ printf("valeur du vecteur regret: %d\n", regrets[i][0]);
 			//~ printf("X du regret: %d\n", regrets[i][1]);
 			//~ printf("Y du regret: %d\n", regrets[i][2]);
-		
+
 	//~ }
-	
-	
-	
-	
-	
+
+
+
+
+
 	//////////////////////////////////////////////////////////////////////////////////////
 	//PARTIE 3, ON VA SELECTIONNER LE PLUS GRAND REGRET DANS LE VECTEUR AYANT STOCKE LES REGRETS
 	// OU UNE CASE VALAIT 0 D APRES LA MATRICE REDUITE.
@@ -1533,11 +1545,11 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	regret = 0;
 	for(i= 0; i<regrets.size(); i++)
 	{
-	// usigned car le nombre d'element renvoyé par le la taile 
+	// usigned car le nombre d'element renvoyé par le la taile
 	// du vecteur est un entier non signé.
-	
+
 	// on va stocker les coordonnées X et Y du plus grand regret, afin de le recuperer après.
-	
+
 		if(regrets[i][0]> regret)
 		{
 			regret = regrets[i][0];
@@ -1545,7 +1557,7 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	}
 	for(int unsigned i= 0; i<regrets.size(); i++)
 	{
-		int a = i; // on initilise l'entier a car i est un int unsigned et cela ne fonctionne pas 
+		int a = i; // on initilise l'entier a car i est un int unsigned et cela ne fonctionne pas
 		// pour s'en servir pour acceder aux indices des tableaux.
 		if(regrets[a][0] == regret)
 		{
@@ -1554,42 +1566,42 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 		}
 	}
 	vector<int> REGRET_FINAL{regret, regretX, regretY}; // ici, le regret final contient la case avec le plus haut regret ainsi que ses coordonnées X et Y.
-	
+
 			//~ printf("\nvaleur du vecteur regret max: %d\n", REGRET_FINAL[0]);
 			//~ printf("X du regret max: %d\n", REGRET_FINAL[1]);
 			//~ printf("Y du regret max: %d\n", REGRET_FINAL[2]);
-		
 
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// PARTIE 4: ON AJOUTE A L ABRE LE CAS DE L AJOUT DU CHEMIN VERS CE SOMMET AVEC LE PLUS GRAND REGRET
 	// ET ENSUITE LE CAS OU ON NE PREND PAS CE MEME CHEMIN
 	////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	// on cherche à récupérer la valeur du plus grand indice de sommet
-	
-		
-	
-	
-	
-	
+
+
+
+
+
+
 	// Ici il faudrait la valeur du nouveau sommet réduc de la prochaine réduction de la matrice
-	
-	
+
+
 	///////////////////////////////////////////
-	
-   
-	
-	
-		
+
+
+
+
+
 	int unsigned taille = arbre.getListe_Sommets().size();
-	
+
 	string name1_1 = to_string(REGRET_FINAL[1]);
 	string name1_2 = to_string(REGRET_FINAL[2]);
 	string name = name1_1 + name1_2;
@@ -1597,27 +1609,27 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	map <string, VectVal> Avec_chemin;
 	map <string, VectVal> Sans_chemin;
 	string a = "value";
-	
+
 		VectVal regret_Avec_chemin;
 		VectVal regret_Sans_chemin;
-		
+
 		regret_Sans_chemin.type = 0;
 		regret_Sans_chemin.valeur_entiere = somme_reduc + REGRET_FINAL[0];
 		regret_Sans_chemin.valeur_reel = 0;
-		
+
 		Sans_chemin[a]=regret_Sans_chemin;
-		
-	
-		
+
+
+
 		///////////////////////
 		// REDUCTION DE LA MATRICE
-		
-		
-		
-		
+
+
+
+
 		reduc_colonne = 10000000;
 	    reduc_total = 10000000;
-	
+
 	tab.clear();
 	tab = M.getTab();
  	for(int i = 0; i<M.gettV(); i++)
@@ -1630,10 +1642,10 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 			}
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	//~ //Ici, réduction ligne
 	for(int i = 0; i<M.gettV(); i++)
 	{
@@ -1645,10 +1657,10 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 			{
 				reduc_ligne = tab[i][j];
 			}
-			
+
 		}
 		// pour la ligne en question, on soustrait tout les valeurs de cette valeur minimale trouvée.
-		
+
 		somme_reduc = somme_reduc + reduc_ligne;
 		for(int j = 0; j<M.gettV(); j++)
 		{
@@ -1656,10 +1668,10 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 				{
 				tab[i][j] = tab[i][j] - reduc_ligne;
 				}
-			
+
 		}
 	}
-	
+
 	//~ //Ici, réduction colonne
 	for(int j = 0; j<M.gettV(); j++)
 	{
@@ -1671,10 +1683,10 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 			{
 				reduc_colonne= tab[i][j];
 			}
-			
+
 		}
 		// pour la ligne en question, on soustrait tout les valeurs de cette valeur minimale trouvée.
-		
+
 		somme_reduc = somme_reduc + reduc_colonne;
 		for(int i = 0; i<M.gettV(); i++)
 		{
@@ -1682,58 +1694,58 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 				{
 				tab[i][j] = tab[i][j] - reduc_colonne;
 				}
-			
+
 		}
 	}
-	
-	
+
+
 	M.setTab(tab);
-	
-		
-		
-		
+
+
+
+
 		///////////////////////
-		
-		
-		
+
+
+
 		regret_Avec_chemin.type = 0;
-		regret_Avec_chemin.valeur_entiere = somme_reduc; 
+		regret_Avec_chemin.valeur_entiere = somme_reduc;
 		regret_Avec_chemin.valeur_reel = 0;
-		
+
 		Avec_chemin[a]=regret_Avec_chemin;
-			
-	Sommet avec_chemin = Sommet(1, 1, name, taille+1, Avec_chemin); 
-    Sommet sans_chemin = Sommet(1, 1, name, taille, Sans_chemin); 
-	
+
+	Sommet avec_chemin = Sommet(1, 1, name, taille+1, Avec_chemin);
+    Sommet sans_chemin = Sommet(1, 1, name, taille, Sans_chemin);
+
 	vector<Sommet> liste = arbre.getListe_Sommets();
 	liste.push_back(sans_chemin);
 	liste.push_back(avec_chemin);
-	
+
 	arbre.setListe_Sommet(liste);
-	
-	
+
+
 	arbre.ajout_Arc(taille-1, taille);
 	arbre.ajout_Arc(taille-1, taille+1);
 	/////////////////////////////////////
 	//     ON SUPPRIMME LA LIGNE ET LA COLONNE DE LA CASE CHOISIE
 	/////////////////////////////////////
-	
+
 	M.supprLigne(REGRET_FINAL[1]);
 	M.supprCol(REGRET_FINAL[2]);
-	
-	
+
+
 	///////////////////////////////////////:::::
 	// ON doit supprimer l'arc inverse pour éviter un alle retour
 	//////////////////////////////
 	M.modifTab(REGRET_FINAL[1], REGRET_FINAL[2], -2);
 	// modfier pour que -2 soit un truc qui soit pris comme un case pas possible.
 	//////////////////////////////////////////
-	
-	
+
+
 	}
     printf("\n\n nouvelle reduction de la matrice: \n\n\n");
 	// ICI ON DOIT AVOIR UNE MATRICE DE TAILLE 2x2.
-	
+
 	if(M.gettV() == 2) // Si on a une matrice de taille 2x2
 	{
 		tab = M.getTab();
@@ -1744,19 +1756,19 @@ vector<int> voyageur_de_commerce(vector<int> sommet, Matrice M)
 	//~ vector<Sommet> liste = arbre.getListe_Sommets();
 	//~ Sommet A =  liste[arbre.getListe_Sommets().size()];
 	//~ string a = A.getEtiq() + to_string(tab);
-	
+
 	//~ Sommet A.setEtiq(a);
 	//on va ajouter à la charge utile du dernier sommet les deux derniers chemins possibles.
 	//~ /////////////////////////////////////////////////////
 	//~ // PARTIE 5: IL FAUT VISITER LES AUTRES CHEMIN EXCLU
 	//~ /////////////////////////////////////////////////////
-	
-	
+
+
 	////////////////////
-	// A PARTIR DE L ARBRE IL FAUT RENVOYER LE CYCLE 
+	// A PARTIR DE L ARBRE IL FAUT RENVOYER LE CYCLE
 	/////////////////::
-	
-	
+
+
 	vector<int> juste_pour_le_retour_de_fonction_mais_a_supprimer;
 	return juste_pour_le_retour_de_fonction_mais_a_supprimer;
 }
