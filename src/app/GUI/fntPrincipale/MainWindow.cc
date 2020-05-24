@@ -237,6 +237,7 @@ void MainWindow::Ford_Bellman(){
   vector<Sommet> vs = g.getVecteurSommet(listeSommet);
 
   if(!listeSommet.empty()){
+    qDebug()<<"qdebug "<<listeSommet;
     for(int i=0; i<vs.size();++i){
       pair<vector<vector<int>>, vector<int>> res = calcul_Bellman(g.conversion_vers_Matrice_adj(), vs[i]);
 
@@ -695,7 +696,11 @@ void MainWindow::Postier_chinois(){
         }
       }
       ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
-      printConsole("Coloration de graphe", "Graphe coloré");
+      printConsole("Postier chinois", "Graphe coloré");
+  }
+  else{
+    printConsole("Postier chinois", "Problème non resolvable sur ce graphe.");
+
   }
 
 }
