@@ -70,7 +70,7 @@ void QArc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
   QPen greenPen(Qt::green, 3 );
 
 
-  QPen blackPen(Qt::black, 3 );
+  QPen blackPen(Qt::black, 4 );
   painter->setPen(blackPen);
 
   prepareGeometryChange();
