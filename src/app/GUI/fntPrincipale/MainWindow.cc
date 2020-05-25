@@ -815,6 +815,8 @@ void MainWindow::extraireSousGraphe(){
 }
 void MainWindow::arrangerSommets(){
   ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->placementSommets();
+  printConsole("Arranger sommets", "Les sommets ont été éloignés les uns des autres");
+
 }
 
 void MainWindow::fermer_graphe(){
