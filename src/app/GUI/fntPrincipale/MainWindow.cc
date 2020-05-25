@@ -796,7 +796,7 @@ void MainWindow::extraireSousGraphe(){
   }
 }
 void MainWindow::arrangerSommets(){
-  ui->zoneDessin->placementSommets();
+  ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->placementSommets();
 }
 
 void MainWindow::fermer_graphe(){
