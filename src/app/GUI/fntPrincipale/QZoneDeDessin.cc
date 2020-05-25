@@ -107,8 +107,8 @@ void QZoneDeDessin::placementSommets(){
         }
         // si ils sont l'un sur l'autre le vecteur de direction est aléatoire
         if ((QS[i]->getPosX() == QS[j]->getPosX()) && (QS[i]->getPosY() == QS[j]->getPosY())){
-          newx = liste_Sommets[QS[i]->getID()].getPosX() + ft*pow(-1,rand()%2));
-          newy = liste_Sommets[QS[i]->getID()].getPosY() + ft*pow(-1,rand()%2));
+          newx = liste_Sommets[QS[i]->getID()].getPosX() + ft*pow(-1,rand()%2);
+          newy = liste_Sommets[QS[i]->getID()].getPosY() + ft*pow(-1,rand()%2);
 
 
         }
