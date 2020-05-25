@@ -367,8 +367,7 @@ void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
               if(QSb->getID() == selected_list[0]){
                 dessiner_arc(QSb->getPosX(), QSb->getPosY(), QS->getPosX(), QS->getPosY());
                 razSelected_list();
-                qDebug()<<QS;
-                qDebug()<<QSb;
+
                 QS->setSelect(0);
                 QSb->setSelect(0);
                 QS->update();
