@@ -221,7 +221,7 @@ void MainWindow::Supprimer_graphe(){
     printConsole("Supprimer graphe","Le fichier n'existe pas");
   }
   else{
-    if (suppression(chem)){
+    if (suppression(chem) == 0){
       printConsole("Supprimer graphe", "Fichier supprimé");
     }
     else{
@@ -623,6 +623,12 @@ void MainWindow::Trouver_chaine_eulerienne(){
     }
     ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
     printConsole("Chaine eulérienne", "Chaines colorées");
+
+    string str0 = "Les sommets composant la chaines sont dans l'ordre :<br>";
+    for(int u=0; u<res[0].size();++u){
+      str0 = str0 + to_string(res[0][u])+ " ";
+    }
+    printConsole("Chaine eulérienne", str0);
   }
   else{
     printConsole("Chaine eulérienne", "Pas de chaines trouvable");
@@ -664,6 +670,13 @@ void MainWindow::Trouver_chaine_hamiltonienne(){
     }
     ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->setScene(sceneAcolor);
     printConsole("Chaine hamiltonienne", "Chaines colorées");
+
+    string str0 = "Les sommets composant la chaines sont dans l'ordre :<br>";
+    for(int u=0; u<res[0].size();++u){
+      str0 = str0 + to_string(res[0][u])+ " ";
+    }
+    printConsole("Chaine hamiltonienne", str0);
+
   }
   else{
     printConsole("Chaine hamiltonienne", "Pas de chaines trouvable");
