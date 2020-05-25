@@ -30,8 +30,9 @@ void QZoneDeDessin::placementSommets(){
   Graphe G = Graphe(this->getGraphe_dessine());
   vector<Sommet> liste_Sommets = this->getGraphe_dessine().getListe_Sommets();
   int stable = 0;
+  float newx,newy;
   vector<QSommet*> QS;
-  vector<int> SommetCo; // id des sommet connecté au sommet i
+  vector<vector<int>> SommetCo; // id des sommet connecté au sommet i
   Matrice MG = Matrice(this->graphe_dessine, 0);
   // recuperation des QSommet
   QList<QGraphicsItem*> listS = this->items();
@@ -45,103 +46,100 @@ void QZoneDeDessin::placementSommets(){
       i--;
     }
   }
+  vector<int> vide;
+  for(int inc = 0; inc < QS.size(); inc++){
+    SommetCo.push_back(vide);
+  }
+
+  // on ajoute les sommet connecter au sommet i dans SommetCo
+
+    for( int k = 0; k < this->getGraphe_dessine().getListe_Arcs().size(); k++){
+      int arr = this->getGraphe_dessine().getListe_Arcs()[k].getIDArrive();
+      int dep = this->getGraphe_dessine().getListe_Arcs()[k].getIDDepart();
+      SommetCo[dep].push_back(arr);
+      SommetCo[arr].push_back(dep);
+      }
 
   int i,j;
   // debut de la fonction
-
   while(stable == 0){
-    stable = 1;
-     // on met stable a 0 si un sommet est superposés apres sont deplacement
-    for(long unsigned int inc = 0; inc < QS.size(); inc++){ // on parcours tout les sommet
-      i = inc;
+     // on met stable a 0 si un sommet est superposés apres leurs déplacement
+     stable = 1;
+    for(i = 0; i < QS.size(); i++){ // on parcours tout les sommet
       float ft = 0.0; // ensemble des force a appliquer au vecteur de direction
-      // on ajoute les sommet connecter au sommet i dans SommetCo
-      for(long unsigned int k = 0; k < liste_Sommets[QS[i]->getID()].getVecArc().size(); k++){
-        //acc = k;
-        int arr = G.getListe_Arcs()[liste_Sommets[QS[i]->getID()].getVecArc()[k]].getIDArrive();
-        if(arr != i){
-          SommetCo.push_back(arr); }
-        else{
-          int dep = G.getListe_Arcs()[liste_Sommets[QS[i]->getID()].getVecArc()[k]].getIDDepart();
-          if(dep != i){
-            SommetCo.push_back(dep); }
-          }
-      }
-      // on parcour les sommet autre que i
-      for(long unsigned int inc2 = 0; inc2 < QS.size(); inc2++){
-
-        j = inc2;
+      // on parcours les sommets autre que i
+      for(j = 0; j < QS.size(); j++){
         pair<int, int> degi = calcul_degres_entrant_sortant(MG,liste_Sommets[QS[i]->getID()]);
         pair<int, int> degj = calcul_degres_entrant_sortant(MG,liste_Sommets[QS[j]->getID()]);
         if(i != j){
+
           // on verifie si le sommet j est connecter ou non au sommet i
-        //  if((SommetCo.find(SommetCo.begin(),SommetCo.end(), j ) != SommetCo.end()) || j == SommetCo.at(SommetCo.end()) ){
-          if(!SommetCo.empty()){
-            if((std::find(SommetCo.begin(),SommetCo.end(), j ) != SommetCo.end()) || j == SommetCo.at(SommetCo.size()-1)){
-              // si j est connecter alors la force d'attraction est calculé;
-              if(distanceForce(*QS[i], *QS[j]) > 0){ // si ils ne sont pas superposés ils s'attire et ce repousse
-                 ft = (distanceForce(*QS[i], *QS[j])/100 - 1.0*(degi.first + degi.second + 1.0)*(degj.first + degj.second + 1.0)/distanceForce(*QS[i], *QS[j]));
-              }
-              else if(distanceForce(*QS[i], *QS[j]) < 0){ // si ils sont superposés ils se repoussent
-                 ft = 0-10.0*(degi.first + degi.second + 1.0 )*(degj.first + degj.second + 1.0 );
+            if(SommetCo[i].size() != 0){
+              if((std::find(SommetCo[i].begin(),SommetCo[i].end(), j ) != SommetCo[i].end()) || j == SommetCo[i].at(SommetCo[i].size()-1)){
+                // si j est connecter alors la force d'attraction est calculé;
+                if(distanceForce(*QS[i], *QS[j]) > 0){ // si ils ne sont pas superposés ils s'attire et ce repousse
+                   ft = log(distanceForce(*QS[i], *QS[j])*100 - 10.0*(degi.first + degi.second + 1.0)*(degj.first + degj.second + 1.0)/distanceForce(*QS[i], *QS[j]));
+                }
+                else if(distanceForce(*QS[i], *QS[j]) < 0){ // si ils sont superposés ils se repoussent
+                   ft = 0-10.0*(degi.first + degi.second + 1.0 )*(degj.first + degj.second + 1.0 );
+                }
 
+                else ft = 0; // si ils sont placé cote a cote on ne les deplace pas
+              newx = liste_Sommets[QS[i]->getID()].getPosX() + fmod(ft*(liste_Sommets[QS[j]->getID()].getPosX() - liste_Sommets[QS[i]->getID()].getPosX()), ((liste_Sommets[QS[j]->getID()].getPosX() - liste_Sommets[QS[i]->getID()].getPosX()) - (QS[i]->getRayon()*2)));
+              newy = liste_Sommets[QS[i]->getID()].getPosY() + fmod(ft*(liste_Sommets[QS[j]->getID()].getPosY() - liste_Sommets[QS[i]->getID()].getPosY()), ((liste_Sommets[QS[j]->getID()].getPosY() - liste_Sommets[QS[i]->getID()].getPosY()) - (QS[i]->getRayon()*2)));
               }
-
-              else ft = 1; // si ils sont placé cote a cote on ne les deplace pas
             }
-          }
 
-          else { // si i et j ne son pas connecter il n'y a pas d'attraction
+          // si i et j ne son pas connecter il n'y a pas d'attraction
             if(distanceForce(*QS[i], *QS[j]) > 0){ //force de repulsion faible si ils ne sont pas superposés
                ft = 0-1.0*((degi.first + degi.second + 1.0)*(degj.first + degj.second + 1.0))/distanceForce(*QS[i], *QS[j]) ;
+
             }
             else if(distanceForce(*QS[i], *QS[j]) < 0){ //force de repulsion forte si ils sont superposés
                ft = 0-10.0*((degi.first + degi.second + 1.0)*(degj.first + degj.second + 1.0));
 
 
             }
-            else ft = 1; // cote a cote et ne bouge pas
-          }
+            else ft = 0; // cote a cote et ne bouge pas
+            newx = (liste_Sommets[QS[i]->getID()].getPosX() + fmod(ft*(liste_Sommets[QS[j]->getID()].getPosX() - liste_Sommets[QS[i]->getID()].getPosX()),100));
+            newy = (liste_Sommets[QS[i]->getID()].getPosY() + fmod(ft*(liste_Sommets[QS[j]->getID()].getPosY() - liste_Sommets[QS[i]->getID()].getPosY()),100));
+
         }
         // si ils sont l'un sur l'autre le vecteur de direction est aléatoire
         if ((QS[i]->getPosX() == QS[j]->getPosX()) && (QS[i]->getPosY() == QS[j]->getPosY())){
-          liste_Sommets[QS[i]->getID()].setPosX(QS[i]->getPosX() + ft*pow(-1,rand()%2));
-          liste_Sommets[QS[i]->getID()].setPosY(QS[i]->getPosY() + ft*pow(-1,rand()%2));
+          newx = liste_Sommets[QS[i]->getID()].getPosX() + ft*pow(-1,rand()%2));
+          newy = liste_Sommets[QS[i]->getID()].getPosY() + ft*pow(-1,rand()%2));
+
 
         }
-        else { // sinon on calcule le vecteur de direction
-
-
-          int test1 = QS[i]->getPosX();
-          int test2 = QS[i]->getPosY();
-          int test3 = (liste_Sommets[QS[i]->getID()].getPosX() + ft*(liste_Sommets[QS[j]->getID()].getPosX() - liste_Sommets[QS[i]->getID()].getPosX()));
-          int test4 = (liste_Sommets[QS[i]->getID()].getPosY() + ft*(liste_Sommets[QS[j]->getID()].getPosY() - liste_Sommets[QS[i]->getID()].getPosY()));
-
-          liste_Sommets[QS[i]->getID()].setPosX(test3);
-          liste_Sommets[QS[i]->getID()].setPosY(test4);
-
-          if(sqrt(pow((liste_Sommets[QS[i]->getID()].getPosX()-liste_Sommets[QS[j]->getID()].getPosX()) + (liste_Sommets[QS[i]->getID()].getPosY()-liste_Sommets[QS[j]->getID()].getPosY()),2)) < (QS[i]->getRayon()*2)){
-            stable = 0;
-          }
-          else{
-            stable = 1;
-          }
-        }
+        // on applique les nouvelles coordonnés du point a la liste_Sommets et au la liste de QSommet
+          liste_Sommets[QS[i]->getID()].setPosX(newx);
+          liste_Sommets[QS[i]->getID()].setPosY(newy);
+          QS[i]->setPosX(newx);
+          QS[i]->setPosY(newy);
 
       }
-
-    SommetCo.clear(); // on vide le vecteur de sommet.
-
-
     }
-
-
+    // on regarde si des point ce superpose encore
+    for(i = 0; i < QS.size(); i++){
+      for(j = 0; j < QS.size(); j++){
+        if(i != j){
+          // si les point i et j se superpose le graphe n'est pas stable et on recommence l'algorithme
+          if(sqrt(pow(liste_Sommets[QS[i]->getID()].getPosX()-liste_Sommets[QS[j]->getID()].getPosX(),2) + pow(liste_Sommets[QS[i]->getID()].getPosY()-liste_Sommets[QS[j]->getID()].getPosY(),2)) < (QS[i]->getRayon()*2)){
+            stable = 0;
+          }
+        }
+      }
+    }
   }
-
+  // on applique la liste de sommet au graphe et on le redessine dans la scene.
   G.setListe_Sommet(liste_Sommets);
   this->sc->clear();
   this->setGraphe_dessine(G);
 }
+
+
+
 
 int QZoneDeDessin::distanceForce(QSommet a, QSommet b){ // calcul la distance en prenant en compte le rayon d'un sommet
   int res;
