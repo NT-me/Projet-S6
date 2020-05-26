@@ -7,7 +7,6 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
-#include <QDebug>
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
   vector<int> dist;
@@ -863,7 +862,7 @@ Graphe arborescence(Graphe G){
         }
       }
       for(int j=0;j<MarkBFS.size();j++){
-        qDebug() << "marquage " << MarkBFS[j] ;
+        // qDebug() << "marquage " << MarkBFS[j] ;
         if(MarkBFS[j])
         podider++;
       }
@@ -889,8 +888,8 @@ Graphe arborescence(Graphe G){
         pred = 0;
         in.push_back(0);
     }
-    //qDebug()<< "connexe " << connexe;
-    //qDebug()<< "Pmax " << Pmax;
+    //// qDebug()<< "connexe " << connexe;
+    //// qDebug()<< "Pmax " << Pmax;
     if(Pmax >1 || !Pmax || !connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
         std::cout << "NO ARBORESCENCE 1" << '\n';
         tmp.ajout_Sommet(-1, -1,-1);
@@ -978,7 +977,7 @@ Graphe anti_arborescence(Graphe G){
         }
       }
       for(int j=0;j<MarkBFS.size();j++){
-        //qDebug() << "marquage " << MarkBFS[j] ;
+        //// qDebug() << "marquage " << MarkBFS[j] ;
         if(MarkBFS[j])
         podider++;
       }
@@ -1080,6 +1079,73 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
     int deb=0,fin=-1;
     vector<int> out;
 
+    // Vérifie connexité
+    bool connexe = 0;
+
+    // parcours en largeur sur chaque sommets*
+    int podider;
+    podider = 0;
+    vector<int> MarkBFS; // init du marquage du parcours
+    vector<vector<int>> Succ;
+    Succ.resize(M.getTab().size());
+    for(int i=0;i<M.getTab().size();i++){
+      MarkBFS.push_back(0);
+      for(int j=0;j<M.getTab()[i].size();j++){
+        if(M.getTab()[i][j]>0){
+          Succ[i].push_back(j);
+        }
+      }
+    }
+
+
+    for(int i=0; i<M.getTab().size();i++){
+      int dep = i;
+      queue<int> q ;
+      q.push(dep);
+      podider = 0;
+      while(!q.empty()){
+        int SA = q.front();
+        MarkBFS[SA] = 1; // on marque le sommet courant
+        q.pop();
+        for(int j=0;j<Succ[SA].size();j++){
+          int NEXT = Succ[SA][j]; // on recupere un successeur
+          if(!MarkBFS[NEXT]){//si il est pas marqué
+          q.push(NEXT);
+          }
+        }
+      }
+      for(int x=0;x<M.getTab().size();x++){
+        // int iso = 0 ;
+        // for(int y=0;y<M.getTab()[x].size();y++){
+        //   if(M.getTab()[x][y]||M.getTab()[y][x]){
+        //     iso++;
+        //   }
+        //   if(!iso){
+        //     MarkBFS[x]=1;
+        //   }
+        // }
+
+        for(Sommet s : M.conversionGraphe().getListe_Sommets()){
+          if((calcul_degres_entrant(M,s.getID())+calcul_degres_sortant(s))==0 ){
+            MarkBFS[s.getID()] = 1;
+            // qDebug() << "0 degres eheh" ;
+          }
+
+        }
+      }
+
+      for(int j=0;j<MarkBFS.size();j++){
+        // qDebug() << " i "<< i  << "marquage " << MarkBFS[j] ;
+        if(MarkBFS[j])
+        podider++;
+      }
+      if(podider==MarkBFS.size()){
+        connexe = 1;
+        break;
+      }
+    }
+
+    // ########################################
     int mark[M.gettV()][M.gettV()];
 
     // Vérifie si il existe un chemin Eulérien
@@ -1106,7 +1172,7 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
         }
       }
 
-      if(!connexite(M) && !succ && !pred){
+      if(!connexite && !succ && !pred){
         std::cout << "NO EULERIAN PATH" << '\n';
         return res;
       }
@@ -1159,6 +1225,8 @@ vector<vector<int>> chaine_eulerienne(Matrice M){
 vector<vector<int>> chaine_hamiltonienne(Matrice M){
   vector<int> mark;
   vector<int> path;
+  vector<vector<int>> chemin_imp(M.gettV());
+  vector<int> impossible;
   vector<vector<int>> res;
 
   if(M.getType() != 0){
@@ -1175,8 +1243,8 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
             if(M.getTab()[i][j]) succ++;      // Nb successeur pour i
             if(M.getTab()[j][i]) pred++;      // Nb predecesseur pour j
 
-            mark.push_back(0);
           }
+          mark.push_back(0);
           if(!succ){
             Smax++;
             fin = i;
@@ -1190,37 +1258,72 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
       }
 
       if(Smax > 1 || Pmax > 1){                 // Plusieurs sommets sans successeurs ou prédecesseurs
-           std::cout << "NO HAMILTTONIAN PATH" << '\n';
+           // qDebug() << "NO HAMILTTONIAN PATH" << '\n';
             return res;
       }
-
-      // Sommet de départ
-      if(deb == -1) deb = 0;
-
+      // qDebug()<<"deb : " <<deb;
       int i = deb;
       int last = i;
-      while(!mark[i]){
 
-        if(path.size() == M.gettV()-1){
-            path.push_back(i);
-            res.push_back(path);
-            return res;
+      for(int x=0;x<M.gettV();x++){
+        if(deb == -1){
+          i = x;
+          deb = i;
         }
-        for(int j=0;j<M.gettV();j++){
-          if(M.getTab()[i][j] && !mark[j] && j!=last){
-            mark[i] = 1;
-            path.push_back(i);
-            i = j;
-            j = 0;
+        while(!mark[i]){
+          // qDebug()<<"id testée " << i;
+          if(path.size() == M.gettV()-1){
+            // qDebug()<< "push "<< fin;
+              path.push_back(fin);
+              res.push_back(path);
+              return res;
           }
-        } // Fin for
 
-        if(last == i){
-          path.pop_back();
-          i = path[path.size()-1];
-        }
-        last = i;
-      } // Fin while
+          for(int j=0;j<M.gettV();j++){
+
+            int imp = 1;
+            for (int pr = 0; pr<chemin_imp[i].size(); pr++){
+              if(chemin_imp[i][pr]==j)
+              imp = 0;
+            }
+
+            if(M.getTab()[i][j] && !mark[j] && imp){
+              mark[i] = 1;
+              int test = 0;
+              for(int osef =0; osef<path.size();osef++){
+                if(path[osef]==i)
+                test =1;
+              }
+              if(!test){
+                path.push_back(i);
+                // qDebug()<< "push "<< i;
+              }
+              // qDebug()<<"path : "<<path;
+              i = j;
+              j = 0;
+            }
+          } // Fin for
+          int test =0;
+          for(int osef =0; osef<path.size();osef++){
+            if(path[osef]==i)
+            test =1;
+          }
+          if(!test){
+            path.push_back(i);
+          }
+          if(last == i){
+            // qDebug()<<" pop "<<path[path.size()-1];
+            path.pop_back();
+            mark[i] = 0;
+            i = path[path.size()-1];
+            mark[i] = 0;
+            chemin_imp[i].push_back(last);
+            chemin_imp[last].clear();
+          }
+          else last = i;
+
+        } // Fin while
+      } // Fin for
     } // Fin else
   return res;
 }
