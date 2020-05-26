@@ -260,9 +260,17 @@ enum typeM{
        this->tab[i].resize(cmptV);
      }
      for(Arc x : G.getListe_Arcs()){//on met le poids dans la Matrice
-	   if(x.getCU().empty() == false)
-       this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids").valeur_entiere;
-       else this->tab[x.getIDDepart()][x.getIDArrive()] = 1;
+	   if(x.getCU().empty() == false){
+       if(x.getCU().count("poids") > 0){
+         this->tab[x.getIDDepart()][x.getIDArrive()]= x.getCU().at("poids").valeur_entiere;
+       }
+       else{
+        this->tab[x.getIDDepart()][x.getIDArrive()] = 1;
+        }
+     }
+       else{
+        this->tab[x.getIDDepart()][x.getIDArrive()] = 1;
+        }
      }
 
    }
