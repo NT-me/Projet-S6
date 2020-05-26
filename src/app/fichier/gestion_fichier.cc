@@ -4,7 +4,6 @@
 #include "../../../libExt/rapidjson/istreamwrapper.h"
 #include "../../../libExt/rapidjson/schema.h"
 
-
 #include <fstream>
 #include <iterator>
 #include <map>
@@ -370,15 +369,15 @@ Graphe chargement (string path){
     LISTESOM[i].setEtiq(doc["listeS"][i]["etiquette"].GetString());
 
 
-    vector <int> VecteurArc;
-    VecteurArc.resize(doc["listeS"][i]["vecArc"].Size() ,0);
-
-    for (int j = 0; j <  doc["listeS"][i]["vecArc"].Size(); j++){
-      VecteurArc[j] = doc["listeS"][i]["vecArc"][j]["Tab"].GetInt();
-    }
-
-
-   LISTESOM[i].setVecArc(VecteurArc);
+   //  vector <int> VecteurArc;
+   //  VecteurArc.resize(doc["listeS"][i]["vecArc"].Size() ,0);
+   //
+   //  for (int j = 0; j <  doc["listeS"][i]["vecArc"].Size(); j++){
+   //    VecteurArc[j] = doc["listeS"][i]["vecArc"][j]["Tab"].GetInt();
+   //  }
+   //
+   //
+   // LISTESOM[i].setVecArc(VecteurArc);
 
 
       map <string, VectVal> m1;
