@@ -2,6 +2,8 @@
 #define H_QSOMMET
 
 #include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 #include <map>
 #include <vector>
 #include <QPen>

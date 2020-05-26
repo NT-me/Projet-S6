@@ -47,8 +47,8 @@ QRectF QSommet::boundingRect() const{
 }
 
 void QSommet::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
-  posx = x();
-  posy = y();
+
+  this->setPos(mapToScene(event->pos()));
 }
 
 void QSommet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){

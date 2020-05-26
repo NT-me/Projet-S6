@@ -294,6 +294,30 @@ else if (itemAt(e->pos())->data(0) == "Arc"){
 }
 void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
   int dbe = property("DBE").toInt();
+
+  vector<Sommet> ls1 = graphe_dessine.getListe_Sommets();
+  QList<QGraphicsItem*> listS0 = items();
+  for(int i=0; i< listS0.size(); ++i){
+    if(listS0[i]->data(0) == "Sommet"){
+      QSommet* QS = qgraphicsitem_cast<QSommet*>(listS0[i]);
+      QS->setX(QS->x());
+      QS->setY(QS->y());
+      QS->setPosX(QS->x());
+      QS->setPosY(QS->y());
+      QS->update();
+
+      for(int l=0;l<ls1.size();++l){
+        if(ls1[l].getID() == QS->getID()){
+          ls1[l].setPosX(QS->getPosX());
+          ls1[l].setPosY(QS->getPosY());
+        }
+      }
+
+    }
+  }
+  graphe_dessine.setListe_Sommet(ls1);
+  setGraphe_dessine(graphe_dessine);
+
   QGraphicsView::mousePressEvent(e);
   if(dbe == 1){
     //select
