@@ -7,7 +7,6 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
-#include <QDebug>
 
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
@@ -849,6 +848,65 @@ Graphe arborescence(Graphe G){
     Graphe tmp("Arborescence");
     vector<int>in;
 
+  vector<vector <int>> T = M.getTab(), ListeVoisin;
+  vector<int> Marque, ListeSommet;	// 1 si marqué, 0 sinon ?
+  bool connexe;
+
+  for(int y = 0; y<M.gettV(); y++)
+  {
+    Marque.push_back(0);
+    ListeVoisin.push_back({});
+    ListeSommet.push_back(y);	//initialisation à vide
+  }
+
+  int az,er;
+
+  for(az=0; az<M.gettV(); az++)	//boucle sommet départ
+  {
+    for(er=0; er<M.gettV(); er++)	//On teste tous les sommets de la matrice
+    {
+
+      if(T[az][er]==1)	//Si il existe un arc entre az et er
+      {
+        if(Marque[az]!=1)	//Si er n'est pas encore marqué par le programme
+        {
+          Marque[az] = 1;
+          ListeVoisin[az].push_back(er);	//On l'ajoute à la liste des successeurs
+        }
+      }
+    }
+  }
+
+  for(az=0; az<ListeVoisin.size(); az++)
+  {
+    for(er=0; er<ListeVoisin[az].size(); er++)
+    {
+      ListeSommet[ListeVoisin[az][er]] = -1;
+      ListeSommet[az] = -1;
+    }
+  }
+
+  int flag = 0;
+
+
+  for(az=0; az<ListeSommet.size(); az++)
+  {
+    if(ListeSommet[az]!=-1)
+    {
+
+      flag = 1;
+    }
+  }
+
+  if(flag == 0)
+  {
+    connexe = 1; //graphe connexe
+  }
+  else{
+    connexe = 0; 	//graphe non connexe
+  }
+
+
     // Vérifie si il existe une arborescence
     for(int i=0;i<M.gettV();i++){
         for(int j=0;j<M.gettV();j++){
@@ -859,7 +917,7 @@ Graphe arborescence(Graphe G){
             deb = i;
             Pmax++;
         }
-        if(Pmax >1 || !Pmax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+        if(Pmax >1 || !Pmax || !connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
             std::cout << "NO ARBORESCENCE" << '\n';
             tmp.ajout_Sommet(-1, -1,-1);
             return tmp;
@@ -913,6 +971,65 @@ Graphe anti_arborescence(Graphe G){
     Graphe tmp("Anti-Arborescence");
     vector<int>in;
 
+    vector<vector <int>> T = M.getTab(), ListeVoisin;
+    vector<int> Marque, ListeSommet;	// 1 si marqué, 0 sinon ?
+    bool connexe;
+
+    for(int y = 0; y<M.gettV(); y++)
+    {
+      Marque.push_back(0);
+      ListeVoisin.push_back({});
+      ListeSommet.push_back(y);	//initialisation à vide
+    }
+
+    int az,er;
+
+    for(az=0; az<M.gettV(); az++)	//boucle sommet départ
+    {
+      for(er=0; er<M.gettV(); er++)	//On teste tous les sommets de la matrice
+      {
+
+        if(T[az][er]==1)	//Si il existe un arc entre az et er
+        {
+          if(Marque[az]!=1)	//Si er n'est pas encore marqué par le programme
+          {
+            Marque[az] = 1;
+            ListeVoisin[az].push_back(er);	//On l'ajoute à la liste des successeurs
+          }
+        }
+      }
+    }
+
+    for(az=0; az<ListeVoisin.size(); az++)
+    {
+      for(er=0; er<ListeVoisin[az].size(); er++)
+      {
+        ListeSommet[ListeVoisin[az][er]] = -1;
+        ListeSommet[az] = -1;
+      }
+    }
+
+    int flag = 0;
+
+
+    for(az=0; az<ListeSommet.size(); az++)
+    {
+      if(ListeSommet[az]!=-1)
+      {
+
+        flag = 1;
+      }
+    }
+
+    if(flag == 0)
+    {
+      connexe = 1; //graphe connexe
+    }
+    else{
+      connexe = 0; 	//graphe non connexe
+    }
+
+
     // Vérifie si il existe une anti-arborescence
     for(int i=0;i<M.gettV();i++){
         for(int j=0;j<M.gettV();j++){
@@ -922,7 +1039,7 @@ Graphe anti_arborescence(Graphe G){
             fin = i;
             Smax++;
         }
-        if(Smax >1 || !Smax || !connexite(M)){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+        if(Smax >1 || !Smax || !connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
             std::cout << "NO ANTI-ARBORESCENCE" << '\n';
             tmp.ajout_Sommet(-1,-1,-1);
             return tmp;
@@ -1125,7 +1242,6 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
       int i = deb;
       int last = i;
       while(!mark[i]){
-        qDebug()<< "i dans la boucle" <<i;
 
         if(path.size() == M.gettV()-1){
             path.push_back(i);
