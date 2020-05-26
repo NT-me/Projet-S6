@@ -138,14 +138,14 @@ void MainWindow::nv_graphe_aleatoire(){
     int max_arc = nb_som*(nb_som-1);
     Graphe G("randomG");
     for(int i = 0;i<nb_som;++i){
-      QRandomGenerator qrg(i*1200);
+      QRandomGenerator qrg(i*time(NULL));
       int xs = qrg.bounded(1000);
       int ys = qrg.bounded(1000);
       G.ajout_Sommet(i, xs, ys);
     }
     for(int i = 0; i<max_arc;++i){
       QRandomGenerator qrg(i*2600);
-      if (qrg.bounded(3)==1){
+      if (qrg.bounded(nb_som)==1){
         int ida = qrg.bounded(nb_som);
         int idb = qrg.bounded(nb_som);
         if(ida != idb){

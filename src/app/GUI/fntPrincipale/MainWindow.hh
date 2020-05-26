@@ -16,7 +16,7 @@
 #include "../../../bib/bib.hh"
 #include "../fntOrdoCreate/OCDialog.hh"
 #include "../../fichier/gestion_fichier.hh"
-
+#include <time.h> 
 /**
  * \brief Fen&ecirc;tre Principale de l'Interface Graphique
  * */
@@ -139,7 +139,7 @@ void nv_graphe_aleatoire();
    * Appelle les fonctions du module Operation sur les Graphes
    * Pour tout les algorithmes les résultats sont affichés dans la console ou sur la Zone de Dessin
    *
-   * 
+   *
    * Pour tout les algorithmes les r&eacute;sultats sont affich&eacute;s dans la console ou sur la Zone de Dessin
    *
    * */
