@@ -209,7 +209,7 @@ int Graphe::supprimer_Arc(int id){
 vector<Sommet> Graphe::getVecteurSommet(vector<int> id){
    std::vector<Sommet> res;
    if(!id.empty()){
-       for (int i=0; i<=id.size()-1; i++) {
+       for (int i=0; i<id.size(); i++) {
          for(int j=0;j<liste_Sommets.size();++j){
            if(id[i] == liste_Sommets[j].getID()){
              res.push_back(liste_Sommets[id[i]]);
