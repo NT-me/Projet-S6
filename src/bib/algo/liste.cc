@@ -7,7 +7,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
-
+#include <QDebug>
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
   vector<int> dist;
@@ -772,7 +772,6 @@ Graphe pert(vector<pert_row> p){
         map<string, VectVal> m = ListeS[i].getCU();
 
         for(int j = li.size()-1; j>=0; j--){
-          vector<int> sortant = ListeS[i].getVecArc();
           if(li[j].getIDDepart() == ListeS[i].getID()){
             if(f[li[j].getIDArrive()] == 1){
               int tmp = ListeS[li[j].getIDArrive()].getCU()["date au plus tard"].valeur_entiere - li[j].getCU()["duree"].valeur_entiere;
@@ -792,25 +791,6 @@ Graphe pert(vector<pert_row> p){
 
               }
 
-              if(sortant.empty()){
-                sortant.push_back(li[j].getID());
-              }
-              else{
-                for (int t = 0; t < sortant.size(); t++) {
-                  if(li[j].getID() < sortant[t]){
-                    sortant.insert(sortant.begin() + t, li[j].getID());
-                    break;
-                  }
-                  else{
-                    if(t == sortant.size()-1){
-                      sortant.push_back(li[j].getID());
-                      break;
-                    }
-                  }
-                }
-              }
-
-              ListeS[i].setVecArc(sortant);
               ListeS[i].setCU(m);
               li.erase(li.begin() + j);
 
@@ -847,66 +827,53 @@ Graphe arborescence(Graphe G){
     Graphe A("Arborescence");
     Graphe tmp("Arborescence");
     vector<int>in;
+    bool connexe = 0;
 
-  vector<vector <int>> T = M.getTab(), ListeVoisin;
-  vector<int> Marque, ListeSommet;	// 1 si marqué, 0 sinon ?
-  bool connexe;
+    // parcours en largeur sur chaque sommets*
 
-  for(int y = 0; y<M.gettV(); y++)
-  {
-    Marque.push_back(0);
-    ListeVoisin.push_back({});
-    ListeSommet.push_back(y);	//initialisation à vide
-  }
-
-  int az,er;
-
-  for(az=0; az<M.gettV(); az++)	//boucle sommet départ
-  {
-    for(er=0; er<M.gettV(); er++)	//On teste tous les sommets de la matrice
-    {
-
-      if(T[az][er]==1)	//Si il existe un arc entre az et er
-      {
-        if(Marque[az]!=1)	//Si er n'est pas encore marqué par le programme
-        {
-          Marque[az] = 1;
-          ListeVoisin[az].push_back(er);	//On l'ajoute à la liste des successeurs
+    int podider;
+    podider = 0;
+    vector<int> MarkBFS; // init du marquage du parcours
+    vector<vector<int>> Succ;
+    Succ.resize(M.getTab().size());
+    for(int i=0;i<M.getTab().size();i++){
+      MarkBFS.push_back(0);
+      for(int j=0;j<M.getTab()[i].size();j++){
+        if(M.getTab()[i][j]>0){
+          Succ[i].push_back(j);
         }
       }
     }
-  }
 
-  for(az=0; az<ListeVoisin.size(); az++)
-  {
-    for(er=0; er<ListeVoisin[az].size(); er++)
-    {
-      ListeSommet[ListeVoisin[az][er]] = -1;
-      ListeSommet[az] = -1;
+
+    for(int i=0; i<M.getTab().size();i++){
+      int dep = i;
+      queue<int> q ;
+      q.push(dep);
+      podider = 0;
+      while(!q.empty()){
+        int SA = q.front();
+        MarkBFS[SA] = 1; // on marque le sommet courant
+        q.pop();
+        for(int j=0;j<Succ[SA].size();j++){
+          int NEXT = Succ[SA][j]; // on recupere un successeur
+          if(!MarkBFS[NEXT]){//si il est pas marqué
+          q.push(NEXT);
+          }
+        }
+      }
+      for(int j=0;j<MarkBFS.size();j++){
+        qDebug() << "marquage " << MarkBFS[j] ;
+        if(MarkBFS[j])
+        podider++;
+      }
+      if(podider==MarkBFS.size()){
+        connexe = 1;
+        break;
+      }
     }
-  }
 
-  int flag = 0;
-
-
-  for(az=0; az<ListeSommet.size(); az++)
-  {
-    if(ListeSommet[az]!=-1)
-    {
-
-      flag = 1;
-    }
-  }
-
-  if(flag == 0)
-  {
-    connexe = 1; //graphe connexe
-  }
-  else{
-    connexe = 0; 	//graphe non connexe
-  }
-
-
+    //##########################################
     // Vérifie si il existe une arborescence
     for(int i=0;i<M.gettV();i++){
         for(int j=0;j<M.gettV();j++){
@@ -917,14 +884,17 @@ Graphe arborescence(Graphe G){
             deb = i;
             Pmax++;
         }
-        if(Pmax >1 || !Pmax || connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
-            std::cout << "NO ARBORESCENCE" << '\n';
-            tmp.ajout_Sommet(-1, -1,-1);
-            return tmp;
-        }
+
         succ = 0;
         pred = 0;
         in.push_back(0);
+    }
+    //qDebug()<< "connexe " << connexe;
+    //qDebug()<< "Pmax " << Pmax;
+    if(Pmax >1 || !Pmax || !connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+        std::cout << "NO ARBORESCENCE 1" << '\n';
+        tmp.ajout_Sommet(-1, -1,-1);
+        return tmp;
     }
 
     // ##############
@@ -944,6 +914,7 @@ Graphe arborescence(Graphe G){
         for(int j=0;j<M.gettV() && min!=INFINI;j++){    // Ajout arc de poids min arrivant au sommet i
             int val = M.getTab()[j][i]-min;
             if(!val && !in[i]){
+              //cout<<"coucou \n";
                 in[i] = 1;
                 A.ajout_Arc(j,i);
                 break;
@@ -956,7 +927,7 @@ Graphe arborescence(Graphe G){
     }
 
     if(!out){   // Si pas d'arcs de poids min partant du sommet
-        std::cout << "NO ARBORESCENCE" << '\n';
+        std::cout << "NO ARBORESCENCE 2" << '\n';
         tmp.ajout_Sommet(-1, -1,-1);
         return tmp;
     }
@@ -971,64 +942,51 @@ Graphe anti_arborescence(Graphe G){
     Graphe tmp("Anti-Arborescence");
     vector<int>in;
 
-    vector<vector <int>> T = M.getTab(), ListeVoisin;
-    vector<int> Marque, ListeSommet;	// 1 si marqué, 0 sinon ?
-    bool connexe;
+    bool connexe = 0;
 
-    for(int y = 0; y<M.gettV(); y++)
-    {
-      Marque.push_back(0);
-      ListeVoisin.push_back({});
-      ListeSommet.push_back(y);	//initialisation à vide
-    }
+    // parcours en largeur sur chaque sommets*
 
-    int az,er;
-
-    for(az=0; az<M.gettV(); az++)	//boucle sommet départ
-    {
-      for(er=0; er<M.gettV(); er++)	//On teste tous les sommets de la matrice
-      {
-
-        if(T[az][er]==1)	//Si il existe un arc entre az et er
-        {
-          if(Marque[az]!=1)	//Si er n'est pas encore marqué par le programme
-          {
-            Marque[az] = 1;
-            ListeVoisin[az].push_back(er);	//On l'ajoute à la liste des successeurs
-          }
+    int podider;
+    podider = 0;
+    vector<int> MarkBFS; // init du marquage du parcours
+    vector<vector<int>> Succ;
+    Succ.resize(M.getTab().size());
+    for(int i=0;i<M.getTab().size();i++){
+      MarkBFS.push_back(0);
+      for(int j=0;j<M.getTab()[i].size();j++){
+        if(M.getTab()[j][i]>0){
+          Succ[i].push_back(j);
         }
       }
     }
 
-    for(az=0; az<ListeVoisin.size(); az++)
-    {
-      for(er=0; er<ListeVoisin[az].size(); er++)
-      {
-        ListeSommet[ListeVoisin[az][er]] = -1;
-        ListeSommet[az] = -1;
+
+    for(int i=0; i<M.getTab().size();i++){
+      int dep = i;
+      queue<int> q ;
+      q.push(dep);
+      podider = 0;
+      while(!q.empty()){
+        int SA = q.front();
+        MarkBFS[SA] = 1; // on marque le sommet courant
+        q.pop();
+        for(int j=0;j<Succ[SA].size();j++){
+          int NEXT = Succ[SA][j]; // on recupere un successeur
+          if(!MarkBFS[NEXT]){//si il est pas marqué
+          q.push(NEXT);
+          }
+        }
+      }
+      for(int j=0;j<MarkBFS.size();j++){
+        //qDebug() << "marquage " << MarkBFS[j] ;
+        if(MarkBFS[j])
+        podider++;
+      }
+      if(podider==MarkBFS.size()){
+        connexe = 1;
+        break;
       }
     }
-
-    int flag = 0;
-
-
-    for(az=0; az<ListeSommet.size(); az++)
-    {
-      if(ListeSommet[az]!=-1)
-      {
-
-        flag = 1;
-      }
-    }
-
-    if(flag == 0)
-    {
-      connexe = 1; //graphe connexe
-    }
-    else{
-      connexe = 0; 	//graphe non connexe
-    }
-
 
     // Vérifie si il existe une anti-arborescence
     for(int i=0;i<M.gettV();i++){
@@ -1039,15 +997,15 @@ Graphe anti_arborescence(Graphe G){
             fin = i;
             Smax++;
         }
-        if(Smax >1 || !Smax || !connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
-            std::cout << "NO ANTI-ARBORESCENCE" << '\n';
-            tmp.ajout_Sommet(-1,-1,-1);
-            return tmp;
-        }
         succ = 0;
         in.push_back(0);
     }
 
+    if(Smax >1 || !Smax || !connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+        std::cout << "NO ANTI-ARBORESCENCE" << '\n';
+        tmp.ajout_Sommet(-1,-1,-1);
+        return tmp;
+    }
     // ##############
     int min=INFINI;
     for(int i=0;i<M.gettV();i++)  A.ajout_Sommet(i,0,0);   // Ajoute les sommets dans graphe de retour
