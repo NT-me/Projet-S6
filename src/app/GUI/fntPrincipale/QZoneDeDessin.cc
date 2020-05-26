@@ -427,6 +427,7 @@ void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
       }
 
       graphe_dessine.supprimer_Sommet(QS->getID()); // On supprime le sommet du graphe
+      setGraphe_dessine(graphe_dessine);
     }
   }
   else if(dbe == 5){
