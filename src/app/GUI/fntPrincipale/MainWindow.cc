@@ -55,18 +55,20 @@ return 1;
 int MainWindow::printCaraSelection(){
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
   vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
-  qDebug()<<listeSommet;
   ui->caraSelection->clear();
 
   if(!listeSommet.empty()){
+    qDebug()<<listeSommet;
     vector<Sommet> vs = g.getVecteurSommet(listeSommet);
     for(int i=0; i<vs.size();++i){
+      qDebug()<<vs[i].getID();
       ui->caraSelection->append("<b>Sommet "+QString::number(vs[i].getID())+" :</b>");
       ui->caraSelection->append("Etiquette : "+QString::fromStdString(vs[i].getEtiq()));
       ui->caraSelection->append("x :"+QString::number(vs[i].getPosX()));
       ui->caraSelection->append("y :"+QString::number(vs[i].getPosY()));
       ui->caraSelection->append("Liste ID arcs sortant:");
       vector<int> listeIDarc = vs[i].getVecArc();
+      // qDebug()<<"LIDSA "<<listeIDarc;
       for(int j=0;j<listeIDarc.size();++j){
         ui->caraSelection->append(QString::number(listeIDarc[j]));
       }
@@ -340,7 +342,6 @@ void MainWindow::Coloration_de_graphe(){
   vector<int> color = coloration_Graphe(ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine());
   QList<QGraphicsItem*> listS = sceneAcolor->items();
   vector<QColor> couleurs;
-  QRandomGenerator qrg(1200);
 
   int tmpC;
   for(int k=0;k<listS.size();++k){
@@ -351,6 +352,7 @@ void MainWindow::Coloration_de_graphe(){
       QSommet* QS_ = qgraphicsitem_cast<QSommet*>(listS[i]);
       tmpC = color[QS_->getID()];
       if(couleurs[tmpC] == QColor(0,0,0)){
+        QRandomGenerator qrg(time(NULL)*i);
         couleurs[tmpC] = QColor(qrg.bounded(1,255),qrg.bounded(1,255),qrg.bounded(1,255));
         QS_->setCoul(couleurs[tmpC]);
         QS_->update();
