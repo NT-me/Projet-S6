@@ -787,6 +787,9 @@ void MainWindow::extraireSousGraphe(){
     for(int i = 0; i<vgs.size();++i){ // Ajoute les sommets
       // g_extract.ajout_Sommet(vgs[i].getID(), vgs[i].getPosX(), vgs[i].getPosY());
       g_extract.ajout_Sommet(i, vgs[i].getPosX(), vgs[i].getPosY());
+      vector<Sommet> ls0 = g_extract.getListe_Sommets();
+      ls0[i].setEtiq(vgs[i].getEtiq());
+      g_extract.setListe_Sommet(ls0);
     }
 
     for(int i=0;i<listeArc.size();++i){
