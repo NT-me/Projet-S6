@@ -55,6 +55,7 @@ return 1;
 int MainWindow::printCaraSelection(){
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
   vector<int> listeSommet = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getSelected_list();
+  qDebug()<<listeSommet;
   ui->caraSelection->clear();
 
   if(!listeSommet.empty()){
@@ -784,14 +785,27 @@ void MainWindow::extraireSousGraphe(){
     }
     qDebug()<<"listeIDArc_nec"<<listeIDArc_nec;
     for(int i = 0; i<vgs.size();++i){ // Ajoute les sommets
-      g_extract.ajout_Sommet(vgs[i].getID(), vgs[i].getPosX(), vgs[i].getPosY());
+      // g_extract.ajout_Sommet(vgs[i].getID(), vgs[i].getPosX(), vgs[i].getPosY());
+      g_extract.ajout_Sommet(i, vgs[i].getPosX(), vgs[i].getPosY());
     }
 
     for(int i=0;i<listeArc.size();++i){
       for(int j=0;j<listeIDArc_nec.size();++j){
-        if(listeArc[i].getID() == listeArc[j].getID()){
-          g_extract.ajout_Arc(listeArc[j].getIDDepart(), listeArc[j].getIDArrive());
+        int idDep=-1, idArr=-1;
+        if(listeArc[i].getID() == listeIDArc_nec[j]){
+          // g_extract.ajout_Arc(listeArc[i].getIDDepart(), listeArc[i].getIDArrive());
+          for(int k=0;k<vgs.size();++k){
+            if(vgs[k].getID() == listeArc[i].getIDDepart()){
+              idDep = k;
+            }
+          }
+          for(int k=0;k<vgs.size();++k){
+            if(vgs[k].getID() == listeArc[i].getIDArrive()){
+              idArr = k;
+            }
+          }
         }
+        if(idDep != -1 && idArr != -1) g_extract.ajout_Arc(idDep, idArr);
       }
     }
 
@@ -811,6 +825,10 @@ void MainWindow::extraireSousGraphe(){
     zoneDessin->setGraphe_dessine(g_extract);
     ui->tabWidget->addTab(tab,QString::fromStdString(etiq));
     printConsole("Extraction", "Graphe extrait");
+  }
+  else{
+    printConsole("Extraction", "L'extraction de graphe a échouée");
+
   }
 }
 void MainWindow::arrangerSommets(){
