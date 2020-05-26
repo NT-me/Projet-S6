@@ -917,7 +917,7 @@ Graphe arborescence(Graphe G){
             deb = i;
             Pmax++;
         }
-        if(Pmax >1 || !Pmax || !connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
+        if(Pmax >1 || !Pmax || connexe){    // Si plusieurs/aucun sommet sans prédecesseurs ou non connexe
             std::cout << "NO ARBORESCENCE" << '\n';
             tmp.ajout_Sommet(-1, -1,-1);
             return tmp;

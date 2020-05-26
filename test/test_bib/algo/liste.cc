@@ -722,7 +722,7 @@ M0.setTab({{0,1,1},
           {0,0,0},
           {0,0,0}});
 
-Graphe G("Retour attendu"), G_ret(M0);
+Graphe G("Arborescence"), G_ret(M0);
 G.ajout_Sommet(0,0,0);
 G.ajout_Sommet(1,0,0);
 G.ajout_Sommet(2,0,0);
@@ -736,9 +736,8 @@ Matrice M1(3); // Matrice sans arbo
 M1.setTab({{0,0,0},
           {1,0,0},
           {0,0,0}});
-Graphe G_err(M1), Gerr_A("ERROR");
-//Gerr_A.setPath("ERROR"); A voir...
-
+Graphe G_err(M1), Gerr_A("Arborescence");
+Gerr_A.ajout_Sommet(-1,-1,-1);
 REQUIRE(arborescence(G_err) == Gerr_A);
 }
 
@@ -748,13 +747,13 @@ TEST_CASE("anti-arbo","[Algorithmes]"){
              {1,0,0},
              {1,0,0}});
 
-  Graphe G("Retour attendu"), G_ret(M0);
+  Graphe G("Anti-Arborescence"), G_ret(M0);
   G.ajout_Sommet(0,0,0);
   G.ajout_Sommet(1,0,0);
   G.ajout_Sommet(2,0,0);
 
-  G.ajout_Arc(0,1);
-  G.ajout_Arc(0,2);
+  G.ajout_Arc(1,0);
+  G.ajout_Arc(2,0);
 
   REQUIRE(anti_arborescence(G_ret) == G);
 
@@ -762,7 +761,9 @@ TEST_CASE("anti-arbo","[Algorithmes]"){
   M1.setTab({{0,0,0},
             {1,0,0},
             {0,0,0}});
-  Graphe G_err(M1), Gerr_A("ERROR");
+  Graphe G_err(M1), Gerr_A("Anti-Arborescence");
+  Gerr_A.ajout_Sommet(-1,-1,-1);
+
   //Gerr_A.setPath("ERROR"); A voir...
 
   REQUIRE(anti_arborescence(G_err) == Gerr_A);
