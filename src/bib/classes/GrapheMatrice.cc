@@ -173,7 +173,11 @@ int Graphe::supprimer_Sommet(int id){
 }
 
 int Graphe::ajout_Arc(int id_Sdepart, int id_Sarrive){
-
+  for(int i=0;i<this->liste_Arcs.size();++i){
+    if(liste_Arcs[i].getIDDepart() == id_Sdepart && liste_Arcs[i].getIDArrive() == id_Sarrive){
+      return -1;
+    }
+  }
    int id = this->liste_Arcs.size();
 
    this->liste_Arcs.push_back(Arc(id,id_Sdepart,id_Sarrive));
