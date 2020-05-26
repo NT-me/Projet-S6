@@ -693,21 +693,6 @@ TEST_CASE("pert","[Algorithmes]"){
     ListeA.push_back(Arc("fictif", 18, 12, 8, mapU));
     ListeA.push_back(Arc("fictif", 19, 13, 8, mapU));
 
-    ListeS[0].setVecArc(vector<int>{0, 1, 2});
-    ListeS[1].setVecArc(vector<int>{});
-    ListeS[2].setVecArc(vector<int>{4, 6, 11, 15});
-    ListeS[3].setVecArc(vector<int>{3});
-    ListeS[4].setVecArc(vector<int>{14});
-    ListeS[5].setVecArc(vector<int>{12});
-    ListeS[6].setVecArc(vector<int>{5});
-    ListeS[7].setVecArc(vector<int>{7, 8});
-    ListeS[8].setVecArc(vector<int>{16});
-    ListeS[9].setVecArc(vector<int>{9});
-    ListeS[10].setVecArc(vector<int>{10});
-    ListeS[11].setVecArc(vector<int>{13});
-    ListeS[12].setVecArc(vector<int>{18});
-    ListeS[13].setVecArc(vector<int>{19});
-    ListeS[14].setVecArc(vector<int>{17});
 
     Graphe res = pert(perts);
     Graphe tmp("PERT", ListeS, ListeA, "\0");
@@ -730,6 +715,8 @@ G.ajout_Sommet(2,0,0);
 G.ajout_Arc(0,1);
 G.ajout_Arc(0,2);
 
+REQUIRE(arborescence(G_ret).getListe_Arcs() == G.getListe_Arcs());
+REQUIRE(arborescence(G_ret).getListe_Sommets() == G.getListe_Sommets());
 REQUIRE(arborescence(G_ret) == G);
 
 Matrice M1(3); // Matrice sans arbo
@@ -790,7 +777,7 @@ MA1.setTab({{0,1,0},
             {0,0,1},
             {1,0,0}});
 
-vector<vector<int>> v_a{{0,1,2}}; //{1,2,0},{2,0,1} A ajouter si on compte TOUS les cas même ceux qui sont juste des réagenemnts du premier
+vector<vector<int>> v_a{{0,1,2,0}}; //{1,2,0},{2,0,1} A ajouter si on compte TOUS les cas même ceux qui sont juste des réagenemnts du premier
 REQUIRE(chaine_eulerienne(MA1) == v_a);
 }
 
@@ -800,7 +787,7 @@ TEST_CASE("chaine hamiltonienne","[Algorithmes]"){
               {0,0,1},
               {1,0,0}});
 
-  vector<vector<int>> v_a{{0,1,2,0}}; // {1,2,0,1}, {2,0,1,2}
+  vector<vector<int>> v_a{{0,1,2}}; // {1,2,0,1}, {2,0,1,2}
   REQUIRE(chaine_hamiltonienne(MA1) == v_a);
 }
 
