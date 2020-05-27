@@ -44,6 +44,16 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 }
 
 MainWindow::~MainWindow(){
+  delete this->ui->tabWidget;
+  delete this->ui->radioButton;
+  delete this->ui->radioButton_2;
+  delete this->ui->radioButton_3;
+  delete this->ui->radioButton_4;
+  delete this->ui->radioButton_5;
+  delete this->ui->menubar;
+  delete this->ui->console;
+  delete this->ui->caraSelection;
+
   delete this->ui;
 }
 int MainWindow::printConsole(string nomMethode, string valRetFunc){
@@ -643,8 +653,6 @@ void MainWindow::Trouver_chaine_hamiltonienne(){
   Graphe g = ui->tabWidget->currentWidget()->findChild<QZoneDeDessin*>("zoneDessin")->getGraphe_dessine();
   vector<vector<int>> res = chaine_hamiltonienne(g.conversion_vers_Matrice_adj());
   QList<QGraphicsItem*> listS = sceneAcolor->items();
-
-  qDebug()<<res;
 
   if(!res.empty()){
     vector<QColor> couleurs;
