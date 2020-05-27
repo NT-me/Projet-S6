@@ -85,8 +85,8 @@ void QZoneDeDessin::placementSommets(){
                 }
 
                 else ft = 0; // si ils sont placé cote a cote on ne les deplace pas
-              newx = liste_Sommets[QS[i]->getID()].getPosX() + fmod(ft*(liste_Sommets[QS[j]->getID()].getPosX() - liste_Sommets[QS[i]->getID()].getPosX()), ((liste_Sommets[QS[j]->getID()].getPosX() - liste_Sommets[QS[i]->getID()].getPosX()) - (QS[i]->getRayon()*2)));
-              newy = liste_Sommets[QS[i]->getID()].getPosY() + fmod(ft*(liste_Sommets[QS[j]->getID()].getPosY() - liste_Sommets[QS[i]->getID()].getPosY()), ((liste_Sommets[QS[j]->getID()].getPosY() - liste_Sommets[QS[i]->getID()].getPosY()) - (QS[i]->getRayon()*2)));
+              newx = QS[i]->getPosX() + fmod(ft*(QS[j]->getPosX() - QS[i]->getPosX()), ((QS[j]->getPosX() - QS[i]->getPosX()) - (QS[i]->getRayon()*2)));
+              newy = QS[i]->getPosY() + fmod(ft*(QS[j]->getPosY() - QS[i]->getPosY()), ((QS[j]->getPosY() - QS[i]->getPosY()) - (QS[i]->getRayon()*2)));
               }
             }
 
@@ -101,31 +101,33 @@ void QZoneDeDessin::placementSommets(){
 
             }
             else ft = 0; // cote a cote et ne bouge pas
-            newx = (liste_Sommets[QS[i]->getID()].getPosX() + fmod(ft*(liste_Sommets[QS[j]->getID()].getPosX() - liste_Sommets[QS[i]->getID()].getPosX()),100));
-            newy = (liste_Sommets[QS[i]->getID()].getPosY() + fmod(ft*(liste_Sommets[QS[j]->getID()].getPosY() - liste_Sommets[QS[i]->getID()].getPosY()),100));
+            newx = (QS[i]->getPosX() + fmod(ft*(QS[j]->getPosX() - QS[i]->getPosX()),100));
+            newy = (QS[i]->getPosY() + fmod(ft*(QS[j]->getPosY() - QS[i]->getPosY()),100));
 
         }
         // si ils sont l'un sur l'autre le vecteur de direction est aléatoire
         if ((QS[i]->getPosX() == QS[j]->getPosX()) && (QS[i]->getPosY() == QS[j]->getPosY())){
-          newx = liste_Sommets[QS[i]->getID()].getPosX() + ft*pow(-1,rand()%2);
-          newy = liste_Sommets[QS[i]->getID()].getPosY() + ft*pow(-1,rand()%2);
+          newx = QS[i]->getPosX() + ft*pow(-1,rand()%2);
+          newy = QS[i]->getPosY() + ft*pow(-1,rand()%2);
 
 
         }
         // on applique les nouvelles coordonnés du point a la liste_Sommets et au la liste de QSommet
-          liste_Sommets[QS[i]->getID()].setPosX(newx);
-          liste_Sommets[QS[i]->getID()].setPosY(newy);
+
           QS[i]->setPosX(newx);
           QS[i]->setPosY(newy);
 
       }
+
     }
     // on regarde si des point ce superpose encore
     for(i = 0; i < QS.size(); i++){
+      liste_Sommets[QS[i]->getID()].setPosX(QS[i]->getPosX());
+      liste_Sommets[QS[i]->getID()].setPosY(QS[i]->getPosY());
       for(j = 0; j < QS.size(); j++){
         if(i != j){
           // si les point i et j se superpose le graphe n'est pas stable et on recommence l'algorithme
-          if(sqrt(pow(liste_Sommets[QS[i]->getID()].getPosX()-liste_Sommets[QS[j]->getID()].getPosX(),2) + pow(liste_Sommets[QS[i]->getID()].getPosY()-liste_Sommets[QS[j]->getID()].getPosY(),2)) < (QS[i]->getRayon()*2)){
+          if(sqrt(pow(QS[i]->getPosX()-QS[j]->getPosX(),2) + pow(QS[i]->getPosY()-QS[j]->getPosY(),2)) < (QS[i]->getRayon()*2)){
             stable = 0;
           }
         }
