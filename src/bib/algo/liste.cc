@@ -1274,9 +1274,17 @@ vector<vector<int>> chaine_hamiltonienne(Matrice M){
           // qDebug()<<"id testée " << i;
           if(path.size() == M.gettV()-1){
             // qDebug()<< "push "<< fin;
-              path.push_back(fin);
-              res.push_back(path);
-              return res;
+
+              for(int osef=0;osef<mark.size();osef++){
+                  if(!mark[osef]){
+                    fin = osef;
+                  }
+              }
+              if(M.getTab()[i][fin]){
+                path.push_back(fin);
+                res.push_back(path);
+                return res;
+              }
           }
 
           for(int j=0;j<M.gettV();j++){
