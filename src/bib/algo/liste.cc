@@ -7,6 +7,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <QDebug>
 
 pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
   vector<int> dist;
@@ -52,12 +53,24 @@ pair<vector<vector<int>>, vector<int>> calcul_Bellman(Matrice M, Sommet S){
       }
       cmpW++;
     }
+
     // Cycles négatifs
     for(int i=0;i<M.gettV();i++){
       for(int j=0;j<M.gettV();j++){
         if(M.getTab()[i][j]!=0){
           if(dist[j] > (dist[i] + M.getTab()[i][j])){
+            dist[j] = dist[i] + M.getTab()[i][j];
+          }
+        }
+      }
+    }
+    for(int i=0;i<M.gettV();i++){
+      for(int j=0;j<M.gettV();j++){
+        if(M.getTab()[i][j]!=0){
+          if(dist[j] > (dist[i] + M.getTab()[i][j])){
+            qDebug()<< "dist[j]" <<dist[j] << " j " << j << "dist[i]" <<dist[i] << " i " << i << "tab i j" << M.getTab()[i][j];
             std::cout << "NEGATIVE CYCLE" << '\n';
+            qDebug()<< "negative circle ";
             return res;
           }
         }
