@@ -1024,7 +1024,7 @@ Graphe anti_arborescence(Graphe G){
 
     int out = 0;
     for(int i=0; i<M.gettV() && !in[i];i++){
-        if(i==fin)i++;
+        //if(i==fin)i++;
         for(int j=0;j<M.gettV();j++){   // Calcul Arc de poids min
             if(M.getTab()[i][j] && M.getTab()[i][j]<min){
                 min = M.getTab()[i][j];     // Arc entrant de poids min
