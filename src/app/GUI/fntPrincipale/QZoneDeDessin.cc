@@ -189,6 +189,11 @@ void QZoneDeDessin::razSelected_list(){
 void QZoneDeDessin::afficher_Sommet(Sommet s){
   QSommet *QS = new QSommet(s);
   QS->setVisible(1); // -
+  for(int v=0;v<this->selected_list.size();++v){
+    if(QS->getID() == this->selected_list[v]){
+      QS->setSelect(1);
+    }
+  }
   this->sc->addItem(QS);
   QS->setPos(QS->getPosX(),QS->getPosY());
 }
@@ -304,6 +309,7 @@ void QZoneDeDessin::mousePressEvent(QMouseEvent * e){
       QS->setY(QS->y());
       QS->setPosX(QS->x());
       QS->setPosY(QS->y());
+
       QS->update();
 
       for(int l=0;l<ls1.size();++l){
